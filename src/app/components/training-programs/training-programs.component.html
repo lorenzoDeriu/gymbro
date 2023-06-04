@@ -1,0 +1,56 @@
+<mat-progress-bar mode="indeterminate" *ngIf="this.loading" color="primary"></mat-progress-bar>
+<div id="training-programs-container">
+	<div id="title-container">
+		<h1><span class="title">Le tue schede di allenamento</span></h1>
+		<span id="secondary-title" *ngIf="this.trainingPrograms.length == 0 && !this.loading">Non ci sono schede, creane una nuova!</span>
+	</div>
+
+	<mat-accordion>
+		<mat-expansion-panel hideToggle *ngFor="let trainingProgram of this.trainingPrograms; index as index">
+			<mat-expansion-panel-header>
+				<mat-panel-title><span id="training-program-name">{{trainingProgram.name}}</span></mat-panel-title>
+				<mat-panel-description>Numero di sessioni: {{trainingProgram.session.length}}</mat-panel-description>
+			</mat-expansion-panel-header>
+
+			<div *ngFor="let session of trainingProgram.session; index as sessionIndex">
+				<h3><span class="title">{{session.name}}</span></h3>
+				<table mat-table [dataSource]="session.exercises" class="mat-elevation-z1">
+					<ng-container matColumnDef="Esercizio">
+						<th mat-header-cell *matHeaderCellDef><b>Esercizio</b></th>
+						<td mat-cell *matCellDef="let element; index as exerciseIndex">
+							<div id="exercise-name-cell">
+								<span>{{element.name}}</span>
+								<button matTooltip="Note" *ngIf="element.note != undefined" mat-icon-button (click)="showNotes(index, sessionIndex, exerciseIndex)"><img src="../../../assets/info_icon.png" alt=""></button>
+							</div>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="Serie x Ripetizioni">
+						<th mat-header-cell *matHeaderCellDef><b>Serie x Ripetizioni</b></th>
+						<td mat-cell *matCellDef="let element"> {{(element.series > 0 && element.reps > 0) ? element.series + "x" + element.reps : "/"}}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="Recupero">
+						<th mat-header-cell *matHeaderCellDef><b>Recupero</b></th>
+						<td mat-cell *matCellDef="let element"> {{(element.restTime != undefined) ? element.restTime : 0}} </td>
+					</ng-container>
+
+					<ng-container matColumnDef="RPE">
+						<th mat-header-cell *matHeaderCellDef><b>RPE</b></th>
+						<td mat-cell *matCellDef="let element"> {{element.RPE > 0 ? element.RPE : "/"}} </td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+				</table>
+
+				<mat-divider id="divider"></mat-divider>
+			</div>
+
+			<button mat-stroked-button color="warn" (click)="removeTrainingProgram(index)">Elimina</button>
+		</mat-expansion-panel>
+	</mat-accordion>
+
+	<button mat-raised-button color="primary" (click)="buildTrainingProgramButton()">Crea una nuova scheda</button>
+	<button mat-raised-button (click)="backToHomeButton()">Torna alla home</button>
+</div>

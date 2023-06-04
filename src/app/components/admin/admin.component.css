@@ -1,0 +1,29 @@
+#admin-page-container {
+	width: 90%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+#title-container {
+	display: flex;
+	justify-content: center;
+}
+
+#title {
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+#input-container {
+	width: 400px;
+	padding-right: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+#add-exercise-button-container {
+	display: flex;
+	justify-content: center;
+}

@@ -1,0 +1,14 @@
+.spacer {
+	flex: 1 1 auto;
+}
+
+#logo {
+	/* size: 50px; */
+	height: 90px;
+	width: 90px;
+	padding-top: 10px;
+}
+
+p {
+	margin-bottom: 0;
+}

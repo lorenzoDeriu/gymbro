@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* html, body { height: 100%; } */
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@media (max-width: 600px) {
+	div.mat-expansion-panel-body {
+		padding: 0 5px 16px !important;
+	}
+}

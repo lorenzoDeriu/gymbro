@@ -1,0 +1,50 @@
+<mat-progress-bar *ngIf="this.loading" mode="indeterminate" color="primary"></mat-progress-bar>
+<div id="old-workouts-container">
+	<div id="title-container">
+		<span id="primary-title">I tuoi vecchi allenamenti</span>
+		<span id="secondary-title" *ngIf="this.workouts.length == 0 && !this.loading">Non ci sono allenamenti, caricane uno nuovo!</span>
+		<button mat-raised-button color="primary" (click)="createWorkoutButton()">Crea un nuovo allenamento</button>
+		<button mat-raised-button (click)="backToHomeButton()">Torna alla home</button>
+	</div>
+
+	<mat-accordion>
+		<mat-expansion-panel hideToggle *ngFor="let workout of this.workouts; index as index">
+			<mat-expansion-panel-header>
+				<mat-panel-title>{{workout.name}}</mat-panel-title>
+				<mat-panel-description>{{workout.date}}</mat-panel-description>
+			</mat-expansion-panel-header>
+
+			<table mat-table [dataSource]="workout.exercises" class="mat-elevation-z1">
+				<ng-container matColumnDef="name">
+				  	<th mat-header-cell *matHeaderCellDef> <b>Esercizio</b> </th>
+				  	<td mat-cell *matCellDef="let exercise; index as exerciseIndex">
+						<div id="exercise-name-cell">
+							<span>{{exercise.name}}</span>
+							<button matTooltip="Note" *ngIf="exercise.note != undefined && exercise.note != ''" mat-icon-button (click)="showNotes(index, exerciseIndex)"><img src="../../../assets/info_icon.png" alt=""></button>
+						</div>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="series-reps">
+				  	<th mat-header-cell *matHeaderCellDef> <b>Serie x Ripetizioni</b> </th>
+				  	<td mat-cell *matCellDef="let exercise"> {{exercise.series}}x{{exercise.reps}} </td>
+				</ng-container>
+
+				<ng-container matColumnDef="load">
+				  	<th mat-header-cell *matHeaderCellDef><b>Carico</b></th>
+				  	<td mat-cell *matCellDef="let exercise"> {{exercise.load}}kg </td>
+				</ng-container>
+
+				<ng-container matColumnDef="rpe">
+				  	<th mat-header-cell *matHeaderCellDef> <b>RPE</b> </th>
+				  	<td mat-cell *matCellDef="let exercise"> {{exercise.RPE}} </td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			  </table>
+
+			<button mat-stroked-button color="warn" (click)="deleteWorkout(index)">Elimina</button>
+		</mat-expansion-panel>
+	</mat-accordion>
+</div>

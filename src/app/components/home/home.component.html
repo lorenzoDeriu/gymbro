@@ -1,0 +1,32 @@
+<p>
+	<mat-toolbar>
+		<button mat-button (click)="goToHome()">
+			<img id="logo" src="../../../assets/logo.png" alt="">
+		</button>
+
+		<span class="spacer"></span>
+
+		<button mat-icon-button (click)="onSocial()" #tooltip="matTooltip" matTooltip="Social" aria-label="social">
+			<img src="../../../assets/SocialIcon.png" alt="">
+		</button>
+
+		<button mat-icon-button (click)="onFeedback()" #tooltip="matTooltip" matTooltip="Feedback" aria-label="feedback">
+			<img src="../../../assets/FeedbacksIcon.png" alt="">
+		</button>
+
+		<button mat-icon-button (click)="onAbout()" #tooltip="matTooltip" matTooltip="About" aria-label="about">
+			<img src="../../../assets/AboutIcon.png" alt="">
+		</button>
+
+		<button mat-icon-button (click)="onSettings()" #tooltip="matTooltip" matTooltip="Impostazioni" aria-label="settings">
+			<img src="../../../assets/SettingsIcon.png" alt="">
+		</button>
+
+		<button mat-icon-button (click)="onLogout()" #tooltip="matTooltip" matTooltip="Logout" aria-label="logout">
+			<img src="../../../assets/LogoutIcon.png" alt="">
+		</button>
+
+	</mat-toolbar>
+</p>
+
+<router-outlet></router-outlet>

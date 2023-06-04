@@ -1,0 +1,71 @@
+#friends-page-container {
+	width: 60%;
+	margin: auto;
+}
+
+#title-container {
+	display: flex;
+	justify-content: center;
+}
+
+.text {
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+.form {
+	display: flex;
+	justify-content: center;
+}
+
+.form button {
+	margin-top: 10px;
+}
+
+mat-form-field {
+	margin-right: 10px;
+}
+
+.info-text-container {
+	display:flex;
+	justify-content: center;
+}
+
+mat-card {
+	margin-top: 10px;
+	display:flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+}
+
+#card-title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+#card-button-container {
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	justify-content: space-around;
+}
+
+#card-title img {
+	width: 30px;
+	height: 30px;
+}
+
+#back-to-home-button-container {
+	display: flex;
+	justify-content: center;
+	padding-top: 20px;
+}
+
+@media (max-width: 600px) {
+	#friends-page-container {
+		width: 95%
+	}
+}

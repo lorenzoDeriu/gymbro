@@ -1,0 +1,141 @@
+#main-container {
+	width: 60%;
+	height: 40em;
+	margin:auto;
+	display: grid;
+	grid-auto-columns: auto;
+	grid-auto-rows: auto;
+	grid-template-areas:
+		"na"
+		"va"
+		"tp"
+		"ts";
+	margin-top: 1em;
+	gap: 10px
+}
+
+img {
+	width: 100px;
+	height: 100px;
+}
+
+.home-div {
+	border: 2px solid #ccc;
+	transition: box-shadow .3s;
+}
+
+.home-div:hover {
+	box-shadow: 0 0 15px rgba(33,33,33,.2);
+}
+
+.home-div h2 {
+	margin-top: 4%;
+	margin-left: 3%;
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	color: rgb(69, 69, 188);
+	font-size: 150%;
+}
+
+.home-div:nth-child(1) {
+	grid-area: na;
+}
+.home-div:nth-child(2) {
+	grid-area: va;
+}
+.home-div:nth-child(3) {
+	grid-area: tp;
+}
+.home-div:nth-child(4) {
+	grid-area: ts;
+}
+
+img {
+	font-size: 90px;
+	opacity: 0.2;
+	align-self: center;
+	margin-right: 20px;
+}
+
+#new-workout {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#new-workout:hover img {
+	animation: increaseOpacity 0.5s forwards;
+}
+
+#old-workout {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#old-workout:hover img {
+	animation: increaseOpacity 0.5s forwards;
+}
+
+#training-programs {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#training-programs:hover img {
+	animation: increaseOpacity 0.5s forwards;
+}
+
+#progress {
+	display: flex;
+	flex-direction: column;
+}
+
+#progress:hover img {
+	animation: increaseOpacity 0.5s forwards;
+}
+
+#progress img {
+	align-self: center;
+}
+
+#progress img {
+	margin-right: 0;
+}
+
+@keyframes increaseOpacity {
+	0% {opacity: 0.2}
+	100%  {opacity: 1}
+}
+
+@media(min-width: 900px) {
+	#main-container {
+		grid-template-areas:
+		"na na na tp"
+		"na na na tp"
+		"va va va tp"
+		"va va va tp"
+		"ts ts ts ts"
+		"ts ts ts ts"
+		;
+
+		margin-top: 5em;
+		gap: 30px;
+	}
+}
+
+@media (max-width: 900px) {
+	#main-container {
+		width: 90%;
+	}
+
+	#progress {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	#progress img {
+		margin-right: 20px;
+	}
+}

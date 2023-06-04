@@ -1,0 +1,14 @@
+#about-container {
+	margin: 0 auto;
+	width: 80%;
+	padding: 20px;
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+.title {
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	font-size: 150%;
+}

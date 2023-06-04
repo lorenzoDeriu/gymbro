@@ -1,0 +1,31 @@
+#profile-container {
+	width: 60%;
+	margin: auto;
+}
+
+mat-expansion-panel {
+	margin-bottom: 10px
+}
+
+#title-container {
+	display: flex;
+	justify-content: center;
+}
+
+#title-container span {
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+#info-text-container {
+	display: flex;
+	justify-content: center;
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+@media (max-width: 700px) {
+	#profile-container {
+		width: 95%;
+	}
+}

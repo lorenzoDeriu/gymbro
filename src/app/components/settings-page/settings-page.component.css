@@ -1,0 +1,71 @@
+#settings-container {
+	width: 96%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	height: 100%;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 0;
+	border:rgb(69, 69, 188) 1px solid;
+	border-radius: 10px;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+#slide-container {
+	margin-bottom: 10px;
+}
+
+#title span {
+	font-size: 1.5rem;
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+#button-container {
+	display: flex;
+	justify-content: center;
+}
+
+#custom-exercise-name {
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+#expansion-panel-container {
+	display: flex;
+	justify-content: flex-start;
+}
+
+mat-expansion-panel {
+	width: 25em;
+}
+
+mat-expansion-panel-header {
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+}
+
+#exercise-setting-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
+
+@media (max-width: 600px) {
+	#settings-container {
+		width: 96%;
+	}
+}

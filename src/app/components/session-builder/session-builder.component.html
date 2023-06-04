@@ -1,0 +1,30 @@
+<div id="session-builder-container">
+	<h1><span id="title">Nuova sessione di allenamento</span></h1>
+
+	<div id="name-input-container">
+		<mat-form-field>
+			<mat-label>Nome dell'allenamento</mat-label>
+			<input matInput maxlength="20" type="text" [(ngModel)]="sessionName" required>
+		</mat-form-field>
+	</div>
+
+	<mat-accordion>
+		<mat-expansion-panel hideToggle *ngFor="let exercise of this.getExercise(); index as index">
+			<mat-expansion-panel-header>
+				<mat-panel-title><span id="exercise-name">{{exercise.name}}</span></mat-panel-title>
+				<mat-panel-description>Serie: {{exercise.series}}  Ripetizioni: {{exercise.reps}}</mat-panel-description>
+			</mat-expansion-panel-header>
+			<p>RPE: {{exercise.RPE}}</p>
+			<p>Tempo di Recupero: {{exercise.restTime}}</p>
+			<p>Note: {{exercise.note}}</p>
+			<button mat-stroked-button color="warn" (click)="removeElement(index)">Elimina</button>
+		</mat-expansion-panel>
+	</mat-accordion>
+
+	<div id="buttons-container">
+		<button id="add-exercise-button" mat-stroked-button color="primary" (click)="openDialog()">Aggiungi un esercizio</button>
+		<button *ngIf="this.getExercise().length > 0" [disabled]="sessionName == ''" mat-raised-button color="primary" (click)="saveSession()">Salva</button>
+		<button mat-raised-button color="warn" (click)="onCancel()">Annulla</button>
+	</div>
+</div>
+

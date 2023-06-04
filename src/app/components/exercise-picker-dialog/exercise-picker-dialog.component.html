@@ -1,0 +1,14 @@
+<div id="exercise-picker-form-container">
+	<form #exercisePickerForm="ngForm" (ngSubmit)="addNewExercise(exercisePickerForm)">
+		<mat-form-field appearance="fill" [style.width.px]="280">
+			<mat-label>Esercizio</mat-label>
+			<mat-select name="exerciseName" ngModel required>
+				<mat-option *ngFor="let exercise of options" [value]="exercise">
+					{{exercise}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<button mat-raised-button color="primary" [disabled]="!exercisePickerForm.valid" [mat-dialog-close] type="submit">Conferma</button>
+	</form>
+</div>

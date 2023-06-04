@@ -1,0 +1,57 @@
+#session-builder-container {
+	width: 50%;
+	margin: auto;
+}
+
+#title {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+#buttons-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#name-input-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+#buttons-container button {
+	width: 300px;
+	margin-top: 10px
+}
+
+#add-exercise-button {
+	margin-bottom: 100px;
+}
+
+mat-accordion {
+	width:  100%
+}
+
+@media (max-width:900px) {
+	#exercise-name {
+		font-size: 65%;
+	}
+}
+
+@media (max-width: 600px) {
+	#session-builder-container {
+		width:95%
+	}
+
+	#name-input-container {
+		margin-left: 0%;
+		margin-right: 0%;
+	}
+}

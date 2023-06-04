@@ -1,0 +1,34 @@
+#progress-container {
+	width: 60%;
+	margin: auto;
+}
+
+#title {
+	display: flex;
+	justify-content: center;
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+#buttons-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+#buttons-container button {
+	margin-bottom: 5px;
+}
+
+.graph-container {
+	display: flex;
+	justify-content: center;
+}
+
+@media (max-width: 600px) {
+	#progress-container {
+		width: 95%;
+	}
+}

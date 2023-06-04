@@ -1,0 +1,35 @@
+#builder-container {
+	width:60%;
+	margin:auto;
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+button {
+	margin-top:10px;
+}
+
+#title {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+#add-session-button {
+	margin-bottom: 3em;
+}
+
+@media (max-width:900px) {
+	#builder-container {
+		width: 95%;
+	}
+
+	.mdc-data-table__header-cell::ng-deep {
+		padding: 10px;
+	}
+}
+

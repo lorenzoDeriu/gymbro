@@ -1,0 +1,30 @@
+#feedback-container {
+	padding: 10px;
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	color: rgb(69, 69, 188);
+	display: flex;
+	flex-direction: column;
+}
+
+#title {
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+}
+
+form {
+	max-width: 100%;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.button-container {
+	width: 100%;
+	display: flex;
+	justify-content: last baseline;
+	align-items: center;
+	margin-bottom: 10px;
+}
+

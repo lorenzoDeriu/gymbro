@@ -1,0 +1,70 @@
+<div id="workout-container">
+	<div id="title-container">
+		<h1><span>Nuovo Allenamento "{{this.workout.name}}"</span></h1>
+	</div>
+
+	<div id="datepicker-container">
+		<mat-form-field>
+			<mat-label>Data dell'allenamento</mat-label>
+			<input matInput [matDatepicker]="picker" [(ngModel)]="date">
+			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+			<mat-datepicker #picker [(ngModel)]="date" ngDefaultControl (selectedChanged)="onDate($event)"></mat-datepicker>
+		</mat-form-field>
+	</div>
+
+	<mat-accordion>
+		<mat-expansion-panel hideToggle *ngFor="let exercise of this.workout.exercises; index as exerciseIndex">
+			<mat-expansion-panel-header>
+				<mat-panel-title>{{exercise.name}}</mat-panel-title>
+				<mat-panel-description>{{exercise.restTime != "" ? "Recupero: " + exercise.restTime + " - " : ""}} RPE: {{exercise.RPE}}</mat-panel-description>
+			</mat-expansion-panel-header>
+
+			<form *ngIf="!exercise.completed" #exerciseDataForm="ngForm" (ngSubmit)="saveExerciseData(exerciseDataForm, exerciseIndex)">
+				<div id="input-container">
+					<mat-form-field [style.width.px]="110">
+						<mat-label>Serie</mat-label>
+						<input matInput name="series" type="number" [(ngModel)]="exercise.series">
+					</mat-form-field>
+
+					<mat-form-field [style.width.px]="110">
+						<mat-label>Ripetizioni</mat-label>
+						<input matInput name="reps" type="number" [(ngModel)]="exercise.reps">
+					</mat-form-field>
+
+					<mat-form-field [style.width.px]="110">
+						<mat-label>Carico</mat-label>
+						<input matInput name="load" type="number" required ngModel>
+					</mat-form-field>
+				</div>
+
+				<mat-label>RPE</mat-label>
+				<mat-slider id="slider" min="1" max="10" step="1" discrete [displayWith]="formatLabel" >
+					<input matSliderThumb name="RPE" name="rpe" [(ngModel)]="exercise.RPE">
+				</mat-slider>
+
+				<!-- spazio per le note -->
+				<mat-form-field>
+					<mat-label>Note</mat-label>
+					<textarea matInput name="notes" type="text" [(ngModel)]="exercise.note"></textarea>
+				</mat-form-field>
+
+				<button mat-stroked-button color="primary" type="submit" [disabled]="!exerciseDataForm.valid">Salva</button>
+				<button mat-stroked-button color="warn" (click)="delete(exerciseIndex)">Elimina</button>
+			</form>
+
+			<p *ngIf="exercise.completed">Serie: {{exercise.series}}</p>
+			<p *ngIf="exercise.completed">Ripetizioni: {{exercise.reps}}</p>
+			<p *ngIf="exercise.completed">Carico: {{exercise.load}}kg</p>
+			<p *ngIf="exercise.completed">RPE: {{exercise.RPE}}</p>
+
+			<button *ngIf="exercise.completed" mat-stroked-button color="primary" (click)="onChangeExerciseData(exerciseIndex)">Modifica</button>
+			<button mat-stroked-button color="primary" (click)="showOldStats(exerciseIndex)">Vedi storico</button>
+		</mat-expansion-panel>
+	</mat-accordion>
+
+	<div id="buttons-container">
+		<button id="add-exercise-button" mat-stroked-button color="primary" (click)="addExerciseToPrebuiltWorkout()">Aggiungi un Esercizio</button>
+		<button mat-raised-button color="primary" [disabled]="!savable()" (click)="saveWorkout()">Salva</button>
+		<button mat-raised-button color="warn" (click)="onCancel()">Annulla</button>
+	</div>
+</div>

@@ -1,0 +1,12 @@
+<div id="add-exercise-container">
+	<form #addExerciseForm="ngForm" (ngSubmit)="addExercise(addExerciseForm)">
+		<mat-form-field>
+			<mat-label>Nome Esercizio</mat-label>
+			<input matInput type="text" name="exercise" required ngModel>
+		</mat-form-field>
+
+		<button mat-raised-button color="primary" type="submit" [matDialogClose] [disabled]="!addExerciseForm.valid">Aggiungi</button>
+	</form>
+
+	<button mat-raised-button color="warn" id="cancel-button" [matDialogClose]>Annulla</button>
+</div>

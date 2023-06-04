@@ -1,0 +1,57 @@
+<div id="logo-container">
+	<img id="logo" src="../../../assets/logo.png">
+</div>
+
+<div id="access-container">
+	<mat-tab-group animationDuration="0ms" dynamicHeight>
+		<mat-tab label="Login">
+			<form #loginForm="ngForm" (ngSubmit)="onLoginSubmit(loginForm)">
+				<mat-form-field class="email-input" appearance="outline">
+					<mat-label>Email</mat-label>
+					<input matInput type="text" name="email" required email ngModel>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Password</mat-label>
+					<input matInput [type]="hide ? 'password' : 'text'" name="password" ngModel required>
+					<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+				</mat-form-field>
+
+				<button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+			</form>
+
+			<div id="recover-password-button">
+				<button mat-button (click)="forgotPassword()">Hai dimenticato la Password?</button>
+			</div>
+		</mat-tab>
+
+		<mat-tab label="Register">
+			<form #registerForm="ngForm" (ngSubmit)="onRegisterSubmit(registerForm)">
+				<mat-form-field class="email-input" appearance="outline">
+					<mat-label>Email</mat-label>
+					<input matInput type="text" name="email" required email ngModel>
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>Password</mat-label>
+					<input matInput [type]="hide ? 'password' : 'text'" name="password" ngModel required>
+					<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+				</mat-form-field>
+
+				<button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Register</button>
+
+			</form>
+		</mat-tab>
+	</mat-tab-group>
+
+	<div id="google-login-btn-container">
+		<button (click)="accessWithGoogle()" mat-raised-button id="google-login-btn">
+			<div id="google-login-btn-content">
+				<img id="google-logo-img" src="../../../assets/google-logo.png">
+				<span>Accedi con Google</span>
+			</div>
+		</button>
+	</div>
+
+
+</div>

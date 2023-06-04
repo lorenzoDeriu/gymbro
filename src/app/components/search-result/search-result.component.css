@@ -1,0 +1,53 @@
+#search-result-container {
+	width: 50%;
+	margin: auto;
+}
+
+mat-card {
+	margin-top: 10px;
+	display:flex;
+	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+}
+
+#card-title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+#username {
+	margin-left:20px
+}
+
+#cancel-button-container {
+	display: flex;
+	justify-content: center;
+}
+
+#cancel-button {
+	margin-top: 20px;
+}
+
+img {
+	width: 30px;
+	height: 30px;
+}
+
+#info {
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+	color: rgb(69, 69, 188);
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: bold;
+	font-size: 120%;
+}
+
+@media (max-width: 768px) {
+	#search-result-container {
+		width: 90%;
+	}
+
+}

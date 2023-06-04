@@ -1,0 +1,43 @@
+#training-program-selector-container {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	margin:auto
+}
+
+#title-container span {
+	display: flex;
+	justify-content: center;
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+#info-text {
+	display: flex;
+	justify-content: center;
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: bold;
+	color: rgb(69, 69, 188);
+	font-size: 120%;
+}
+
+#cancel-button-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px
+}
+
+@media (max-width: 700px) {
+	#training-program-selector-container {
+		width: 95%;
+	}
+
+	mat-accordion .mat-expansion-panel-body::ng-deep {
+		padding: 13px;
+	}
+
+	.mdc-data-table__header-cell::ng-deep {
+		padding: 8px;
+	}
+}

@@ -1,0 +1,56 @@
+#workout-container {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	margin: auto;
+}
+
+#title-container span {
+	display: flex;
+	justify-content: center;
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+form button {
+	margin-top: 2%;
+}
+
+#input-container {
+	display: flex;
+	justify-content: space-around;
+}
+
+#buttons-container {
+	display: flex;
+	flex-direction: column;
+	width: 200px;
+	margin: auto;
+}
+
+#buttons-container button {
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#datepicker-container {
+	display:flex;
+	justify-content: center;
+}
+
+@media (max-width: 780px) {
+	#workout-container {
+		width: 95%;
+	}
+
+	#input-container {
+		flex-direction: column;
+	}
+}
+

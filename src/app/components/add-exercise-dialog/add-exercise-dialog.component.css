@@ -1,0 +1,10 @@
+#add-exercise-container {
+	width: 90%;
+	margin: 10px auto;
+	display: flex;
+	flex-direction: column;
+}
+
+#cancel-button {
+	margin: 10px 0;
+}

@@ -1,0 +1,26 @@
+<mat-progress-bar mode="indeterminate" *ngIf="this.loading" color="primary"></mat-progress-bar>
+<div id="progress-container">
+	<h1><span id="title">I tuoi Progressi</span></h1>
+
+	<div id="buttons-container">
+		<button mat-raised-button color="primary" (click)="this.showStats()">Scegli un'esercizio</button>
+		<button mat-raised-button (click)="this.goToHome()">Torna alla home</button>
+	</div>
+
+	<div class="graph-container">
+		<canvas id="workoutCounterChart"></canvas>
+	</div>
+
+	<div class="graph-container">
+		<canvas id="benchPressChart"></canvas>
+	</div>
+
+	<div class="graph-container">
+		<canvas id="deadliftChart"></canvas>
+	</div>
+
+	<div class="graph-container">
+		<canvas id="squatChart"></canvas>
+	</div>
+
+</div>

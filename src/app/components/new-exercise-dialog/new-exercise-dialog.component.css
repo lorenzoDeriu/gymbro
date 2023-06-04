@@ -1,0 +1,22 @@
+#new-workout-form {
+	padding-top: 5%;
+	padding-left: 5%;
+	padding-right: 5%;
+	display: flex;
+	flex-direction: column;
+}
+
+#button-container {
+	display: flex;
+	justify-content: space-around;
+}
+
+#exercise-name-container {
+	display: flex;
+	flex-direction: row;
+	/* align-items: center; */
+}
+
+#add-custom-exercise {
+	margin-top: 15px;
+}

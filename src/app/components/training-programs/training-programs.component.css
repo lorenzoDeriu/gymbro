@@ -1,0 +1,70 @@
+#training-programs-container {
+	width: 50%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#title-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: rgb(69, 69, 188);
+	margin-bottom: 15px;
+}
+
+mat-accordion {
+	width: 100%;
+}
+
+mat-accordion table {
+	margin-bottom: 10px;
+}
+
+.title {
+	color: rgb(69, 69, 188);
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	/* font-size: 180%; */
+}
+
+#secondary-title {
+	font-family: 'Josefin Sans', sans-serif;
+font-weight: bold;
+	margin-top: 10px;
+	font-size: 120%;
+}
+
+button {
+	margin-top: 10px
+}
+
+#divider {
+	margin-top: 15px
+}
+
+#exercise-name-cell {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+#exercise-name-cell img {
+	width: 20px;
+	height: 20px;
+}
+
+#exercise-name-cell button {
+	margin-bottom: 10px;
+}
+
+@media (max-width:900px) {
+	#training-programs-container {
+		width: 95%;
+	}
+
+	.mdc-data-table__header-cell::ng-deep {
+		padding: 10px;
+	}
+}
