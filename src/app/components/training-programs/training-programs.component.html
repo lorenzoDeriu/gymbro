@@ -20,7 +20,7 @@
 						<td mat-cell *matCellDef="let element; index as exerciseIndex">
 							<div id="exercise-name-cell">
 								<span>{{element.name}}</span>
-								<button matTooltip="Note" *ngIf="element.note != undefined" mat-icon-button (click)="showNotes(index, sessionIndex, exerciseIndex)"><img src="../../../assets/info_icon.png" alt=""></button>
+								<button matTooltip="Note" *ngIf="element.note != undefined && element.note.trim() != ''" mat-icon-button (click)="showNotes(index, sessionIndex, exerciseIndex)"><img src="../../../assets/info_icon.png" alt=""></button>
 							</div>
 						</td>
 					</ng-container>
