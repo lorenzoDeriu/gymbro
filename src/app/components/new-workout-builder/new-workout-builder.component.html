@@ -1,11 +1,11 @@
 <div id="workout-builder-container">
 	<div id="date-container">
-		<mat-form-field>
+		<mat-form-field appearance="outline">
 			<mat-label>Nome dell'allenamento</mat-label>
 			<input matInput maxlength="20" type="text" [(ngModel)]="workoutName" required>
 		</mat-form-field>
 
-		<mat-form-field>
+		<mat-form-field appearance="outline">
 			<mat-label>Data dell'allenamento</mat-label>
 			<input matInput [matDatepicker]="picker" [(ngModel)]="date">
 			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

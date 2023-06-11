@@ -1,6 +1,6 @@
 <form #newWorkoutForm="ngForm" id="new-workout-form" (ngSubmit)="onSubmit(newWorkoutForm)">
 	<div id="exercise-name-container">
-		<mat-form-field appearance="fill">
+		<mat-form-field appearance="outline">
 			<mat-label>Esercizio</mat-label>
 			<mat-select name="exerciseName" ngModel required>
 				<mat-option *ngFor="let exercise of options" [value]="exercise">
@@ -15,22 +15,22 @@
 		</button>
 	</div>
 
-	<mat-form-field appearance="fill">
+	<mat-form-field appearance="outline">
 		<mat-label>Serie</mat-label>
 		<input matInput name="series" type="number" ngModel>
 	</mat-form-field>
 
-	<mat-form-field appearance="fill">
+	<mat-form-field appearance="outline">
 		<mat-label>Ripetizioni</mat-label>
 		<input matInput name="reps" type="number" ngModel>
 	</mat-form-field>
 
-	<mat-form-field appearance="fill">
+	<mat-form-field appearance="outline">
 		<mat-label>Carico</mat-label>
 		<input matInput name="load" type="number" ngModel>
 	</mat-form-field>
 
-	<mat-form-field appearance="fill">
+	<mat-form-field appearance="outline">
 	<mat-label>Tempo di recupero</mat-label>
 		<input matInput name="restTime" type="time" ngModel>
 	</mat-form-field>
@@ -40,7 +40,7 @@
 		<input matSliderThumb name="RPE" name="rpe" ngModel>
 	</mat-slider>
 
-	<mat-form-field>
+	<mat-form-field appearance="outline">
 		<mat-label>Note</mat-label>
 		<textarea matInput name="note" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="2" ngModel></textarea>
 	</mat-form-field>

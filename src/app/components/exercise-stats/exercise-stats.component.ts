@@ -97,6 +97,8 @@ export class ExerciseStatsComponent implements OnInit {
 			}
 		}
 
+		console.log(weigths);
+
 		return weigths;
 	}
 

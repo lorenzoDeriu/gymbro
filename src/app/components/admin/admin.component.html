@@ -10,12 +10,12 @@
 
 			<form #adminLoginForm="ngForm" (ngSubmit)="changeAccount(adminLoginForm)">
 				<div id="input-container">
-					<mat-form-field>
+					<mat-form-field appearance="outline">
 						<mat-label>Email</mat-label>
 						<input matInput type="email" name="email" required ngModel>
 					</mat-form-field>
 
-					<mat-form-field>
+					<mat-form-field appearance="outline">
 						<mat-label>password</mat-label>
 						<input matInput type="password" name="password" required ngModel>
 					</mat-form-field>

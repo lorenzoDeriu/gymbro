@@ -4,7 +4,7 @@
 	<p>Ciao! Spero che tu stia apprezzando l'utilizzo di GymBro. Qui puoi condividere con noi un tuo feedback sull'app: ci piacerebbe sapere cosa ti piace e cosa pensi possiamo migliorare per rendere l'esperienza ancora migliore. Grazie in anticipo per il tuo tempo e la tua opinione!</p>
 
 	<form #feedbackForm="ngForm" (ngSubmit)="sendFeedback(feedbackForm)">
-		<mat-form-field class="full-width">
+		<mat-form-field appearance="outline" class="full-width">
 			<mat-label>Feedback</mat-label>
 			<textarea matInput name="feedback" cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5" ngModel required></textarea>
 		</mat-form-field>

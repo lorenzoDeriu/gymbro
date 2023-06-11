@@ -2,7 +2,7 @@ import { endOfWeek } from "date-fns";
 
 export class Utils {
 
-	getSessionExerciseFor(exerciseName: string, workoutsDate: string[], workouts: any) {
+	/* getSessionExerciseFor(exerciseName: string, workoutsDate: string[], workouts: any) {
 		let sortedWorkout = this.sortByDate(workouts)
 		let sessionExercise: any[] = [];
 
@@ -17,24 +17,44 @@ export class Utils {
 		}
 
 		return sessionExercise;
-	}
+	} */
 
-	getWeigthsFor(exerciseName: string, workoutsDate: string[], workouts: any) {
-		let sortedWorkout = this.sortByDate(workouts)
-		let weigths: string[] = [];
+	getSessionExerciseFor(exerciseName: string, workoutsDate: string[], workouts: any): any[] {
+		const sortedWorkouts = this.sortByDate(workouts);
+		const sessionExercises: any[] = [];
 
-		for (let date of workoutsDate) {
-			for (let workout of sortedWorkout) {
-				if (workout.date == date) {
-					for (let exercise of workout.exercises) {
-						if (exercise.name == exerciseName) weigths.push(exercise.load)
-					}
+		for (const date of new Set(workoutsDate)) {
+			const matchingWorkouts = sortedWorkouts.filter((workout: any) => workout.date === date);
+
+			for (const matchingWorkout of matchingWorkouts) {
+				const matchingExercises = matchingWorkout.exercises.filter((exercise: any) => exercise.name === exerciseName);
+
+				for (const matchingExercise of matchingExercises) {
+					sessionExercises.push({ exercise: matchingExercise, date: matchingWorkout.date });
 				}
 			}
 		}
 
-		return weigths;
+		return sessionExercises;
+	  }
+
+	getWeightsFor(exerciseName: string, workoutsDate: string[], workouts: any): string[] {
+		const sortedWorkouts = this.sortByDate(workouts);
+		const weights: string[] = [];
+
+		for (const date of workoutsDate) {
+		  const matchingWorkout = sortedWorkouts.find((workout: any) => workout.date === date);
+
+		  if (matchingWorkout) {
+			for (let exercise of matchingWorkout.exercises) {
+				if (exercise.name == exerciseName) weights.push(exercise.load)
+			}
+		  }
+		}
+
+		return weights.slice(Math.max(weights.length - 20, 0));
 	}
+
 
 	sortByDate(workouts: any) {
 		return workouts.sort((a: any, b: any) => {
@@ -60,7 +80,7 @@ export class Utils {
 			}
 		}
 
-		return dates.reverse();
+		return dates.reverse().slice(Math.max(dates.length - 20, 0));
 	}
 
 	createWeeksArray() {

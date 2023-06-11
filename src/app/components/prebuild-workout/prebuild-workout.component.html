@@ -4,7 +4,7 @@
 	</div>
 
 	<div id="datepicker-container">
-		<mat-form-field>
+		<mat-form-field appearance="outline">
 			<mat-label>Data dell'allenamento</mat-label>
 			<input matInput [matDatepicker]="picker" [(ngModel)]="date">
 			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -21,17 +21,17 @@
 
 			<form *ngIf="!exercise.completed" #exerciseDataForm="ngForm" (ngSubmit)="saveExerciseData(exerciseDataForm, exerciseIndex)">
 				<div id="input-container">
-					<mat-form-field [style.width.px]="110">
+					<mat-form-field appearance="outline" [style.width.px]="110">
 						<mat-label>Serie</mat-label>
 						<input matInput name="series" type="number" [(ngModel)]="exercise.series">
 					</mat-form-field>
 
-					<mat-form-field [style.width.px]="110">
+					<mat-form-field appearance="outline" [style.width.px]="110">
 						<mat-label>Ripetizioni</mat-label>
 						<input matInput name="reps" type="number" [(ngModel)]="exercise.reps">
 					</mat-form-field>
 
-					<mat-form-field [style.width.px]="110">
+					<mat-form-field appearance="outline" [style.width.px]="110">
 						<mat-label>Carico</mat-label>
 						<input matInput name="load" type="number" required ngModel>
 					</mat-form-field>
@@ -43,7 +43,7 @@
 				</mat-slider>
 
 				<!-- spazio per le note -->
-				<mat-form-field>
+				<mat-form-field appearance="outline">
 					<mat-label>Note</mat-label>
 					<textarea matInput name="notes" type="text" [(ngModel)]="exercise.note"></textarea>
 				</mat-form-field>
