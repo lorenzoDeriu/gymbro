@@ -1,5 +1,8 @@
 <div id="button-container">
-	<button mat-stroked-button color="primary" (click)="navigate('/home/new-workout-builder')" aria-label="new-workout">Crea un nuovo allenamento</button>
+	<button mat-stroked-button color="primary" (click)="navigate('/home/prebuild-workout')" aria-label="new-workout">
+		<span *ngIf="workoutExists()">Continua l'allenamento</span>
+		<span *ngIf="!workoutExists()">Crea un nuovo allenamento</span>
+	</button>
 	<button mat-stroked-button color="primary" (click)="navigate('/home/training-program-selector')" aria-label="use-training-program">Usa una scheda di allenamento</button>
 	<button mat-stroked-button (click)="navigate('/home/dashboard')" aria-label="back-to-home">Torna alla home</button>
 </div>

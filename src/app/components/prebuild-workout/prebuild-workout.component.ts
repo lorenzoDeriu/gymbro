@@ -22,13 +22,27 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.workout = this.userService.getWorkoutSelected();
 
 		if (this.workout == undefined) {
-			this.workout = JSON.parse(localStorage.getItem("workout"))
+			const workoutjson = localStorage.getItem("workout");
+			if (workoutjson != null) {
+				this.workout = JSON.parse(workoutjson);
+			} else {
+				this.workout = {
+					name: "",
+					exercises: []
+				}
+			}
 		} else {
 			localStorage.setItem("workout", JSON.stringify(this.workout))
 		}
 
+		console.log(this.workout);
+
 		for (let i = 0; i < this.workout.exercises.length; i++) {
-			this.workout.exercises[i]["completed"] = false;
+			this.workout.exercises[i]["completed"] = (
+				this.workout.exercises[i].completed != undefined ?
+				this.workout.exercises[i].completed :
+				false
+			);
 		}
 	}
 
@@ -43,10 +57,19 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.workout.exercises[exerciseIndex].reps = form.value.reps;
 		this.workout.exercises[exerciseIndex].load = form.value.load;
 		this.workout.exercises[exerciseIndex].rpe = form.value.rpe;
+
+		this.updateWorkoutOnLocalStorage();
+	}
+
+	updateWorkoutOnLocalStorage() {
+		localStorage.removeItem("workout");
+		localStorage.setItem("workout", JSON.stringify(this.workout));
 	}
 
 	onChangeExerciseData(exerciseIndex: number) {
 		this.workout.exercises[exerciseIndex].completed = false;
+
+		this.updateWorkoutOnLocalStorage();
 	}
 
 	showOldStats(exerciseIndex: number) {
@@ -83,11 +106,12 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	onCancel() {
+		localStorage.removeItem("workout");
 		this.router.navigate(["/home"]);
 	}
 
 	addExerciseToPrebuiltWorkout() {
-		let exercisePicker = this.dialog.open(ExercisePickerDialogComponent, {width: "300px", height: "130px"})
+		let exercisePicker = this.dialog.open(ExercisePickerDialogComponent, {width: "350px", height: "130px"})
 
 		exercisePicker.afterClosed().subscribe(() => {
 			let exerciseName = JSON.parse(localStorage.getItem("exercise"))

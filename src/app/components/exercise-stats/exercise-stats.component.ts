@@ -54,7 +54,7 @@ export class ExerciseStatsComponent implements OnInit {
 				]
 			},
 			options: {
-				aspectRatio: 1.5,
+				aspectRatio: (window.innerWidth < 500) ? 1.5 : 2,
 				responsive: true,
 				maintainAspectRatio: true,
 				plugins: {

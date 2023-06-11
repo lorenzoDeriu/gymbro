@@ -1,13 +1,20 @@
 <div id="exercise-picker-form-container">
 	<form #exercisePickerForm="ngForm" (ngSubmit)="addNewExercise(exercisePickerForm)">
-		<mat-form-field appearance="outline" [style.width.px]="280">
-			<mat-label>Esercizio</mat-label>
-			<mat-select name="exerciseName" ngModel required>
-				<mat-option *ngFor="let exercise of options" [value]="exercise">
-					{{exercise}}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
+		<div id="select-and-button-container">
+			<mat-form-field appearance="outline" [style.width.px]="280">
+				<mat-label>Esercizio</mat-label>
+				<mat-select name="exerciseName" ngModel required>
+					<mat-option *ngFor="let exercise of options" [value]="exercise">
+						{{exercise}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<button mat-icon-button type="button" id="add-custom-exercise-button" (click)="onAddCustomExercise()" #tooltip="matTooltip" matTooltip="Aggiungi un esercizio personalizzato">
+				<img src="../../../assets/AddExerciseIcon.png" alt="">
+			</button>
+		</div>
+
 
 		<button mat-raised-button color="primary" [disabled]="!exercisePickerForm.valid" [mat-dialog-close] type="submit">Conferma</button>
 	</form>
