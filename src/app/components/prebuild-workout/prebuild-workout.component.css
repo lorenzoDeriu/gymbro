@@ -9,7 +9,7 @@
 	display: flex;
 	justify-content: center;
 	font-family: 'Josefin Sans', sans-serif;
-font-weight: bold;
+	font-weight: bold;
 	color: rgb(69, 69, 188);
 }
 
@@ -40,8 +40,10 @@ form button {
 }
 
 #datepicker-container {
-	display:flex;
+	display: flex;
+	flex-direction: column;
 	justify-content: center;
+	margin: auto;
 }
 
 @media (max-width: 780px) {

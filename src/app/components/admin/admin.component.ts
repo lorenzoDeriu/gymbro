@@ -25,6 +25,7 @@ export class AdminComponent implements OnInit {
 			return
 		}
 
+		this.loading = false;
 		this._isAdmin = false;
 	}
 

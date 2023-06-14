@@ -12,6 +12,7 @@ import { AddExerciseDialogComponent } from '../add-exercise-dialog/add-exercise-
 })
 export class ExercisePickerDialogComponent implements OnInit {
 	options: any[];
+	selectedExercise: string;
 
 	constructor(private firebase: FirebaseService, private dialog: MatDialog) {}
 
@@ -26,9 +27,10 @@ export class ExercisePickerDialogComponent implements OnInit {
 	}
 
 	onAddCustomExercise() {
-		let customExerciseDialog = this.dialog.open(AddExerciseDialogComponent);
-		customExerciseDialog.afterClosed().subscribe(() => {
+		this.dialog.open(AddExerciseDialogComponent).afterClosed().subscribe((exercise) => {
 			this.getExercises();
+			console.log(exercise);
+			this.selectedExercise = exercise;
 		});
 	}
 

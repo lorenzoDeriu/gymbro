@@ -5,8 +5,8 @@
 			<input matInput type="text" name="exercise" required ngModel>
 		</mat-form-field>
 
-		<button mat-raised-button color="primary" type="submit" [matDialogClose] [disabled]="!addExerciseForm.valid">Aggiungi</button>
+		<button mat-raised-button color="primary" type="submit" [disabled]="!addExerciseForm.valid">Aggiungi</button>
 	</form>
 
-	<button mat-raised-button color="warn" id="cancel-button" [matDialogClose]>Annulla</button>
+	<button mat-raised-button color="warn" id="cancel-button" (click)="closeDialog()">Annulla</button>
 </div>

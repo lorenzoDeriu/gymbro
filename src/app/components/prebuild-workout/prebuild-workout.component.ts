@@ -128,6 +128,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 				}
 
 				this.workout.exercises.push(exercise)
+				this.updateWorkoutOnLocalStorage();
 			}
 		});
 	}

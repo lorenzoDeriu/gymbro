@@ -421,10 +421,23 @@ export class FirebaseService {
 			if (a["date"] < b["date"]) return 1;
 			if (a["date"] > b["date"]) return -1;
 			return 0;
-		})
+		});
+
+		// feedback.sort(this.compareDates);
 
 		return feedback;
 	}
+
+	/* compareDates(a: any, b: any) {
+		var dateA = new Date(
+		  a.date.split('/').reverse().join('-') + 'T00:00:00'
+		).getTime();
+		var dateB = new Date(
+		  b.date.split('/').reverse().join('-') + 'T00:00:00'
+		).getTime();
+		return dateA - dateB;
+	  } */
+
 
 	async removeFeedback(id: string) {
 		await deleteDoc(doc(this.db, "feedback", id));
