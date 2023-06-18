@@ -19,7 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatRippleModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatRippleModule, MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
 import { NewWorkoutComponent } from './components/new-workout/new-workout.component';
 import { OldWorkoutsComponent } from './components/old-workouts/old-workouts.component';
 import { YourProgressComponent } from './components/your-progress/your-progress.component';
@@ -63,6 +63,7 @@ import { ExerciseStatsComponent } from './components/exercise-stats/exercise-sta
 import { NotesDialogComponent } from './components/notes-dialog/notes-dialog.component';
 import { ExerciseStatsDialogComponent } from './components/exercise-stats-dialog/exercise-stats-dialog.component';
 import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
+import { CustomDateAdapter } from './components/prebuild-workout/date-picker-adapter';
 
 @NgModule({
 	declarations: [
@@ -135,7 +136,8 @@ import { WelcomePageComponent } from './components/welcome-page/welcome-page.com
 	],
 	providers: [
 		MatNativeDateModule,
-		{ provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+		{ provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+		{ provide: DateAdapter, useClass: CustomDateAdapter },
 	],
 	bootstrap: [AppComponent]
 })

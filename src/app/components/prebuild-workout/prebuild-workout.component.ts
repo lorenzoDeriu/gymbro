@@ -16,7 +16,20 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public workout: any;
 	public date: Date = new Date();
 
+	public chosenDate: Date;
+
 	constructor(private userService: UserService, private router: Router, private firebase: FirebaseService, private dialog: MatDialog) {}
+
+	get dateUTC() {
+		if(this.chosenDate) {
+		  return new Date(this.chosenDate.getUTCFullYear(),
+		  this.chosenDate.getUTCMonth(), this.chosenDate.getUTCDate(),
+			this.chosenDate.getUTCHours(), this.chosenDate.getUTCMinutes(),
+			this.chosenDate.getUTCSeconds());
+		}
+
+		return null;
+	  }
 
 	ngOnInit(): void {
 		this.workout = this.userService.getWorkoutSelected();
