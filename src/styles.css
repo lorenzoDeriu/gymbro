@@ -2,6 +2,7 @@
 
 /* html, body { height: 100%; } */
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html { overflow: scroll; scroll-snap-type: y mandatory; }
 
 @media (max-width: 600px) {
 	div.mat-expansion-panel-body {

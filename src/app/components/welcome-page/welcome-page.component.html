@@ -1,0 +1,73 @@
+<div id="welcom-page-container">
+	<div id="left-container">
+		<section class="scroll-area">
+			<div id="logo-container">
+				<img src="../../../assets/logo.png" alt="">
+			</div>
+
+			<div>
+				<span class="app-description">
+					<p>GymBro è l'app per registrare e monitorare i tuoi allenamenti in palestra, offrendoti un'esperienza semplice e potente per tenere traccia dei tuoi progressi nel tempo.</p>
+					<p>Con GymBro, puoi efficientemente e intuitivamente registrare i tuoi allenamenti, grazie a grafici interattivi e statistiche dettagliate che ti permettono di visualizzare i risultati dei tuoi sforzi.</p>
+					<p>GymBro offre anche la possibilità di connetterti con gli amici e condividere le tue routine di allenamento, creando una comunità di supporto e motivazione reciproca.</p>
+				</span>
+			</div>
+
+			<div class="down">
+				<img src="../../../assets/down-arrow.png" alt="">
+			</div>
+		</section>
+
+		<section class="scroll-area">
+			<div></div>
+			<div>
+				<span class="app-description">
+					<p>
+						GymBro ti permette di salvare ogni singolo esercizio che fai in palestra, con il numero di ripetizioni e il peso che hai sollevato.
+					</p>
+
+					<p>
+						Puoi riguardare in qualunque momento i tuoi allenamenti passati e visualizzare i tuoi progressi nel tempo.
+					</p>
+				</span>
+			</div>
+
+			<div class="down">
+				<img src="../../../assets/down-arrow.png" alt="">
+			</div>
+		</section>
+
+		<section class="scroll-area">
+			<div></div>
+			<div>
+				<span class="app-description">
+					<p>
+						Usa GymBro per creare la tua routine di allenamento personalizzata, con gli esercizi che preferisci, e condividila con i tuoi amici.
+					</p>
+				</span>
+			</div>
+
+			<div class="down">
+				<!-- <img src="../../../assets/down-arrow.png" alt=""> -->
+			</div>
+		</section>
+	</div>
+
+	<div id="right-container">
+		<span>Inizia subito e diventa un Gymbro!</span>
+		<!-- <button mat-raised-button routerLink="/access">Accedi</button> -->
+
+		<div id="login-container">
+			<mat-form-field class="email-input" appearance="outline">
+				<mat-label>Email</mat-label>
+				<input matInput type="text" name="email" required email [(ngModel)]="this.email">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Password</mat-label>
+				<input matInput [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="this.password" required>
+				<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+			</mat-form-field>
+		</div>
+	</div>
+</div>

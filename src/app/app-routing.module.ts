@@ -20,9 +20,11 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AboutComponent } from './components/about/about.component';
 import { SettingsPageComponent } from './components/settings-page/settings-page.component';
+import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
 
 const routes: Routes = [
 	{path: "", redirectTo: "home", pathMatch: "full"},
+	// {path: "welcome", component: window.innerWidth > 400 ? WelcomePageComponent : null}, // TODO page for mobile
 	{path: "access", component: AccessComponent},
 	{path: "home", component: HomeComponent, canActivate:[AuthGuard], children: [
 		{path: "", redirectTo: "dashboard", pathMatch: "full"},
