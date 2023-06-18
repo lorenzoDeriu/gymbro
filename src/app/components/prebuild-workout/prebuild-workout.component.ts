@@ -35,8 +35,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 			localStorage.setItem("workout", JSON.stringify(this.workout))
 		}
 
-		console.log(this.workout);
-
 		for (let i = 0; i < this.workout.exercises.length; i++) {
 			this.workout.exercises[i]["completed"] = (
 				this.workout.exercises[i].completed != undefined ?
@@ -53,10 +51,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 	saveExerciseData(form: NgForm, exerciseIndex: number) {
 		this.workout.exercises[exerciseIndex].completed = true;
 
-		this.workout.exercises[exerciseIndex].series = form.value.series;
+		/* this.workout.exercises[exerciseIndex].series = form.value.series;
 		this.workout.exercises[exerciseIndex].reps = form.value.reps;
 		this.workout.exercises[exerciseIndex].load = form.value.load;
-		this.workout.exercises[exerciseIndex].rpe = form.value.rpe;
+		this.workout.exercises[exerciseIndex].rpe = form.value.rpe; */
 
 		this.updateWorkoutOnLocalStorage();
 	}

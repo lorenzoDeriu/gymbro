@@ -39,18 +39,22 @@ export class Utils {
 	  }
 
 	getWeightsFor(exerciseName: string, workoutsDate: string[], workouts: any): string[] {
-		const sortedWorkouts = this.sortByDate(workouts);
+		const sortedWorkouts = new Set(this.sortByDate(workouts));
 		const weights: string[] = [];
 
-		for (const date of workoutsDate) {
-		  const matchingWorkout = sortedWorkouts.find((workout: any) => workout.date === date);
+		const date = new Set(workoutsDate);
 
-		  if (matchingWorkout) {
-			for (let exercise of matchingWorkout.exercises) {
-				if (exercise.name == exerciseName) weights.push(exercise.load)
-			}
-		  }
-		}
+		date.forEach((date: string) => {
+			sortedWorkouts.forEach((workout: any) => {
+				if (workout.date === date) {
+					workout.exercises.forEach((exercise: any) => {
+						if (exercise.name === exerciseName) {
+							weights.push(exercise.load);
+						}
+					});
+				}
+			});
+		});
 
 		return weights.slice(Math.max(weights.length - 20, 0));
 	}
