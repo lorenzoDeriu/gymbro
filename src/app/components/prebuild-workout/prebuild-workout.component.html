@@ -34,6 +34,7 @@
 					<mat-form-field appearance="outline" [style.width.px]="110">
 						<mat-label>Ripetizioni</mat-label>
 						<input matInput name="reps" type="number" [(ngModel)]="exercise.reps">
+						<mat-hint *ngIf="exercise.range">{{"Range: " + exercise.range[0] + "-" + exercise.range[1]}}</mat-hint>
 					</mat-form-field>
 
 					<mat-form-field appearance="outline" [style.width.px]="110">
