@@ -22,7 +22,14 @@
 
 				<ng-container matColumnDef="Serie x Ripetizioni">
 					<th mat-header-cell *matHeaderCellDef><b>Serie x Ripetizioni</b></th>
-					<td mat-cell *matCellDef="let element"> {{(element.series > 0 && element.reps > 0) ? element.series + "x" + element.reps : "/"}}</td>
+					<td mat-cell *matCellDef="let element"> {{
+						(element.series > 0 && element.reps > 0) ?
+						element.series + "x" +
+							((element.range[0] != element.range[1]) ?
+								element.range[0] + "-" + element.range[1]
+								: element.reps)
+						: "/"
+					}}</td>
 				</ng-container>
 
 				<ng-container matColumnDef="Recupero">

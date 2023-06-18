@@ -22,7 +22,8 @@ export class UserService {
 				RPE: exercise.RPE,
 				load: exercise.load,
 				restTime: exercise.restTime,
-				note: exercise.note
+				note: exercise.note,
+				range: exercise.range
 			}
 		);
 

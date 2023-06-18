@@ -48,6 +48,8 @@ export class SessionBuilderComponent {
 			exercises: exercises,
 		}
 
+		console.log(session);
+
 		this.userService.addSessionToTrainingProgram(session);
 		this.router.navigate(["/home/training-program-builder"]);
 	}

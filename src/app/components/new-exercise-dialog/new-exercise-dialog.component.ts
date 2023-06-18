@@ -13,19 +13,20 @@ import { AddExerciseDialogComponent } from '../add-exercise-dialog/add-exercise-
   styleUrls: ['./new-exercise-dialog.component.css']
 })
 export class NewExerciseDialogComponent {
-	myControl = new FormControl('');
-	exercise: any[];
-	options: string[] = [];
-	filteredOptions: Observable<string[]>;
+public myControl = new FormControl('');
+public options: string[] = [];
+public filteredOptions: Observable<string[]>;
+public exercise: Exercise;
 
-	seriesCount: number = 0;
-	repsCount: number = 0;
-	load: number = 0;
+public seriesCount: number = 0;
+public repsCount: number = 0;
+public load: number = 0;
 
 	constructor(private firebase: FirebaseService, private userService: UserService, private dialog: MatDialog) {}
 
 	async ngOnInit() {
 		this.getExercises();
+		this.exercise = new Exercise();
 	}
 
 	async getExercises() {
@@ -38,17 +39,20 @@ export class NewExerciseDialogComponent {
 	}
 
 	onSubmit(form: NgForm) {
-		let exercise = new Exercise(
-			form.value.exerciseName,
-			form.value.series,
-			form.value.reps,
-			form.value.load,
-			form.value.rpe,
-			form.value.restTime.toString(),
-			form.value.note
-		);
+		// let exercise = new Exercise(
+		// 	form.value.exerciseName,
+		// 	form.value.series,
+		// 	form.value.reps,
+		// 	form.value.load,
+		// 	form.value.rpe,
+		// 	form.value.restTime.toString(),
+		// 	form.value.note,
+		// );
 
-		this.userService.addExercise(exercise);
+		this.exercise.reps = this.exercise.range[0];
+
+		this.userService.addExercise(this.exercise);
+		this.exercise = new Exercise();
 	}
 
 	onAddCustomExercise() {
