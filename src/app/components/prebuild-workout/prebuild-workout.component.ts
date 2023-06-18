@@ -48,7 +48,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		return `${value}`;
 	}
 
-	saveExerciseData(form: NgForm, exerciseIndex: number) {
+	saveExerciseData(exerciseIndex: number) {
 		this.workout.exercises[exerciseIndex].completed = true;
 
 		/* this.workout.exercises[exerciseIndex].series = form.value.series;

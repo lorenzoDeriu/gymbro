@@ -24,7 +24,7 @@
 				<mat-panel-description>{{exercise.restTime != "" ? "Recupero: " + exercise.restTime + " - " : ""}} RPE: {{exercise.RPE}}</mat-panel-description>
 			</mat-expansion-panel-header>
 
-			<form *ngIf="!exercise.completed" #exerciseDataForm="ngForm" (ngSubmit)="saveExerciseData(exerciseDataForm, exerciseIndex)">
+			<form *ngIf="!exercise.completed" #exerciseDataForm="ngForm" (ngSubmit)="saveExerciseData(exerciseIndex)">
 				<div id="input-container">
 					<mat-form-field appearance="outline" [style.width.px]="110">
 						<mat-label>Serie</mat-label>
@@ -54,16 +54,16 @@
 				</mat-form-field>
 
 				<button mat-stroked-button color="primary" type="submit" [disabled]="!exerciseDataForm.valid">Salva</button>
-				<button mat-stroked-button color="warn" (click)="delete(exerciseIndex)">Elimina</button>
+				<button mat-stroked-button color="warn" (click)="delete(exerciseIndex)" style="margin-bottom: 10px;">Elimina</button>
 			</form>
 
 			<p *ngIf="exercise.completed">Serie: {{exercise.series}}</p>
 			<p *ngIf="exercise.completed">Ripetizioni: {{exercise.reps}}</p>
 			<p *ngIf="exercise.completed">Carico: {{exercise.load}}kg</p>
 			<p *ngIf="exercise.completed">RPE: {{exercise.RPE}}</p>
-			<p *ngIf="exercise.completed">Note: {{exercise.note}}</p>
+			<p *ngIf="exercise.completed && exercise.note">Note: {{exercise.note}}</p>
 
-			<button *ngIf="exercise.completed" mat-stroked-button color="primary" (click)="onChangeExerciseData(exerciseIndex)">Modifica</button>
+			<button *ngIf="exercise.completed" mat-stroked-button color="primary" (click)="onChangeExerciseData(exerciseIndex)" style="margin-right: 10px;">Modifica</button>
 			<button mat-stroked-button color="primary" (click)="showOldStats(exerciseIndex)">Vedi storico</button>
 		</mat-expansion-panel>
 	</mat-accordion>

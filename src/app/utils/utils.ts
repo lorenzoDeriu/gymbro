@@ -1,24 +1,6 @@
 import { endOfWeek } from "date-fns";
 
 export class Utils {
-
-	/* getSessionExerciseFor(exerciseName: string, workoutsDate: string[], workouts: any) {
-		let sortedWorkout = this.sortByDate(workouts)
-		let sessionExercise: any[] = [];
-
-		for (let date of workoutsDate) {
-			for (let workout of sortedWorkout) {
-				if (workout.date == date) {
-					for (let exercise of workout.exercises) {
-						if (exercise.name == exerciseName) sessionExercise.push({exercise: exercise, date: workout.date})
-					}
-				}
-			}
-		}
-
-		return sessionExercise;
-	} */
-
 	getSessionExerciseFor(exerciseName: string, workoutsDate: string[], workouts: any): any[] {
 		const sortedWorkouts = this.sortByDate(workouts);
 		const sessionExercises: any[] = [];
