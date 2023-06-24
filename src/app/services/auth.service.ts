@@ -109,7 +109,7 @@ export class AuthService {
 		this.firebase.signout()
 		this.loggedIn = false;
 		localStorage.removeItem("user");
-		this.router.navigate(["/access"]);
+		this.router.navigate(["/welcome"]);
 	}
 
 	public getUserToken() {
