@@ -54,20 +54,52 @@
 	</div>
 
 	<div id="right-container">
-		<span>Inizia subito e diventa un Gymbro!</span>
-		<!-- <button mat-raised-button routerLink="/access">Accedi</button> -->
+		<span id="right-container-title">Inizia subito e diventa un Gymbro!</span>
 
-		<div id="login-container">
-			<mat-form-field class="email-input" appearance="outline">
-				<mat-label>Email</mat-label>
-				<input matInput type="text" name="email" required email [(ngModel)]="this.email">
-			</mat-form-field>
+		<!-- <mat-form-field appearance="fill" [style.width.px]="250">
+			<mat-label>Email</mat-label>
+			<input matInput [(ngModel)]="email">
+		</mat-form-field> -->
+		<div class="input-group input-group-sm mb-3" style="width: 300px; margin-bottom: 10px;">
+			<span
+				class="input-group-text"
+				id="inputGroup-sizing-sm"
+				style="font-weight: bold; color: rgb(69, 69, 188); width:80px; display: flex; justify-content: center; align-items: center;"
 
-			<mat-form-field appearance="outline">
-				<mat-label>Password</mat-label>
-				<input matInput [type]="hide ? 'password' : 'text'" name="password" [(ngModel)]="this.password" required>
-				<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-			</mat-form-field>
+			>
+				Email
+			</span>
+			<input type="email" class="form-control no-shadow" style="font-weight: bold;" [(ngModel)]="email">
+		</div>
+
+		<div class="input-group input-group-sm mb-3" style="width: 300px; margin-bottom: 10px;">
+			<span
+				class="input-group-text"
+				id="inputGroup-sizing-sm"
+				style="font-weight: bold; color: rgb(69, 69, 188); width:80px; display: flex; justify-content: center; align-items: center;"
+			>
+				Password
+			</span>
+			<input [type]="hide ? 'password' : 'text'" class="form-control no-shadow" style="font-weight: bold;" [(ngModel)]="password">
+			<span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" (click)="hide = !hide">
+				<i *ngIf="hide" class="bi bi-eye-fill" style="color: rgb(69, 69, 188)"></i>
+				<i *ngIf="!hide" class="bi bi-eye-slash-fill" style="color: rgb(69, 69, 188)"></i>
+			</span>
+		</div>
+		<span style="color: white; float: right; z-index: 1;">
+			<u style="color: white; cursor: pointer" (click)="forgotPassword()">Password dimenticata?</u>
+		</span>
+
+		<div id="login-button-container" style="display: flex; flex-direction: row; margin-top: -40px">
+			<button class="btn btn-outline-light" style="margin-right: 10px;" [disabled]="!allowLogin()" (click)="login()"><span style="font-size: 90%">Login</span></button>
+			<button class="btn btn-primary" style="margin-right: 10px;" (click)="accessWithGoogle()">
+				<i class="bi bi-google" style="margin-right: 5px"></i>
+				<b style="font-size: 90%">Accedi con Google</b>
+			</button>
+		</div>
+
+		<div>
+			<span style="color: white;">Non hai un account? <u style="color: white; cursor: pointer; z-index: 1" (click)="signUp()">Registrati</u></span>
 		</div>
 	</div>
 </div>

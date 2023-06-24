@@ -24,7 +24,7 @@ import { WelcomePageComponent } from './components/welcome-page/welcome-page.com
 
 const routes: Routes = [
 	{path: "", redirectTo: "home", pathMatch: "full"},
-	// {path: "welcome", component: window.innerWidth > 400 ? WelcomePageComponent : null}, // TODO page for mobile
+	{path: "welcome", component: window.innerWidth > 400 ? WelcomePageComponent : null}, // TODO page for mobile
 	{path: "access", component: AccessComponent},
 	{path: "home", component: HomeComponent, canActivate:[AuthGuard], children: [
 		{path: "", redirectTo: "dashboard", pathMatch: "full"},

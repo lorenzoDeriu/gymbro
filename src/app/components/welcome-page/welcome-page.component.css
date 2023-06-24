@@ -16,6 +16,8 @@
 	padding: 0 30px;
 }
 
+.no-shadow { box-shadow: none; }
+
 #right-container {
 	position: sticky;
 	top: 0;
@@ -26,9 +28,9 @@
 	flex-direction: column;
 	justify-content: center;
 
-	color: white;
-	font-family: 'Josefin Sans', sans-serif;
-	font-size: 2rem;
+	/* color: white; */
+	/* font-family: 'Josefin Sans', sans-serif;
+	font-size: 2rem; */
 
 	padding-left: 30px;
 	padding-right: 30px;
@@ -54,8 +56,6 @@
 	margin-top: -80px;
 	margin-bottom: -40px;
 	margin-right: 500px;
-	/* margin: auto; */
-	/* object-fit: cover; */
 }
 
 .app-description {
@@ -101,14 +101,23 @@
 	flex-direction: column;
 	width: 45%
 }
-/*
-@media (max-width: 500px) {
 
-} */
-/*
-input {
-	color: #fff !important;
+::ng-deep .mat-form-field-outline-start {
+	border-radius: 28px 0 0 28px !important;
+	min-width: 28px !important;
 }
- */
 
+::ng-deep .mat-form-field-outline-end {
+	border-radius: 0 28px 28px 0 !important;
+}
 
+#right-container-title {
+	font-size: 2rem;
+	font-family: 'Josefin Sans', sans-serif;
+	color: white;
+	margin-bottom: 30px;
+}
+
+#right-container-access-button {
+	width: 40px;
+}

@@ -29,7 +29,7 @@ import { NewWorkoutBuilderComponent } from './components/new-workout-builder/new
 import { TrainingProgramSelectorComponent } from './components/training-program-selector/training-program-selector.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NewExerciseDialogComponent } from './components/new-exercise-dialog/new-exercise-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
@@ -64,6 +64,7 @@ import { NotesDialogComponent } from './components/notes-dialog/notes-dialog.com
 import { ExerciseStatsDialogComponent } from './components/exercise-stats-dialog/exercise-stats-dialog.component';
 import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
 import { CustomDateAdapter } from './components/prebuild-workout/date-picker-adapter';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
 	declarations: [
@@ -133,6 +134,7 @@ import { CustomDateAdapter } from './components/prebuild-workout/date-picker-ada
   		}),
 		MatTooltipModule,
 		MatSlideToggleModule,
+  		NgbModule,
 	],
 	providers: [
 		MatNativeDateModule,

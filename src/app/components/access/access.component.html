@@ -3,55 +3,29 @@
 </div>
 
 <div id="access-container">
-	<mat-tab-group animationDuration="0ms" dynamicHeight>
-		<mat-tab label="Login">
-			<form #loginForm="ngForm" (ngSubmit)="onLoginSubmit(loginForm)">
-				<mat-form-field class="email-input" appearance="outline">
-					<mat-label>Email</mat-label>
-					<input matInput type="text" name="email" required email ngModel>
-				</mat-form-field>
+	<form #registerForm="ngForm" (ngSubmit)="onRegisterSubmit(registerForm)">
+		<div style="padding-top: 20px; margin: auto; color: rgb(69, 69, 188)">
+			<h2><span style="font-family: 'Josefin Sans', sans-serif;">Benvenuto su GymBro!</span></h2>
+		</div>
 
-				<mat-form-field appearance="outline">
-					<mat-label>Password</mat-label>
-					<input matInput [type]="hide ? 'password' : 'text'" name="password" ngModel required>
-					<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-				</mat-form-field>
+		<mat-form-field class="email-input" appearance="outline">
+			<mat-label>Email</mat-label>
+			<input matInput type="text" name="email" required email ngModel>
+		</mat-form-field>
 
-				<button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
-			</form>
+		<mat-form-field appearance="outline">
+			<mat-label>Password</mat-label>
+			<input matInput [type]="hide ? 'password' : 'text'" name="password" ngModel required>
+			<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+		</mat-form-field>
 
-			<div id="recover-password-button">
-				<button mat-button (click)="forgotPassword()">Hai dimenticato la Password?</button>
-			</div>
-		</mat-tab>
+		<div id="btn-container">
+			<button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid">Register</button>
+			<button class="btn btn-primary" (click)="accessWithGoogle()">
+				<i class="bi bi-google" style="margin-right: 5px"></i>
+				<b style="font-size: 90%">Accedi con Google</b>
+			</button>
+		</div>
 
-		<mat-tab label="Register">
-			<form #registerForm="ngForm" (ngSubmit)="onRegisterSubmit(registerForm)">
-				<mat-form-field class="email-input" appearance="outline">
-					<mat-label>Email</mat-label>
-					<input matInput type="text" name="email" required email ngModel>
-				</mat-form-field>
-
-				<mat-form-field appearance="outline">
-					<mat-label>Password</mat-label>
-					<input matInput [type]="hide ? 'password' : 'text'" name="password" ngModel required>
-					<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-				</mat-form-field>
-
-				<button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Register</button>
-
-			</form>
-		</mat-tab>
-	</mat-tab-group>
-
-	<div id="google-login-btn-container">
-		<button (click)="accessWithGoogle()" mat-raised-button id="google-login-btn">
-			<div id="google-login-btn-content">
-				<img id="google-logo-img" src="../../../assets/google-logo.png">
-				<span>Accedi con Google</span>
-			</div>
-		</button>
-	</div>
-
-
+	</form>
 </div>

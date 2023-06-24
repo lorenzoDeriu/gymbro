@@ -32,9 +32,9 @@ form {
 }
 
 h1 {
-	font-family: 'Josefin Sans', sans-serif;
 	font-weight: bold;
 	font-size: 600%;
+	font-family: 'Josefin Sans', sans-serif;
 	color: rgb(69, 69, 188)
 }
 
@@ -58,9 +58,10 @@ h1 {
 	align-items: center;
 }
 
-#google-login-btn-container {
+#btn-container {
 	display:flex;
-	justify-content: center;
+	flex-direction: row;
+	justify-content: space-around;
 }
 
 @media (max-width: 600px) {

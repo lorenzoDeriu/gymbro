@@ -1,7 +1,9 @@
-import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
 import { Component } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
+
+
 
 @Component({
 	selector: 'app-password-recover-dialog',
@@ -9,13 +11,22 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 	styleUrls: ['./password-recover-dialog.component.css']
 })
 export class PasswordRecoverDialogComponent {
-	constructor(private firebase: FirebaseService, private router: Router) {}
+	public email: string;
 
-	public sendRecoverPasswordEmail(form: NgForm) {
-		let email = form.value.email;
+	constructor(private firebase: FirebaseService, private snackBar: MatSnackBar, public dialogRef: MatDialogRef<PasswordRecoverDialogComponent>) {}
 
-		this.firebase.recoverPassword(email);
+	public sendRecoverPasswordEmail() {
+		this.firebase.recoverPassword(this.email);
 
-		alert("Ti abbiamo inviato un'email con le istruzioni per recuperare la password");
+		this.snackBar.open("Ti abbiamo inviato un'email per recuperare la password", "Ok", {duration: 3000});
+		this.closeDialog();
+	}
+
+	private closeDialog() {
+		this.dialogRef.close();
+	}
+
+	public allowSend(): boolean {
+		return this.email && this.email != "" && this.email.includes("@");
 	}
 }
