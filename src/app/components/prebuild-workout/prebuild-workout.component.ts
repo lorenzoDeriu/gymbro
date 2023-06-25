@@ -61,7 +61,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	isDesktop() {
-		return window.innerWidth > 1050;
+		return window.innerWidth > 1250;
 	}
 
 	formatLabel(value: number): string {

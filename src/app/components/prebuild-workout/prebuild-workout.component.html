@@ -1,13 +1,13 @@
 <div id="workout-container">
-	<div id="title-container">
+	<div id="title-container" style="margin-top: 15px; margin-bottom: 20px">
 		<div class="input-group mb-3" style="color: rgb(69,69,188); width: 300px; margin: auto; margin-top:20px">
-			<span class="input-group-text" id="inputGroup-sizing-default">Allenamento</span>
-			<input type="text" class="form-control" placeholder="nome" style="box-shadow: none; font-weight: bold;" [(ngModel)]="this.workout.name">
+			<span class="input-group-text custom-span" id="inputGroup-sizing-default">Allenamento</span>
+			<input type="text" class="form-control" placeholder="Nome" style="box-shadow: none; font-family: 'Josefin Sans', sans-serif" [(ngModel)]="this.workout.name">
 		</div>
 
 		<div class="input-group mb-3" style="color: rgb(69,69,188); width: 300px; margin: auto;">
-			<span class="input-group-text" id="inputGroup-sizing-default">Data</span>
-			<input type="date" class="form-control" placeholder="data" style="box-shadow: none; font-weight: bold;" [(ngModel)]="this.workout.date">
+			<span class="input-group-text custom-span" id="inputGroup-sizing-default">Data</span>
+			<input type="date" class="form-control" placeholder="data" style="box-shadow: none; font-family: 'Josefin Sans', sans-serif" [(ngModel)]="this.workout.date">
 		</div>
 	</div>
 
@@ -26,7 +26,7 @@
 			</div>
 
 			<div *ngIf="exercise.range" class="alert alert-info custom-alert">
-				<i class="bi bi-info-square-fill" style="margin-right: 10px"></i>
+				<i style="font-size: 1.2em" class="bi bi-info-square-fill" style="margin-right: 10px"></i>
 				{{"Il range di ripetizioni per questo esercizio è " + exercise.range[0] + "-" + exercise.range[1] + " reps"}}
 			</div>
 
@@ -37,7 +37,7 @@
 					type="number"
 					min="0"
 					class="form-control"
-					style="box-shadow: none; font-weight: bold;"
+					style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
 					[(ngModel)]="exercise.series"
 				>
 
@@ -47,7 +47,7 @@
 					type="number"
 					min="0"
 					class="form-control"
-					style="box-shadow: none; font-weight: bold;"
+					style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
 					[(ngModel)]="exercise.reps"
 				>
 
@@ -57,7 +57,7 @@
 					type="number"
 					min="0"
 					class="form-control"
-					style="box-shadow: none; font-weight: bold;"
+					style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
 					[(ngModel)]="exercise.load"
 				>
 
@@ -68,7 +68,7 @@
 					min="0"
 					max="10"
 					class="form-control"
-					style="box-shadow: none; font-weight: bold;"
+					style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
 					[(ngModel)]="exercise.RPE"
 				>
 			</div>
@@ -81,7 +81,7 @@
 						type="number"
 						min="0"
 						class="form-control"
-						style="box-shadow: none; font-weight: bold;"
+						style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
 						[(ngModel)]="exercise.series"
 					>
 				</div>
@@ -93,7 +93,7 @@
 						type="number"
 						min="0"
 						class="form-control"
-						style="box-shadow: none; font-weight: bold;"
+						style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
 						[(ngModel)]="exercise.reps"
 					>
 				</div>
@@ -104,7 +104,7 @@
 						type="number"
 						min="0"
 						class="form-control"
-						style="box-shadow: none; font-weight: bold;"
+						style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
 						[(ngModel)]="exercise.load"
 					>
 				</div>
@@ -116,7 +116,7 @@
 						min="0"
 						max="10"
 						class="form-control"
-						style="box-shadow: none; font-weight: bold;"
+						style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
 						[(ngModel)]="exercise.RPE"
 					>
 				</div>
@@ -124,43 +124,43 @@
 
 			<div class="input-group">
 				<span class="input-group-text custom-span">Note</span>
-				<input class="form-control " style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.note" />
+				<input class="form-control " style="box-shadow: none; font-family: 'Josefin Sans', sans-serif" [(ngModel)]="exercise.note" />
 			</div>
 
 			<div style="display: flex; justify-content: flex-end; margin-top: 10px;">
 				<button class="btn btn-outline-primary" style="margin-right: 10px;" (click)="showOldStats(exerciseIndex)">
-					<i class="bi bi-clock-history"></i>
+					<i style="font-size: 1.2em" class="bi bi-clock-history"></i>
 				</button>
 
 				<button (click)="onChangeExerciseData(exerciseIndex)" *ngIf="exercise.completed" class="btn btn-outline-dark" style="margin-right: 10px;">
-					<i class="bi bi-pencil-square"></i>
+					<i style="font-size: 1.2em" class="bi bi-pencil-square"></i>
 				</button>
 
 				<button (click)="saveExerciseData(exerciseIndex)" *ngIf="!exercise.completed" class="btn btn-outline-success" style="margin-right: 10px;">
-					<i class="bi bi-check-lg"></i>
+					<i style="font-size: 1.2em" class="bi bi-check-lg"></i>
 				</button>
 
 				<button (click)="delete(exerciseIndex)" class="btn btn-outline-danger">
-					<i class="bi bi-trash"></i>
+					<i style="font-size: 1.2em" class="bi bi-trash"></i>
 				</button>
 			</div>
 		</mat-expansion-panel>
 	</mat-accordion>
 
 	<div style="display: flex; justify-content: center; margin-top: 25px">
-		<button style="margin-right: 10px" class="btn btn-primary" (click)="addExerciseToPrebuiltWorkout()">
-			<i class="bi bi-plus-square" style="margin-right: 5px"></i>
-			<span style="font-weight: bold;">Aggiungi un Esercizio</span>
+		<button style="margin-right: 10px" class="btn btn-outline-primary" (click)="addExerciseToPrebuiltWorkout()">
+			<i [ngStyle]='isDesktop() && {"font-size": "1.2em"}' class="bi bi-plus-square"></i>
+			<span [ngStyle]="!isDesktop() &&{'font-size': '0.7em'}" style="font-family: 'josefin Sans', sans-serif; margin-left: 5px ;">Esercizio</span>
 		</button>
 
-		<button style="margin-right: 10px" class="btn btn-success" (click)="saveWorkout()">
-			<i class="bi bi-cloud-arrow-up" style="margin-right: 5px"></i>
-			<span style="font-weight: bold;">Salva</span>
+		<button style="margin-right: 10px" class="btn btn-outline-success" (click)="saveWorkout()">
+			<i [ngStyle]='isDesktop() && {"font-size": "1.2em"}' class="bi bi-cloud-arrow-up"></i>
+			<span [ngStyle]="!isDesktop() &&{'font-size': '0.7em'}" style="font-family: 'josefin Sans', sans-serif; margin-left: 5px ;">Salva</span>
 		</button>
 
-		<button class="btn btn-danger" (click)="onCancel()">
-			<i class="bi bi-x-circle" style="margin-right: 5px"></i>
-			<span style="font-weight: bold;">Annulla</span>
+		<button class="btn btn-outline-danger" (click)="onCancel()">
+			<i [ngStyle]='isDesktop() && {"font-size": "1.2em"}' class="bi bi-x-circle"></i>
+			<span [ngStyle]="!isDesktop() &&{'font-size': '0.7em'}" style="font-family: 'josefin Sans', sans-serif; margin-left: 5px ;">Annulla</span>
 		</button>
 	</div>
 </div>

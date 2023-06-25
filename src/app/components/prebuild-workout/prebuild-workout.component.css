@@ -50,6 +50,9 @@ form button {
 	font-family: 'Josefin Sans', sans-serif;
 	font-weight: bold;
 	color: rgb(69, 69, 188);
+	width: 110px;
+	display: flex;
+	justify-content: center;
 }
 
 .custom-alert {
