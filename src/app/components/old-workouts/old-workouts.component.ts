@@ -12,6 +12,7 @@ import { NotesDialogComponent } from '../notes-dialog/notes-dialog.component';
 	styleUrls: ['./old-workouts.component.css']
 })
 export class OldWorkoutsComponent implements OnInit {
+
 	public workouts: any[] = [];
 	displayedColumns: string[] = ['name', 'series-reps', 'load', 'rpe'];
 

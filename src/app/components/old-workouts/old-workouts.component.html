@@ -3,8 +3,10 @@
 	<div id="title-container">
 		<span id="primary-title">I tuoi vecchi allenamenti</span>
 		<span id="secondary-title" *ngIf="this.workouts.length == 0 && !this.loading">Non ci sono allenamenti, caricane uno nuovo!</span>
-		<button mat-raised-button color="primary" (click)="createWorkoutButton()">Crea un nuovo allenamento</button>
-		<button mat-raised-button (click)="backToHomeButton()">Torna alla home</button>
+
+		<button class="btn btn-outline-dark" style="margin-top: 10px" (click)="backToHomeButton()">
+			<i class="bi bi-house-door"></i> Torna alla home
+		</button>
 	</div>
 
 	<mat-accordion>
@@ -14,37 +16,41 @@
 				<mat-panel-description>{{workout.date}}</mat-panel-description>
 			</mat-expansion-panel-header>
 
-			<table mat-table [dataSource]="workout.exercises" class="mat-elevation-z1">
-				<ng-container matColumnDef="name">
-				  	<th mat-header-cell *matHeaderCellDef> <b>Esercizio</b> </th>
-				  	<td mat-cell *matCellDef="let exercise; index as exerciseIndex">
-						<div id="exercise-name-cell">
-							<span>{{exercise.name}}</span>
-							<button matTooltip="Note" *ngIf="exercise.note != undefined && exercise.note != ''" mat-icon-button (click)="showNotes(index, exerciseIndex)"><img src="../../../assets/info_icon.png" alt=""></button>
-						</div>
-					</td>
-				</ng-container>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Esercizio</th>
+						<th scope="col">Serie x Reps</th>
+						<th scope="col">Carico</th>
+						<th scope="col">RPE</th>
+						<th scope="col">Note</th>
+					</tr>
+				</thead>
+				<tbody class="table-group-divider">
+					<tr *ngFor="let exercise of workout.exercises; index as exerciseIndex">
+						<th scope="row">{{exercise.name}}</th>
+						<td>{{exercise.series + " x " + exercise.reps}}</td>
+						<td>{{exercise.load}} kg</td>
+						<td>{{exercise.RPE}}</td>
+						<td>
+							<i *ngIf="exercise.note && exercise.note != ''" (click)="showNotes(index, exerciseIndex)" style="cursor: pointer" class="bi bi-info-circle-fill"></i>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
-				<ng-container matColumnDef="series-reps">
-				  	<th mat-header-cell *matHeaderCellDef> <b>Serie x Ripetizioni</b> </th>
-				  	<td mat-cell *matCellDef="let exercise"> {{exercise.series}}x{{exercise.reps}} </td>
-				</ng-container>
-
-				<ng-container matColumnDef="load">
-				  	<th mat-header-cell *matHeaderCellDef><b>Carico</b></th>
-				  	<td mat-cell *matCellDef="let exercise"> {{exercise.load}}kg </td>
-				</ng-container>
-
-				<ng-container matColumnDef="rpe">
-				  	<th mat-header-cell *matHeaderCellDef> <b>RPE</b> </th>
-				  	<td mat-cell *matCellDef="let exercise"> {{exercise.RPE}} </td>
-				</ng-container>
-
-				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-				<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-			  </table>
-
-			<button mat-stroked-button color="warn" (click)="deleteWorkout(index)">Elimina</button>
+			<div style="display: flex; justify-content: flex-end;">
+				<button class="btn btn-outline-danger">
+					<i class="bi bi-trash"></i>
+				</button>
+			</div>
 		</mat-expansion-panel>
 	</mat-accordion>
+
+	<div style="display: flex; justify-content: center; margin-top: 25px;">
+		<button class="btn btn-primary" style="font-weight: bold; font-family: 'Josefin Sans', sans-serif;" (click)="createWorkoutButton()">
+			<i class="bi bi-plus-square"></i>
+			Crea un nuovo allenamento
+		</button>
+	</div>
 </div>
