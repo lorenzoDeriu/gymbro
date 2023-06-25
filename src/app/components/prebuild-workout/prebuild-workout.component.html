@@ -32,41 +32,95 @@
 
 			<div *ngIf="isDesktop()" class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
 				<span class="input-group-text custom-span" id="inputGroup-sizing-default">Serie</span>
-				<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.series">
+				<input
+					[disabled]="exercise.completed"
+					type="number"
+					min="0"
+					class="form-control"
+					style="box-shadow: none; font-weight: bold;"
+					[(ngModel)]="exercise.series"
+				>
 
 				<span class="input-group-text custom-span" id="inputGroup-sizing-default">Reps</span>
-				<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.reps">
+				<input
+					[disabled]="exercise.completed"
+					type="number"
+					min="0"
+					class="form-control"
+					style="box-shadow: none; font-weight: bold;"
+					[(ngModel)]="exercise.reps"
+				>
 
 				<span class="input-group-text custom-span" id="inputGroup-sizing-default">Carico (kg)</span>
-				<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.load">
+				<input
+					[disabled]="exercise.completed"
+					type="number"
+					min="0"
+					class="form-control"
+					style="box-shadow: none; font-weight: bold;"
+					[(ngModel)]="exercise.load"
+				>
 
 				<span class="input-group-text custom-span" id="inputGroup-sizing-default">RPE</span>
-				<input [disabled]="exercise.completed" type="number" min="0" max="10" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.RPE">
+				<input
+					[disabled]="exercise.completed"
+					type="number"
+					min="0"
+					max="10"
+					class="form-control"
+					style="box-shadow: none; font-weight: bold;"
+					[(ngModel)]="exercise.RPE"
+				>
 			</div>
 
 			<div *ngIf="!isDesktop()">
 				<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
 					<span class="input-group-text custom-span" id="inputGroup-sizing-default">Serie</span>
-					<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.series">
+					<input
+						[disabled]="exercise.completed"
+						type="number"
+						min="0"
+						class="form-control"
+						style="box-shadow: none; font-weight: bold;"
+						[(ngModel)]="exercise.series"
+					>
 				</div>
 
 				<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
 					<span class="input-group-text custom-span" id="inputGroup-sizing-default">Reps</span>
-					<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.reps">
+					<input
+						[disabled]="exercise.completed"
+						type="number"
+						min="0"
+						class="form-control"
+						style="box-shadow: none; font-weight: bold;"
+						[(ngModel)]="exercise.reps"
+					>
 				</div>
 				<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
 					<span class="input-group-text custom-span" id="inputGroup-sizing-default">Carico (kg)</span>
-					<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.load">
+					<input
+						[disabled]="exercise.completed"
+						type="number"
+						min="0"
+						class="form-control"
+						style="box-shadow: none; font-weight: bold;"
+						[(ngModel)]="exercise.load"
+					>
 				</div>
 				<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
 					<span class="input-group-text custom-span" id="inputGroup-sizing-default">RPE</span>
-					<input [disabled]="exercise.completed" type="number" min="0" max="10" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.RPE">
+					<input
+						[disabled]="exercise.completed"
+						type="number"
+						min="0"
+						max="10"
+						class="form-control"
+						style="box-shadow: none; font-weight: bold;"
+						[(ngModel)]="exercise.RPE"
+					>
 				</div>
 			</div>
-				<!-- <mat-label style="font-weight:bold; font-family: 'Josefin Sans', sans-serif; color:rgb(69,69,188); margin-right: 15px; margin-left: 5px;">RPE</mat-label>
-				<mat-slider style="width: 300px;" id="slider" min="1" max="10" step="1" discrete [displayWith]="formatLabel">
-				<input [disabled]="exercise.completed" matSliderThumb name="RPE" name="rpe" [(ngModel)]="exercise.RPE">
-			</mat-slider> -->
 
 			<div class="input-group">
 				<span class="input-group-text custom-span">Note</span>
