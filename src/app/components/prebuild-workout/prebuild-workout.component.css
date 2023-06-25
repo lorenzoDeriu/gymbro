@@ -46,6 +46,27 @@ form button {
 	margin: auto;
 }
 
+.custom-span {
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: bold;
+	color: rgb(69, 69, 188);
+}
+
+.custom-alert {
+	color: rgb(69,69,188);
+	background-color: rgb(69,69,188, 0.2);
+	border-color: rgb(69,69,188);
+	height: 40px;
+	display: flex;
+	align-items: center;
+}
+
+.custom-select {
+	box-shadow: none;
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: bold;
+}
+
 @media (max-width: 780px) {
 	#workout-container {
 		width: 95%;

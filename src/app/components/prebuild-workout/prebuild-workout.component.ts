@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { ExercisePickerDialogComponent } from '../exercise-picker-dialog/exercise-picker-dialog.component';
 import { ExerciseStatsDialogComponent } from '../exercise-stats-dialog/exercise-stats-dialog.component';
 
 @Component({
@@ -15,6 +14,8 @@ import { ExerciseStatsDialogComponent } from '../exercise-stats-dialog/exercise-
 export class PrebuildWorkoutComponent implements OnInit {
 	public workout: any;
 	public date: Date = new Date();
+
+	public availableExercise: string[];
 
 	public chosenDate: Date;
 
@@ -29,9 +30,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}
 
 		return null;
-	  }
+	}
 
-	ngOnInit(): void {
+	async ngOnInit() {
 		this.workout = this.userService.getWorkoutSelected();
 
 		if (this.workout == undefined) {
@@ -55,6 +56,12 @@ export class PrebuildWorkoutComponent implements OnInit {
 				false
 			);
 		}
+
+		this.availableExercise = await this.firebase.getExercise(JSON.parse(localStorage.getItem("user")).uid);
+	}
+
+	isDesktop() {
+		return window.innerWidth > 1050;
 	}
 
 	formatLabel(value: number): string {
@@ -63,12 +70,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	saveExerciseData(exerciseIndex: number) {
 		this.workout.exercises[exerciseIndex].completed = true;
-
-		/* this.workout.exercises[exerciseIndex].series = form.value.series;
-		this.workout.exercises[exerciseIndex].reps = form.value.reps;
-		this.workout.exercises[exerciseIndex].load = form.value.load;
-		this.workout.exercises[exerciseIndex].rpe = form.value.rpe; */
-
 		this.updateWorkoutOnLocalStorage();
 	}
 
@@ -122,25 +123,18 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	addExerciseToPrebuiltWorkout() {
-		let exercisePicker = this.dialog.open(ExercisePickerDialogComponent, {width: "350px", height: "130px"})
+		localStorage.removeItem("exercise");
 
-		exercisePicker.afterClosed().subscribe(() => {
-			let exerciseName = JSON.parse(localStorage.getItem("exercise"))
-			localStorage.removeItem("exercise");
+		let exercise = {
+			name: "",
+			load: 0,
+			RPE: 0,
+			restTime: "",
+			series: 0,
+			reps: 0,
+		}
 
-			if (exerciseName != null) {
-				let exercise = {
-					name: exerciseName.exercise,
-					load: 0,
-					RPE: 0,
-					restTime: "",
-					series: 0,
-					reps: 0
-				}
-
-				this.workout.exercises.push(exercise)
-				this.updateWorkoutOnLocalStorage();
-			}
-		});
+		this.workout.exercises.push(exercise)
+		this.updateWorkoutOnLocalStorage();
 	}
 }

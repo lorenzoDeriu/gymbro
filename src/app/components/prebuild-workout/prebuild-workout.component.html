@@ -1,77 +1,112 @@
 <div id="workout-container">
 	<div id="title-container">
-		<h1><span>Nuovo Allenamento "{{this.workout.name}}"</span></h1>
-	</div>
+		<div class="input-group mb-3" style="color: rgb(69,69,188); width: 300px; margin: auto; margin-top:20px">
+			<span class="input-group-text" id="inputGroup-sizing-default">Allenamento</span>
+			<input type="text" class="form-control" placeholder="nome" style="box-shadow: none; font-weight: bold;" [(ngModel)]="this.workout.name">
+		</div>
 
-	<div id="datepicker-container">
-		<mat-form-field appearance="outline" [style.width.px]="280">
-			<mat-label>Nome</mat-label>
-			<input matInput name="workout-name" type="text" [(ngModel)]="this.workout.name">
-		</mat-form-field>
-
-		<mat-form-field appearance="outline" [style.width.px]="280">
-			<mat-label>Data dell'allenamento</mat-label>
-			<input matInput [matDatepicker]="picker" [(ngModel)]="date">
-			<mat-datepicker-toggle matSuffix [for]="picker" />
-			<mat-datepicker #picker [(ngModel)]="date" ngDefaultControl (selectedChanged)="onDate($event)"/>
-		</mat-form-field>
+		<div class="input-group mb-3" style="color: rgb(69,69,188); width: 300px; margin: auto;">
+			<span class="input-group-text" id="inputGroup-sizing-default">Data</span>
+			<input type="date" class="form-control" placeholder="data" style="box-shadow: none; font-weight: bold;" [(ngModel)]="this.workout.date">
+		</div>
 	</div>
 
 	<mat-accordion>
 		<mat-expansion-panel hideToggle *ngFor="let exercise of this.workout.exercises; index as exerciseIndex">
 			<mat-expansion-panel-header>
-				<mat-panel-title>{{exercise.name}}</mat-panel-title>
-				<mat-panel-description>{{exercise.restTime != "" ? "Recupero: " + exercise.restTime + " - " : ""}} RPE: {{exercise.RPE}}</mat-panel-description>
+				<mat-panel-title>{{exercise.name != "" ? exercise.name : "Nuovo Esercizio"}}</mat-panel-title>
 			</mat-expansion-panel-header>
 
-			<form *ngIf="!exercise.completed" #exerciseDataForm="ngForm" (ngSubmit)="saveExerciseData(exerciseIndex)">
-				<div id="input-container">
-					<mat-form-field appearance="outline" [style.width.px]="110">
-						<mat-label>Serie</mat-label>
-						<input matInput name="series" type="number" [(ngModel)]="exercise.series">
-					</mat-form-field>
+			<div class="input-group mb-3">
+				<label class="input-group-text custom-span" for="inputGroupSelect01">Esercizio</label>
+				<select [disabled]="exercise.completed" class="form-select custom-select" [ngStyle]="!isDesktop() && {'font-size': '80%'}" id="inputGroupSelect01" [(ngModel)]="exercise.name">
+					<option selected disabled value="">Seleziona un esercizio</option>
+					<option *ngFor="let exercise of availableExercise" [value]="exercise">{{exercise}}</option>
+				</select>
+			</div>
 
-					<mat-form-field appearance="outline" [style.width.px]="110">
-						<mat-label>Ripetizioni</mat-label>
-						<input matInput name="reps" type="number" [(ngModel)]="exercise.reps">
-						<mat-hint *ngIf="exercise.range">{{"Range: " + exercise.range[0] + "-" + exercise.range[1]}}</mat-hint>
-					</mat-form-field>
+			<div *ngIf="exercise.range" class="alert alert-info custom-alert">
+				<i class="bi bi-info-square-fill" style="margin-right: 10px"></i>
+				{{"Il range di ripetizioni per questo esercizio è " + exercise.range[0] + "-" + exercise.range[1] + " reps"}}
+			</div>
 
-					<mat-form-field appearance="outline" [style.width.px]="110">
-						<mat-label>Carico</mat-label>
-						<input matInput name="load" type="number" required [(ngModel)]="exercise.load">
-					</mat-form-field>
+			<div *ngIf="isDesktop()" class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
+				<span class="input-group-text custom-span" id="inputGroup-sizing-default">Serie</span>
+				<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.series">
+
+				<span class="input-group-text custom-span" id="inputGroup-sizing-default">Reps</span>
+				<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.reps">
+
+				<span class="input-group-text custom-span" id="inputGroup-sizing-default">Carico (kg)</span>
+				<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.load">
+
+				<span class="input-group-text custom-span" id="inputGroup-sizing-default">RPE</span>
+				<input [disabled]="exercise.completed" type="number" min="0" max="10" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.RPE">
+			</div>
+
+			<div *ngIf="!isDesktop()">
+				<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
+					<span class="input-group-text custom-span" id="inputGroup-sizing-default">Serie</span>
+					<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.series">
 				</div>
 
-				<mat-label>RPE</mat-label>
-				<mat-slider id="slider" min="1" max="10" step="1" discrete [displayWith]="formatLabel">
-					<input matSliderThumb name="RPE" name="rpe" [(ngModel)]="exercise.RPE">
-				</mat-slider>
+				<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
+					<span class="input-group-text custom-span" id="inputGroup-sizing-default">Reps</span>
+					<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.reps">
+				</div>
+				<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
+					<span class="input-group-text custom-span" id="inputGroup-sizing-default">Carico (kg)</span>
+					<input [disabled]="exercise.completed" type="number" min="0" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.load">
+				</div>
+				<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
+					<span class="input-group-text custom-span" id="inputGroup-sizing-default">RPE</span>
+					<input [disabled]="exercise.completed" type="number" min="0" max="10" class="form-control" style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.RPE">
+				</div>
+			</div>
+				<!-- <mat-label style="font-weight:bold; font-family: 'Josefin Sans', sans-serif; color:rgb(69,69,188); margin-right: 15px; margin-left: 5px;">RPE</mat-label>
+				<mat-slider style="width: 300px;" id="slider" min="1" max="10" step="1" discrete [displayWith]="formatLabel">
+				<input [disabled]="exercise.completed" matSliderThumb name="RPE" name="rpe" [(ngModel)]="exercise.RPE">
+			</mat-slider> -->
 
-				<!-- spazio per le note -->
-				<mat-form-field appearance="outline">
-					<mat-label>Note</mat-label>
-					<textarea matInput name="notes" type="text" [(ngModel)]="exercise.note"></textarea>
-				</mat-form-field>
+			<div class="input-group">
+				<span class="input-group-text custom-span">Note</span>
+				<input class="form-control " style="box-shadow: none; font-weight: bold;" [(ngModel)]="exercise.note" />
+			</div>
 
-				<button mat-stroked-button color="primary" type="submit" [disabled]="!exerciseDataForm.valid">Salva</button>
-				<button mat-stroked-button color="warn" (click)="delete(exerciseIndex)" style="margin-bottom: 10px;">Elimina</button>
-			</form>
+			<div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+				<button class="btn btn-outline-primary" style="margin-right: 10px;" (click)="showOldStats(exerciseIndex)">
+					<i class="bi bi-clock-history"></i>
+				</button>
 
-			<p *ngIf="exercise.completed">Serie: {{exercise.series}}</p>
-			<p *ngIf="exercise.completed">Ripetizioni: {{exercise.reps}}</p>
-			<p *ngIf="exercise.completed">Carico: {{exercise.load}}kg</p>
-			<p *ngIf="exercise.completed">RPE: {{exercise.RPE}}</p>
-			<p *ngIf="exercise.completed && exercise.note">Note: {{exercise.note}}</p>
+				<button (click)="onChangeExerciseData(exerciseIndex)" *ngIf="exercise.completed" class="btn btn-outline-dark" style="margin-right: 10px;">
+					<i class="bi bi-pencil-square"></i>
+				</button>
 
-			<button *ngIf="exercise.completed" mat-stroked-button color="primary" (click)="onChangeExerciseData(exerciseIndex)" style="margin-right: 10px;">Modifica</button>
-			<button mat-stroked-button color="primary" (click)="showOldStats(exerciseIndex)">Vedi storico</button>
+				<button (click)="saveExerciseData(exerciseIndex)" *ngIf="!exercise.completed" class="btn btn-outline-success" style="margin-right: 10px;">
+					<i class="bi bi-check-lg"></i>
+				</button>
+
+				<button (click)="delete(exerciseIndex)" class="btn btn-outline-danger">
+					<i class="bi bi-trash"></i>
+				</button>
+			</div>
 		</mat-expansion-panel>
 	</mat-accordion>
 
-	<div id="buttons-container">
-		<button id="add-exercise-button" mat-stroked-button color="primary" (click)="addExerciseToPrebuiltWorkout()">Aggiungi un Esercizio</button>
-		<button mat-raised-button color="primary" [disabled]="!savable()" (click)="saveWorkout()">Salva</button>
-		<button mat-raised-button color="warn" (click)="onCancel()">Annulla</button>
+	<div style="display: flex; justify-content: center; margin-top: 25px">
+		<button style="margin-right: 10px" class="btn btn-primary" (click)="addExerciseToPrebuiltWorkout()">
+			<i class="bi bi-plus-square" style="margin-right: 5px"></i>
+			<span style="font-weight: bold;">Aggiungi un Esercizio</span>
+		</button>
+
+		<button style="margin-right: 10px" class="btn btn-success" (click)="saveWorkout()">
+			<i class="bi bi-cloud-arrow-up" style="margin-right: 5px"></i>
+			<span style="font-weight: bold;">Salva</span>
+		</button>
+
+		<button class="btn btn-danger" (click)="onCancel()">
+			<i class="bi bi-x-circle" style="margin-right: 5px"></i>
+			<span style="font-weight: bold;">Annulla</span>
+		</button>
 	</div>
 </div>
