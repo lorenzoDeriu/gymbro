@@ -24,6 +24,10 @@ export class WelcomePageComponent implements OnInit {
 		}
 	}
 
+	isDesktop(): boolean {
+		return window.innerWidth > 1050;
+	}
+
 	login() {
 		this.authService.signin(this.email, this.password);
 	}
@@ -41,6 +45,6 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	forgotPassword() {
-		this.dialog.open(PasswordRecoverDialogComponent, {width: "300px", height: "130px", disableClose: false})
+		this.dialog.open(PasswordRecoverDialogComponent, {width: "300px", height: "135px", disableClose: false})
 	}
 }
