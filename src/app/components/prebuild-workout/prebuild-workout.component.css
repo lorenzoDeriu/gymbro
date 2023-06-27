@@ -50,9 +50,10 @@ form button {
 	font-family: 'Josefin Sans', sans-serif;
 	font-weight: bold;
 	color: rgb(69, 69, 188);
-	width: 110px;
+	width: 100px;
 	display: flex;
 	justify-content: center;
+	font-size: 0.9em;
 }
 
 .custom-alert {
@@ -68,6 +69,8 @@ form button {
 	box-shadow: none;
 	font-family: 'Josefin Sans', sans-serif;
 	font-weight: bold;
+	display: flex;
+	justify-content: flex-start;
 }
 
 @media (max-width: 780px) {

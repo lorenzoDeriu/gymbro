@@ -1,7 +1,6 @@
 import { MatDialog } from '@angular/material/dialog';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ExerciseStatsDialogComponent } from '../exercise-stats-dialog/exercise-stats-dialog.component';
@@ -41,7 +40,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 				this.workout = JSON.parse(workoutjson);
 			} else {
 				this.workout = {
-					name: "",
+					name: "Nuovo Allenamento",
 					exercises: []
 				}
 			}
@@ -100,7 +99,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	savable() {
-		if (this.date == null) return false;
+		if (this.workout.name == "" || this.workout.exercises.length == 0) return false;
 
 		for (let exercise of this.workout.exercises) {
 			if (!exercise.completed) return false
