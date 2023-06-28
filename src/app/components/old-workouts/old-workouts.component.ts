@@ -50,6 +50,10 @@ export class OldWorkoutsComponent implements OnInit {
 		this.userService.updateWorkouts(this.workouts);
 	}
 
+	editWorkout(index: number) {
+		console.log("edit workout", this.workouts[index]);
+	}
+
 	showNotes(workoutIndex: number, exerciseIndex: number) {
 		this.dialog.open(NotesDialogComponent, {
 			width: "300px",

@@ -51,12 +51,19 @@ export class PrebuildWorkoutComponent implements OnInit {
 		for (let i = 0; i < this.workout.exercises.length; i++) {
 			this.workout.exercises[i]["completed"] = (
 				this.workout.exercises[i].completed != undefined ?
-				this.workout.exercises[i].completed :
-				false
+					this.workout.exercises[i].completed :
+					false
 			);
 		}
-
+		this.workout.date = this.formatDate(this.date);
 		this.availableExercise = await this.firebase.getExercise(JSON.parse(localStorage.getItem("user")).uid);
+	}
+
+	private formatDate(date: Date): string {
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, '0');
+		const day = String(date.getDate()).padStart(2, '0');
+		return `${year}-${month}-${day}`;
 	}
 
 	isDesktop() {
