@@ -18,14 +18,14 @@ export class Exercise {
 	// 	this.note = note;
 	// }
 
-	constructor () {
-		this.exerciseName = "";
+	constructor() {
+		this.exerciseName = '';
 		this.series = 0;
 		this.reps = 0;
 		this.load = 0;
 		this.RPE = 0;
-		this.restTime = "";
-		this.note = "";
+		this.restTime = '';
+		this.note = '';
 		this.range = [1, 1];
 	}
 }

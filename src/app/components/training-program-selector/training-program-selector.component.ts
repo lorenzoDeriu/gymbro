@@ -6,15 +6,24 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 @Component({
 	selector: 'app-training-program-selector',
 	templateUrl: './training-program-selector.component.html',
-	styleUrls: ['./training-program-selector.component.css']
+	styleUrls: ['./training-program-selector.component.css'],
 })
 export class TrainingProgramSelectorComponent implements OnInit {
 	public loading: boolean;
 
 	public trainingPrograms: any[];
-	public displayedColumns: string[] = ["Esercizio", "Serie x Ripetizioni", "Recupero", "RPE"]
+	public displayedColumns: string[] = [
+		'Esercizio',
+		'Serie x Ripetizioni',
+		'Recupero',
+		'RPE',
+	];
 
-	constructor(private userService: UserService, private router: Router, private firebase: FirebaseService) { }
+	constructor(
+		private userService: UserService,
+		private router: Router,
+		private firebase: FirebaseService
+	) {}
 
 	async ngOnInit() {
 		this.loading = true;
@@ -23,13 +32,13 @@ export class TrainingProgramSelectorComponent implements OnInit {
 	}
 
 	public selectWorkout(programIndex: number, sessionIndex: number) {
-		this.userService.setWorkoutSelected(this.trainingPrograms[programIndex].session[sessionIndex]);
-		this.router.navigate(["/home/prebuild-workout"]);
+		this.userService.setWorkoutSelected(
+			this.trainingPrograms[programIndex].session[sessionIndex]
+		);
+		this.router.navigate(['/home/prebuild-workout']);
 	}
 
 	cancel() {
-		this.router.navigate(["/home"]);
+		this.router.navigate(['/home']);
 	}
-
 }
-

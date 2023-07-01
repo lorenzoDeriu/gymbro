@@ -8,28 +8,38 @@ import { Router } from '@angular/router';
 @Component({
 	selector: 'app-settings-page',
 	templateUrl: './settings-page.component.html',
-	styleUrls: ['./settings-page.component.css']
+	styleUrls: ['./settings-page.component.css'],
 })
 export class SettingsPageComponent implements OnInit {
 	public customExercises: any[] = [];
 	public visibility: boolean;
 	public username: string;
 
-	constructor(private firebase: FirebaseService, private snackBar: MatSnackBar, private authService: AuthService, private router: Router) { }
+	constructor(
+		private firebase: FirebaseService,
+		private snackBar: MatSnackBar,
+		private authService: AuthService,
+		private router: Router
+	) {}
 
 	async ngOnInit() {
 		let uid = JSON.parse(localStorage.getItem('user')).uid;
 
 		let user = await this.firebase.getUserData(uid);
 
-		this.customExercises = user["customExercises"] == undefined ? [] : user["customExercises"];
-		this.visibility = user["visibility"];
-		this.username = user["username"];
+		this.customExercises =
+			user['customExercises'] == undefined ? [] : user['customExercises'];
+		this.visibility = user['visibility'];
+		this.username = user['username'];
 	}
 
 	changePassword() {
 		this.firebase.changePassword();
-		this.snackBar.open('Ti abbiamo inviato una mail per cambiare la password', 'OK', { duration: 3000 });
+		this.snackBar.open(
+			'Ti abbiamo inviato una mail per cambiare la password',
+			'OK',
+			{ duration: 3000 }
+		);
 	}
 
 	deleteAccount() {

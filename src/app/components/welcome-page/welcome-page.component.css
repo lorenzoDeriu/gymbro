@@ -16,7 +16,9 @@
 	padding: 0 30px;
 }
 
-.no-shadow { box-shadow: none; }
+.no-shadow {
+	box-shadow: none;
+}
 
 #right-container {
 	position: sticky;
@@ -58,7 +60,7 @@
 
 .app-description {
 	font-size: 1.5rem;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	line-height: 30px;
 	color: rgb(30, 30, 87);
 	text-shadow: 1px 1px 1px rgb(146, 146, 146);
@@ -97,7 +99,7 @@
 #login-container {
 	display: flex;
 	flex-direction: column;
-	width: 45%
+	width: 45%;
 }
 
 ::ng-deep .mat-form-field-outline-start {
@@ -111,7 +113,7 @@
 
 #right-container-title {
 	font-size: 2rem;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	color: white;
 	margin-bottom: 30px;
 }

@@ -9,8 +9,8 @@
 }
 
 .text {
-	font-family: 'Josefin Sans', sans-serif;
-font-weight: bold;
+	font-family: "Josefin Sans", sans-serif;
+	font-weight: bold;
 	color: rgb(69, 69, 188);
 }
 
@@ -28,13 +28,13 @@ mat-form-field {
 }
 
 .info-text-container {
-	display:flex;
+	display: flex;
 	justify-content: center;
 }
 
 mat-card {
 	margin-top: 10px;
-	display:flex;
+	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
 	align-items: center;
@@ -66,6 +66,6 @@ mat-card {
 
 @media (max-width: 600px) {
 	#friends-page-container {
-		width: 95%
+		width: 95%;
 	}
 }

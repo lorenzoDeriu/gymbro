@@ -1,15 +1,36 @@
 <div id="feedback-container">
 	<h1><span id="title">Feedback</span></h1>
 
-	<p>Ciao! Spero che tu stia apprezzando l'utilizzo di GymBro. Qui puoi condividere con noi un tuo feedback sull'app: ci piacerebbe sapere cosa ti piace e cosa pensi possiamo migliorare per rendere l'esperienza ancora migliore. Grazie in anticipo per il tuo tempo e la tua opinione!</p>
+	<p>
+		Ciao! Spero che tu stia apprezzando l'utilizzo di GymBro. Qui puoi
+		condividere con noi un tuo feedback sull'app: ci piacerebbe sapere cosa
+		ti piace e cosa pensi possiamo migliorare per rendere l'esperienza
+		ancora migliore. Grazie in anticipo per il tuo tempo e la tua opinione!
+	</p>
 
 	<form #feedbackForm="ngForm" (ngSubmit)="sendFeedback(feedbackForm)">
 		<mat-form-field appearance="outline" class="full-width">
 			<mat-label>Feedback</mat-label>
-			<textarea matInput name="feedback" cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMaxRows="5" ngModel required></textarea>
+			<textarea
+				matInput
+				name="feedback"
+				cdkTextareaAutosize
+				cdkAutosizeMinRows="5"
+				cdkAutosizeMaxRows="5"
+				ngModel
+				required
+			></textarea>
 		</mat-form-field>
 		<div class="button-container">
-			<button mat-raised-button type="submit" color="primary" [mat-dialog-close]="" [disabled]="!feedbackForm.valid">Invia</button>
+			<button
+				mat-raised-button
+				type="submit"
+				color="primary"
+				[mat-dialog-close]=""
+				[disabled]="!feedbackForm.valid"
+			>
+				Invia
+			</button>
 		</div>
 	</form>
 

@@ -19,7 +19,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatRippleModule, MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
+import {
+	MatRippleModule,
+	MAT_DATE_LOCALE,
+	DateAdapter,
+} from '@angular/material/core';
 import { NewWorkoutComponent } from './components/new-workout/new-workout.component';
 import { OldWorkoutsComponent } from './components/old-workouts/old-workouts.component';
 import { YourProgressComponent } from './components/your-progress/your-progress.component';
@@ -69,17 +73,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
 	declarations: [
 		AppComponent,
-    	AccessComponent,
+		AccessComponent,
 		HomeComponent,
 		PageNotFoundComponent,
 		NewWorkoutComponent,
 		OldWorkoutsComponent,
 		YourProgressComponent,
 		TrainingProgramsComponent,
-  		DashboardComponent,
+		DashboardComponent,
 		NewWorkoutBuilderComponent,
 		TrainingProgramSelectorComponent,
-  		NewExerciseDialogComponent,
+		NewExerciseDialogComponent,
 		TrainingProgramBuilderComponent,
 		SessionBuilderComponent,
 		PrebuildWorkoutComponent,
@@ -93,11 +97,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 		FeedbackListComponent,
 		AddExerciseDialogComponent,
 		AboutComponent,
-  		SettingsPageComponent,
-    	ExerciseStatsComponent,
-     NotesDialogComponent,
-     ExerciseStatsDialogComponent,
-     WelcomePageComponent,
+		SettingsPageComponent,
+		ExerciseStatsComponent,
+		NotesDialogComponent,
+		ExerciseStatsDialogComponent,
+		WelcomePageComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -122,7 +126,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 		MatDatepickerModule,
 		MatNativeDateModule,
 		provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    	provideFirestore(() => getFirestore()),
+		provideFirestore(() => getFirestore()),
 		MatTableModule,
 		MatDividerModule,
 		MatCardModule,
@@ -130,17 +134,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 		MatSnackBarModule,
 		ServiceWorkerModule.register('ngsw-worker.js', {
 			enabled: !isDevMode(),
-			registrationStrategy: 'registerWhenStable:1000'
-  		}),
+			registrationStrategy: 'registerWhenStable:1000',
+		}),
 		MatTooltipModule,
 		MatSlideToggleModule,
-  		NgbModule,
+		NgbModule,
 	],
 	providers: [
 		MatNativeDateModule,
-		{ provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+		{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
 		{ provide: DateAdapter, useClass: CustomDateAdapter },
 	],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

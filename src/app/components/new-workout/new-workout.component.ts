@@ -1,15 +1,14 @@
-  import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
 	selector: 'app-new-workout',
 	templateUrl: './new-workout.component.html',
-	styleUrls: ['./new-workout.component.css']
+	styleUrls: ['./new-workout.component.css'],
 })
 export class NewWorkoutComponent implements OnInit {
-
-	constructor (private router: Router, private userService: UserService) {}
+	constructor(private router: Router, private userService: UserService) {}
 
 	ngOnInit() {}
 
@@ -18,6 +17,6 @@ export class NewWorkoutComponent implements OnInit {
 	}
 
 	navigate(path: string) {
-		this.router.navigate([path])
+		this.router.navigate([path]);
 	}
 }

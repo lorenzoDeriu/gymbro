@@ -24,24 +24,24 @@ mat-accordion table {
 
 .title {
 	color: rgb(69, 69, 188);
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	font-weight: bold;
 	/* font-size: 180%; */
 }
 
 #secondary-title {
-	font-family: 'Josefin Sans', sans-serif;
-font-weight: bold;
+	font-family: "Josefin Sans", sans-serif;
+	font-weight: bold;
 	margin-top: 10px;
 	font-size: 120%;
 }
 
 button {
-	margin-top: 10px
+	margin-top: 10px;
 }
 
 #divider {
-	margin-top: 15px
+	margin-top: 15px;
 }
 
 #exercise-name-cell {
@@ -59,7 +59,7 @@ button {
 	margin-bottom: 10px;
 }
 
-@media (max-width:900px) {
+@media (max-width: 900px) {
 	#training-programs-container {
 		width: 95%;
 	}

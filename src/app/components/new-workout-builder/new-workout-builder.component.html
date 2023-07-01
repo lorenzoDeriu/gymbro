@@ -2,34 +2,87 @@
 	<div id="date-container">
 		<mat-form-field appearance="outline">
 			<mat-label>Nome dell'allenamento</mat-label>
-			<input matInput maxlength="20" type="text" [(ngModel)]="workoutName" required>
+			<input
+				matInput
+				maxlength="20"
+				type="text"
+				[(ngModel)]="workoutName"
+				required
+			/>
 		</mat-form-field>
 
 		<mat-form-field appearance="outline">
 			<mat-label>Data dell'allenamento</mat-label>
-			<input matInput [matDatepicker]="picker" [(ngModel)]="date">
-			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-			<mat-datepicker #picker [(ngModel)]="date" ngDefaultControl (selectedChanged)="onDate($event)"></mat-datepicker>
+			<input matInput [matDatepicker]="picker" [(ngModel)]="date" />
+			<mat-datepicker-toggle
+				matSuffix
+				[for]="picker"
+			></mat-datepicker-toggle>
+			<mat-datepicker
+				#picker
+				[(ngModel)]="date"
+				ngDefaultControl
+				(selectedChanged)="onDate($event)"
+			></mat-datepicker>
 		</mat-form-field>
 	</div>
 
 	<mat-accordion>
-		<mat-expansion-panel hideToggle *ngFor="let exercise of this.getExercise(); index as index">
+		<mat-expansion-panel
+			hideToggle
+			*ngFor="let exercise of this.getExercise(); index as index"
+		>
 			<mat-expansion-panel-header>
-				<mat-panel-title><span id="exercise-name">{{exercise.name}}</span></mat-panel-title>
-				<mat-panel-description>Serie: {{exercise.series}}  Ripetizioni: {{exercise.reps}}</mat-panel-description>
+				<mat-panel-title
+					><span id="exercise-name">{{
+						exercise.name
+					}}</span></mat-panel-title
+				>
+				<mat-panel-description
+					>Serie: {{ exercise.series }} Ripetizioni:
+					{{ exercise.reps }}</mat-panel-description
+				>
 			</mat-expansion-panel-header>
-			<p *ngIf="exercise.load != ''">Peso: {{exercise.load}}kg</p>
-			<p *ngIf="exercise.RPE != ''">RPE: {{exercise.RPE}}</p>
-			<p *ngIf="exercise.note != ''">Note: {{exercise.note}}</p>
-			<button mat-stroked-button color="warn" (click)="removeElement(index)">Elimina</button>
-			<button mat-stroked-button (click)="showOldStats(index)" style="margin-left:10px;">Vedi storico</button>
+			<p *ngIf="exercise.load != ''">Peso: {{ exercise.load }}kg</p>
+			<p *ngIf="exercise.RPE != ''">RPE: {{ exercise.RPE }}</p>
+			<p *ngIf="exercise.note != ''">Note: {{ exercise.note }}</p>
+			<button
+				mat-stroked-button
+				color="warn"
+				(click)="removeElement(index)"
+			>
+				Elimina
+			</button>
+			<button
+				mat-stroked-button
+				(click)="showOldStats(index)"
+				style="margin-left: 10px"
+			>
+				Vedi storico
+			</button>
 		</mat-expansion-panel>
 	</mat-accordion>
 
 	<div id="buttons-container">
-		<button id="add-exercise-button" mat-stroked-button color="primary" (click)="openDialog()">Aggiungi un esercizio</button>
-		<button *ngIf="this.getExercise().length > 0" [disabled]="workoutName == ''" mat-raised-button color="primary" (click)="saveWorkout()">Salva</button>
-		<button mat-raised-button color="warn" (click)="onCancel()">Annulla</button>
+		<button
+			id="add-exercise-button"
+			mat-stroked-button
+			color="primary"
+			(click)="openDialog()"
+		>
+			Aggiungi un esercizio
+		</button>
+		<button
+			*ngIf="this.getExercise().length > 0"
+			[disabled]="workoutName == ''"
+			mat-raised-button
+			color="primary"
+			(click)="saveWorkout()"
+		>
+			Salva
+		</button>
+		<button mat-raised-button color="warn" (click)="onCancel()">
+			Annulla
+		</button>
 	</div>
 </div>

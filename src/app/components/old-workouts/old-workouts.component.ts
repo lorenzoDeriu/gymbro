@@ -9,16 +9,20 @@ import { NotesDialogComponent } from '../notes-dialog/notes-dialog.component';
 @Component({
 	selector: 'app-old-workouts',
 	templateUrl: './old-workouts.component.html',
-	styleUrls: ['./old-workouts.component.css']
+	styleUrls: ['./old-workouts.component.css'],
 })
 export class OldWorkoutsComponent implements OnInit {
-
 	public workouts: any[] = [];
 	displayedColumns: string[] = ['name', 'series-reps', 'load', 'rpe'];
 
 	public loading: boolean;
 
-	constructor(private userService: UserService, private router: Router, private firebase: FirebaseService, private dialog: MatDialog) {	}
+	constructor(
+		private userService: UserService,
+		private router: Router,
+		private firebase: FirebaseService,
+		private dialog: MatDialog
+	) {}
 
 	async ngOnInit() {
 		this.loading = true;
@@ -27,21 +31,23 @@ export class OldWorkoutsComponent implements OnInit {
 	}
 
 	async getWorkouts() {
-		this.workouts = (await this.firebase.getWorkouts()).sort((a: any, b: any) => {
-			let [day, month, year] = String(a.date).split("/");
-			const dateA = +new Date(+year, +month - 1, +day);
-			[day, month, year] = String(b.date).split("/");
-			const dateB = +new Date(+year, +month - 1, +day);
-			return dateB - dateA;
-		});
+		this.workouts = (await this.firebase.getWorkouts()).sort(
+			(a: any, b: any) => {
+				let [day, month, year] = String(a.date).split('/');
+				const dateA = +new Date(+year, +month - 1, +day);
+				[day, month, year] = String(b.date).split('/');
+				const dateB = +new Date(+year, +month - 1, +day);
+				return dateB - dateA;
+			}
+		);
 	}
 
 	backToHomeButton() {
-		this.router.navigate(["/home/dashboard"]);
+		this.router.navigate(['/home/dashboard']);
 	}
 
 	createWorkoutButton() {
-		this.router.navigate(["/home/new-workout-choice"]);
+		this.router.navigate(['/home/new-workout-choice']);
 	}
 
 	deleteWorkout(index: number) {
@@ -51,15 +57,17 @@ export class OldWorkoutsComponent implements OnInit {
 	}
 
 	editWorkout(index: number) {
-		console.log("edit workout", this.workouts[index]);
+		console.log('edit workout', this.workouts[index]);
 	}
 
 	showNotes(workoutIndex: number, exerciseIndex: number) {
 		this.dialog.open(NotesDialogComponent, {
-			width: "300px",
+			width: '300px',
 			data: {
-				notes: this.workouts[workoutIndex]["exercises"][exerciseIndex]["note"]
-			}
+				notes: this.workouts[workoutIndex]['exercises'][exerciseIndex][
+					'note'
+				],
+			},
 		});
 	}
 }

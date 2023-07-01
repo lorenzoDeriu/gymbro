@@ -6,23 +6,31 @@ import { UserService } from 'src/app/services/user.service';
 import { NewExerciseDialogComponent } from '../new-exercise-dialog/new-exercise-dialog.component';
 
 @Component({
-  selector: 'app-session-builder',
-  templateUrl: './session-builder.component.html',
-  styleUrls: ['./session-builder.component.css']
+	selector: 'app-session-builder',
+	templateUrl: './session-builder.component.html',
+	styleUrls: ['./session-builder.component.css'],
 })
 export class SessionBuilderComponent {
 	panelOpenState: boolean = false;
 	date: Date = new Date();
-	sessionName: string = "";
+	sessionName: string = '';
 
-	constructor(private dialog: MatDialog, private userService: UserService, private router: Router, private firebase: FirebaseService) {}
+	constructor(
+		private dialog: MatDialog,
+		private userService: UserService,
+		private router: Router,
+		private firebase: FirebaseService
+	) {}
 
 	ngOnInit(): void {
 		this.userService.exercisesReset();
 	}
 
 	openDialog() {
-		this.dialog.open(NewExerciseDialogComponent, {width: "400px", height: "650px"})
+		this.dialog.open(NewExerciseDialogComponent, {
+			width: '400px',
+			height: '650px',
+		});
 	}
 
 	public onDate(event: any): void {
@@ -34,11 +42,11 @@ export class SessionBuilderComponent {
 	}
 
 	removeElement(index: number) {
-		this.userService.removeElement(index)
+		this.userService.removeElement(index);
 	}
 
 	onCancel() {
-		this.router.navigate(["/home/training-program-builder"])
+		this.router.navigate(['/home/training-program-builder']);
 	}
 
 	saveSession() {
@@ -46,11 +54,11 @@ export class SessionBuilderComponent {
 		let session = {
 			name: this.sessionName,
 			exercises: exercises,
-		}
+		};
 
 		console.log(session);
 
 		this.userService.addSessionToTrainingProgram(session);
-		this.router.navigate(["/home/training-program-builder"]);
+		this.router.navigate(['/home/training-program-builder']);
 	}
 }

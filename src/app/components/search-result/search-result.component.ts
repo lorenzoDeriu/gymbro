@@ -6,7 +6,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 @Component({
 	selector: 'app-search-result',
 	templateUrl: './search-result.component.html',
-	styleUrls: ['./search-result.component.css']
+	styleUrls: ['./search-result.component.css'],
 })
 export class SearchResultComponent implements OnInit {
 	public searchResult: any;
@@ -14,16 +14,16 @@ export class SearchResultComponent implements OnInit {
 	constructor(private router: Router, private firebase: FirebaseService) {}
 
 	ngOnInit(): void {
-		this.searchResult = JSON.parse(localStorage.getItem("search-result"));
+		this.searchResult = JSON.parse(localStorage.getItem('search-result'));
 	}
 
 	onCancel() {
-		this.router.navigate(["/home/friends"]);
+		this.router.navigate(['/home/friends']);
 	}
 
 	async onFollow(index: number) {
 		await this.firebase.addFollow(this.searchResult[index].uid);
 
-		this.router.navigate(["/home/friends"])
+		this.router.navigate(['/home/friends']);
 	}
 }

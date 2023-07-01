@@ -3,14 +3,24 @@
 		<mat-form-field appearance="outline">
 			<mat-label>Scegli l'esercizio</mat-label>
 			<mat-select name="exerciseName" ngModel required>
-				<mat-option *ngFor="let exercise of this.options" [value]="exercise" required>
-					{{exercise}}
+				<mat-option
+					*ngFor="let exercise of this.options"
+					[value]="exercise"
+					required
+				>
+					{{ exercise }}
 				</mat-option>
 			</mat-select>
 		</mat-form-field>
 
 		<div id="show-stats-button-container">
-			<button mat-raised-button color="primary" [disabled]="!statsForm.valid">Mostra le statistiche</button>
+			<button
+				mat-raised-button
+				color="primary"
+				[disabled]="!statsForm.valid"
+			>
+				Mostra le statistiche
+			</button>
 		</div>
 	</form>
 

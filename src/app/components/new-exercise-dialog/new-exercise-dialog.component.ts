@@ -8,21 +8,25 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddExerciseDialogComponent } from '../add-exercise-dialog/add-exercise-dialog.component';
 
 @Component({
-  selector: 'app-new-exercise-dialog',
-  templateUrl: './new-exercise-dialog.component.html',
-  styleUrls: ['./new-exercise-dialog.component.css']
+	selector: 'app-new-exercise-dialog',
+	templateUrl: './new-exercise-dialog.component.html',
+	styleUrls: ['./new-exercise-dialog.component.css'],
 })
 export class NewExerciseDialogComponent {
-public myControl = new FormControl('');
-public options: string[] = [];
-public filteredOptions: Observable<string[]>;
-public exercise: Exercise;
+	public myControl = new FormControl('');
+	public options: string[] = [];
+	public filteredOptions: Observable<string[]>;
+	public exercise: Exercise;
 
-public seriesCount: number = 0;
-public repsCount: number = 0;
-public load: number = 0;
+	public seriesCount: number = 0;
+	public repsCount: number = 0;
+	public load: number = 0;
 
-	constructor(private firebase: FirebaseService, private userService: UserService, private dialog: MatDialog) {}
+	constructor(
+		private firebase: FirebaseService,
+		private userService: UserService,
+		private dialog: MatDialog
+	) {}
 
 	async ngOnInit() {
 		this.getExercises();
@@ -30,8 +34,10 @@ public load: number = 0;
 	}
 
 	async getExercises() {
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
-		this.options = (await this.firebase.getExercise(uid)).sort((a:string, b:string) => a.localeCompare(b));
+		let uid = JSON.parse(localStorage.getItem('user'))['uid'];
+		this.options = (await this.firebase.getExercise(uid)).sort(
+			(a: string, b: string) => a.localeCompare(b)
+		);
 	}
 
 	formatLabel(value: number): string {

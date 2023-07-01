@@ -13,7 +13,7 @@ form {
 	flex-direction: column;
 	align-items: flex-start;
 	padding: 0;
-	border:rgb(69, 69, 188) 1px solid;
+	border: rgb(69, 69, 188) 1px solid;
 	border-radius: 10px;
 	padding: 10px;
 	margin-bottom: 20px;
@@ -25,7 +25,7 @@ form {
 
 #title span {
 	font-size: 1.5rem;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	font-weight: bold;
 	color: rgb(69, 69, 188);
 }
@@ -36,7 +36,7 @@ form {
 }
 
 #custom-exercise-name {
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	font-weight: bold;
 	color: rgb(69, 69, 188);
 }
@@ -51,8 +51,8 @@ mat-expansion-panel {
 }
 
 mat-expansion-panel-header {
-	font-family: 'Josefin Sans', sans-serif;
-font-weight: bold;
+	font-family: "Josefin Sans", sans-serif;
+	font-weight: bold;
 }
 
 #exercise-setting-container {
@@ -62,7 +62,6 @@ font-weight: bold;
 	align-items: center;
 	margin-bottom: 5px;
 }
-
 
 @media (max-width: 600px) {
 	#settings-container {

@@ -1,7 +1,7 @@
 #main-container {
 	width: 60%;
 	height: 40em;
-	margin:auto;
+	margin: auto;
 	display: grid;
 	grid-auto-columns: auto;
 	grid-auto-rows: auto;
@@ -11,7 +11,7 @@
 		"tp"
 		"ts";
 	margin-top: 1em;
-	gap: 10px
+	gap: 10px;
 }
 
 img {
@@ -21,18 +21,18 @@ img {
 
 .home-div {
 	border: 2px solid #ccc;
-	transition: box-shadow .3s;
+	transition: box-shadow 0.3s;
 }
 
 .home-div:hover {
-	box-shadow: 0 0 15px rgba(33,33,33,.2);
+	box-shadow: 0 0 15px rgba(33, 33, 33, 0.2);
 }
 
 .home-div h2 {
 	margin-top: 4%;
 	margin-left: 3%;
-	font-family: 'Josefin Sans', sans-serif;
-font-weight: bold;
+	font-family: "Josefin Sans", sans-serif;
+	font-weight: bold;
 	color: rgb(69, 69, 188);
 	font-size: 150%;
 }
@@ -105,20 +105,23 @@ img {
 }
 
 @keyframes increaseOpacity {
-	0% {opacity: 0.2}
-	100%  {opacity: 1}
+	0% {
+		opacity: 0.2;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
-@media(min-width: 900px) {
+@media (min-width: 900px) {
 	#main-container {
 		grid-template-areas:
-		"na na na tp"
-		"na na na tp"
-		"va va va tp"
-		"va va va tp"
-		"ts ts ts ts"
-		"ts ts ts ts"
-		;
+			"na na na tp"
+			"na na na tp"
+			"va va va tp"
+			"va va va tp"
+			"ts ts ts ts"
+			"ts ts ts ts";
 
 		margin-top: 5em;
 		gap: 30px;

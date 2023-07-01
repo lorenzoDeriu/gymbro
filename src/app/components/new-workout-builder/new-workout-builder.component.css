@@ -1,7 +1,7 @@
 #workout-builder-container {
 	width: 50%;
 	margin: auto;
-	margin-top: 10px
+	margin-top: 10px;
 }
 
 #date-container {
@@ -20,14 +20,14 @@
 
 #buttons-container button {
 	width: 300px;
-	margin-top: 10px
+	margin-top: 10px;
 }
 
 #add-exercise-button {
 	margin-bottom: 10px;
 }
 
-@media (max-width:900px) {
+@media (max-width: 900px) {
 	#exercise-name {
 		font-size: 65%;
 	}
@@ -35,7 +35,7 @@
 
 @media (max-width: 600px) {
 	#workout-builder-container {
-		width:90%
+		width: 90%;
 	}
 
 	#date-container {
@@ -43,4 +43,3 @@
 		margin-right: 0%;
 	}
 }
-

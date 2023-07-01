@@ -23,33 +23,51 @@ import { SettingsPageComponent } from './components/settings-page/settings-page.
 import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
 
 const routes: Routes = [
-	{path: "", redirectTo: "home", pathMatch: "full"},
-	{path: "welcome", component:/*  window.innerWidth > 400 ? */ WelcomePageComponent /* : null */}, // TODO page for mobile
-	{path: "access", component: AccessComponent},
-	{path: "home", component: HomeComponent, canActivate:[AuthGuard], children: [
-		{path: "", redirectTo: "dashboard", pathMatch: "full"},
-		{path: "dashboard", component: DashboardComponent},
-		{path: "new-workout-choice", component: NewWorkoutComponent},
-		{path: "new-workout-builder", component: NewWorkoutBuilderComponent},
-		{path: "old-workouts", component: OldWorkoutsComponent},
-		{path: "progress", component: YourProgressComponent},
-		{path: "training-program-selector", component: TrainingProgramSelectorComponent},
-		{path: "training-programs", component: TrainingProgramsComponent},
-		{path: "training-program-builder", component: TrainingProgramBuilderComponent},
-		{path: "session-builder", component: SessionBuilderComponent},
-		{path: "prebuild-workout", component: PrebuildWorkoutComponent},
-		{path: "friends", component: FriendsComponent},
-		{path: "search-result", component: SearchResultComponent},
-		{path: "profile", component: ProfileComponent},
-		{path: "about", component: AboutComponent},
-		{path: "settings", component: SettingsPageComponent}
-	]},
-	{path: "admin", component: AdminComponent},
-	{path: "**", component: PageNotFoundComponent}
+	{ path: '', redirectTo: 'home', pathMatch: 'full' },
+	{
+		path: 'welcome',
+		component:
+			/*  window.innerWidth > 400 ? */ WelcomePageComponent /* : null */,
+	}, // TODO page for mobile
+	{ path: 'access', component: AccessComponent },
+	{
+		path: 'home',
+		component: HomeComponent,
+		canActivate: [AuthGuard],
+		children: [
+			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+			{ path: 'dashboard', component: DashboardComponent },
+			{ path: 'new-workout-choice', component: NewWorkoutComponent },
+			{
+				path: 'new-workout-builder',
+				component: NewWorkoutBuilderComponent,
+			},
+			{ path: 'old-workouts', component: OldWorkoutsComponent },
+			{ path: 'progress', component: YourProgressComponent },
+			{
+				path: 'training-program-selector',
+				component: TrainingProgramSelectorComponent,
+			},
+			{ path: 'training-programs', component: TrainingProgramsComponent },
+			{
+				path: 'training-program-builder',
+				component: TrainingProgramBuilderComponent,
+			},
+			{ path: 'session-builder', component: SessionBuilderComponent },
+			{ path: 'prebuild-workout', component: PrebuildWorkoutComponent },
+			{ path: 'friends', component: FriendsComponent },
+			{ path: 'search-result', component: SearchResultComponent },
+			{ path: 'profile', component: ProfileComponent },
+			{ path: 'about', component: AboutComponent },
+			{ path: 'settings', component: SettingsPageComponent },
+		],
+	},
+	{ path: 'admin', component: AdminComponent },
+	{ path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule]
+	exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

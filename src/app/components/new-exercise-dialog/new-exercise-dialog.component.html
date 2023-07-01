@@ -1,22 +1,42 @@
-<form #newWorkoutForm="ngForm" id="new-workout-form" (ngSubmit)="onSubmit(newWorkoutForm)">
+<form
+	#newWorkoutForm="ngForm"
+	id="new-workout-form"
+	(ngSubmit)="onSubmit(newWorkoutForm)"
+>
 	<div id="exercise-name-container">
 		<mat-form-field appearance="outline">
 			<mat-label>Esercizio</mat-label>
-			<mat-select name="exerciseName" [(ngModel)]="exercise.exerciseName" required>
+			<mat-select
+				name="exerciseName"
+				[(ngModel)]="exercise.exerciseName"
+				required
+			>
 				<mat-option *ngFor="let exercise of options" [value]="exercise">
-					{{exercise}}
+					{{ exercise }}
 				</mat-option>
 			</mat-select>
 		</mat-form-field>
 
-		<button mat-icon-button type="button" id="add-custom-exercise-button" (click)="onAddCustomExercise()" #tooltip="matTooltip" matTooltip="Aggiungi un esercizio personalizzato">
-			<img src="../../../assets/AddExerciseIcon.png" alt="">
+		<button
+			mat-icon-button
+			type="button"
+			id="add-custom-exercise-button"
+			(click)="onAddCustomExercise()"
+			#tooltip="matTooltip"
+			matTooltip="Aggiungi un esercizio personalizzato"
+		>
+			<img src="../../../assets/AddExerciseIcon.png" alt="" />
 		</button>
 	</div>
 
 	<mat-form-field appearance="outline">
 		<mat-label>Serie</mat-label>
-		<input matInput name="series" type="number" [(ngModel)]="exercise.series">
+		<input
+			matInput
+			name="series"
+			type="number"
+			[(ngModel)]="exercise.series"
+		/>
 	</mat-form-field>
 
 	<!-- <mat-form-field appearance="outline">
@@ -25,34 +45,75 @@
 	</mat-form-field> -->
 
 	<mat-label>Rep-Range</mat-label>
-	<mat-slider id="slider" min="1" max="25" step="1" discrete [displayWith]="formatLabel">
+	<mat-slider
+		id="slider"
+		min="1"
+		max="25"
+		step="1"
+		discrete
+		[displayWith]="formatLabel"
+	>
 		<!-- <input matSliderThumb name="RPE" name="rpe" [(ngModel)]="exercise.RPE"> -->
-		<input matSliderStartThumb name="min" [(ngModel)]="exercise.range[0]">
-		<input matSliderEndThumb name="max" [(ngModel)]="exercise.range[1]">
+		<input matSliderStartThumb name="min" [(ngModel)]="exercise.range[0]" />
+		<input matSliderEndThumb name="max" [(ngModel)]="exercise.range[1]" />
 	</mat-slider>
 
 	<mat-form-field appearance="outline">
 		<mat-label>Carico</mat-label>
-		<input matInput name="load" type="number" [(ngModel)]="exercise.load">
+		<input matInput name="load" type="number" [(ngModel)]="exercise.load" />
 	</mat-form-field>
 
 	<mat-form-field appearance="outline">
-	<mat-label>Tempo di recupero</mat-label>
-		<input matInput name="restTime" type="time" [(ngModel)]="exercise.restTime">
+		<mat-label>Tempo di recupero</mat-label>
+		<input
+			matInput
+			name="restTime"
+			type="time"
+			[(ngModel)]="exercise.restTime"
+		/>
 	</mat-form-field>
 
 	<mat-label>RPE</mat-label>
-	<mat-slider id="slider" min="1" max="10" step="1" discrete [displayWith]="formatLabel">
-		<input matSliderThumb name="RPE" name="rpe" [(ngModel)]="exercise.RPE">
+	<mat-slider
+		id="slider"
+		min="1"
+		max="10"
+		step="1"
+		discrete
+		[displayWith]="formatLabel"
+	>
+		<input
+			matSliderThumb
+			name="RPE"
+			name="rpe"
+			[(ngModel)]="exercise.RPE"
+		/>
 	</mat-slider>
 
 	<mat-form-field appearance="outline">
 		<mat-label>Note</mat-label>
-		<textarea matInput name="note" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="2" [(ngModel)]="exercise.note"></textarea>
+		<textarea
+			matInput
+			name="note"
+			cdkTextareaAutosize
+			cdkAutosizeMinRows="1"
+			cdkAutosizeMaxRows="2"
+			[(ngModel)]="exercise.note"
+		></textarea>
 	</mat-form-field>
 
 	<div id="button-container">
-		<button type="submit" mat-raised-button color="primary" [mat-dialog-close]="" [disabled]="!newWorkoutForm.valid">Aggiungi</button>
-		<button mat-raised-button color="warn" [mat-dialog-close]="">Annulla</button>
+		<button
+			type="submit"
+			mat-raised-button
+			color="primary"
+			[mat-dialog-close]=""
+			[disabled]="!newWorkoutForm.valid"
+		>
+			Aggiungi
+		</button>
+		<button mat-raised-button color="warn" [mat-dialog-close]="">
+			Annulla
+		</button>
 	</div>
 </form>
