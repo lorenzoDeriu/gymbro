@@ -1,11 +1,11 @@
 <div id="workout-container">
 	<div id="title-container" style="margin-top: 15px; margin-bottom: 20px">
-		<div class="input-group mb-3" style="color: rgb(69,69,188); width: 300px; margin: auto; margin-top:20px">
+		<div class="input-group mb-2" style="color: rgb(69,69,188); width: 300px; margin: auto; margin-top:20px">
 			<span class="input-group-text custom-span" id="inputGroup-sizing-default">Allenamento</span>
 			<input type="text" class="form-control" style="box-shadow: none; font-family: 'Josefin Sans', sans-serif" [(ngModel)]="this.workout.name">
 		</div>
 
-		<div class="input-group mb-3" style="color: rgb(69,69,188); width: 300px; margin: auto;">
+		<div class="input-group mb-2" style="color: rgb(69,69,188); width: 300px; margin: auto;">
 			<span class="input-group-text custom-span" id="inputGroup-sizing-default">Data</span>
 			<input type="date" class="form-control" style="box-shadow: none; font-family: 'Josefin Sans', sans-serif" [(ngModel)]="this.workout.date">
 		</div>
@@ -17,12 +17,21 @@
 				<mat-panel-title>{{exercise.name != "" ? exercise.name : "Nuovo Esercizio"}}</mat-panel-title>
 			</mat-expansion-panel-header>
 
-			<div class="input-group mb-3">
+			<div class="input-group mb-2">
 				<label class="input-group-text custom-span" for="inputGroupSelect01">Esercizio</label>
-				<select [disabled]="exercise.completed" class="form-select custom-select" [ngStyle]="!isDesktop() && {'font-size': '80%'}" id="inputGroupSelect01" [(ngModel)]="exercise.name">
+				<select
+					[disabled]="exercise.completed"
+					class="form-select custom-select"
+					[ngStyle]="!isDesktop() && {'font-size': '80%'}"
+					id="inputGroupSelect01"
+					[(ngModel)]="exercise.name"
+				>
 					<option selected disabled value="">Seleziona un esercizio</option>
 					<option *ngFor="let exercise of availableExercise" [value]="exercise">{{exercise}}</option>
 				</select>
+				<button (click)="openCustomExerciseDialog(exercise)" class="btn btn-outline-secondary custom-button" type="button" id="button-addon2">
+					<i class="bi bi-plus-circle"></i> <span  style="font-size: 0.8em; margin-left: 5px;">Crea</span>
+				</button>
 			</div>
 
 			<div *ngIf="exercise.range" class="alert alert-info custom-alert">
@@ -30,7 +39,7 @@
 				{{"Il range di ripetizioni per questo esercizio è " + exercise.range[0] + "-" + exercise.range[1] + " reps"}}
 			</div>
 
-			<div *ngIf="isDesktop()" class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
+			<div *ngIf="isDesktop()" class="input-group mb-2" style="color: rgb(69,69,188); margin: auto;">
 				<span class="input-group-text custom-span" id="inputGroup-sizing-default">Serie</span>
 				<input
 					[disabled]="exercise.completed"
@@ -62,8 +71,9 @@
 				>
 			</div>
 
+			<!-- Mobile -->
 			<div *ngIf="!isDesktop()">
-				<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
+				<div class="input-group mb-2" style="color: rgb(69,69,188); margin: auto;">
 					<span class="input-group-text custom-span" id="inputGroup-sizing-default">Serie</span>
 					<input
 						[disabled]="exercise.completed"
@@ -73,9 +83,6 @@
 						style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
 						[(ngModel)]="exercise.series"
 					>
-				</div>
-
-				<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
 					<span class="input-group-text custom-span" id="inputGroup-sizing-default">Reps</span>
 					<input
 						[disabled]="exercise.completed"
@@ -86,7 +93,10 @@
 						[(ngModel)]="exercise.reps"
 					>
 				</div>
-				<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
+
+				<!-- <div class="input-group mb-2" style="color: rgb(69,69,188); margin: auto;">
+				</div> -->
+				<div class="input-group mb-2" style="color: rgb(69,69,188); margin: auto;">
 					<span class="input-group-text custom-span" id="inputGroup-sizing-default">Carico (kg)</span>
 					<input
 						[disabled]="exercise.completed"
@@ -98,7 +108,7 @@
 					>
 				</div>
 			</div>
-			<div class="input-group mb-3" style="color: rgb(69,69,188); margin: auto;">
+			<div class="input-group mb-2" style="color: rgb(69,69,188); margin: auto;">
 				<span class="input-group-text custom-span" id="inputGroup-sizing-default">RPE</span>
 				<input
 					[disabled]="exercise.completed"
@@ -111,7 +121,7 @@
 				>
 			</div>
 
-			<div class="input-group">
+			<div class="input-group mb-2">
 				<span class="input-group-text custom-span">Note</span>
 				<input
 					[disabled]="exercise.completed"
@@ -121,9 +131,44 @@
 				/>
 			</div>
 
+			<div class="input-group mb-2">
+				<label class="input-group-text custom-span" for="inputGroupSelect01">Recupero</label>
+				<select
+					[disabled]="exercise.completed"
+					class="form-select custom-select"
+					id="inputGroupSelect01"
+					[(ngModel)]="this.restTime[exerciseIndex].minutes"
+				>
+					<option value="00">00</option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+				</select>
+				<label class="input-group-text" for="inputGroupSelect01">:</label>
+				<select
+					[disabled]="exercise.completed"
+					class="form-select custom-select"
+					id="inputGroupSelect01"
+					[(ngModel)]="this.restTime[exerciseIndex].seconds"
+				>
+					<option value="00">00</option>
+					<option value="15">15</option>
+					<option value="30">30</option>
+					<option value="45">45</option>
+				</select>
+				<button class="btn btn-outline-dark custom-button" type="button" id="button-addon2" (click)="this.startRestTime(exerciseIndex)">
+					<i class="bi bi-hourglass-split"></i>
+				</button>
+			</div>
+			<div *ngIf="this.restTime[exerciseIndex].running" class="progress" role="progressbar" aria-label="Example with label" aria-valuemin="0" aria-valuemax="100">
+				<div class="progress-bar" [ngStyle]="{'width': percentageRemaining(), 'background-color': 'rgb(69,69,188)', 'border-radius': '30px'}">{{this.formatTime(this.secondsRemaining)}}</div>
+			</div>
+
 			<div style="display: flex; justify-content: flex-end; margin-top: 10px;">
 				<button class="btn btn-outline-primary" style="margin-right: 10px;" (click)="showOldStats(exerciseIndex)">
-					<i style="font-size: 1.2em" class="bi bi-clock-history"></i>
+					<i style="font-size: 1.2em" class="bi bi-clipboard-data"></i>
 				</button>
 
 				<button (click)="onChangeExerciseData(exerciseIndex)" *ngIf="exercise.completed" class="btn btn-outline-dark" style="margin-right: 10px;">
@@ -141,7 +186,7 @@
 		</mat-expansion-panel>
 	</mat-accordion>
 
-	<div style="display: flex; justify-content: center; margin-top: 25px">
+	<div style="display: flex; justify-content: center; margin-top: 25px; margin-bottom: 30px;">
 		<button style="margin-right: 10px" class="btn btn-outline-primary" (click)="addExerciseToPrebuiltWorkout()">
 			<i [ngStyle]='isDesktop() && {"font-size": "1.2em"}' class="bi bi-plus-square"></i>
 			<span [ngStyle]="!isDesktop() &&{'font-size': '0.7em'}" style="font-family: 'josefin Sans', sans-serif; margin-left: 5px ;">Esercizio</span>

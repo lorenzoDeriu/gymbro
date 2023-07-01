@@ -73,6 +73,21 @@ form button {
 	justify-content: flex-start;
 }
 
+.custom-button {
+	color: rgb(69, 69, 188) !important;
+	background-color: #fff !important;
+	border-color: rgb(69, 69, 188) !important;
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: bold;
+}
+
+.custom-button:hover {
+	color: #fff !important;
+	background-color: rgb(69, 69, 188) !important;
+	border-color: rgb(69, 69, 188) !important;
+	text-decoration: none;
+}
+
 @media (max-width: 780px) {
 	#workout-container {
 		width: 95%;

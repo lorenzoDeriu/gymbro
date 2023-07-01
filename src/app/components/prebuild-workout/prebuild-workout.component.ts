@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ExerciseStatsDialogComponent } from '../exercise-stats-dialog/exercise-stats-dialog.component';
+import { AddExerciseDialogComponent } from '../add-exercise-dialog/add-exercise-dialog.component';
 
 @Component({
   selector: 'app-prebuild-workout',
@@ -12,6 +13,7 @@ import { ExerciseStatsDialogComponent } from '../exercise-stats-dialog/exercise-
 })
 export class PrebuildWorkoutComponent implements OnInit {
 	public workout: any;
+	public restTime: any[] = [];
 	public date: Date = new Date();
 
 	public availableExercise: string[];
@@ -54,7 +56,14 @@ export class PrebuildWorkoutComponent implements OnInit {
 					this.workout.exercises[i].completed :
 					false
 			);
+
+			this.restTime.push(this.workout.exercises[i].rest ?
+				{...this.workout.exercises[i].rest, running: false}
+				:
+				{minutes: "00", seconds: "00", running: false}
+			);
 		}
+
 		this.workout.date = this.formatDate(this.date);
 		this.availableExercise = await this.firebase.getExercise(JSON.parse(localStorage.getItem("user")).uid);
 	}
@@ -91,7 +100,13 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	showOldStats(exerciseIndex: number) {
-		this.dialog.open(ExerciseStatsDialogComponent, {width: "300px", height: "300px", data: {exerciseName: this.workout.exercises[exerciseIndex].name}})
+		this.dialog.open(ExerciseStatsDialogComponent,
+			{
+				width: "300px",
+				height: "300px",
+				data: {exerciseName: this.workout.exercises[exerciseIndex].name}
+			}
+		);
 	}
 
 	saveWorkout() {
@@ -128,6 +143,50 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.router.navigate(["/home"]);
 	}
 
+	public totalSeconds: number = 0;
+	public secondsRemaining: number = 0;
+	async startRestTime(exerciseIndex: number) {
+		this.restTime[exerciseIndex].running = true;
+
+		let minutes = parseInt(this.restTime[exerciseIndex].minutes);
+		let seconds = parseInt(this.restTime[exerciseIndex].seconds);
+
+		this.secondsRemaining = minutes * 60 + seconds;
+		this.totalSeconds = minutes * 60 + seconds;
+		while (this.secondsRemaining >= 0) {
+			minutes = Math.floor(this.secondsRemaining / 60);
+			seconds = this.secondsRemaining % 60;
+
+			minutes = minutes < 10 ? 0 + minutes : minutes;
+			seconds = seconds < 10 ? 0 + seconds : seconds;
+
+			await (() => new Promise(resolve => setTimeout(resolve, 1000)))();
+			this.secondsRemaining--;
+		}
+
+		this.restTime[exerciseIndex].running = false;
+	}
+
+	percentageRemaining(): string {
+		return String(this.secondsRemaining / this.totalSeconds * 100) + "%";
+	}
+
+	formatTime(time: number) {
+		let minutes = Math.floor(time / 60);
+		let seconds = time % 60;
+
+		return (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+	}
+
+	openCustomExerciseDialog(exercise: any) {
+		this.dialog.open(AddExerciseDialogComponent).afterClosed().subscribe(async (customExercise) => {
+			exercise.name = customExercise;
+
+			console.log(exercise.name, customExercise)
+			this.availableExercise = await this.firebase.getExercise(JSON.parse(localStorage.getItem("user")).uid);
+		});
+	}
+
 	addExerciseToPrebuiltWorkout() {
 		localStorage.removeItem("exercise");
 
@@ -135,12 +194,13 @@ export class PrebuildWorkoutComponent implements OnInit {
 			name: "",
 			load: 0,
 			RPE: 0,
-			restTime: "",
+			restTime: {minutes: "00", seconds: "00", running: false},
 			series: 0,
 			reps: 0,
 		}
 
 		this.workout.exercises.push(exercise)
+		this.restTime.push({minutes: "00", seconds: "00", running: false});
 		this.updateWorkoutOnLocalStorage();
 	}
 }
