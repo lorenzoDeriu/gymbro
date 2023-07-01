@@ -158,8 +158,15 @@
 					<option value="30">30</option>
 					<option value="45">45</option>
 				</select>
-				<button class="btn btn-outline-dark custom-button" type="button" id="button-addon2" (click)="this.startRestTime(exerciseIndex)">
-					<i class="bi bi-hourglass-split"></i>
+				<button
+					class="btn btn-outline-dark custom-button"
+					type="button"
+					id="button-addon2"
+					(click)="!this.restTime[exerciseIndex].running ?
+						this.startRestTime(exerciseIndex) : this.stopRestTime()"
+				>
+					<i *ngIf="!this.restTime[exerciseIndex].running" class="bi bi-hourglass-split"></i>
+					<i *ngIf="this.restTime[exerciseIndex].running" class="bi bi-x-circle"></i>
 				</button>
 			</div>
 			<div *ngIf="this.restTime[exerciseIndex].running" class="progress" role="progressbar" aria-label="Example with label" aria-valuemin="0" aria-valuemax="100">

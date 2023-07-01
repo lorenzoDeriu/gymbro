@@ -145,15 +145,18 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	public totalSeconds: number = 0;
 	public secondsRemaining: number = 0;
+	public stopTimer: boolean = false;
+
 	async startRestTime(exerciseIndex: number) {
 		this.restTime[exerciseIndex].running = true;
+		this.stopTimer = false;
 
 		let minutes = parseInt(this.restTime[exerciseIndex].minutes);
 		let seconds = parseInt(this.restTime[exerciseIndex].seconds);
 
 		this.secondsRemaining = minutes * 60 + seconds;
 		this.totalSeconds = minutes * 60 + seconds;
-		while (this.secondsRemaining >= 0) {
+		while (this.secondsRemaining >= 0 && !this.stopTimer) {
 			minutes = Math.floor(this.secondsRemaining / 60);
 			seconds = this.secondsRemaining % 60;
 
@@ -165,6 +168,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}
 
 		this.restTime[exerciseIndex].running = false;
+	}
+
+	stopRestTime() {
+		this.stopTimer = true;
 	}
 
 	percentageRemaining(): string {
