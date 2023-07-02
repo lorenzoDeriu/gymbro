@@ -1,28 +1,17 @@
 <div id="search-result-container">
-	<div
-		id="info"
-		*ngIf="this.searchResult.length == 0"
-	>
+	<div id="info" *ngIf="this.searchResult.length == 0">
 		<span>La ricerca non ha prodotto risultati</span>
 	</div>
 
 	<mat-card *ngFor="let user of this.searchResult; index as i">
 		<div id="card-title">
-			<img
-				src="../../../assets/personIcon.png"
-				alt=""
-			/>
+			<img src="../../../assets/personIcon.png" alt="" />
 			<span id="username">
 				<b>{{ user.username }}</b>
 			</span>
 		</div>
 
-		<button
-			mat-button
-			(click)="onFollow(i)"
-		>
-			Follow
-		</button>
+		<button mat-button (click)="onFollow(i)">Follow</button>
 	</mat-card>
 
 	<div id="cancel-button-container">

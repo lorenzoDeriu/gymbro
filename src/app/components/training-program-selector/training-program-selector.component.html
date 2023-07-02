@@ -45,36 +45,21 @@
 						</mat-panel-description>
 					</mat-expansion-panel-header>
 
-					<table
-						mat-table
-						[dataSource]="session.exercises"
-					>
+					<table mat-table [dataSource]="session.exercises">
 						<ng-container matColumnDef="Esercizio">
-							<th
-								mat-header-cell
-								*matHeaderCellDef
-							>
+							<th mat-header-cell *matHeaderCellDef>
 								<b>Esercizio</b>
 							</th>
-							<td
-								mat-cell
-								*matCellDef="let element"
-							>
+							<td mat-cell *matCellDef="let element">
 								{{ element.name }}
 							</td>
 						</ng-container>
 
 						<ng-container matColumnDef="Serie x Ripetizioni">
-							<th
-								mat-header-cell
-								*matHeaderCellDef
-							>
+							<th mat-header-cell *matHeaderCellDef>
 								<b>Serie x Ripetizioni</b>
 							</th>
-							<td
-								mat-cell
-								*matCellDef="let element"
-							>
+							<td mat-cell *matCellDef="let element">
 								{{
 									element.series > 0 && element.reps > 0
 										? element.series +
@@ -91,16 +76,10 @@
 						</ng-container>
 
 						<ng-container matColumnDef="Recupero">
-							<th
-								mat-header-cell
-								*matHeaderCellDef
-							>
+							<th mat-header-cell *matHeaderCellDef>
 								<b>Recupero</b>
 							</th>
-							<td
-								mat-cell
-								*matCellDef="let element"
-							>
+							<td mat-cell *matCellDef="let element">
 								{{
 									element.restTime != undefined
 										? element.restTime
@@ -110,16 +89,10 @@
 						</ng-container>
 
 						<ng-container matColumnDef="RPE">
-							<th
-								mat-header-cell
-								*matHeaderCellDef
-							>
+							<th mat-header-cell *matHeaderCellDef>
 								<b>RPE</b>
 							</th>
-							<td
-								mat-cell
-								*matCellDef="let element"
-							>
+							<td mat-cell *matCellDef="let element">
 								{{ element.RPE > 0 ? element.RPE : "/" }}
 							</td>
 						</ng-container>
@@ -149,11 +122,7 @@
 	</mat-accordion>
 
 	<div id="cancel-button-container">
-		<button
-			mat-raised-button
-			color="warn"
-			(click)="cancel()"
-		>
+		<button mat-raised-button color="warn" (click)="cancel()">
 			Annulla
 		</button>
 	</div>

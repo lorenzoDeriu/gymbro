@@ -1,14 +1,8 @@
-<div
-	*ngIf="isDesktop()"
-	id="welcom-page-container"
->
+<div *ngIf="isDesktop()" id="welcom-page-container">
 	<div id="left-container">
 		<section class="scroll-area">
 			<div id="logo-container">
-				<img
-					src="../../../assets/logo.png"
-					alt=""
-				/>
+				<img src="../../../assets/logo.png" alt="" />
 			</div>
 
 			<div>
@@ -146,10 +140,7 @@
 			</span>
 		</div>
 		<span style="color: white; float: right; z-index: 1">
-			<u
-				style="color: white; cursor: pointer"
-				(click)="forgotPassword()"
-			>
+			<u style="color: white; cursor: pointer" (click)="forgotPassword()">
 				Password dimenticata?
 			</u>
 		</span>
@@ -171,10 +162,7 @@
 				style="margin-right: 10px"
 				(click)="accessWithGoogle()"
 			>
-				<i
-					class="bi bi-google"
-					style="margin-right: 5px"
-				></i>
+				<i class="bi bi-google" style="margin-right: 5px"></i>
 				<b style="font-size: 90%">Accedi con Google</b>
 			</button>
 		</div>
@@ -195,10 +183,7 @@
 
 <!-- mobile -->
 
-<div
-	*ngIf="!isDesktop()"
-	class="container"
->
+<div *ngIf="!isDesktop()" class="container">
 	<span id="right-container-title">Inizia subito e diventa un Gymbro!</span>
 
 	<div
@@ -270,18 +255,12 @@
 		</span>
 	</div>
 	<span style="color: white; z-index: 1">
-		<u
-			style="color: white; cursor: pointer"
-			(click)="forgotPassword()"
-		>
+		<u style="color: white; cursor: pointer" (click)="forgotPassword()">
 			Password dimenticata?
 		</u>
 	</span>
 
-	<div
-		id="login-button-container"
-		style="display: flex; flex-direction: row"
-	>
+	<div id="login-button-container" style="display: flex; flex-direction: row">
 		<button
 			class="btn btn-outline-light"
 			style="margin-right: 10px"
@@ -295,10 +274,7 @@
 			style="margin-right: 10px"
 			(click)="accessWithGoogle()"
 		>
-			<i
-				class="bi bi-google"
-				style="margin-right: 5px"
-			></i>
+			<i class="bi bi-google" style="margin-right: 5px"></i>
 			<b style="font-size: 90%">Accedi con Google</b>
 		</button>
 	</div>

@@ -8,14 +8,8 @@
 		ancora migliore. Grazie in anticipo per il tuo tempo e la tua opinione!
 	</p>
 
-	<form
-		#feedbackForm="ngForm"
-		(ngSubmit)="sendFeedback(feedbackForm)"
-	>
-		<mat-form-field
-			appearance="outline"
-			class="full-width"
-		>
+	<form #feedbackForm="ngForm" (ngSubmit)="sendFeedback(feedbackForm)">
+		<mat-form-field appearance="outline" class="full-width">
 			<mat-label>Feedback</mat-label>
 			<textarea
 				matInput
@@ -41,12 +35,6 @@
 	</form>
 
 	<div class="button-container">
-		<button
-			mat-button
-			[mat-dialog-close]
-			color="warn"
-		>
-			Annulla
-		</button>
+		<button mat-button [mat-dialog-close] color="warn">Annulla</button>
 	</div>
 </div>

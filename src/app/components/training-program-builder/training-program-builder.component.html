@@ -1,10 +1,7 @@
 <div id="builder-container">
 	<h1><span id="title">Nuovo Programma di Allenamento</span></h1>
 
-	<mat-form-field
-		appearance="outline"
-		[style.width.px]="300"
-	>
+	<mat-form-field appearance="outline" [style.width.px]="300">
 		<mat-label>Nome dell'allenamento</mat-label>
 		<input
 			matInput
@@ -37,31 +34,19 @@
 				class="mat-elevation-z1"
 			>
 				<ng-container matColumnDef="Esercizio">
-					<th
-						mat-header-cell
-						*matHeaderCellDef
-					>
+					<th mat-header-cell *matHeaderCellDef>
 						<b>Esercizio</b>
 					</th>
-					<td
-						mat-cell
-						*matCellDef="let element"
-					>
+					<td mat-cell *matCellDef="let element">
 						{{ element.name }}
 					</td>
 				</ng-container>
 
 				<ng-container matColumnDef="Serie x Ripetizioni">
-					<th
-						mat-header-cell
-						*matHeaderCellDef
-					>
+					<th mat-header-cell *matHeaderCellDef>
 						<b>Serie x Ripetizioni</b>
 					</th>
-					<td
-						mat-cell
-						*matCellDef="let element"
-					>
+					<td mat-cell *matCellDef="let element">
 						{{
 							element.series > 0 && element.reps > 0
 								? element.series +
@@ -77,16 +62,10 @@
 				</ng-container>
 
 				<ng-container matColumnDef="Recupero">
-					<th
-						mat-header-cell
-						*matHeaderCellDef
-					>
+					<th mat-header-cell *matHeaderCellDef>
 						<b>Recupero</b>
 					</th>
-					<td
-						mat-cell
-						*matCellDef="let element"
-					>
+					<td mat-cell *matCellDef="let element">
 						{{
 							element.restTime != undefined ? element.restTime : 0
 						}}
@@ -94,24 +73,15 @@
 				</ng-container>
 
 				<ng-container matColumnDef="RPE">
-					<th
-						mat-header-cell
-						*matHeaderCellDef
-					>
+					<th mat-header-cell *matHeaderCellDef>
 						<b>RPE</b>
 					</th>
-					<td
-						mat-cell
-						*matCellDef="let element"
-					>
+					<td mat-cell *matCellDef="let element">
 						{{ element.RPE > 0 ? element.RPE : "/" }}
 					</td>
 				</ng-container>
 
-				<tr
-					mat-header-row
-					*matHeaderRowDef="displayedColumns"
-				></tr>
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 				<tr
 					mat-row
 					*matRowDef="let row; columns: displayedColumns"
