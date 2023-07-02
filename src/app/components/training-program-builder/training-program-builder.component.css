@@ -10,6 +10,41 @@ button {
 	margin-top: 10px;
 }
 
+.custom-span {
+	font-family: "Josefin Sans", sans-serif;
+	font-weight: bold;
+	color: rgb(69, 69, 188);
+	width: 100px;
+	display: flex;
+	justify-content: center;
+	font-size: 0.9em;
+}
+
+.custom-button-filled {
+	background-color: rgb(69, 69, 188);
+	color: white;
+	border: 0;
+}
+
+.custom-button-filled:hover {
+	background-color: rgb(57, 57, 131);
+}
+
+.custom-button {
+	color: rgb(69, 69, 188) !important;
+	background-color: #fff !important;
+	border-color: rgb(69, 69, 188) !important;
+	font-family: "Josefin Sans", sans-serif;
+	font-weight: bold;
+}
+
+.custom-button:hover {
+	color: #fff !important;
+	background-color: rgb(69, 69, 188) !important;
+	border-color: rgb(69, 69, 188) !important;
+	text-decoration: none;
+}
+
 #title {
 	display: flex;
 	flex-direction: column;
@@ -17,6 +52,7 @@ button {
 	font-family: "Josefin Sans", sans-serif;
 	font-weight: bold;
 	color: rgb(69, 69, 188);
+	margin-top: 20px;
 }
 
 #add-session-button {

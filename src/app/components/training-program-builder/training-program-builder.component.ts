@@ -2,6 +2,8 @@ import { UserService } from "src/app/services/user.service";
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
+import { MatDialog } from "@angular/material/dialog";
+import { NewExerciseDialogComponent } from "../new-exercise-dialog/new-exercise-dialog.component";
 
 export interface TrainingProgram {
 	name: string;
@@ -14,28 +16,21 @@ export interface TrainingProgram {
 	styleUrls: ["./training-program-builder.component.css"],
 })
 export class TrainingProgramBuilderComponent implements OnInit {
-	trainingProgramName: string = "";
 	trainingProgram: TrainingProgram = {
 		name: "",
-		session: [],
+		session: [{ name: "Sessione 1", exercises: [] }],
 	};
-
-	displayedColumns: string[] = [
-		"Esercizio",
-		"Serie x Ripetizioni",
-		"Recupero",
-		"RPE",
-	];
 
 	constructor(
 		private router: Router,
 		private userService: UserService,
-		private firebase: FirebaseService
+		private firebase: FirebaseService,
+		private dialog: MatDialog
 	) {}
 
 	async ngOnInit() {
-		this.trainingProgram.session =
-			await this.userService.getTrainingProgram();
+		// this.trainingProgram.session =
+		// 	await this.userService.getTrainingProgram();
 	}
 
 	onCancel() {
@@ -52,10 +47,55 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			await this.userService.getTrainingProgram();
 	}
 
-	async onSaveTrainingProgram() {
-		this.trainingProgram.name = this.trainingProgramName;
+	addExercise(session: any) {
+		this.dialog
+			.open(NewExerciseDialogComponent, {
+				width: "500px",
+				maxWidth: "95vw",
+			})
+			.afterClosed()
+			.subscribe(exercise => {
+				if (exercise.name != "") {
+					session.exercises.push(exercise);
+				}
+			});
+	}
 
-		await this.firebase.addTrainingProgram(this.trainingProgram);
-		this.router.navigate(["/home/training-programs"]);
+	addSession() {
+		this.trainingProgram = {
+			...this.trainingProgram,
+			session: [
+				...this.trainingProgram.session,
+				{ name: "", exercises: [] },
+			],
+		};
+	}
+
+	deleteSession(index: number) {
+		this.trainingProgram.session.splice(index, 1);
+	}
+
+	deleteExercise(session: any, exerciseIndex: number) {
+		session.exercises.splice(exerciseIndex, 1);
+	}
+
+	editExercise(session: any, exerciseIndex: number) {
+		this.dialog
+			.open(NewExerciseDialogComponent, {
+				width: "500px",
+				maxWidth: "95vw",
+				data: session.exercises[exerciseIndex],
+			})
+			.afterClosed()
+			.subscribe(exercise => {
+				if (exercise.name != "") {
+					session.exercises[exerciseIndex] = exercise;
+				}
+			});
+	}
+	async onSaveTrainingProgram() {
+		// this.trainingProgram.name = this.trainingProgramName;
+		// await this.firebase.addTrainingProgram(this.trainingProgram);
+		// this.router.navigate(["/home/training-programs"]);
 	}
 }

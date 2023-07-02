@@ -1,10 +1,8 @@
 import { UserService } from "../../services/user.service";
 import { Exercise } from "../../Models/Exercise.model";
 import { FirebaseService } from "../../services/firebase.service";
-import { Component } from "@angular/core";
-import { FormControl, NgForm } from "@angular/forms";
-import { Observable } from "rxjs";
-import { MatDialog } from "@angular/material/dialog";
+import { Component, Inject } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
 
 @Component({
@@ -13,24 +11,34 @@ import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-
 	styleUrls: ["./new-exercise-dialog.component.css"],
 })
 export class NewExerciseDialogComponent {
-	public myControl = new FormControl("");
 	public options: string[] = [];
-	public filteredOptions: Observable<string[]>;
-	public exercise: Exercise;
+	public exercise = {
+		name: "",
+		series: 0,
+		range: [0, 0],
+		rest: {
+			minutes: 0,
+			seconds: 0,
+		},
+		RPE: 0,
+		notes: "",
+	};
 
-	public seriesCount: number = 0;
-	public repsCount: number = 0;
-	public load: number = 0;
+	private editMode = false;
 
 	constructor(
+		@Inject(MAT_DIALOG_DATA) public data: any,
 		private firebase: FirebaseService,
-		private userService: UserService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		public dialogRef: MatDialogRef<NewExerciseDialogComponent>,
 	) {}
 
 	async ngOnInit() {
 		this.getExercises();
-		this.exercise = new Exercise();
+		if (this.data) {
+			this.exercise = this.data;
+			this.editMode = true;
+		}
 	}
 
 	async getExercises() {
@@ -40,31 +48,27 @@ export class NewExerciseDialogComponent {
 		);
 	}
 
-	formatLabel(value: number): string {
-		return `${value}`;
-	}
-
-	onSubmit(form: NgForm) {
-		// let exercise = new Exercise(
-		// 	form.value.exerciseName,
-		// 	form.value.series,
-		// 	form.value.reps,
-		// 	form.value.load,
-		// 	form.value.rpe,
-		// 	form.value.restTime.toString(),
-		// 	form.value.note,
-		// );
-
-		this.exercise.reps = this.exercise.range[0];
-
-		this.userService.addExercise(this.exercise);
-		this.exercise = new Exercise();
-	}
-
-	onAddCustomExercise() {
+	openCustomExerciseDialog() {
 		let customExerciseDialog = this.dialog.open(AddExerciseDialogComponent);
 		customExerciseDialog.afterClosed().subscribe(() => {
 			this.getExercises();
 		});
+	}
+
+	isDesktop() {
+		return window.innerWidth > 500;
+	}
+
+	save() {
+		this.dialogRef.close(this.exercise);
+	}
+
+	savable() {
+		return (
+			this.exercise.name != "" &&
+			this.exercise.series != 0 &&
+			this.exercise.range[0] != 0 &&
+			this.exercise.range[1] != 0
+		);
 	}
 }

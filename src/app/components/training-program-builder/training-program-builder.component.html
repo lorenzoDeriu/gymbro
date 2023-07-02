@@ -1,17 +1,184 @@
 <div id="builder-container">
 	<h1><span id="title">Nuovo Programma di Allenamento</span></h1>
 
-	<mat-form-field appearance="outline" [style.width.px]="300">
-		<mat-label>Nome dell'allenamento</mat-label>
+	<div
+		class="input-group mb-2"
+		style="
+			color: rgb(69, 69, 188);
+			width: 300px;
+			margin: auto;
+			margin-top: 20px;
+		"
+	>
+		<span
+			class="input-group-text custom-span"
+			id="inputGroup-sizing-default"
+		>
+			Nome
+		</span>
 		<input
-			matInput
-			required
 			type="text"
-			[(ngModel)]="trainingProgramName"
+			class="form-control"
+			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
+			[(ngModel)]="this.trainingProgram.name"
 		/>
-	</mat-form-field>
+	</div>
 
-	<mat-accordion>
+	<mat-accordion style="margin-top: 30px; width: 100%">
+		<mat-expansion-panel
+			hideToggle
+			*ngFor="
+				let session of this.trainingProgram.session;
+				index as sessionIndex
+			"
+			style="margin-bottom: 5px"
+		>
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					<span id="training-program-day-name">
+						{{ session.name }}
+					</span>
+				</mat-panel-title>
+				<mat-panel-description>
+					<div
+						style="
+							width: 100%;
+							display: flex;
+							flex-direction: row;
+							justify-content: space-between;
+							align-items: center;
+						"
+					>
+						Numero esercizi: {{ session.exercises.length }}
+						<button
+							class="btn btn-outline-danger"
+							style="margin-top: 0; margin-right: -15px"
+							(click)="deleteSession(sessionIndex)"
+						>
+							<i class="bi bi-trash"></i>
+						</button>
+					</div>
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+
+			<div
+				style="
+					display: flex;
+					flex-direction: row;
+					margin-top: 20px;
+					align-items: center;
+				"
+			>
+				<div
+					class="input-group mb-2"
+					style="
+						color: rgb(69, 69, 188);
+						width: 300px;
+						margin-right: 10px;
+					"
+				>
+					<span
+						class="input-group-text custom-span"
+						id="inputGroup-sizing-default"
+					>
+						Nome
+					</span>
+					<input
+						type="text"
+						class="form-control"
+						style="
+							box-shadow: none;
+							font-family: 'Josefin Sans', sans-serif;
+						"
+						[(ngModel)]="session.name"
+					/>
+				</div>
+
+				<button
+					class="btn custom-button"
+					style="margin-top: -8px"
+					(click)="addExercise(session)"
+				>
+					<i class="bi bi-plus-lg"></i>
+					Aggiungi Esercizio
+				</button>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">
+							<span class="table-header">Esercizio</span>
+						</th>
+						<th scope="col">
+							<span class="table-header">Serie-Ripetizioni</span>
+						</th>
+						<th scope="col">
+							<span class="table-header">RPE</span>
+						</th>
+						<th scope="col">
+							<span class="table-header">Riposo</span>
+						</th>
+						<th scope="col">
+							<span class="table-header">Azioni</span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr
+						*ngFor="
+							let exercise of session.exercises;
+							index as exerciseIndex
+						"
+					>
+						<th scope="row">{{ exercise.name }}</th>
+						<td>
+							{{ exercise.series }} x
+							{{
+								exercise.range[0] != exercise.range[1]
+									? exercise.range[0] +
+									  "-" +
+									  exercise.range[1]
+									: exercise.range[0]
+							}}
+						</td>
+						<td>{{ exercise.RPE }}</td>
+						<td>
+							{{
+								exercise.rest.minutes +
+									":" +
+									exercise.rest.seconds
+							}}
+						</td>
+						<td>
+							<i class="bi bi-pencil-fill" style="cursor:pointer; font-size: 1.3em; margin-right: 10px;" (click)="editExercise(session, exerciseIndex)"
+							></i>
+							<i style="cursor:pointer; font-size: 1.3em;"
+								class="bi bi-trash-fill"
+								(click)="deleteExercise(session, exerciseIndex)"
+							></i>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<span
+				*ngIf="session.exercises.length == 0"
+				style="margin: auto; width: 140px; color: black"
+				class="custom-span"
+			>
+				Non ci sono esercizi
+			</span>
+		</mat-expansion-panel>
+	</mat-accordion>
+
+	<button
+		class="btn btn-primary custom-button"
+		style="margin-top: 20px"
+		(click)="addSession()"
+	>
+		<i class="bi bi-plus-lg"></i>
+		Aggiungi Sessione
+	</button>
+	<!-- <mat-accordion>
 		<mat-expansion-panel
 			hideToggle
 			*ngFor="let session of this.trainingProgram.session; index as index"
@@ -124,5 +291,5 @@
 		(click)="onCancel()"
 	>
 		Annulla
-	</button>
+	</button> -->
 </div>
