@@ -82,7 +82,11 @@
 	</div>
 
 	<div class="input-group mb-2" style="color: rgb(69, 69, 188)">
-		<label class="input-group-text custom-span" for="inputGroupSelect01" style="width:70px">
+		<label
+			class="input-group-text custom-span"
+			for="inputGroupSelect01"
+			style="width: 70px"
+		>
 			RPE
 		</label>
 		<select
@@ -101,18 +105,21 @@
 			<option value="8">8</option>
 			<option value="9">9</option>
 			<option value="10">10</option>
-
 		</select>
 	</div>
 
 	<div class="input-group mb-2">
-		<label class="input-group-text custom-span" for="inputGroupSelect01" style="width:70px">
+		<label
+			class="input-group-text custom-span"
+			for="inputGroupSelect01"
+			style="width: 70px"
+		>
 			Recupero
 		</label>
 		<select
 			class="form-select custom-select"
 			id="inputGroupSelect01"
-			style=" font-family: 'Josefin Sans', sans-serif"
+			style="font-family: 'Josefin Sans', sans-serif"
 			[(ngModel)]="this.exercise.rest.minutes"
 		>
 			<option value="00">00</option>
@@ -126,7 +133,7 @@
 		<select
 			class="form-select custom-select"
 			id="inputGroupSelect01"
-			style=" font-family: 'Josefin Sans', sans-serif"
+			style="font-family: 'Josefin Sans', sans-serif"
 			[(ngModel)]="this.exercise.rest.seconds"
 		>
 			<option value="00">00</option>
@@ -148,7 +155,7 @@
 			type="text"
 			class="form-control"
 			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
-			[(ngModel)]="this.exercise.notes"
+			[(ngModel)]="this.exercise.note"
 		/>
 	</div>
 

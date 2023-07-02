@@ -5,21 +5,19 @@ import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NewExerciseDialogComponent } from "../new-exercise-dialog/new-exercise-dialog.component";
 
-export interface TrainingProgram {
-	name: string;
-	session: any[];
-}
-
 @Component({
 	selector: "app-training-program-builder",
 	templateUrl: "./training-program-builder.component.html",
 	styleUrls: ["./training-program-builder.component.css"],
 })
 export class TrainingProgramBuilderComponent implements OnInit {
-	trainingProgram: TrainingProgram = {
+	trainingProgram: any = {
 		name: "",
 		session: [{ name: "Sessione 1", exercises: [] }],
 	};
+
+	private editMode = false;
+	private index: number;
 
 	constructor(
 		private router: Router,
@@ -29,8 +27,50 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
-		// this.trainingProgram.session =
-		// 	await this.userService.getTrainingProgram();
+		if (localStorage.getItem("trainingProgramToEdit")) {
+			this.index = JSON.parse(
+				localStorage.getItem("trainingProgramToEdit")
+			).index;
+			localStorage.removeItem("trainingProgramToEdit");
+
+			this.trainingProgram = (await this.firebase.getTrainingPrograms())[
+				this.index
+			];
+			this.trainingProgram = this.legacyConversion(this.trainingProgram);
+			this.editMode = true;
+		}
+	}
+
+	legacyConversion(trainingProgram: any) {
+		trainingProgram.session = trainingProgram.session.map(
+			(session: any) => {
+				session.exercises = session.exercises.map((exercise: any) => {
+					if (exercise.reps) {
+						exercise.range = [exercise.reps, exercise.reps];
+						delete exercise.reps;
+					}
+
+					if (exercise.load != undefined) {
+						delete exercise.load;
+					}
+
+					if (exercise.restTime) {
+						exercise.rest = {
+							minutes: exercise.restTime.split(":")[0],
+							seconds: exercise.restTime.split(":")[1],
+						};
+
+						delete exercise.restTime;
+					}
+
+					return exercise;
+				});
+
+				return session;
+			}
+		);
+
+		return trainingProgram;
 	}
 
 	onCancel() {
@@ -93,9 +133,16 @@ export class TrainingProgramBuilderComponent implements OnInit {
 				}
 			});
 	}
-	async onSaveTrainingProgram() {
-		// this.trainingProgram.name = this.trainingProgramName;
-		// await this.firebase.addTrainingProgram(this.trainingProgram);
-		// this.router.navigate(["/home/training-programs"]);
+	async saveTrainingProgram() {
+		if (this.editMode) {
+			await this.firebase.editTrainingProgram(
+				this.trainingProgram,
+				this.index
+			);
+			this.router.navigate(["/home/training-programs"]);
+		} else {
+			await this.firebase.addTrainingProgram(this.trainingProgram);
+			this.router.navigate(["/home/training-programs"]);
+		}
 	}
 }

@@ -96,7 +96,7 @@
 							<th scope="row">{{ exercise.name }}</th>
 							<td>
 								{{
-									exercise.series > 0 && exercise.reps > 0
+									exercise.series > 0
 										? exercise.series +
 										  "x" +
 										  (exercise.range &&
@@ -104,7 +104,9 @@
 												? exercise.range[0] +
 												  "-" +
 												  exercise.range[1]
-												: exercise.reps)
+												: exercise.reps
+												? exercise.reps
+												: exercise.range[0])
 										: "/"
 								}}
 							</td>
@@ -138,23 +140,34 @@
 					</tbody>
 				</table>
 
-				<div style="display: flex; justify-content: flex-end">
-					<button class="btn btn-outline-dark custom-button">
-						<i class="bi bi-pencil"></i>
-						Modifica
-					</button>
-				</div>
-
 				<mat-divider id="divider"></mat-divider>
 			</section>
 
-			<button
-				class="btn btn-outline-danger"
-				color="warn"
-				(click)="removeTrainingProgram(trainingProgramIndex)"
+			<div
+				style="
+					display: flex;
+					flex-direction: row;
+					justify-content: flex-end;
+				"
 			>
-				Elimina
-			</button>
+				<button
+					class="btn btn-outline-dark custom-button"
+					style="margin-right: 10px"
+					(click)="editTrainingProgram(trainingProgramIndex)"
+				>
+					<i class="bi bi-pencil-fill"></i>
+					Modifica
+				</button>
+				<button
+					class="btn btn-outline-danger"
+					color="warn"
+					style="font-family: 'Josefin Sans', sans-serif"
+					(click)="removeTrainingProgram(trainingProgramIndex)"
+				>
+					<i class="bi bi-trash-fill"></i>
+					Elimina
+				</button>
+			</div>
 		</mat-expansion-panel>
 	</mat-accordion>
 </div>

@@ -44,6 +44,15 @@ export class TrainingProgramsComponent implements OnInit {
 		this.router.navigate(["/home/training-program-builder"]);
 	}
 
+	editTrainingProgram(trainingProgramIndex: number) {
+		this.router.navigate(["/home/training-program-builder"]);
+
+		localStorage.setItem(
+			"trainingProgramToEdit",
+			JSON.stringify({ index: trainingProgramIndex })
+		);
+	}
+
 	async removeTrainingProgram(index: number) {
 		await this.userService.removeTrainingProgram(index);
 		this.trainingPrograms = await this.firebase.getTrainingPrograms();

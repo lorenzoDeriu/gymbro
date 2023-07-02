@@ -244,6 +244,26 @@ export class FirebaseService {
 		}
 	}
 
+	async editTrainingProgram(trainingProgram: any, index: number) {
+		let uid: any = JSON.parse(localStorage.getItem("user"))["uid"];
+
+		const documentReference = doc(this.db, "users", uid);
+		const documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
+
+		console.log(documentSnapshot.exists());
+
+		if (documentSnapshot.exists()) {
+			let data = documentSnapshot.data();
+			data["trainingPrograms"][index] = trainingProgram;
+			console.log(data["trainingPrograms"]);
+			updateDoc(documentReference, {
+				trainingPrograms: data["trainingPrograms"],
+			}).catch(e => console.log(e));
+		}
+	}
+
 	async getTrainingPrograms() {
 		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
 

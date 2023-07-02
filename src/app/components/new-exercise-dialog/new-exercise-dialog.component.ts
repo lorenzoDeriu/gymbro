@@ -2,7 +2,11 @@ import { UserService } from "../../services/user.service";
 import { Exercise } from "../../Models/Exercise.model";
 import { FirebaseService } from "../../services/firebase.service";
 import { Component, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import {
+	MAT_DIALOG_DATA,
+	MatDialog,
+	MatDialogRef,
+} from "@angular/material/dialog";
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
 
 @Component({
@@ -21,7 +25,7 @@ export class NewExerciseDialogComponent {
 			seconds: 0,
 		},
 		RPE: 0,
-		notes: "",
+		note: "",
 	};
 
 	private editMode = false;
@@ -30,7 +34,7 @@ export class NewExerciseDialogComponent {
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private firebase: FirebaseService,
 		private dialog: MatDialog,
-		public dialogRef: MatDialogRef<NewExerciseDialogComponent>,
+		public dialogRef: MatDialogRef<NewExerciseDialogComponent>
 	) {}
 
 	async ngOnInit() {
