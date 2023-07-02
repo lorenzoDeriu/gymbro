@@ -13,7 +13,11 @@
 
 		<mat-form-field appearance="outline">
 			<mat-label>Data dell'allenamento</mat-label>
-			<input matInput [matDatepicker]="picker" [(ngModel)]="date" />
+			<input
+				matInput
+				[matDatepicker]="picker"
+				[(ngModel)]="date"
+			/>
 			<mat-datepicker-toggle
 				matSuffix
 				[for]="picker"
@@ -81,7 +85,11 @@
 		>
 			Salva
 		</button>
-		<button mat-raised-button color="warn" (click)="onCancel()">
+		<button
+			mat-raised-button
+			color="warn"
+			(click)="onCancel()"
+		>
 			Annulla
 		</button>
 	</div>

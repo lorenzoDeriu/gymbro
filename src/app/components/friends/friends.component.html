@@ -23,9 +23,18 @@
 			#UsernameForm="ngForm"
 			(ngSubmit)="addUsername(UsernameForm)"
 		>
-			<mat-form-field appearance="outline" [style.width.px]="300">
+			<mat-form-field
+				appearance="outline"
+				[style.width.px]="300"
+			>
 				<mat-label>Username</mat-label>
-				<input matInput type="text" name="username" ngModel required />
+				<input
+					matInput
+					type="text"
+					name="username"
+					ngModel
+					required
+				/>
 			</mat-form-field>
 
 			<button
@@ -45,9 +54,18 @@
 		#userSearchForm="ngForm"
 		(ngSubmit)="onUsernameSearch(userSearchForm)"
 	>
-		<mat-form-field appearance="outline" [style.width.px]="300">
+		<mat-form-field
+			appearance="outline"
+			[style.width.px]="300"
+		>
 			<mat-label>Cerca lo username di un utente</mat-label>
-			<input type="text" matInput name="username" ngModel required />
+			<input
+				type="text"
+				matInput
+				name="username"
+				ngModel
+				required
+			/>
 		</mat-form-field>
 
 		<button
@@ -74,14 +92,22 @@
 		<mat-card *ngFor="let user of this.followed; index as i">
 			<div id="card-title">
 				<!-- <span class="material-symbols-outlined">person</span> -->
-				<img src="../../../assets/personIcon.png" alt="" />
+				<img
+					src="../../../assets/personIcon.png"
+					alt=""
+				/>
 				<span id="username"
 					><b>{{ user.username }}</b></span
 				>
 			</div>
 
 			<div id="card-button-container">
-				<button mat-button (click)="onUnfollow(i)">Unfollow</button>
+				<button
+					mat-button
+					(click)="onUnfollow(i)"
+				>
+					Unfollow
+				</button>
 				<button
 					mat-button
 					[disabled]="!user.visibilityPermission"
@@ -94,7 +120,10 @@
 	</ng-container>
 
 	<div id="back-to-home-button-container">
-		<button mat-raised-button (click)="backToHome()">
+		<button
+			mat-raised-button
+			(click)="backToHome()"
+		>
 			Torna alla home
 		</button>
 	</div>

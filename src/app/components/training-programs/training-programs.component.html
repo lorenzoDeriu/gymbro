@@ -48,7 +48,10 @@
 					class="mat-elevation-z1"
 				>
 					<ng-container matColumnDef="Esercizio">
-						<th mat-header-cell *matHeaderCellDef>
+						<th
+							mat-header-cell
+							*matHeaderCellDef
+						>
 							<b>Esercizio</b>
 						</th>
 						<td
@@ -82,10 +85,16 @@
 					</ng-container>
 
 					<ng-container matColumnDef="Serie x Ripetizioni">
-						<th mat-header-cell *matHeaderCellDef>
+						<th
+							mat-header-cell
+							*matHeaderCellDef
+						>
 							<b>Serie x Ripetizioni</b>
 						</th>
-						<td mat-cell *matCellDef="let element">
+						<td
+							mat-cell
+							*matCellDef="let element"
+						>
 							{{
 								element.series > 0 && element.reps > 0
 									? element.series +
@@ -107,10 +116,16 @@
 					</ng-container>
 
 					<ng-container matColumnDef="Recupero">
-						<th mat-header-cell *matHeaderCellDef>
+						<th
+							mat-header-cell
+							*matHeaderCellDef
+						>
 							<b>Recupero</b>
 						</th>
-						<td mat-cell *matCellDef="let element">
+						<td
+							mat-cell
+							*matCellDef="let element"
+						>
 							{{
 								element.restTime != undefined
 									? element.restTime
@@ -120,13 +135,24 @@
 					</ng-container>
 
 					<ng-container matColumnDef="RPE">
-						<th mat-header-cell *matHeaderCellDef><b>RPE</b></th>
-						<td mat-cell *matCellDef="let element">
+						<th
+							mat-header-cell
+							*matHeaderCellDef
+						>
+							<b>RPE</b>
+						</th>
+						<td
+							mat-cell
+							*matCellDef="let element"
+						>
 							{{ element.RPE > 0 ? element.RPE : "/" }}
 						</td>
 					</ng-container>
 
-					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr
+						mat-header-row
+						*matHeaderRowDef="displayedColumns"
+					></tr>
 					<tr
 						mat-row
 						*matRowDef="let row; columns: displayedColumns"
@@ -153,7 +179,10 @@
 	>
 		Crea una nuova scheda
 	</button>
-	<button mat-raised-button (click)="backToHomeButton()">
+	<button
+		mat-raised-button
+		(click)="backToHomeButton()"
+	>
 		Torna alla home
 	</button>
 </div>

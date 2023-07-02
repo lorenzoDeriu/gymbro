@@ -1,8 +1,15 @@
 <div id="exercise-stats-container">
-	<form #statsForm="ngForm" (ngSubmit)="showStas(statsForm)">
+	<form
+		#statsForm="ngForm"
+		(ngSubmit)="showStas(statsForm)"
+	>
 		<mat-form-field appearance="outline">
 			<mat-label>Scegli l'esercizio</mat-label>
-			<mat-select name="exerciseName" ngModel required>
+			<mat-select
+				name="exerciseName"
+				ngModel
+				required
+			>
 				<mat-option
 					*ngFor="let exercise of this.options"
 					[value]="exercise"

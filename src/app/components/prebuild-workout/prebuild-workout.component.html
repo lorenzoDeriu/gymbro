@@ -1,5 +1,8 @@
 <div id="workout-container">
-	<div id="title-container" style="margin-top: 15px; margin-bottom: 20px">
+	<div
+		id="title-container"
+		style="margin-top: 15px; margin-bottom: 20px"
+	>
 		<div
 			class="input-group mb-2"
 			style="
@@ -73,7 +76,11 @@
 					id="inputGroupSelect01"
 					[(ngModel)]="exercise.name"
 				>
-					<option selected disabled value="">
+					<option
+						selected
+						disabled
+						value=""
+					>
 						Seleziona un esercizio
 					</option>
 					<option
@@ -94,7 +101,10 @@
 				</button>
 			</div>
 
-			<div *ngIf="exercise.range" class="alert alert-info custom-alert">
+			<div
+				*ngIf="exercise.range"
+				class="alert alert-info custom-alert"
+			>
 				<i
 					style="font-size: 1.2em"
 					class="bi bi-info-square-fill"
@@ -283,7 +293,9 @@
 					<option value="04">04</option>
 					<option value="05">05</option>
 				</select>
-				<label class="input-group-text" for="inputGroupSelect01"
+				<label
+					class="input-group-text"
+					for="inputGroupSelect01"
 					>:</label
 				>
 				<select
@@ -361,7 +373,10 @@
 					class="btn btn-outline-dark"
 					style="margin-right: 10px"
 				>
-					<i style="font-size: 1.2em" class="bi bi-pencil-square"></i>
+					<i
+						style="font-size: 1.2em"
+						class="bi bi-pencil-square"
+					></i>
 				</button>
 
 				<button
@@ -371,14 +386,20 @@
 					class="btn btn-outline-success"
 					style="margin-right: 10px"
 				>
-					<i style="font-size: 1.2em" class="bi bi-check-lg"></i>
+					<i
+						style="font-size: 1.2em"
+						class="bi bi-check-lg"
+					></i>
 				</button>
 
 				<button
 					(click)="delete(exerciseIndex)"
 					class="btn btn-outline-danger"
 				>
-					<i style="font-size: 1.2em" class="bi bi-trash"></i>
+					<i
+						style="font-size: 1.2em"
+						class="bi bi-trash"
+					></i>
 				</button>
 			</div>
 		</mat-expansion-panel>
@@ -431,7 +452,10 @@
 			>
 		</button>
 
-		<button class="btn btn-outline-danger" (click)="onCancel()">
+		<button
+			class="btn btn-outline-danger"
+			(click)="onCancel()"
+		>
 			<i
 				[ngStyle]="isDesktop() && { 'font-size': '1.2em' }"
 				class="bi bi-x-circle"

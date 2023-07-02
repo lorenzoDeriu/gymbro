@@ -11,7 +11,10 @@
 		Torna alla home
 	</button>
 
-	<form #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm)">
+	<form
+		#settingsForm="ngForm"
+		(ngSubmit)="saveSettings(settingsForm)"
+	>
 		<div id="slide-container">
 			<mat-slide-toggle
 				name="visibility"
@@ -21,7 +24,10 @@
 			>
 		</div>
 
-		<mat-form-field appearance="outline" [style.width.px]="300">
+		<mat-form-field
+			appearance="outline"
+			[style.width.px]="300"
+		>
 			<mat-label>Cambia il tuo username</mat-label>
 			<input
 				matInput
@@ -32,13 +38,20 @@
 		</mat-form-field>
 
 		<div id="button-container">
-			<button mat-raised-button color="primary" type="submit">
+			<button
+				mat-raised-button
+				color="primary"
+				type="submit"
+			>
 				Salva
 			</button>
 		</div>
 	</form>
 
-	<div id="expansion-panel-container" *ngIf="this.customExercises.length > 0">
+	<div
+		id="expansion-panel-container"
+		*ngIf="this.customExercises.length > 0"
+	>
 		<mat-accordion>
 			<mat-expansion-panel>
 				<mat-expansion-panel-header>
@@ -50,7 +63,11 @@
 					id="exercise-setting-container"
 				>
 					<span id="custom-exercise-name">{{ item }}</span>
-					<button mat-button color="warn" (click)="deleteItem(i)">
+					<button
+						mat-button
+						color="warn"
+						(click)="deleteItem(i)"
+					>
 						Elimina
 					</button>
 				</div>
@@ -59,7 +76,11 @@
 	</div>
 
 	<br />
-	<button mat-button color="primary" (click)="changePassword()">
+	<button
+		mat-button
+		color="primary"
+		(click)="changePassword()"
+	>
 		Cambia password
 	</button>
 	<button

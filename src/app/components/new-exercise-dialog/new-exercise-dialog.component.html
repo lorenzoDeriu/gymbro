@@ -11,7 +11,10 @@
 				[(ngModel)]="exercise.exerciseName"
 				required
 			>
-				<mat-option *ngFor="let exercise of options" [value]="exercise">
+				<mat-option
+					*ngFor="let exercise of options"
+					[value]="exercise"
+				>
 					{{ exercise }}
 				</mat-option>
 			</mat-select>
@@ -25,7 +28,10 @@
 			#tooltip="matTooltip"
 			matTooltip="Aggiungi un esercizio personalizzato"
 		>
-			<img src="../../../assets/AddExerciseIcon.png" alt="" />
+			<img
+				src="../../../assets/AddExerciseIcon.png"
+				alt=""
+			/>
 		</button>
 	</div>
 
@@ -54,13 +60,26 @@
 		[displayWith]="formatLabel"
 	>
 		<!-- <input matSliderThumb name="RPE" name="rpe" [(ngModel)]="exercise.RPE"> -->
-		<input matSliderStartThumb name="min" [(ngModel)]="exercise.range[0]" />
-		<input matSliderEndThumb name="max" [(ngModel)]="exercise.range[1]" />
+		<input
+			matSliderStartThumb
+			name="min"
+			[(ngModel)]="exercise.range[0]"
+		/>
+		<input
+			matSliderEndThumb
+			name="max"
+			[(ngModel)]="exercise.range[1]"
+		/>
 	</mat-slider>
 
 	<mat-form-field appearance="outline">
 		<mat-label>Carico</mat-label>
-		<input matInput name="load" type="number" [(ngModel)]="exercise.load" />
+		<input
+			matInput
+			name="load"
+			type="number"
+			[(ngModel)]="exercise.load"
+		/>
 	</mat-form-field>
 
 	<mat-form-field appearance="outline">
@@ -112,7 +131,11 @@
 		>
 			Aggiungi
 		</button>
-		<button mat-raised-button color="warn" [mat-dialog-close]="">
+		<button
+			mat-raised-button
+			color="warn"
+			[mat-dialog-close]=""
+		>
 			Annulla
 		</button>
 	</div>

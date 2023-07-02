@@ -6,7 +6,8 @@
 		"start": "ng serve",
 		"build": "ng build",
 		"watch": "ng build --watch --configuration development",
-		"test": "ng test"
+		"test": "ng test",
+		"pretti": "prettier --write ./src/*"
 	},
 	"private": true,
 	"dependencies": {
@@ -52,6 +53,9 @@
 	"prettier": {
 		"printWidth": 80,
 		"tabWidth": 4,
-		"useTabs": true
+		"useTabs": true,
+		"singleAttributePerLine": true,
+		"bracketSameLine": false,
+		"bracketSpacing": true
 	}
 }
