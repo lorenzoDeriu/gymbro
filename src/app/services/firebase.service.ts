@@ -188,7 +188,7 @@ export class FirebaseService {
 						let notification = new Notification(
 							'Allenamento Salvato',
 							{
-								body: 'Un nuovo allenamento è stato aggiunto, controlla i tuoi progressi per vedere i miglioramenti!',
+								body: 'Un nuovo allenamento è stato aggiunto,controlla i tuoi progressi per vedere i miglioramenti!',
 								icon: 'assets/images/logo.png',
 							}
 						);
