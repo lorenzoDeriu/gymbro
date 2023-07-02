@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AuthService } from 'src/app/services/auth.service';
-import { AddExerciseDialogComponent } from '../add-exercise-dialog/add-exercise-dialog.component';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { AuthService } from "src/app/services/auth.service";
+import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
+import { FirebaseService } from "src/app/services/firebase.service";
+import { NgForm } from "@angular/forms";
 
 @Component({
-	selector: 'app-admin',
-	templateUrl: './admin.component.html',
-	styleUrls: ['./admin.component.css'],
+	selector: "app-admin",
+	templateUrl: "./admin.component.html",
+	styleUrls: ["./admin.component.css"],
 })
 export class AdminComponent implements OnInit {
 	public loading: boolean = true;
@@ -39,8 +39,8 @@ export class AdminComponent implements OnInit {
 
 	addExercise() {
 		this.dialog.open(AddExerciseDialogComponent, {
-			width: '300px',
-			height: '200px',
+			width: "300px",
+			height: "200px",
 		});
 	}
 

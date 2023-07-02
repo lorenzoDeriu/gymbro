@@ -22,19 +22,17 @@
 			*ngFor="let exercise of this.getExercise(); index as index"
 		>
 			<mat-expansion-panel-header>
-				<mat-panel-title
-					><span id="exercise-name">{{
-						exercise.name
-					}}</span></mat-panel-title
-				>
+				<mat-panel-title>
+					<span id="exercise-name">{{ exercise.name }}</span>
+				</mat-panel-title>
 				<mat-panel-description>
 					Serie: {{ exercise.series }} Ripetizioni:
 					{{
 						exercise.range[0] != exercise.range[1]
 							? exercise.range[0] + "-" + exercise.range[1]
 							: exercise.reps
-					}}</mat-panel-description
-				>
+					}}
+				</mat-panel-description>
 			</mat-expansion-panel-header>
 			<p>RPE: {{ exercise.RPE }}</p>
 			<p>Tempo di Recupero: {{ exercise.restTime }}</p>

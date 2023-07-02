@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component } from "@angular/core";
+import { FirebaseService } from "src/app/services/firebase.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
-	selector: 'app-password-recover-dialog',
-	templateUrl: './password-recover-dialog.component.html',
-	styleUrls: ['./password-recover-dialog.component.css'],
+	selector: "app-password-recover-dialog",
+	templateUrl: "./password-recover-dialog.component.html",
+	styleUrls: ["./password-recover-dialog.component.css"],
 })
 export class PasswordRecoverDialogComponent {
 	public email: string;
@@ -22,7 +22,7 @@ export class PasswordRecoverDialogComponent {
 
 		this.snackBar.open(
 			"Ti abbiamo inviato un'email per recuperare la password",
-			'Ok',
+			"Ok",
 			{ duration: 3000 }
 		);
 		this.closeDialog();
@@ -33,6 +33,6 @@ export class PasswordRecoverDialogComponent {
 	}
 
 	public allowSend(): boolean {
-		return this.email && this.email != '' && this.email.includes('@');
+		return this.email && this.email != "" && this.email.includes("@");
 	}
 }

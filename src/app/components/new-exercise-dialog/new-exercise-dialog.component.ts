@@ -1,19 +1,19 @@
-import { UserService } from '../../services/user.service';
-import { Exercise } from '../../Models/Exercise.model';
-import { FirebaseService } from '../../services/firebase.service';
-import { Component } from '@angular/core';
-import { FormControl, NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { AddExerciseDialogComponent } from '../add-exercise-dialog/add-exercise-dialog.component';
+import { UserService } from "../../services/user.service";
+import { Exercise } from "../../Models/Exercise.model";
+import { FirebaseService } from "../../services/firebase.service";
+import { Component } from "@angular/core";
+import { FormControl, NgForm } from "@angular/forms";
+import { Observable } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
+import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
 
 @Component({
-	selector: 'app-new-exercise-dialog',
-	templateUrl: './new-exercise-dialog.component.html',
-	styleUrls: ['./new-exercise-dialog.component.css'],
+	selector: "app-new-exercise-dialog",
+	templateUrl: "./new-exercise-dialog.component.html",
+	styleUrls: ["./new-exercise-dialog.component.css"],
 })
 export class NewExerciseDialogComponent {
-	public myControl = new FormControl('');
+	public myControl = new FormControl("");
 	public options: string[] = [];
 	public filteredOptions: Observable<string[]>;
 	public exercise: Exercise;
@@ -34,7 +34,7 @@ export class NewExerciseDialogComponent {
 	}
 
 	async getExercises() {
-		let uid = JSON.parse(localStorage.getItem('user'))['uid'];
+		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
 		this.options = (await this.firebase.getExercise(uid)).sort(
 			(a: string, b: string) => a.localeCompare(b)
 		);

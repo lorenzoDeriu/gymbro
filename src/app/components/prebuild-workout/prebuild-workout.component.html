@@ -15,8 +15,9 @@
 			<span
 				class="input-group-text custom-span"
 				id="inputGroup-sizing-default"
-				>Allenamento</span
 			>
+				Allenamento
+			</span>
 			<input
 				type="text"
 				class="form-control"
@@ -35,8 +36,9 @@
 			<span
 				class="input-group-text custom-span"
 				id="inputGroup-sizing-default"
-				>Data</span
 			>
+				Data
+			</span>
 			<input
 				type="date"
 				class="form-control"
@@ -58,17 +60,20 @@
 			"
 		>
 			<mat-expansion-panel-header>
-				<mat-panel-title>{{
-					exercise.name != "" ? exercise.name : "Nuovo Esercizio"
-				}}</mat-panel-title>
+				<mat-panel-title>
+					{{
+						exercise.name != "" ? exercise.name : "Nuovo Esercizio"
+					}}
+				</mat-panel-title>
 			</mat-expansion-panel-header>
 
 			<div class="input-group mb-2">
 				<label
 					class="input-group-text custom-span"
 					for="inputGroupSelect01"
-					>Esercizio</label
 				>
+					Esercizio
+				</label>
 				<select
 					[disabled]="exercise.completed"
 					class="form-select custom-select"
@@ -127,8 +132,9 @@
 				<span
 					class="input-group-text custom-span"
 					id="inputGroup-sizing-default"
-					>Serie</span
 				>
+					Serie
+				</span>
 				<input
 					[disabled]="exercise.completed"
 					type="number"
@@ -144,8 +150,9 @@
 				<span
 					class="input-group-text custom-span"
 					id="inputGroup-sizing-default"
-					>Reps</span
 				>
+					Reps
+				</span>
 				<input
 					[disabled]="exercise.completed"
 					type="number"
@@ -161,8 +168,9 @@
 				<span
 					class="input-group-text custom-span"
 					id="inputGroup-sizing-default"
-					>Carico (kg)</span
 				>
+					Carico (kg)
+				</span>
 				<input
 					[disabled]="exercise.completed"
 					type="number"
@@ -185,8 +193,9 @@
 					<span
 						class="input-group-text custom-span"
 						id="inputGroup-sizing-default"
-						>Serie</span
 					>
+						Serie
+					</span>
 					<input
 						[disabled]="exercise.completed"
 						type="number"
@@ -201,8 +210,9 @@
 					<span
 						class="input-group-text custom-span"
 						id="inputGroup-sizing-default"
-						>Reps</span
 					>
+						Reps
+					</span>
 					<input
 						[disabled]="exercise.completed"
 						type="number"
@@ -223,8 +233,9 @@
 					<span
 						class="input-group-text custom-span"
 						id="inputGroup-sizing-default"
-						>Carico (kg)</span
 					>
+						Carico (kg)
+					</span>
 					<input
 						[disabled]="exercise.completed"
 						type="number"
@@ -245,8 +256,9 @@
 				<span
 					class="input-group-text custom-span"
 					id="inputGroup-sizing-default"
-					>RPE</span
 				>
+					RPE
+				</span>
 				<input
 					[disabled]="exercise.completed"
 					type="number"
@@ -278,8 +290,9 @@
 				<label
 					class="input-group-text custom-span"
 					for="inputGroupSelect01"
-					>Recupero</label
 				>
+					Recupero
+				</label>
 				<select
 					[disabled]="exercise.completed"
 					class="form-select custom-select"
@@ -296,8 +309,9 @@
 				<label
 					class="input-group-text"
 					for="inputGroupSelect01"
-					>:</label
 				>
+					:
+				</label>
 				<select
 					[disabled]="exercise.completed"
 					class="form-select custom-select"
@@ -428,8 +442,9 @@
 					font-family: 'josefin Sans', sans-serif;
 					margin-left: 5px;
 				"
-				>Esercizio</span
 			>
+				Esercizio
+			</span>
 		</button>
 
 		<button
@@ -448,8 +463,9 @@
 					font-family: 'josefin Sans', sans-serif;
 					margin-left: 5px;
 				"
-				>Salva</span
 			>
+				Salva
+			</span>
 		</button>
 
 		<button
@@ -466,8 +482,9 @@
 					font-family: 'josefin Sans', sans-serif;
 					margin-left: 5px;
 				"
-				>Annulla</span
 			>
+				Annulla
+			</span>
 		</button>
 	</div>
 </div>

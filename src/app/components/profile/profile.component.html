@@ -24,10 +24,9 @@
 		>
 			<mat-expansion-panel-header>
 				<mat-panel-title>{{ program.name }}</mat-panel-title>
-				<mat-panel-description
-					>Numero di sessioni:
-					{{ program.session.length }}</mat-panel-description
-				>
+				<mat-panel-description>
+					Numero di sessioni: {{ program.session.length }}
+				</mat-panel-description>
 			</mat-expansion-panel-header>
 
 			<mat-accordion>
@@ -40,12 +39,9 @@
 				>
 					<mat-expansion-panel-header>
 						<mat-panel-title>{{ session.name }}</mat-panel-title>
-						<mat-panel-description
-							>Numero di esercizi:
-							{{
-								session.exercises.length
-							}}</mat-panel-description
-						>
+						<mat-panel-description>
+							Numero di esercizi: {{ session.exercises.length }}
+						</mat-panel-description>
 					</mat-expansion-panel-header>
 
 					<table

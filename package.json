@@ -56,6 +56,16 @@
 		"useTabs": true,
 		"singleAttributePerLine": true,
 		"bracketSameLine": false,
-		"bracketSpacing": true
+		"bracketSpacing": true,
+		"semi": true,
+		"singleQuote": false,
+		"jsxSingleQuote": false,
+		"trailingComma": "es5",
+		"bracketSpacing": true,
+		"jsxBracketSameLine": false,
+		"arrowParens": "avoid",
+		"htmlWhitespaceSensitivity": "ignore",
+		"vueIndentScriptAndStyle": false,
+		"endOfLine": "auto"
 	}
 }

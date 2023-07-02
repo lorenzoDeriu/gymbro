@@ -1,24 +1,24 @@
-import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { MatDialog } from '@angular/material/dialog';
-import { NotesDialogComponent } from '../notes-dialog/notes-dialog.component';
+import { UserService } from "src/app/services/user.service";
+import { Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { FirebaseService } from "src/app/services/firebase.service";
+import { MatDialog } from "@angular/material/dialog";
+import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 
 @Component({
-	selector: 'app-training-programs',
-	templateUrl: './training-programs.component.html',
-	styleUrls: ['./training-programs.component.css'],
+	selector: "app-training-programs",
+	templateUrl: "./training-programs.component.html",
+	styleUrls: ["./training-programs.component.css"],
 })
 export class TrainingProgramsComponent implements OnInit {
 	loading: boolean;
 	trainingPrograms: any[] = [];
 
 	displayedColumns: string[] = [
-		'Esercizio',
-		'Serie x Ripetizioni',
-		'Recupero',
-		'RPE',
+		"Esercizio",
+		"Serie x Ripetizioni",
+		"Recupero",
+		"RPE",
 	];
 
 	constructor(
@@ -37,11 +37,11 @@ export class TrainingProgramsComponent implements OnInit {
 	}
 
 	backToHomeButton() {
-		this.router.navigate(['/home/dashboard']);
+		this.router.navigate(["/home/dashboard"]);
 	}
 
 	buildTrainingProgramButton() {
-		this.router.navigate(['/home/training-program-builder']);
+		this.router.navigate(["/home/training-program-builder"]);
 	}
 
 	async removeTrainingProgram(index: number) {
@@ -55,11 +55,11 @@ export class TrainingProgramsComponent implements OnInit {
 		exerciseIndex: number
 	) {
 		this.dialog.open(NotesDialogComponent, {
-			width: '300px',
+			width: "300px",
 			data: {
-				notes: this.trainingPrograms[trainingProgramIndex]['session'][
+				notes: this.trainingPrograms[trainingProgramIndex]["session"][
 					sessionIndex
-				]['exercises'][exerciseIndex]['note'],
+				]["exercises"][exerciseIndex]["note"],
 			},
 		});
 	}

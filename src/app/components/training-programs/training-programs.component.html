@@ -9,8 +9,9 @@
 		<span
 			id="secondary-title"
 			*ngIf="this.trainingPrograms.length == 0 && !this.loading"
-			>Non ci sono schede, creane una nuova!</span
 		>
+			Non ci sono schede, creane una nuova!
+		</span>
 	</div>
 
 	<mat-accordion>
@@ -22,15 +23,14 @@
 			"
 		>
 			<mat-expansion-panel-header>
-				<mat-panel-title
-					><span id="training-program-name">{{
-						trainingProgram.name
-					}}</span></mat-panel-title
-				>
-				<mat-panel-description
-					>Numero di sessioni:
-					{{ trainingProgram.session.length }}</mat-panel-description
-				>
+				<mat-panel-title>
+					<span id="training-program-name">
+						{{ trainingProgram.name }}
+					</span>
+				</mat-panel-title>
+				<mat-panel-description>
+					Numero di sessioni: {{ trainingProgram.session.length }}
+				</mat-panel-description>
 			</mat-expansion-panel-header>
 
 			<div

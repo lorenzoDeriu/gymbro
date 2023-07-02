@@ -1,9 +1,9 @@
-import { FirebaseService } from './firebase.service';
-import { Exercise } from '../Models/Exercise.model';
-import { Injectable, OnInit } from '@angular/core';
+import { FirebaseService } from "./firebase.service";
+import { Exercise } from "../Models/Exercise.model";
+import { Injectable, OnInit } from "@angular/core";
 
 @Injectable({
-	providedIn: 'root',
+	providedIn: "root",
 })
 export class UserService {
 	exercises: any[] = [];
@@ -25,17 +25,17 @@ export class UserService {
 			range: exercise.range,
 		});
 
-		localStorage.setItem('exercises', JSON.stringify(this.exercises));
+		localStorage.setItem("exercises", JSON.stringify(this.exercises));
 	}
 
 	exercisesReset() {
 		this.exercises = [];
-		localStorage.removeItem('exercises');
+		localStorage.removeItem("exercises");
 	}
 
 	getExercises() {
 		if (this.exercises.length == 0) {
-			let exercises = JSON.parse(localStorage.getItem('exercises'));
+			let exercises = JSON.parse(localStorage.getItem("exercises"));
 
 			if (exercises != null) {
 				this.exercises = exercises;
@@ -47,7 +47,7 @@ export class UserService {
 
 	removeElement(index: number) {
 		this._remove(index);
-		localStorage.setItem('exercises', JSON.stringify(this.exercises));
+		localStorage.setItem("exercises", JSON.stringify(this.exercises));
 	}
 
 	private _remove(element: number) {
@@ -57,7 +57,7 @@ export class UserService {
 	}
 
 	public updateWorkouts(workouts: any) {
-		let user = JSON.parse(localStorage.getItem('user'));
+		let user = JSON.parse(localStorage.getItem("user"));
 		this.firebase.updateWorkouts(workouts, user.uid);
 
 		return this.firebase.getWorkouts();
@@ -76,7 +76,7 @@ export class UserService {
 	}
 
 	public async removeTrainingProgram(index: number) {
-		let user: any = JSON.parse(localStorage.getItem('user'));
+		let user: any = JSON.parse(localStorage.getItem("user"));
 
 		let trainingPrograms = await this.firebase.getTrainingPrograms();
 		trainingPrograms.splice(index, 1);

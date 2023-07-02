@@ -1,12 +1,12 @@
-import { NgForm } from '@angular/forms';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NgForm } from "@angular/forms";
+import { FirebaseService } from "src/app/services/firebase.service";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
-	selector: 'app-friends',
-	templateUrl: './friends.component.html',
-	styleUrls: ['./friends.component.css'],
+	selector: "app-friends",
+	templateUrl: "./friends.component.html",
+	styleUrls: ["./friends.component.css"],
 })
 export class FriendsComponent implements OnInit {
 	public username: string;
@@ -21,14 +21,14 @@ export class FriendsComponent implements OnInit {
 	constructor(private firebase: FirebaseService, private router: Router) {}
 
 	async ngOnInit() {
-		this.uid = JSON.parse(localStorage.getItem('user'))['uid'];
+		this.uid = JSON.parse(localStorage.getItem("user"))["uid"];
 
 		this.loading = true;
 		this.userData = await this.firebase.getUserData(this.uid);
 
-		this.username = this.userData['username'];
+		this.username = this.userData["username"];
 		this._hasFollow =
-			this.userData['follow'] != undefined
+			this.userData["follow"] != undefined
 				? this.userData.follow.length > 0
 				: false;
 		this.followed = await this.firebase.getFollowed(this.uid);
@@ -57,9 +57,9 @@ export class FriendsComponent implements OnInit {
 		let matchingUsername = await this.firebase.getMatchingUsername(
 			username
 		);
-		localStorage.setItem('search-result', JSON.stringify(matchingUsername));
+		localStorage.setItem("search-result", JSON.stringify(matchingUsername));
 
-		this.router.navigate(['/home/search-result']);
+		this.router.navigate(["/home/search-result"]);
 	}
 
 	async onUnfollow(index: number) {
@@ -69,14 +69,14 @@ export class FriendsComponent implements OnInit {
 	}
 
 	backToHome() {
-		this.router.navigate(['/home']);
+		this.router.navigate(["/home"]);
 	}
 
 	viewProfile(index: number) {
 		localStorage.setItem(
-			'profile',
+			"profile",
 			JSON.stringify({ uid: this.followed[index].uid })
 		);
-		this.router.navigate(['/home/profile']);
+		this.router.navigate(["/home/profile"]);
 	}
 }

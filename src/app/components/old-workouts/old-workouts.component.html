@@ -9,15 +9,17 @@
 		<span
 			id="secondary-title"
 			*ngIf="this.workouts.length == 0 && !this.loading"
-			>Non ci sono allenamenti, caricane uno nuovo!</span
 		>
+			Non ci sono allenamenti, caricane uno nuovo!
+		</span>
 
 		<button
 			class="btn btn-outline-dark"
 			style="margin-top: 10px"
 			(click)="backToHomeButton()"
 		>
-			<i class="bi bi-house-door"></i> Torna alla home
+			<i class="bi bi-house-door"></i>
+			Torna alla home
 		</button>
 	</div>
 
@@ -28,9 +30,9 @@
 		>
 			<mat-expansion-panel-header>
 				<mat-panel-title>{{ workout.name }}</mat-panel-title>
-				<mat-panel-description>{{
-					workout.date
-				}}</mat-panel-description>
+				<mat-panel-description>
+					{{ workout.date }}
+				</mat-panel-description>
 			</mat-expansion-panel-header>
 
 			<table class="table">

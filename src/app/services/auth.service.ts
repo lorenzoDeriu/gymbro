@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { FirebaseService } from './firebase.service';
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { FirebaseService } from "./firebase.service";
 
 @Injectable({
-	providedIn: 'root',
+	providedIn: "root",
 })
 export class AuthService {
 	private loggedIn: boolean = false;
@@ -17,7 +17,7 @@ export class AuthService {
 		);
 
 		if (credential == null) {
-			alert('La registrazione non è andata a buon fine');
+			alert("La registrazione non è andata a buon fine");
 			return;
 		}
 
@@ -52,10 +52,10 @@ export class AuthService {
 	sendWelcomeNotification() {
 		Notification.requestPermission().then(
 			(result: NotificationPermission) => {
-				if (result === 'granted') {
-					let notification = new Notification('Benvenuto su GymBro', {
+				if (result === "granted") {
+					let notification = new Notification("Benvenuto su GymBro", {
 						body: "Grazie per aver scelto GymBro, l'applicazione che ti aiuta a gestire i tuoi allenamenti e monitora i tuoi progressi.",
-						icon: 'assets/icons/icon-72x72.png',
+						icon: "assets/icons/icon-72x72.png",
 					});
 
 					console.log(notification);
@@ -65,7 +65,7 @@ export class AuthService {
 	}
 
 	public createNewUserInfo() {
-		let user = JSON.parse(localStorage.getItem('user'));
+		let user = JSON.parse(localStorage.getItem("user"));
 
 		this.firebase.addUser({ workouts: [], trainingPrograms: [] }, user.uid);
 	}
@@ -92,15 +92,15 @@ export class AuthService {
 
 	private loginUser(user: any) {
 		this.loggedIn = true;
-		localStorage.setItem('user', JSON.stringify(user));
+		localStorage.setItem("user", JSON.stringify(user));
 
 		this.sendWelcomeNotification();
 
-		this.router.navigate(['/home/dashboard']);
+		this.router.navigate(["/home/dashboard"]);
 	}
 
 	public isAuthenticated() {
-		if (!this.loggedIn && localStorage.getItem('user') != null) {
+		if (!this.loggedIn && localStorage.getItem("user") != null) {
 			this.loggedIn = true;
 		}
 
@@ -110,12 +110,12 @@ export class AuthService {
 	public logout() {
 		this.firebase.signout();
 		this.loggedIn = false;
-		localStorage.removeItem('user');
-		this.router.navigate(['/welcome']);
+		localStorage.removeItem("user");
+		this.router.navigate(["/welcome"]);
 	}
 
 	public getUserToken() {
-		let user = JSON.parse(localStorage.getItem('user'));
+		let user = JSON.parse(localStorage.getItem("user"));
 
 		return user.idToken;
 	}

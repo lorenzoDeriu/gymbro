@@ -1,13 +1,13 @@
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
-import { Chart } from 'chart.js';
+import { FirebaseService } from "src/app/services/firebase.service";
+import { Component, OnInit } from "@angular/core";
+import { NgForm } from "@angular/forms";
+import { UserService } from "src/app/services/user.service";
+import { Chart } from "chart.js";
 
 @Component({
-	selector: 'app-exercise-stats',
-	templateUrl: './exercise-stats.component.html',
-	styleUrls: ['./exercise-stats.component.css'],
+	selector: "app-exercise-stats",
+	templateUrl: "./exercise-stats.component.html",
+	styleUrls: ["./exercise-stats.component.css"],
 })
 export class ExerciseStatsComponent implements OnInit {
 	private workouts: any[];
@@ -21,7 +21,7 @@ export class ExerciseStatsComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
-		let uid = JSON.parse(localStorage.getItem('user'))['uid'];
+		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
 		this.options = (await this.firebase.getExercise(uid)).sort(
 			(a: string, b: string) => a.localeCompare(b)
 		);
@@ -35,26 +35,26 @@ export class ExerciseStatsComponent implements OnInit {
 		let exercise = form.value.exerciseName;
 		let dates = await this.getDatesFor(exercise);
 
-		this.chart = new Chart('chart', {
-			type: 'line',
+		this.chart = new Chart("chart", {
+			type: "line",
 			data: {
 				labels: dates,
 				datasets: [
 					{
-						label: 'Carico utilizzato: ' + exercise,
+						label: "Carico utilizzato: " + exercise,
 						data: this.getWeigthsFor(exercise, dates),
 						fill: false,
-						borderColor: '#4545BC',
+						borderColor: "#4545BC",
 						tension: 0.1,
-						yAxisID: 'y',
+						yAxisID: "y",
 					},
 					{
-						label: 'Volume totale: ' + exercise,
+						label: "Volume totale: " + exercise,
 						data: this.getVolumesFor(exercise, dates),
 						fill: false,
-						borderColor: '#FF0000',
+						borderColor: "#FF0000",
 						tension: 0.1,
-						yAxisID: 'y1',
+						yAxisID: "y1",
 					},
 				],
 			},
@@ -70,15 +70,15 @@ export class ExerciseStatsComponent implements OnInit {
 					y: {
 						ticks: {
 							stepSize: 1,
-							color: '#4545BC',
+							color: "#4545BC",
 						},
 					},
 					y1: {
 						ticks: {
 							stepSize: 1,
-							color: '#FF0000',
+							color: "#FF0000",
 						},
-						position: 'right',
+						position: "right",
 						grid: {
 							drawOnChartArea: false,
 						},
@@ -149,10 +149,10 @@ export class ExerciseStatsComponent implements OnInit {
 
 	private sortByDate(workouts: any) {
 		return workouts.sort((a: any, b: any) => {
-			let [day, month, year] = String(a.date).split('/');
+			let [day, month, year] = String(a.date).split("/");
 			const dateA = +new Date(+year, +month - 1, +day);
 
-			[day, month, year] = String(b.date).split('/');
+			[day, month, year] = String(b.date).split("/");
 			const dateB = +new Date(+year, +month - 1, +day);
 
 			return dateB - dateA;

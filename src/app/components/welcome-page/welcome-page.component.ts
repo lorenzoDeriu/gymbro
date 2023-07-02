@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { PasswordRecoverDialogComponent } from '../password-recover-dialog/password-recover-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
+import { PasswordRecoverDialogComponent } from "../password-recover-dialog/password-recover-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
-	selector: 'app-welcome-page',
-	templateUrl: './welcome-page.component.html',
-	styleUrls: ['./welcome-page.component.css'],
+	selector: "app-welcome-page",
+	templateUrl: "./welcome-page.component.html",
+	styleUrls: ["./welcome-page.component.css"],
 })
 export class WelcomePageComponent implements OnInit {
 	public email: string;
@@ -22,8 +22,8 @@ export class WelcomePageComponent implements OnInit {
 
 	async ngOnInit() {
 		if (this.authService.isAuthenticated()) {
-			console.log('User is authenticated');
-			this.router.navigate(['/home/dashboard']);
+			console.log("User is authenticated");
+			this.router.navigate(["/home/dashboard"]);
 		}
 	}
 
@@ -36,15 +36,15 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	signUp() {
-		this.router.navigate(['/access']);
+		this.router.navigate(["/access"]);
 	}
 
 	allowLogin(): boolean {
 		return (
 			this.email &&
-			this.email != '' &&
+			this.email != "" &&
 			this.password &&
-			this.password != ''
+			this.password != ""
 		);
 	}
 
@@ -54,8 +54,8 @@ export class WelcomePageComponent implements OnInit {
 
 	forgotPassword() {
 		this.dialog.open(PasswordRecoverDialogComponent, {
-			width: '300px',
-			height: '135px',
+			width: "300px",
+			height: "135px",
 			disableClose: false,
 		});
 	}

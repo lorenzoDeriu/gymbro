@@ -1,15 +1,15 @@
-import { PasswordRecoverDialogComponent } from '../password-recover-dialog/password-recover-dialog.component';
-import { Component, OnInit } from '@angular/core';
+import { PasswordRecoverDialogComponent } from "../password-recover-dialog/password-recover-dialog.component";
+import { Component, OnInit } from "@angular/core";
 import {
 	FormControl,
 	FormGroupDirective,
 	NgForm,
 	Validators,
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+} from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
+import { MatDialog } from "@angular/material/dialog";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(
@@ -26,9 +26,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-	selector: 'app-access',
-	templateUrl: './access.component.html',
-	styleUrls: ['./access.component.css'],
+	selector: "app-access",
+	templateUrl: "./access.component.html",
+	styleUrls: ["./access.component.css"],
 })
 export class AccessComponent implements OnInit {
 	public matcher = new MyErrorStateMatcher();
@@ -42,7 +42,7 @@ export class AccessComponent implements OnInit {
 
 	async ngOnInit() {
 		if (this.authService.isAuthenticated())
-			this.router.navigate(['/home/dashboard']);
+			this.router.navigate(["/home/dashboard"]);
 	}
 
 	onLoginSubmit(form: NgForm) {
@@ -59,8 +59,8 @@ export class AccessComponent implements OnInit {
 
 	forgotPassword() {
 		this.dialog.open(PasswordRecoverDialogComponent, {
-			width: '300px',
-			height: '130px',
+			width: "300px",
+			height: "130px",
 		});
 	}
 }

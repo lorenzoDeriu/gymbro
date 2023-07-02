@@ -12,10 +12,10 @@
 	<ng-container *ngIf="!hasUsername() && !this.loading">
 		<div class="info-text-container">
 			<h3>
-				<span class="text"
-					>Non hai ancora uno username, scegline uno per iniziare a
-					connetterti!</span
-				>
+				<span class="text">
+					Non hai ancora uno username, scegline uno per iniziare a
+					connetterti!
+				</span>
 			</h3>
 		</div>
 		<form
@@ -81,9 +81,9 @@
 	<ng-container *ngIf="hasUsername() && !hasFollow() && !this.loading">
 		<div class="info-text-container">
 			<h3>
-				<span class="text"
-					>Non segui ancora nessuno, prova a cercare qualcuno</span
-				>
+				<span class="text">
+					Non segui ancora nessuno, prova a cercare qualcuno
+				</span>
 			</h3>
 		</div>
 	</ng-container>
@@ -96,9 +96,9 @@
 					src="../../../assets/personIcon.png"
 					alt=""
 				/>
-				<span id="username"
-					><b>{{ user.username }}</b></span
-				>
+				<span id="username">
+					<b>{{ user.username }}</b>
+				</span>
 			</div>
 
 			<div id="card-button-container">

@@ -1,4 +1,4 @@
-import { endOfWeek } from 'date-fns';
+import { endOfWeek } from "date-fns";
 
 export class Utils {
 	getSessionExerciseFor(
@@ -58,10 +58,10 @@ export class Utils {
 
 	sortByDate(workouts: any) {
 		return workouts.sort((a: any, b: any) => {
-			let [day, month, year] = String(a.date).split('/');
+			let [day, month, year] = String(a.date).split("/");
 			const dateA = +new Date(+year, +month - 1, +day);
 
-			[day, month, year] = String(b.date).split('/');
+			[day, month, year] = String(b.date).split("/");
 			const dateB = +new Date(+year, +month - 1, +day);
 
 			return dateB - dateA;
@@ -112,7 +112,7 @@ export class Utils {
 		let workoutsDate: any[] = [];
 		for (let workout of sortedWorkouts) {
 			workoutsDate.push(
-				this.toDate(workout.date).toLocaleString().split(',')[0]
+				this.toDate(workout.date).toLocaleString().split(",")[0]
 			);
 		}
 		workoutsDate.reverse();
@@ -130,7 +130,7 @@ export class Utils {
 	}
 
 	private toDate(d: string): Date {
-		let [day, month, year] = String(d).split('/');
+		let [day, month, year] = String(d).split("/");
 		const date = new Date(+year, +month - 1, +day);
 
 		return date;

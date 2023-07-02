@@ -20,15 +20,14 @@
 			*ngFor="let session of this.trainingProgram.session; index as index"
 		>
 			<mat-expansion-panel-header>
-				<mat-panel-title
-					><span id="training-program-day-name">{{
-						session.name
-					}}</span></mat-panel-title
-				>
-				<mat-panel-description
-					>Numero esercizi:
-					{{ session.exercises.length }}</mat-panel-description
-				>
+				<mat-panel-title>
+					<span id="training-program-day-name">
+						{{ session.name }}
+					</span>
+				</mat-panel-title>
+				<mat-panel-description>
+					Numero esercizi: {{ session.exercises.length }}
+				</mat-panel-description>
 			</mat-expansion-panel-header>
 
 			<table

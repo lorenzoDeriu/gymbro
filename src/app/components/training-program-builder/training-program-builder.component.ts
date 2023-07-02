@@ -1,7 +1,7 @@
-import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/services/firebase.service';
+import { UserService } from "src/app/services/user.service";
+import { Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { FirebaseService } from "src/app/services/firebase.service";
 
 export interface TrainingProgram {
 	name: string;
@@ -9,22 +9,22 @@ export interface TrainingProgram {
 }
 
 @Component({
-	selector: 'app-training-program-builder',
-	templateUrl: './training-program-builder.component.html',
-	styleUrls: ['./training-program-builder.component.css'],
+	selector: "app-training-program-builder",
+	templateUrl: "./training-program-builder.component.html",
+	styleUrls: ["./training-program-builder.component.css"],
 })
 export class TrainingProgramBuilderComponent implements OnInit {
-	trainingProgramName: string = '';
+	trainingProgramName: string = "";
 	trainingProgram: TrainingProgram = {
-		name: '',
+		name: "",
 		session: [],
 	};
 
 	displayedColumns: string[] = [
-		'Esercizio',
-		'Serie x Ripetizioni',
-		'Recupero',
-		'RPE',
+		"Esercizio",
+		"Serie x Ripetizioni",
+		"Recupero",
+		"RPE",
 	];
 
 	constructor(
@@ -39,11 +39,11 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	}
 
 	onCancel() {
-		this.router.navigate(['/home/training-programs']);
+		this.router.navigate(["/home/training-programs"]);
 	}
 
 	onNewSessionBuild() {
-		this.router.navigate(['/home/session-builder']);
+		this.router.navigate(["/home/session-builder"]);
 	}
 
 	async removeElement(index: number) {
@@ -56,6 +56,6 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		this.trainingProgram.name = this.trainingProgramName;
 
 		await this.firebase.addTrainingProgram(this.trainingProgram);
-		this.router.navigate(['/home/training-programs']);
+		this.router.navigate(["/home/training-programs"]);
 	}
 }

@@ -1,13 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FirebaseService } from 'src/app/services/firebase.service';
+import { Component, Inject, OnInit } from "@angular/core";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { FirebaseService } from "src/app/services/firebase.service";
 
-import { Utils } from 'src/app/utils/utils';
+import { Utils } from "src/app/utils/utils";
 
 @Component({
-	selector: 'app-exercise-stats-dialog',
-	templateUrl: './exercise-stats-dialog.component.html',
-	styleUrls: ['./exercise-stats-dialog.component.css'],
+	selector: "app-exercise-stats-dialog",
+	templateUrl: "./exercise-stats-dialog.component.html",
+	styleUrls: ["./exercise-stats-dialog.component.css"],
 })
 export class ExerciseStatsDialogComponent implements OnInit {
 	private workouts: any[];

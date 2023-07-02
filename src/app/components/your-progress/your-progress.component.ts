@@ -1,18 +1,18 @@
-import { UserService } from '../../services/user.service';
-import { Component, OnInit } from '@angular/core';
-import { endOfWeek } from 'date-fns';
-import { Chart, registerables } from 'chart.js';
-import { MatDialog } from '@angular/material/dialog';
-import { ExerciseStatsComponent } from '../exercise-stats/exercise-stats.component';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { Router } from '@angular/router';
-import { Utils } from 'src/app/utils/utils';
+import { UserService } from "../../services/user.service";
+import { Component, OnInit } from "@angular/core";
+import { endOfWeek } from "date-fns";
+import { Chart, registerables } from "chart.js";
+import { MatDialog } from "@angular/material/dialog";
+import { ExerciseStatsComponent } from "../exercise-stats/exercise-stats.component";
+import { FirebaseService } from "src/app/services/firebase.service";
+import { Router } from "@angular/router";
+import { Utils } from "src/app/utils/utils";
 Chart.register(...registerables);
 
 @Component({
-	selector: 'app-your-progress',
-	templateUrl: './your-progress.component.html',
-	styleUrls: ['./your-progress.component.css'],
+	selector: "app-your-progress",
+	templateUrl: "./your-progress.component.html",
+	styleUrls: ["./your-progress.component.css"],
 })
 export class YourProgressComponent implements OnInit {
 	public loading: boolean;
@@ -34,22 +34,22 @@ export class YourProgressComponent implements OnInit {
 
 		this.createWorkoutCounterChart();
 
-		this.createChart('benchPressChart', 'Bench Press');
-		this.createChart('deadliftChart', 'Deadlift');
-		this.createChart('squatChart', 'Squat');
+		this.createChart("benchPressChart", "Bench Press");
+		this.createChart("deadliftChart", "Deadlift");
+		this.createChart("squatChart", "Squat");
 		this.loading = false;
 	}
 
 	createWorkoutCounterChart() {
-		this.workoutCounterChart = new Chart('workoutCounterChart', {
-			type: 'bar',
+		this.workoutCounterChart = new Chart("workoutCounterChart", {
+			type: "bar",
 			data: {
-				labels: ['1', '2', '3', '4', '5', '6', '7', '8'],
+				labels: ["1", "2", "3", "4", "5", "6", "7", "8"],
 				datasets: [
 					{
-						label: 'Number of Workouts per week',
+						label: "Number of Workouts per week",
 						data: this.utils.pastWeekWourkoutCounter(this.workouts),
-						backgroundColor: '#4545BC',
+						backgroundColor: "#4545BC",
 						barThickness: 40,
 						borderRadius: 50,
 					},
@@ -76,20 +76,20 @@ export class YourProgressComponent implements OnInit {
 		let dates = this.utils.getDatesFor(exerciseName, this.workouts);
 
 		return new Chart(chartID, {
-			type: 'line',
+			type: "line",
 			data: {
 				labels: dates,
 				datasets: [
 					{
-						label: 'Progressione del peso: ' + exerciseName,
+						label: "Progressione del peso: " + exerciseName,
 						data: this.utils.getWeightsFor(
 							exerciseName,
 							dates,
 							this.workouts
 						),
-						backgroundColor: '#4545BC',
+						backgroundColor: "#4545BC",
 						tension: 0.3,
-						borderColor: '#4545BC',
+						borderColor: "#4545BC",
 					},
 				],
 			},
@@ -112,12 +112,12 @@ export class YourProgressComponent implements OnInit {
 
 	showStats() {
 		this.dialog.open(ExerciseStatsComponent, {
-			width: '100%',
-			height: '85%',
+			width: "100%",
+			height: "85%",
 		});
 	}
 
 	goToHome() {
-		this.router.navigate(['/home']);
+		this.router.navigate(["/home"]);
 	}
 }

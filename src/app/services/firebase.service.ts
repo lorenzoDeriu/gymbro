@@ -1,9 +1,9 @@
-import { AuthService } from 'src/app/services/auth.service';
-import { Injectable, OnChanges } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { AuthService } from "src/app/services/auth.service";
+import { Injectable, OnChanges } from "@angular/core";
+import { environment } from "src/environments/environment";
 
-import { initializeApp } from 'firebase/app';
-import 'firebase/firestore';
+import { initializeApp } from "firebase/app";
+import "firebase/firestore";
 import {
 	setDoc,
 	doc,
@@ -26,7 +26,7 @@ import {
 	getDocsFromCache,
 	onSnapshot,
 	DocumentChange,
-} from 'firebase/firestore';
+} from "firebase/firestore";
 import {
 	getAuth,
 	createUserWithEmailAndPassword,
@@ -37,8 +37,8 @@ import {
 	sendPasswordResetEmail,
 	Auth,
 	signInWithPopup,
-} from 'firebase/auth';
-import { Router } from '@angular/router';
+} from "firebase/auth";
+import { Router } from "@angular/router";
 
 export interface user {
 	uid: string;
@@ -47,7 +47,7 @@ export interface user {
 }
 
 @Injectable({
-	providedIn: 'root',
+	providedIn: "root",
 })
 export class FirebaseService {
 	private app = initializeApp(environment.firebaseConfig);
@@ -59,8 +59,8 @@ export class FirebaseService {
 	private googleProvider = new GoogleAuthProvider();
 
 	constructor(private router: Router) {
-		enableIndexedDbPersistence(this.db, { forceOwnership: true }).catch(
-			(e) => console.log(e)
+		enableIndexedDbPersistence(this.db, { forceOwnership: true }).catch(e =>
+			console.log(e)
 		);
 	}
 
@@ -98,7 +98,7 @@ export class FirebaseService {
 	}
 
 	public async existInfoOf(uid: string) {
-		const documentReference = doc(this.db, 'users', uid);
+		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
@@ -107,7 +107,7 @@ export class FirebaseService {
 	}
 
 	async getUserData(uid: string) {
-		const documentReference = doc(this.db, 'users', uid);
+		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
@@ -131,13 +131,13 @@ export class FirebaseService {
 	}
 
 	public signout() {
-		signOut(this.auth).catch((e) => console.log(e));
+		signOut(this.auth).catch(e => console.log(e));
 	}
 
 	async getExercise(uid: string) {
 		let exercise: string[] = [];
 
-		let documentReference = doc(this.db, 'exercise', 'exercises');
+		let documentReference = doc(this.db, "exercise", "exercises");
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
@@ -146,16 +146,16 @@ export class FirebaseService {
 			return [];
 		}
 
-		exercise = documentSnapshot.data()['name'];
+		exercise = documentSnapshot.data()["name"];
 
-		documentReference = doc(this.db, 'users', uid);
+		documentReference = doc(this.db, "users", uid);
 		documentSnapshot = await this.getDocumentSnapshot(documentReference);
 
 		if (!documentSnapshot.exists()) {
 			return [];
 		}
 
-		let userExercise = documentSnapshot.data()['customExercises'];
+		let userExercise = documentSnapshot.data()["customExercises"];
 		if (userExercise == undefined) {
 			userExercise = [];
 		}
@@ -166,35 +166,35 @@ export class FirebaseService {
 	}
 
 	addUser(body: any, uid: string) {
-		setDoc(doc(this.db, 'users', uid), body).catch((e) => console.log(e));
+		setDoc(doc(this.db, "users", uid), body).catch(e => console.log(e));
 	}
 
 	async saveWorkout(body: any, uid: string) {
-		const documentReference = doc(this.db, 'users', uid);
+		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
 		if (documentSnapshot.exists()) {
 			let data = documentSnapshot.data();
-			let workouts: any[] = data['workouts'];
+			let workouts: any[] = data["workouts"];
 
 			workouts.push(body);
 
 			updateDoc(documentReference, { workouts: workouts })
-				.catch((e) => console.log(e))
+				.catch(e => console.log(e))
 				.then(() => {
-					if (Notification.permission == 'granted') {
+					if (Notification.permission == "granted") {
 						let notification = new Notification(
-							'Allenamento Salvato',
+							"Allenamento Salvato",
 							{
-								body: 'Un nuovo allenamento è stato aggiunto,controlla i tuoi progressi per vedere i miglioramenti!',
-								icon: 'assets/images/logo.png',
+								body: "Un nuovo allenamento è stato aggiunto,controlla i tuoi progressi per vedere i miglioramenti!",
+								icon: "assets/images/logo.png",
 							}
 						);
 
 						notification.onclick = () => {
-							this.router.navigate(['home/progress']);
+							this.router.navigate(["home/progress"]);
 						};
 
 						console.log(notification);
@@ -204,120 +204,120 @@ export class FirebaseService {
 	}
 
 	async getWorkouts() {
-		let uid = JSON.parse(localStorage.getItem('user'))['uid'];
+		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
 
-		const documentReference = doc(this.db, 'users', uid);
+		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
 		if (documentSnapshot.exists()) {
 			let data = documentSnapshot.data();
-			return data['workouts'];
+			return data["workouts"];
 		}
 		return null;
 	}
 
 	updateWorkouts(workouts: any, uid: string) {
-		const documentReference = doc(this.db, 'users', uid);
+		const documentReference = doc(this.db, "users", uid);
 
-		updateDoc(documentReference, { workouts: workouts }).catch((e) =>
+		updateDoc(documentReference, { workouts: workouts }).catch(e =>
 			console.log(e)
 		);
 	}
 
 	async addTrainingProgram(trainingProgram: any) {
-		let uid: any = JSON.parse(localStorage.getItem('user'))['uid'];
+		let uid: any = JSON.parse(localStorage.getItem("user"))["uid"];
 
-		const documentReference = doc(this.db, 'users', uid);
+		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
 		if (documentSnapshot.exists()) {
 			let data = documentSnapshot.data();
-			data['trainingPrograms'].push(trainingProgram);
+			data["trainingPrograms"].push(trainingProgram);
 
 			updateDoc(documentReference, {
-				trainingPrograms: data['trainingPrograms'],
-			}).catch((e) => console.log(e));
+				trainingPrograms: data["trainingPrograms"],
+			}).catch(e => console.log(e));
 		}
 	}
 
 	async getTrainingPrograms() {
-		let uid = JSON.parse(localStorage.getItem('user'))['uid'];
+		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
 
-		const documentReference = doc(this.db, 'users', uid);
+		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
 		if (documentSnapshot.exists()) {
 			let data = documentSnapshot.data();
-			return data['trainingPrograms'];
+			return data["trainingPrograms"];
 		}
 
 		return null;
 	}
 
 	async getTrainingProgramsFromUser(uid: string) {
-		const documentReference = doc(this.db, 'users', uid);
+		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
 		if (documentSnapshot.exists()) {
 			let data = documentSnapshot.data();
-			return data['trainingPrograms'];
+			return data["trainingPrograms"];
 		}
 
 		return null;
 	}
 
 	async updateTrainingPrograms(trainingPrograms: any, uid: string) {
-		const documentReference = doc(this.db, 'users', uid);
+		const documentReference = doc(this.db, "users", uid);
 
 		updateDoc(documentReference, {
 			trainingPrograms: trainingPrograms,
-		}).catch((e) => console.log(e));
+		}).catch(e => console.log(e));
 	}
 
 	async recoverPassword(email: string) {
 		try {
 			await sendPasswordResetEmail(this.auth, email);
 		} catch (HttpErrorResponse) {
-			console.log('Si è verificato un errore');
+			console.log("Si è verificato un errore");
 		}
 	}
 
 	async getUsername(uid: string) {
-		const documentReference = doc(this.db, 'users', uid);
+		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
 		if (documentSnapshot.exists()) {
 			let data: any = documentSnapshot.data();
-			return data['username'] != undefined ? data['username'] : null;
+			return data["username"] != undefined ? data["username"] : null;
 		}
 
 		return null;
 	}
 
 	async updateUsername(uid: string, username: string) {
-		const collectionReference = collection(this.db, 'users');
+		const collectionReference = collection(this.db, "users");
 		const querySnapshot = navigator.onLine
 			? await getDocs(
 					query(
 						collectionReference,
-						where('username', '==', username)
+						where("username", "==", username)
 					)
 			  )
 			: await getDocsFromCache(
 					query(
 						collectionReference,
-						where('username', '==', username),
-						where('uid', '==', uid)
+						where("username", "==", username),
+						where("uid", "==", uid)
 					)
 			  );
 
@@ -326,13 +326,13 @@ export class FirebaseService {
 			return;
 		}
 
-		const documentReference = doc(this.db, 'users', uid);
+		const documentReference = doc(this.db, "users", uid);
 
 		await updateDoc(documentReference, { username: username });
 	}
 
 	async getFriendsUsernames(uid: string) {
-		let documentReference = doc(this.db, 'users', uid);
+		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
@@ -340,20 +340,20 @@ export class FirebaseService {
 		if (!documentSnapshot.exists()) return [];
 
 		let data = documentSnapshot.data();
-		let friendsUID = data['follow'];
+		let friendsUID = data["follow"];
 
 		if (friendsUID == undefined) return [];
 
 		let usernames: string[] = [];
 
 		friendsUID.forEach(async (uid: string) => {
-			let documentReference = doc(this.db, 'users', uid);
+			let documentReference = doc(this.db, "users", uid);
 			let documentSnapshot = await this.getDocumentSnapshot(
 				documentReference
 			);
 
 			if (documentSnapshot.exists()) {
-				usernames = documentSnapshot.data()['username'];
+				usernames = documentSnapshot.data()["username"];
 			}
 		});
 
@@ -367,66 +367,66 @@ export class FirebaseService {
 	}
 
 	async hasFollow(uid: string) {
-		let documentReference = doc(this.db, 'users', uid);
+		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
 		if (
 			!documentSnapshot.exists() ||
-			documentSnapshot.data()['follow'] == undefined
+			documentSnapshot.data()["follow"] == undefined
 		) {
 			return false;
 		}
 
-		return documentSnapshot.data()['follow'].length > 0;
+		return documentSnapshot.data()["follow"].length > 0;
 	}
 
 	async getMatchingUsername(username: string) {
-		let collectionReference = collection(this.db, 'users');
+		let collectionReference = collection(this.db, "users");
 		let querySnapshot = navigator.onLine
 			? await getDocs(
 					query(
 						collectionReference,
-						where('username', '>=', username),
-						where('username', '<=', username + '\uf8ff'),
+						where("username", ">=", username),
+						where("username", "<=", username + "\uf8ff"),
 						limit(30)
 					)
 			  )
 			: await getDocsFromCache(
 					query(
 						collectionReference,
-						where('username', '>=', username),
-						where('username', '<=', username + '\uf8ff'),
+						where("username", ">=", username),
+						where("username", "<=", username + "\uf8ff"),
 						limit(30)
 					)
 			  );
 
 		let result: any[] = [];
 
-		let uid = JSON.parse(localStorage.getItem('user'))['uid'];
+		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
 
 		querySnapshot.forEach((document: DocumentSnapshot) => {
-			let user = { uid: '', username: '' };
+			let user = { uid: "", username: "" };
 
-			user['uid'] = document.id;
-			user['username'] = document.data()['username'];
+			user["uid"] = document.id;
+			user["username"] = document.data()["username"];
 
-			if (uid != user['uid']) result.push(user);
+			if (uid != user["uid"]) result.push(user);
 		});
 
 		return result;
 	}
 
 	async addFollow(uidToFollow: string) {
-		let uid = JSON.parse(localStorage.getItem('user'))['uid'];
+		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
 
-		let documentReference = doc(this.db, 'users', uid);
+		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
-		let followed = documentSnapshot.data()['follow'];
+		let followed = documentSnapshot.data()["follow"];
 
 		if (followed == undefined) followed = [];
 		if (followed.includes(uidToFollow)) return;
@@ -436,7 +436,7 @@ export class FirebaseService {
 	}
 
 	async getFollowed(uid: string) {
-		let documentReference = doc(this.db, 'users', uid);
+		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
@@ -445,14 +445,14 @@ export class FirebaseService {
 			return null;
 		}
 
-		let follow = documentSnapshot.data()['follow'];
+		let follow = documentSnapshot.data()["follow"];
 
 		let result: any[] = [];
 
 		if (follow == undefined) return result;
 
 		follow.forEach(async (followedUID: string) => {
-			let documentReference = doc(this.db, 'users', followedUID);
+			let documentReference = doc(this.db, "users", followedUID);
 			let documentSnapshot = await this.getDocumentSnapshot(
 				documentReference
 			);
@@ -464,13 +464,13 @@ export class FirebaseService {
 			let userObj = {
 				uid: followedUID,
 				username:
-					documentSnapshot.data()['username'] == undefined
-						? ''
-						: documentSnapshot.data()['username'],
+					documentSnapshot.data()["username"] == undefined
+						? ""
+						: documentSnapshot.data()["username"],
 				visibilityPermission:
-					documentSnapshot.data()['visibility'] == undefined
+					documentSnapshot.data()["visibility"] == undefined
 						? false
-						: documentSnapshot.data()['visibility'],
+						: documentSnapshot.data()["visibility"],
 			};
 
 			result.push(userObj);
@@ -480,7 +480,7 @@ export class FirebaseService {
 	}
 
 	async unfollow(uid: string, uidToUnfollow: string) {
-		let documentReference = doc(this.db, 'users', uid);
+		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
@@ -489,7 +489,7 @@ export class FirebaseService {
 			return;
 		}
 
-		let followed: string[] = documentSnapshot.data()['follow'];
+		let followed: string[] = documentSnapshot.data()["follow"];
 		let index = followed.indexOf(uidToUnfollow);
 		followed.splice(index, 1);
 
@@ -497,16 +497,16 @@ export class FirebaseService {
 	}
 
 	addFeedback(feedback: string) {
-		addDoc(collection(this.db, 'feedback'), {
+		addDoc(collection(this.db, "feedback"), {
 			content: feedback,
 			date: new Date().toLocaleDateString(),
 		});
 	}
 
 	async userIsAdmin() {
-		let uid = JSON.parse(localStorage.getItem('user'))['uid'];
+		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
 
-		let documentReference = doc(this.db, 'users', uid);
+		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
@@ -517,7 +517,7 @@ export class FirebaseService {
 
 		let data = documentSnapshot.data();
 
-		if (data['admin']) {
+		if (data["admin"]) {
 			return true;
 		}
 
@@ -525,24 +525,24 @@ export class FirebaseService {
 	}
 
 	async getFeedbacks() {
-		let feedbackCollection = collection(this.db, 'feedback');
+		let feedbackCollection = collection(this.db, "feedback");
 		let docs = navigator.onLine
 			? await getDocs(feedbackCollection)
 			: await getDocsFromCache(feedbackCollection);
 
 		let feedback: any[] = [];
 
-		docs.forEach((document) => {
+		docs.forEach(document => {
 			feedback.push({
-				content: document.data()['content'],
-				date: document.data()['date'],
+				content: document.data()["content"],
+				date: document.data()["date"],
 				id: document.id,
 			});
 		});
 
 		feedback.sort((a, b) => {
-			if (a['date'] < b['date']) return 1;
-			if (a['date'] > b['date']) return -1;
+			if (a["date"] < b["date"]) return 1;
+			if (a["date"] > b["date"]) return -1;
 			return 0;
 		});
 
@@ -562,11 +562,11 @@ export class FirebaseService {
 	  } */
 
 	async removeFeedback(id: string) {
-		await deleteDoc(doc(this.db, 'feedback', id));
+		await deleteDoc(doc(this.db, "feedback", id));
 	}
 
 	async addExercise(exercise: string) {
-		let documentReference = doc(this.db, 'exercise', 'exercises');
+		let documentReference = doc(this.db, "exercise", "exercises");
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
@@ -576,14 +576,14 @@ export class FirebaseService {
 		}
 
 		let data = documentSnapshot.data();
-		let exercises: string[] = data['name'];
+		let exercises: string[] = data["name"];
 		exercises.push(exercise);
 
 		await updateDoc(documentReference, { name: exercises });
 	}
 
 	async addCustomExercise(exercise: string, uid: string) {
-		let documentReference = doc(this.db, 'users', uid);
+		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
@@ -593,11 +593,11 @@ export class FirebaseService {
 		}
 
 		let data = documentSnapshot.data();
-		if (data['customExercises'] == undefined) {
-			data['customExercises'] = [];
+		if (data["customExercises"] == undefined) {
+			data["customExercises"] = [];
 		}
 
-		let exercises: string[] = data['customExercises'];
+		let exercises: string[] = data["customExercises"];
 		exercises.push(exercise);
 
 		await updateDoc(documentReference, { customExercises: exercises });
@@ -609,8 +609,8 @@ export class FirebaseService {
 	}
 
 	async deleteUser() {
-		let uid = JSON.parse(localStorage.getItem('user'))['uid'];
-		let documentReference = doc(this.db, 'users', uid);
+		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
+		let documentReference = doc(this.db, "users", uid);
 
 		await deleteDoc(documentReference);
 
@@ -618,17 +618,17 @@ export class FirebaseService {
 	}
 
 	updateVisibility(uid: string, visibility: boolean) {
-		let documentReference = doc(this.db, 'users', uid);
+		let documentReference = doc(this.db, "users", uid);
 		updateDoc(documentReference, { visibility: visibility });
 	}
 
 	async deleteCustomExercise(uid: string, exercise: string) {
-		let documentReference = doc(this.db, 'users', uid);
+		let documentReference = doc(this.db, "users", uid);
 
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
-		let exercises: string[] = documentSnapshot.data()['customExercises'];
+		let exercises: string[] = documentSnapshot.data()["customExercises"];
 
 		let index = exercises.indexOf(exercise);
 		exercises.splice(index, 1);
