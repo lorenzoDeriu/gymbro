@@ -99,7 +99,7 @@
 				</button>
 			</div>
 
-			<div *ngIf="exercise.range" class="alert alert-info custom-alert">
+			<div *ngIf="exercise.range[0] != exercise.range[1]" class="alert alert-info custom-alert">
 				<i
 					style="font-size: 1.2em"
 					class="bi bi-info-square-fill"

@@ -70,6 +70,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 					? { ...this.workout.exercises[i].rest, running: false }
 					: { minutes: "00", seconds: "00", running: false }
 			);
+
+			this.workout.exercises[i].reps = this.workout.exercises[i].range[0] ?? 0;
 		}
 
 		this.workout.date = this.formatDate(this.date);
@@ -219,9 +221,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 			name: "",
 			load: 0,
 			RPE: 0,
-			restTime: { minutes: "00", seconds: "00", running: false },
+			rest: { minutes: "00", seconds: "00", running: false },
 			series: 0,
-			reps: 0,
+			reps: 0
 		};
 
 		this.workout.exercises.push(exercise);
