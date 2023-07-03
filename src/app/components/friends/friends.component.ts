@@ -1,12 +1,12 @@
-import { NgForm } from '@angular/forms';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NgForm } from "@angular/forms";
+import { FirebaseService } from "src/app/services/firebase.service";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
-	selector: 'app-friends',
-	templateUrl: './friends.component.html',
-	styleUrls: ['./friends.component.css']
+	selector: "app-friends",
+	templateUrl: "./friends.component.html",
+	styleUrls: ["./friends.component.css"],
 })
 export class FriendsComponent implements OnInit {
 	public username: string;
@@ -18,16 +18,19 @@ export class FriendsComponent implements OnInit {
 
 	public followed: any[];
 
-	constructor(private firebase: FirebaseService, private router: Router) { }
+	constructor(private firebase: FirebaseService, private router: Router) {}
 
 	async ngOnInit() {
-		this.uid = JSON.parse(localStorage.getItem("user"))["uid"]
+		this.uid = JSON.parse(localStorage.getItem("user"))["uid"];
 
 		this.loading = true;
 		this.userData = await this.firebase.getUserData(this.uid);
 
 		this.username = this.userData["username"];
-		this._hasFollow = this.userData["follow"] != undefined ? this.userData.follow.length > 0 : false;
+		this._hasFollow =
+			this.userData["follow"] != undefined
+				? this.userData.follow.length > 0
+				: false;
 		this.followed = await this.firebase.getFollowed(this.uid);
 
 		this.loading = false;
@@ -41,7 +44,7 @@ export class FriendsComponent implements OnInit {
 		let username = form.value.username;
 
 		this.firebase.updateUsername(this.uid, username);
-		this.username = await this.firebase.getUsername(this.uid)
+		this.username = await this.firebase.getUsername(this.uid);
 	}
 
 	hasFollow() {
@@ -51,7 +54,9 @@ export class FriendsComponent implements OnInit {
 	async onUsernameSearch(userSearchForm: NgForm) {
 		let username = userSearchForm.value.username;
 
-		let matchingUsername = await this.firebase.getMatchingUsername(username);
+		let matchingUsername = await this.firebase.getMatchingUsername(
+			username
+		);
 		localStorage.setItem("search-result", JSON.stringify(matchingUsername));
 
 		this.router.navigate(["/home/search-result"]);
@@ -68,7 +73,10 @@ export class FriendsComponent implements OnInit {
 	}
 
 	viewProfile(index: number) {
-		localStorage.setItem("profile", JSON.stringify({uid: this.followed[index].uid}));
+		localStorage.setItem(
+			"profile",
+			JSON.stringify({ uid: this.followed[index].uid })
+		);
 		this.router.navigate(["/home/profile"]);
 	}
 }

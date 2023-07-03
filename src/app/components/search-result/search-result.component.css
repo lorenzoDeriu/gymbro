@@ -5,7 +5,7 @@
 
 mat-card {
 	margin-top: 10px;
-	display:flex;
+	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
 	align-items: center;
@@ -18,7 +18,7 @@ mat-card {
 }
 
 #username {
-	margin-left:20px
+	margin-left: 20px;
 }
 
 #cancel-button-container {
@@ -40,7 +40,7 @@ img {
 	display: flex;
 	justify-content: center;
 	color: rgb(69, 69, 188);
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	font-weight: bold;
 	font-size: 120%;
 }
@@ -49,5 +49,4 @@ img {
 	#search-result-container {
 		width: 90%;
 	}
-
 }

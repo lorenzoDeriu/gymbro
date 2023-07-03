@@ -1,26 +1,41 @@
 import { endOfWeek } from "date-fns";
 
 export class Utils {
-	getSessionExerciseFor(exerciseName: string, workoutsDate: string[], workouts: any): any[] {
+	getSessionExerciseFor(
+		exerciseName: string,
+		workoutsDate: string[],
+		workouts: any
+	): any[] {
 		const sortedWorkouts = this.sortByDate(workouts);
 		const sessionExercises: any[] = [];
 
 		for (const date of new Set(workoutsDate)) {
-			const matchingWorkouts = sortedWorkouts.filter((workout: any) => workout.date === date);
+			const matchingWorkouts = sortedWorkouts.filter(
+				(workout: any) => workout.date === date
+			);
 
 			for (const matchingWorkout of matchingWorkouts) {
-				const matchingExercises = matchingWorkout.exercises.filter((exercise: any) => exercise.name === exerciseName);
+				const matchingExercises = matchingWorkout.exercises.filter(
+					(exercise: any) => exercise.name === exerciseName
+				);
 
 				for (const matchingExercise of matchingExercises) {
-					sessionExercises.push({ exercise: matchingExercise, date: matchingWorkout.date });
+					sessionExercises.push({
+						exercise: matchingExercise,
+						date: matchingWorkout.date,
+					});
 				}
 			}
 		}
 
 		return sessionExercises;
-	  }
+	}
 
-	getWeightsFor(exerciseName: string, workoutsDate: string[], workouts: any): string[] {
+	getWeightsFor(
+		exerciseName: string,
+		workoutsDate: string[],
+		workouts: any
+	): string[] {
 		const sortedWorkouts = new Set(this.sortByDate(workouts));
 		const weights: string[] = [];
 
@@ -40,7 +55,6 @@ export class Utils {
 
 		return weights.slice(Math.max(weights.length - 20, 0));
 	}
-
 
 	sortByDate(workouts: any) {
 		return workouts.sort((a: any, b: any) => {
@@ -71,17 +85,21 @@ export class Utils {
 
 	createWeeksArray() {
 		let today = new Date();
-		let lastDayOfThisWeek = endOfWeek(today, {weekStartsOn: 1});
+		let lastDayOfThisWeek = endOfWeek(today, { weekStartsOn: 1 });
 
 		let weeks: any[] = [];
 
 		for (let i = 1; i <= 8; i++) {
-			weeks[i-1] = [];
+			weeks[i - 1] = [];
 			if (i == 1) weeks.push(lastDayOfThisWeek);
 
 			for (let j = 0; j < 7; j++) {
-				let d =new Date(new Date().setDate(lastDayOfThisWeek.getDate() - (j+(7*(i-1)))))
-				weeks[i-1].push(d.toLocaleDateString());
+				let d = new Date(
+					new Date().setDate(
+						lastDayOfThisWeek.getDate() - (j + 7 * (i - 1))
+					)
+				);
+				weeks[i - 1].push(d.toLocaleDateString());
 			}
 		}
 
@@ -89,11 +107,13 @@ export class Utils {
 	}
 
 	pastWeekWourkoutCounter(workouts: any[]) {
-		let sortedWorkouts = this.sortByDate(workouts)
+		let sortedWorkouts = this.sortByDate(workouts);
 
 		let workoutsDate: any[] = [];
 		for (let workout of sortedWorkouts) {
-			workoutsDate.push(this.toDate(workout.date).toLocaleString().split(",")[0])
+			workoutsDate.push(
+				this.toDate(workout.date).toLocaleString().split(",")[0]
+			);
 		}
 		workoutsDate.reverse();
 
@@ -104,7 +124,7 @@ export class Utils {
 			for (let i = 0; i < weeks.length; i++)
 				if (weeks[i].includes(date)) counter[i]++;
 
-		counter.reverse()
+		counter.reverse();
 
 		return counter;
 	}

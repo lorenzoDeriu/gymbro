@@ -1,9 +1,12 @@
 <div>
 	<h1><span>Storico</span></h1>
 
-	<ng-container  *ngIf="this.stats.length == 0 && !this.loading">
+	<ng-container *ngIf="this.stats.length == 0 && !this.loading">
 		<p>Non ci sono dati per questo esercizio</p>
 	</ng-container>
 
-	<p *ngFor="let item of this.stats">{{item.date}}: {{item.exercise.series}}x{{item.exercise.reps}} - {{item.exercise.load}}kg</p>
+	<p *ngFor="let item of this.stats">
+		{{ item.date }}: {{ item.exercise.series }}x{{ item.exercise.reps }} -
+		{{ item.exercise.load }}kg
+	</p>
 </div>

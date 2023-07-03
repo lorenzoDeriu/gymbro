@@ -18,7 +18,7 @@ export class Exercise {
 	// 	this.note = note;
 	// }
 
-	constructor () {
+	constructor() {
 		this.exerciseName = "";
 		this.series = 0;
 		this.reps = 0;

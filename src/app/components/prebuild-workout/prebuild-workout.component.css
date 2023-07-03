@@ -8,7 +8,7 @@
 #title-container span {
 	display: flex;
 	justify-content: center;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	font-weight: bold;
 	color: rgb(69, 69, 188);
 }
@@ -47,7 +47,7 @@ form button {
 }
 
 .custom-span {
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	font-weight: bold;
 	color: rgb(69, 69, 188);
 	width: 100px;
@@ -57,9 +57,9 @@ form button {
 }
 
 .custom-alert {
-	color: rgb(69,69,188);
-	background-color: rgb(69,69,188, 0.2);
-	border-color: rgb(69,69,188);
+	color: rgb(69, 69, 188);
+	background-color: rgb(69, 69, 188, 0.2);
+	border-color: rgb(69, 69, 188);
 	height: 40px;
 	display: flex;
 	align-items: center;
@@ -67,7 +67,7 @@ form button {
 
 .custom-select {
 	box-shadow: none;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	font-weight: bold;
 	display: flex;
 	justify-content: flex-start;
@@ -77,7 +77,7 @@ form button {
 	color: rgb(69, 69, 188) !important;
 	background-color: #fff !important;
 	border-color: rgb(69, 69, 188) !important;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	font-weight: bold;
 }
 
@@ -97,4 +97,3 @@ form button {
 		flex-direction: column;
 	}
 }
-

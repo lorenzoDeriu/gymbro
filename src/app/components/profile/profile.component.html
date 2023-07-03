@@ -1,8 +1,14 @@
-<mat-progress-bar *ngIf="this.loading" mode="indeterminate" color="primary"></mat-progress-bar>
+<mat-progress-bar
+	*ngIf="this.loading"
+	mode="indeterminate"
+	color="primary"
+></mat-progress-bar>
 
 <div id="profile-container">
 	<div id="title-container">
-		<h1><span>{{this.username}}</span></h1>
+		<h1>
+			<span>{{ this.username }}</span>
+		</h1>
 	</div>
 
 	<ng-container *ngIf="this.trainingPrograms.length == 0">
@@ -12,47 +18,96 @@
 	</ng-container>
 
 	<mat-accordion>
-		<mat-expansion-panel hideToggle *ngFor="let program of this.trainingPrograms; index as programIndex">
+		<mat-expansion-panel
+			hideToggle
+			*ngFor="let program of this.trainingPrograms; index as programIndex"
+		>
 			<mat-expansion-panel-header>
-				<mat-panel-title>{{program.name}}</mat-panel-title>
-				<mat-panel-description>Numero di sessioni: {{program.session.length}}</mat-panel-description>
+				<mat-panel-title>{{ program.name }}</mat-panel-title>
+				<mat-panel-description>
+					Numero di sessioni: {{ program.session.length }}
+				</mat-panel-description>
 			</mat-expansion-panel-header>
 
-				<mat-accordion>
-					<mat-expansion-panel hideToggle *ngFor="let session of program.session; index as sessionIndex">
-						<mat-expansion-panel-header>
-							<mat-panel-title>{{session.name}}</mat-panel-title>
-							<mat-panel-description>Numero di esercizi: {{session.exercises.length}}</mat-panel-description>
-						</mat-expansion-panel-header>
+			<mat-accordion>
+				<mat-expansion-panel
+					hideToggle
+					*ngFor="
+						let session of program.session;
+						index as sessionIndex
+					"
+				>
+					<mat-expansion-panel-header>
+						<mat-panel-title>{{ session.name }}</mat-panel-title>
+						<mat-panel-description>
+							Numero di esercizi: {{ session.exercises.length }}
+						</mat-panel-description>
+					</mat-expansion-panel-header>
 
-						<table mat-table [dataSource]="session.exercises">
-							<ng-container matColumnDef="Esercizio">
-								<th mat-header-cell *matHeaderCellDef><b>Esercizio</b></th>
-								<td mat-cell *matCellDef="let element"> {{element.name}} </td>
-							</ng-container>
+					<table mat-table [dataSource]="session.exercises">
+						<ng-container matColumnDef="Esercizio">
+							<th mat-header-cell *matHeaderCellDef>
+								<b>Esercizio</b>
+							</th>
+							<td mat-cell *matCellDef="let element">
+								{{ element.name }}
+							</td>
+						</ng-container>
 
-							<ng-container matColumnDef="Serie x Ripetizioni">
-								<th mat-header-cell *matHeaderCellDef><b>Serie x Ripetizioni</b></th>
-								<td mat-cell *matCellDef="let element"> {{(element.series > 0 && element.reps > 0) ? element.series + "x" + element.reps : "/"}}</td>
-							</ng-container>
+						<ng-container matColumnDef="Serie x Ripetizioni">
+							<th mat-header-cell *matHeaderCellDef>
+								<b>Serie x Ripetizioni</b>
+							</th>
+							<td mat-cell *matCellDef="let element">
+								{{
+									element.series > 0 && element.reps > 0
+										? element.series + "x" + element.reps
+										: "/"
+								}}
+							</td>
+						</ng-container>
 
-							<ng-container matColumnDef="Recupero">
-								<th mat-header-cell *matHeaderCellDef><b>Recupero</b></th>
-								<td mat-cell *matCellDef="let element"> {{(element.restTime != undefined) ? element.restTime : 0}} </td>
-							</ng-container>
+						<ng-container matColumnDef="Recupero">
+							<th mat-header-cell *matHeaderCellDef>
+								<b>Recupero</b>
+							</th>
+							<td mat-cell *matCellDef="let element">
+								{{
+									element.restTime != undefined
+										? element.restTime
+										: 0
+								}}
+							</td>
+						</ng-container>
 
-							<ng-container matColumnDef="RPE">
-								<th mat-header-cell *matHeaderCellDef><b>RPE</b></th>
-								<td mat-cell *matCellDef="let element"> {{element.RPE > 0 ? element.RPE : "/"}} </td>
-							</ng-container>
+						<ng-container matColumnDef="RPE">
+							<th mat-header-cell *matHeaderCellDef>
+								<b>RPE</b>
+							</th>
+							<td mat-cell *matCellDef="let element">
+								{{ element.RPE > 0 ? element.RPE : "/" }}
+							</td>
+						</ng-container>
 
-							<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-							<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-						</table>
-						<br>
-					</mat-expansion-panel>
+						<tr
+							mat-header-row
+							*matHeaderRowDef="displayedColumns"
+						></tr>
+						<tr
+							mat-row
+							*matRowDef="let row; columns: displayedColumns"
+						></tr>
+					</table>
+					<br />
+				</mat-expansion-panel>
 
-					<button mat-stroked-button color="primary" (click)="saveWorkout(programIndex)" >Salva nelle tue schede</button>
+				<button
+					mat-stroked-button
+					color="primary"
+					(click)="saveWorkout(programIndex)"
+				>
+					Salva nelle tue schede
+				</button>
 			</mat-accordion>
 		</mat-expansion-panel>
 	</mat-accordion>

@@ -2,14 +2,29 @@
 	<div id="left-container">
 		<section class="scroll-area">
 			<div id="logo-container">
-				<img src="../../../assets/logo.png" alt="">
+				<img src="../../../assets/logo.png" alt="" />
 			</div>
 
 			<div>
 				<span class="app-description">
-					<p>GymBro è l'app per registrare e monitorare i tuoi allenamenti in palestra, offrendoti un'esperienza semplice e potente per tenere traccia dei tuoi progressi nel tempo.</p>
-					<p>Con GymBro, puoi efficientemente e intuitivamente registrare i tuoi allenamenti, grazie a grafici interattivi e statistiche dettagliate che ti permettono di visualizzare i risultati dei tuoi sforzi.</p>
-					<p>GymBro offre anche la possibilità di connetterti con gli amici e condividere le tue routine di allenamento, creando una comunità di supporto e motivazione reciproca.</p>
+					<p>
+						GymBro è l'app per registrare e monitorare i tuoi
+						allenamenti in palestra, offrendoti un'esperienza
+						semplice e potente per tenere traccia dei tuoi progressi
+						nel tempo.
+					</p>
+					<p>
+						Con GymBro, puoi efficientemente e intuitivamente
+						registrare i tuoi allenamenti, grazie a grafici
+						interattivi e statistiche dettagliate che ti permettono
+						di visualizzare i risultati dei tuoi sforzi.
+					</p>
+					<p>
+						GymBro offre anche la possibilità di connetterti con gli
+						amici e condividere le tue routine di allenamento,
+						creando una comunità di supporto e motivazione
+						reciproca.
+					</p>
 				</span>
 			</div>
 
@@ -52,98 +67,227 @@
 	</div>
 
 	<div id="right-container">
-		<span id="right-container-title">Inizia subito e diventa un Gymbro!</span>
+		<span id="right-container-title">
+			Inizia subito e diventa un Gymbro!
+		</span>
 
-		<div class="input-group input-group-sm mb-3" style="width: 300px; margin-bottom: 10px;">
+		<div
+			class="input-group input-group-sm mb-3"
+			style="width: 300px; margin-bottom: 10px"
+		>
 			<span
 				class="input-group-text"
 				id="inputGroup-sizing-sm"
-				style="font-weight: bold; color: rgb(69, 69, 188); width:80px; display: flex; justify-content: center; align-items: center;"
-
+				style="
+					font-weight: bold;
+					color: rgb(69, 69, 188);
+					width: 80px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				"
 			>
 				Email
 			</span>
-			<input type="email" class="form-control no-shadow" style="font-weight: bold;" [(ngModel)]="email">
+			<input
+				type="email"
+				class="form-control no-shadow"
+				style="font-weight: bold"
+				[(ngModel)]="email"
+			/>
 		</div>
 
-		<div class="input-group input-group-sm mb-3" style="width: 300px; margin-bottom: 10px;">
+		<div
+			class="input-group input-group-sm mb-3"
+			style="width: 300px; margin-bottom: 10px"
+		>
 			<span
 				class="input-group-text"
 				id="inputGroup-sizing-sm"
-				style="font-weight: bold; color: rgb(69, 69, 188); width:80px; display: flex; justify-content: center; align-items: center;"
+				style="
+					font-weight: bold;
+					color: rgb(69, 69, 188);
+					width: 80px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				"
 			>
 				Password
 			</span>
-			<input [type]="hide ? 'password' : 'text'" class="form-control no-shadow" style="font-weight: bold;" [(ngModel)]="password">
-			<span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" (click)="hide = !hide">
-				<i *ngIf="hide" class="bi bi-eye-fill" style="color: rgb(69, 69, 188)"></i>
-				<i *ngIf="!hide" class="bi bi-eye-slash-fill" style="color: rgb(69, 69, 188)"></i>
+			<input
+				[type]="hide ? 'password' : 'text'"
+				class="form-control no-shadow"
+				style="font-weight: bold"
+				[(ngModel)]="password"
+			/>
+			<span
+				class="input-group-text"
+				id="inputGroup-sizing-sm"
+				style="cursor: pointer"
+				(click)="hide = !hide"
+			>
+				<i
+					*ngIf="hide"
+					class="bi bi-eye-fill"
+					style="color: rgb(69, 69, 188)"
+				></i>
+				<i
+					*ngIf="!hide"
+					class="bi bi-eye-slash-fill"
+					style="color: rgb(69, 69, 188)"
+				></i>
 			</span>
 		</div>
-		<span style="color: white; float: right; z-index: 1;">
-			<u style="color: white; cursor: pointer" (click)="forgotPassword()">Password dimenticata?</u>
+		<span style="color: white; float: right; z-index: 1">
+			<u style="color: white; cursor: pointer" (click)="forgotPassword()">
+				Password dimenticata?
+			</u>
 		</span>
 
-		<div id="login-button-container" style="display: flex; flex-direction: row; margin-top: -40px">
-			<button class="btn btn-outline-light" style="margin-right: 10px;" [disabled]="!allowLogin()" (click)="login()"><span style="font-size: 90%">Login</span></button>
-			<button class="btn btn-primary" style="margin-right: 10px;" (click)="accessWithGoogle()">
+		<div
+			id="login-button-container"
+			style="display: flex; flex-direction: row; margin-top: -40px"
+		>
+			<button
+				class="btn btn-outline-light"
+				style="margin-right: 10px"
+				[disabled]="!allowLogin()"
+				(click)="login()"
+			>
+				<span style="font-size: 90%">Login</span>
+			</button>
+			<button
+				class="btn btn-primary"
+				style="margin-right: 10px"
+				(click)="accessWithGoogle()"
+			>
 				<i class="bi bi-google" style="margin-right: 5px"></i>
 				<b style="font-size: 90%">Accedi con Google</b>
 			</button>
 		</div>
 
 		<div>
-			<span style="color: white;">Non hai un account? <u style="color: white; cursor: pointer; z-index: 1" (click)="signUp()">Registrati</u></span>
+			<span style="color: white">
+				Non hai un account?
+				<u
+					style="color: white; cursor: pointer; z-index: 1"
+					(click)="signUp()"
+				>
+					Registrati
+				</u>
+			</span>
 		</div>
 	</div>
 </div>
 
-
 <!-- mobile -->
-
 
 <div *ngIf="!isDesktop()" class="container">
 	<span id="right-container-title">Inizia subito e diventa un Gymbro!</span>
 
-	<div class="input-group input-group-sm mb-3" style="width: 300px; margin-bottom: 10px;">
+	<div
+		class="input-group input-group-sm mb-3"
+		style="width: 300px; margin-bottom: 10px"
+	>
 		<span
 			class="input-group-text"
 			id="inputGroup-sizing-sm"
-			style="font-weight: bold; color: rgb(69, 69, 188); width:80px; display: flex; justify-content: center; align-items: center;"
-
+			style="
+				font-weight: bold;
+				color: rgb(69, 69, 188);
+				width: 80px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			"
 		>
 			Email
 		</span>
-		<input type="email" class="form-control no-shadow" style="font-weight: bold;" [(ngModel)]="email">
+		<input
+			type="email"
+			class="form-control no-shadow"
+			style="font-weight: bold"
+			[(ngModel)]="email"
+		/>
 	</div>
 
-	<div class="input-group input-group-sm mb-3" style="width: 300px; margin-bottom: 10px;">
+	<div
+		class="input-group input-group-sm mb-3"
+		style="width: 300px; margin-bottom: 10px"
+	>
 		<span
 			class="input-group-text"
 			id="inputGroup-sizing-sm"
-			style="font-weight: bold; color: rgb(69, 69, 188); width:80px; display: flex; justify-content: center; align-items: center;"
+			style="
+				font-weight: bold;
+				color: rgb(69, 69, 188);
+				width: 80px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			"
 		>
 			Password
 		</span>
-		<input [type]="hide ? 'password' : 'text'" class="form-control no-shadow" style="font-weight: bold;" [(ngModel)]="password">
-		<span class="input-group-text" id="inputGroup-sizing-sm" style="cursor: pointer;" (click)="hide = !hide">
-			<i *ngIf="hide" class="bi bi-eye-fill" style="color: rgb(69, 69, 188)"></i>
-			<i *ngIf="!hide" class="bi bi-eye-slash-fill" style="color: rgb(69, 69, 188)"></i>
+		<input
+			[type]="hide ? 'password' : 'text'"
+			class="form-control no-shadow"
+			style="font-weight: bold"
+			[(ngModel)]="password"
+		/>
+		<span
+			class="input-group-text"
+			id="inputGroup-sizing-sm"
+			style="cursor: pointer"
+			(click)="hide = !hide"
+		>
+			<i
+				*ngIf="hide"
+				class="bi bi-eye-fill"
+				style="color: rgb(69, 69, 188)"
+			></i>
+			<i
+				*ngIf="!hide"
+				class="bi bi-eye-slash-fill"
+				style="color: rgb(69, 69, 188)"
+			></i>
 		</span>
 	</div>
-	<span style="color: white; z-index: 1;">
-		<u style="color: white; cursor: pointer" (click)="forgotPassword()">Password dimenticata?</u>
+	<span style="color: white; z-index: 1">
+		<u style="color: white; cursor: pointer" (click)="forgotPassword()">
+			Password dimenticata?
+		</u>
 	</span>
 
-	<div id="login-button-container" style="display: flex; flex-direction: row;">
-		<button class="btn btn-outline-light" style="margin-right: 10px;" [disabled]="!allowLogin()" (click)="login()"><span style="font-size: 90%">Login</span></button>
-		<button class="btn btn-primary" style="margin-right: 10px;" (click)="accessWithGoogle()">
+	<div id="login-button-container" style="display: flex; flex-direction: row">
+		<button
+			class="btn btn-outline-light"
+			style="margin-right: 10px"
+			[disabled]="!allowLogin()"
+			(click)="login()"
+		>
+			<span style="font-size: 90%">Login</span>
+		</button>
+		<button
+			class="btn btn-primary"
+			style="margin-right: 10px"
+			(click)="accessWithGoogle()"
+		>
 			<i class="bi bi-google" style="margin-right: 5px"></i>
 			<b style="font-size: 90%">Accedi con Google</b>
 		</button>
 	</div>
 
 	<div>
-		<span style="color: white;">Non hai un account? <u style="color: white; cursor: pointer; z-index: 1" (click)="signUp()">Registrati</u></span>
+		<span style="color: white">
+			Non hai un account?
+			<u
+				style="color: white; cursor: pointer; z-index: 1"
+				(click)="signUp()"
+			>
+				Registrati
+			</u>
+		</span>
 	</div>
 </div>

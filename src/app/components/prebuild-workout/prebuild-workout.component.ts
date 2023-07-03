@@ -1,15 +1,15 @@
-import { MatDialog } from '@angular/material/dialog';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
-import { Component, OnInit } from '@angular/core';
-import { ExerciseStatsDialogComponent } from '../exercise-stats-dialog/exercise-stats-dialog.component';
-import { AddExerciseDialogComponent } from '../add-exercise-dialog/add-exercise-dialog.component';
+import { MatDialog } from "@angular/material/dialog";
+import { FirebaseService } from "src/app/services/firebase.service";
+import { Router } from "@angular/router";
+import { UserService } from "src/app/services/user.service";
+import { Component, OnInit } from "@angular/core";
+import { ExerciseStatsDialogComponent } from "../exercise-stats-dialog/exercise-stats-dialog.component";
+import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
 
 @Component({
-  selector: 'app-prebuild-workout',
-  templateUrl: './prebuild-workout.component.html',
-  styleUrls: ['./prebuild-workout.component.css']
+	selector: "app-prebuild-workout",
+	templateUrl: "./prebuild-workout.component.html",
+	styleUrls: ["./prebuild-workout.component.css"],
 })
 export class PrebuildWorkoutComponent implements OnInit {
 	public workout: any;
@@ -20,14 +20,23 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	public chosenDate: Date;
 
-	constructor(private userService: UserService, private router: Router, private firebase: FirebaseService, private dialog: MatDialog) {}
+	constructor(
+		private userService: UserService,
+		private router: Router,
+		private firebase: FirebaseService,
+		private dialog: MatDialog
+	) {}
 
 	get dateUTC() {
-		if(this.chosenDate) {
-		  return new Date(this.chosenDate.getUTCFullYear(),
-		  this.chosenDate.getUTCMonth(), this.chosenDate.getUTCDate(),
-			this.chosenDate.getUTCHours(), this.chosenDate.getUTCMinutes(),
-			this.chosenDate.getUTCSeconds());
+		if (this.chosenDate) {
+			return new Date(
+				this.chosenDate.getUTCFullYear(),
+				this.chosenDate.getUTCMonth(),
+				this.chosenDate.getUTCDate(),
+				this.chosenDate.getUTCHours(),
+				this.chosenDate.getUTCMinutes(),
+				this.chosenDate.getUTCSeconds()
+			);
 		}
 
 		return null;
@@ -43,35 +52,38 @@ export class PrebuildWorkoutComponent implements OnInit {
 			} else {
 				this.workout = {
 					name: "Nuovo Allenamento",
-					exercises: []
-				}
+					exercises: [],
+				};
 			}
 		} else {
-			localStorage.setItem("workout", JSON.stringify(this.workout))
+			localStorage.setItem("workout", JSON.stringify(this.workout));
 		}
 
 		for (let i = 0; i < this.workout.exercises.length; i++) {
-			this.workout.exercises[i]["completed"] = (
-				this.workout.exercises[i].completed != undefined ?
-					this.workout.exercises[i].completed :
-					false
+			this.workout.exercises[i]["completed"] =
+				this.workout.exercises[i].completed != undefined
+					? this.workout.exercises[i].completed
+					: false;
+
+			this.restTime.push(
+				this.workout.exercises[i].rest
+					? { ...this.workout.exercises[i].rest, running: false }
+					: { minutes: "00", seconds: "00", running: false }
 			);
 
-			this.restTime.push(this.workout.exercises[i].rest ?
-				{...this.workout.exercises[i].rest, running: false}
-				:
-				{minutes: "00", seconds: "00", running: false}
-			);
+			this.workout.exercises[i].reps = this.workout.exercises[i].range[0] ?? 0;
 		}
 
 		this.workout.date = this.formatDate(this.date);
-		this.availableExercise = await this.firebase.getExercise(JSON.parse(localStorage.getItem("user")).uid);
+		this.availableExercise = await this.firebase.getExercise(
+			JSON.parse(localStorage.getItem("user")).uid
+		);
 	}
 
 	private formatDate(date: Date): string {
 		const year = date.getFullYear();
-		const month = String(date.getMonth() + 1).padStart(2, '0');
-		const day = String(date.getDate()).padStart(2, '0');
+		const month = String(date.getMonth() + 1).padStart(2, "0");
+		const day = String(date.getDate()).padStart(2, "0");
 		return `${year}-${month}-${day}`;
 	}
 
@@ -100,17 +112,15 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	showOldStats(exerciseIndex: number) {
-		this.dialog.open(ExerciseStatsDialogComponent,
-			{
-				width: "300px",
-				height: "300px",
-				data: {exerciseName: this.workout.exercises[exerciseIndex].name}
-			}
-		);
+		this.dialog.open(ExerciseStatsDialogComponent, {
+			width: "300px",
+			height: "300px",
+			data: { exerciseName: this.workout.exercises[exerciseIndex].name },
+		});
 	}
 
 	saveWorkout() {
-		let user = JSON.parse(localStorage.getItem("user"))
+		let user = JSON.parse(localStorage.getItem("user"));
 
 		this.workout["date"] = this.date.toLocaleDateString();
 
@@ -121,10 +131,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	savable() {
-		if (this.workout.name == "" || this.workout.exercises.length == 0) return false;
+		if (this.workout.name == "" || this.workout.exercises.length == 0)
+			return false;
 
 		for (let exercise of this.workout.exercises) {
-			if (!exercise.completed) return false
+			if (!exercise.completed) return false;
 		}
 
 		return true;
@@ -175,23 +186,32 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	percentageRemaining(): string {
-		return String(this.secondsRemaining / this.totalSeconds * 100) + "%";
+		return String((this.secondsRemaining / this.totalSeconds) * 100) + "%";
 	}
 
 	formatTime(time: number) {
 		let minutes = Math.floor(time / 60);
 		let seconds = time % 60;
 
-		return (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+		return (
+			(minutes < 10 ? "0" + minutes : minutes) +
+			":" +
+			(seconds < 10 ? "0" + seconds : seconds)
+		);
 	}
 
 	openCustomExerciseDialog(exercise: any) {
-		this.dialog.open(AddExerciseDialogComponent).afterClosed().subscribe(async (customExercise) => {
-			exercise.name = customExercise;
+		this.dialog
+			.open(AddExerciseDialogComponent)
+			.afterClosed()
+			.subscribe(async customExercise => {
+				exercise.name = customExercise;
 
-			console.log(exercise.name, customExercise)
-			this.availableExercise = await this.firebase.getExercise(JSON.parse(localStorage.getItem("user")).uid);
-		});
+				console.log(exercise.name, customExercise);
+				this.availableExercise = await this.firebase.getExercise(
+					JSON.parse(localStorage.getItem("user")).uid
+				);
+			});
 	}
 
 	addExerciseToPrebuiltWorkout() {
@@ -201,13 +221,13 @@ export class PrebuildWorkoutComponent implements OnInit {
 			name: "",
 			load: 0,
 			RPE: 0,
-			restTime: {minutes: "00", seconds: "00", running: false},
+			rest: { minutes: "00", seconds: "00", running: false },
 			series: 0,
-			reps: 0,
-		}
+			reps: 0
+		};
 
-		this.workout.exercises.push(exercise)
-		this.restTime.push({minutes: "00", seconds: "00", running: false});
+		this.workout.exercises.push(exercise);
+		this.restTime.push({ minutes: "00", seconds: "00", running: false });
 		this.updateWorkoutOnLocalStorage();
 	}
 }

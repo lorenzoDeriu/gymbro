@@ -1,4 +1,8 @@
-<mat-progress-bar mode="indeterminate" *ngIf="this.loading" color="primary"></mat-progress-bar>
+<mat-progress-bar
+	mode="indeterminate"
+	*ngIf="this.loading"
+	color="primary"
+></mat-progress-bar>
 <div id="admin-page-container">
 	<div id="title-container">
 		<h1><span id="title">GymBro admin</span></h1>
@@ -6,28 +10,60 @@
 
 	<ng-container *ngIf="!this.loading">
 		<ng-container *ngIf="!isAdmin(); else userIsAdmin">
-			<h2><span>Per utilizzare questa pagina devi essere un'admin. Esegui l'accesso con un account admin</span></h2>
+			<h2>
+				<span>
+					Per utilizzare questa pagina devi essere un'admin. Esegui
+					l'accesso con un account admin
+				</span>
+			</h2>
 
-			<form #adminLoginForm="ngForm" (ngSubmit)="changeAccount(adminLoginForm)">
+			<form
+				#adminLoginForm="ngForm"
+				(ngSubmit)="changeAccount(adminLoginForm)"
+			>
 				<div id="input-container">
 					<mat-form-field appearance="outline">
 						<mat-label>Email</mat-label>
-						<input matInput type="email" name="email" required ngModel>
+						<input
+							matInput
+							type="email"
+							name="email"
+							required
+							ngModel
+						/>
 					</mat-form-field>
 
 					<mat-form-field appearance="outline">
 						<mat-label>password</mat-label>
-						<input matInput type="password" name="password" required ngModel>
+						<input
+							matInput
+							type="password"
+							name="password"
+							required
+							ngModel
+						/>
 					</mat-form-field>
 
-					<button mat-raised-button color="primary" [disabled]="!adminLoginForm.valid">Accedi</button>
+					<button
+						mat-raised-button
+						color="primary"
+						[disabled]="!adminLoginForm.valid"
+					>
+						Accedi
+					</button>
 				</div>
 			</form>
 		</ng-container>
 
 		<ng-template #userIsAdmin>
 			<div id="add-exercise-button-container">
-				<button mat-raised-button color="primary" (click)="addExercise()">Aggiungi un esercizio</button>
+				<button
+					mat-raised-button
+					color="primary"
+					(click)="addExercise()"
+				>
+					Aggiungi un esercizio
+				</button>
 			</div>
 
 			<div id="feedback-container">

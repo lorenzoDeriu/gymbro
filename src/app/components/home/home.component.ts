@@ -1,30 +1,36 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
-import { FeedbackDialogComponent } from '../feedback-dialog/feedback-dialog.component';
+import { Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "src/app/services/auth.service";
+import { MatDialog } from "@angular/material/dialog";
+import { FeedbackDialogComponent } from "../feedback-dialog/feedback-dialog.component";
 
 @Component({
-	selector: 'app-home',
-	templateUrl: './home.component.html',
-	styleUrls: ['./home.component.css']
+	selector: "app-home",
+	templateUrl: "./home.component.html",
+	styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
+	constructor(
+		private authservice: AuthService,
+		private router: Router,
+		private dialog: MatDialog
+	) {}
 
-	constructor (private authservice: AuthService, private router: Router, private dialog: MatDialog) {}
-
-	ngOnInit(): void { }
+	ngOnInit(): void {}
 
 	onLogout() {
 		this.authservice.logout();
 	}
 
 	onSocial() {
-		this.router.navigate(["/home/friends"])
+		this.router.navigate(["/home/friends"]);
 	}
 
 	onFeedback() {
-		this.dialog.open(FeedbackDialogComponent, {width: "600px", height: "370px"});
+		this.dialog.open(FeedbackDialogComponent, {
+			width: "600px",
+			height: "370px",
+		});
 	}
 
 	onAbout() {
@@ -32,7 +38,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	onSettings() {
-		this.router.navigate(["/home/settings"])
+		this.router.navigate(["/home/settings"]);
 	}
 
 	goToHome() {

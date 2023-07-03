@@ -1,31 +1,48 @@
 <div id="logo-container">
-	<img id="logo" src="../../../assets/logo.png">
+	<img id="logo" src="../../../assets/logo.png" />
 </div>
 
 <div id="access-container">
 	<form #registerForm="ngForm" (ngSubmit)="onRegisterSubmit(registerForm)">
 		<div style="padding-top: 20px; margin: auto; color: rgb(69, 69, 188)">
-			<h2><span style="font-family: 'Josefin Sans', sans-serif;">Benvenuto su GymBro!</span></h2>
+			<h2>
+				<span style="font-family: 'Josefin Sans', sans-serif">
+					Benvenuto su GymBro!
+				</span>
+			</h2>
 		</div>
 
 		<mat-form-field class="email-input" appearance="outline">
 			<mat-label>Email</mat-label>
-			<input matInput type="text" name="email" required email ngModel>
+			<input matInput type="text" name="email" required email ngModel />
 		</mat-form-field>
 
 		<mat-form-field appearance="outline">
 			<mat-label>Password</mat-label>
-			<input matInput [type]="hide ? 'password' : 'text'" name="password" ngModel required>
-			<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+			<input
+				matInput
+				[type]="hide ? 'password' : 'text'"
+				name="password"
+				ngModel
+				required
+			/>
+			<mat-icon matSuffix (click)="hide = !hide">
+				{{ hide ? "visibility_off" : "visibility" }}
+			</mat-icon>
 		</mat-form-field>
 
 		<div id="btn-container">
-			<button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid">Register</button>
+			<button
+				class="btn btn-primary"
+				type="submit"
+				[disabled]="!registerForm.valid"
+			>
+				Register
+			</button>
 			<button class="btn btn-primary" (click)="accessWithGoogle()">
 				<i class="bi bi-google" style="margin-right: 5px"></i>
 				<b style="font-size: 90%">Accedi con Google</b>
 			</button>
 		</div>
-
 	</form>
 </div>

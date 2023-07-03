@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AuthService } from 'src/app/services/auth.service';
-import { AddExerciseDialogComponent } from '../add-exercise-dialog/add-exercise-dialog.component';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { AuthService } from "src/app/services/auth.service";
+import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
+import { FirebaseService } from "src/app/services/firebase.service";
+import { NgForm } from "@angular/forms";
 
 @Component({
-	selector: 'app-admin',
-	templateUrl: './admin.component.html',
-	styleUrls: ['./admin.component.css']
+	selector: "app-admin",
+	templateUrl: "./admin.component.html",
+	styleUrls: ["./admin.component.css"],
 })
 export class AdminComponent implements OnInit {
 	public loading: boolean = true;
 
-	constructor(private authService: AuthService, private dialog: MatDialog, private firebase: FirebaseService) {}
+	constructor(
+		private authService: AuthService,
+		private dialog: MatDialog,
+		private firebase: FirebaseService
+	) {}
 
 	private _isAdmin: boolean = false;
 
@@ -22,19 +26,22 @@ export class AdminComponent implements OnInit {
 		if (this.authService.isAuthenticated()) {
 			this._isAdmin = await this.firebase.userIsAdmin();
 			this.loading = false;
-			return
+			return;
 		}
 
 		this.loading = false;
 		this._isAdmin = false;
 	}
 
- 	isAdmin() {
+	isAdmin() {
 		return this._isAdmin;
 	}
 
 	addExercise() {
-		this.dialog.open(AddExerciseDialogComponent, {width: "300px", height: "200px"});
+		this.dialog.open(AddExerciseDialogComponent, {
+			width: "300px",
+			height: "200px",
+		});
 	}
 
 	changeAccount(form: NgForm) {

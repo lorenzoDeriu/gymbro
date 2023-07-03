@@ -3,21 +3,39 @@
 		<h1><span>Impostazioni</span></h1>
 	</div>
 
-	<button style="margin-bottom: 10px;" mat-raised-button (click)="backToHome()">Torna alla home</button>
+	<button
+		style="margin-bottom: 10px"
+		mat-raised-button
+		(click)="backToHome()"
+	>
+		Torna alla home
+	</button>
 
 	<form #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm)">
 		<div id="slide-container">
-			<mat-slide-toggle name="visibility" color="primary" [(ngModel)]="this.visibility">Rendi visibili le tue schede agli altri</mat-slide-toggle>
+			<mat-slide-toggle
+				name="visibility"
+				color="primary"
+				[(ngModel)]="this.visibility"
+			>
+				Rendi visibili le tue schede agli altri
+			</mat-slide-toggle>
 		</div>
 
 		<mat-form-field appearance="outline" [style.width.px]="300">
 			<mat-label>Cambia il tuo username</mat-label>
-			<input matInput type="text" name="username" [(ngModel)]="this.username">
+			<input
+				matInput
+				type="text"
+				name="username"
+				[(ngModel)]="this.username"
+			/>
 		</mat-form-field>
 
-
 		<div id="button-container">
-			<button mat-raised-button color="primary" type="submit">Salva</button>
+			<button mat-raised-button color="primary" type="submit">
+				Salva
+			</button>
 		</div>
 	</form>
 
@@ -28,16 +46,29 @@
 					<mat-panel-title>Esercizi custom</mat-panel-title>
 				</mat-expansion-panel-header>
 
-				<div *ngFor="let item of customExercises; index as i" id="exercise-setting-container">
-					<span id="custom-exercise-name">{{item}}</span>
-					<button mat-button color="warn" (click)="deleteItem(i)">Elimina</button>
+				<div
+					*ngFor="let item of customExercises; index as i"
+					id="exercise-setting-container"
+				>
+					<span id="custom-exercise-name">{{ item }}</span>
+					<button mat-button color="warn" (click)="deleteItem(i)">
+						Elimina
+					</button>
 				</div>
 			</mat-expansion-panel>
 		</mat-accordion>
 	</div>
 
-	<br>
-	<button mat-button color="primary" (click)="changePassword()">Cambia password</button>
-	<button mat-raised-button color="warn" (click)="deleteAccount()" style="margin-top: 30px;">Elimina Account</button>
+	<br />
+	<button mat-button color="primary" (click)="changePassword()">
+		Cambia password
+	</button>
+	<button
+		mat-raised-button
+		color="warn"
+		(click)="deleteAccount()"
+		style="margin-top: 30px"
+	>
+		Elimina Account
+	</button>
 </div>
-

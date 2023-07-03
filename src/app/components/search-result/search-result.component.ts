@@ -1,12 +1,12 @@
-import { UserService } from '../../services/user.service';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FirebaseService } from 'src/app/services/firebase.service';
+import { UserService } from "../../services/user.service";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { FirebaseService } from "src/app/services/firebase.service";
 
 @Component({
-	selector: 'app-search-result',
-	templateUrl: './search-result.component.html',
-	styleUrls: ['./search-result.component.css']
+	selector: "app-search-result",
+	templateUrl: "./search-result.component.html",
+	styleUrls: ["./search-result.component.css"],
 })
 export class SearchResultComponent implements OnInit {
 	public searchResult: any;
@@ -24,6 +24,6 @@ export class SearchResultComponent implements OnInit {
 	async onFollow(index: number) {
 		await this.firebase.addFollow(this.searchResult[index].uid);
 
-		this.router.navigate(["/home/friends"])
+		this.router.navigate(["/home/friends"]);
 	}
 }

@@ -1,7 +1,7 @@
 #exercise-picker-form-container {
 	display: flex;
 	flex-direction: column;
-	padding:10px;
+	padding: 10px;
 }
 
 #select-and-button-container {

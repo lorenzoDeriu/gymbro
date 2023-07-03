@@ -1,4 +1,8 @@
-<mat-progress-bar *ngIf="this.loading" mode="indeterminate" color="primary"></mat-progress-bar>
+<mat-progress-bar
+	*ngIf="this.loading"
+	mode="indeterminate"
+	color="primary"
+></mat-progress-bar>
 
 <div id="friends-page-container">
 	<div id="title-container">
@@ -7,30 +11,62 @@
 
 	<ng-container *ngIf="!hasUsername() && !this.loading">
 		<div class="info-text-container">
-			<h3><span class="text">Non hai ancora uno username, scegline uno per iniziare a connetterti!</span></h3>
+			<h3>
+				<span class="text">
+					Non hai ancora uno username, scegline uno per iniziare a
+					connetterti!
+				</span>
+			</h3>
 		</div>
-		<form class="form" #UsernameForm="ngForm" (ngSubmit)="addUsername(UsernameForm)">
+		<form
+			class="form"
+			#UsernameForm="ngForm"
+			(ngSubmit)="addUsername(UsernameForm)"
+		>
 			<mat-form-field appearance="outline" [style.width.px]="300">
 				<mat-label>Username</mat-label>
-				<input matInput type="text" name="username" ngModel required>
+				<input matInput type="text" name="username" ngModel required />
 			</mat-form-field>
 
-			<button mat-raised-button color="primary" type="submit" [disabled]="!UsernameForm.valid">Conferma</button>
+			<button
+				mat-raised-button
+				color="primary"
+				type="submit"
+				[disabled]="!UsernameForm.valid"
+			>
+				Conferma
+			</button>
 		</form>
 	</ng-container>
 
-	<form class="form" *ngIf="hasUsername() && !this.loading" #userSearchForm="ngForm" (ngSubmit)="onUsernameSearch(userSearchForm)">
+	<form
+		class="form"
+		*ngIf="hasUsername() && !this.loading"
+		#userSearchForm="ngForm"
+		(ngSubmit)="onUsernameSearch(userSearchForm)"
+	>
 		<mat-form-field appearance="outline" [style.width.px]="300">
 			<mat-label>Cerca lo username di un utente</mat-label>
-			<input type="text" matInput name="username" ngModel required>
+			<input type="text" matInput name="username" ngModel required />
 		</mat-form-field>
 
-		<button mat-raised-button color="primary" type="submit" [disabled]="!userSearchForm.valid">Cerca</button>
+		<button
+			mat-raised-button
+			color="primary"
+			type="submit"
+			[disabled]="!userSearchForm.valid"
+		>
+			Cerca
+		</button>
 	</form>
 
 	<ng-container *ngIf="hasUsername() && !hasFollow() && !this.loading">
 		<div class="info-text-container">
-			<h3><span class="text">Non segui ancora nessuno, prova a cercare qualcuno</span></h3>
+			<h3>
+				<span class="text">
+					Non segui ancora nessuno, prova a cercare qualcuno
+				</span>
+			</h3>
 		</div>
 	</ng-container>
 
@@ -38,19 +74,28 @@
 		<mat-card *ngFor="let user of this.followed; index as i">
 			<div id="card-title">
 				<!-- <span class="material-symbols-outlined">person</span> -->
-				<img src="../../../assets/personIcon.png" alt="">
-				<span id="username"><b>{{user.username}}</b></span>
+				<img src="../../../assets/personIcon.png" alt="" />
+				<span id="username">
+					<b>{{ user.username }}</b>
+				</span>
 			</div>
 
 			<div id="card-button-container">
 				<button mat-button (click)="onUnfollow(i)">Unfollow</button>
-				<button mat-button [disabled]="!user.visibilityPermission" (click)="viewProfile(i)">View Profile</button>
+				<button
+					mat-button
+					[disabled]="!user.visibilityPermission"
+					(click)="viewProfile(i)"
+				>
+					View Profile
+				</button>
 			</div>
 		</mat-card>
 	</ng-container>
 
 	<div id="back-to-home-button-container">
-		<button mat-raised-button (click)="backToHome()">Torna alla home</button>
+		<button mat-raised-button (click)="backToHome()">
+			Torna alla home
+		</button>
 	</div>
-
 </div>

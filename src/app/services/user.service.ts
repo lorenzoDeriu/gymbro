@@ -1,9 +1,9 @@
-import { FirebaseService } from './firebase.service';
-import { Exercise } from '../Models/Exercise.model';
-import { Injectable, OnInit } from '@angular/core';
+import { FirebaseService } from "./firebase.service";
+import { Exercise } from "../Models/Exercise.model";
+import { Injectable, OnInit } from "@angular/core";
 
 @Injectable({
-  	providedIn: 'root'
+	providedIn: "root",
 })
 export class UserService {
 	exercises: any[] = [];
@@ -11,21 +11,19 @@ export class UserService {
 
 	workoutSelected: any;
 
-  	constructor(private firebase: FirebaseService) { }
+	constructor(private firebase: FirebaseService) {}
 
 	addExercise(exercise: Exercise) {
-		this.exercises.push(
-			{
-				name: exercise.exerciseName,
-				series: exercise.series,
-				reps: exercise.reps,
-				RPE: exercise.RPE,
-				load: exercise.load,
-				restTime: exercise.restTime,
-				note: exercise.note,
-				range: exercise.range
-			}
-		);
+		this.exercises.push({
+			name: exercise.exerciseName,
+			series: exercise.series,
+			reps: exercise.reps,
+			RPE: exercise.RPE,
+			load: exercise.load,
+			restTime: exercise.restTime,
+			note: exercise.note,
+			range: exercise.range,
+		});
 
 		localStorage.setItem("exercises", JSON.stringify(this.exercises));
 	}
@@ -44,7 +42,6 @@ export class UserService {
 			}
 		}
 
-
 		return this.exercises;
 	}
 
@@ -55,7 +52,7 @@ export class UserService {
 
 	private _remove(element: number) {
 		this.exercises.forEach((_, index) => {
-			if(index == element) this.exercises.splice(index, 1);
+			if (index == element) this.exercises.splice(index, 1);
 		});
 	}
 

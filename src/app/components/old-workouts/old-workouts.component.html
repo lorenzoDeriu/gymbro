@@ -1,19 +1,38 @@
-<mat-progress-bar *ngIf="this.loading" mode="indeterminate" color="primary"></mat-progress-bar>
+<mat-progress-bar
+	*ngIf="this.loading"
+	mode="indeterminate"
+	color="primary"
+></mat-progress-bar>
 <div id="old-workouts-container">
 	<div id="title-container">
 		<span id="primary-title">I tuoi vecchi allenamenti</span>
-		<span id="secondary-title" *ngIf="this.workouts.length == 0 && !this.loading">Non ci sono allenamenti, caricane uno nuovo!</span>
+		<span
+			id="secondary-title"
+			*ngIf="this.workouts.length == 0 && !this.loading"
+		>
+			Non ci sono allenamenti, caricane uno nuovo!
+		</span>
 
-		<button class="btn btn-outline-dark" style="margin-top: 10px" (click)="backToHomeButton()">
-			<i class="bi bi-house-door"></i> Torna alla home
+		<button
+			class="btn btn-outline-dark"
+			style="margin-top: 10px"
+			(click)="backToHomeButton()"
+		>
+			<i class="bi bi-house-door"></i>
+			Torna alla home
 		</button>
 	</div>
 
 	<mat-accordion>
-		<mat-expansion-panel hideToggle *ngFor="let workout of this.workouts; index as index">
+		<mat-expansion-panel
+			hideToggle
+			*ngFor="let workout of this.workouts; index as index"
+		>
 			<mat-expansion-panel-header>
-				<mat-panel-title>{{workout.name}}</mat-panel-title>
-				<mat-panel-description>{{workout.date}}</mat-panel-description>
+				<mat-panel-title>{{ workout.name }}</mat-panel-title>
+				<mat-panel-description>
+					{{ workout.date }}
+				</mat-panel-description>
 			</mat-expansion-panel-header>
 
 			<table class="table">
@@ -27,32 +46,50 @@
 					</tr>
 				</thead>
 				<tbody class="table-group-divider">
-					<tr *ngFor="let exercise of workout.exercises; index as exerciseIndex">
-						<th scope="row">{{exercise.name}}</th>
-						<td>{{exercise.series + " x " + exercise.reps}}</td>
-						<td>{{exercise.load}} kg</td>
-						<td>{{exercise.RPE}}</td>
+					<tr
+						*ngFor="
+							let exercise of workout.exercises;
+							index as exerciseIndex
+						"
+					>
+						<th scope="row">{{ exercise.name }}</th>
+						<td>{{ exercise.series + " x " + exercise.reps }}</td>
+						<td>{{ exercise.load }} kg</td>
+						<td>{{ exercise.RPE }}</td>
 						<td>
-							<i *ngIf="exercise.note && exercise.note != ''" (click)="showNotes(index, exerciseIndex)" style="cursor: pointer" class="bi bi-info-circle-fill"></i>
+							<i
+								*ngIf="exercise.note && exercise.note != ''"
+								(click)="showNotes(index, exerciseIndex)"
+								style="cursor: pointer"
+								class="bi bi-info-circle-fill"
+							></i>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 
-			<div style="display: flex; justify-content: flex-end;">
+			<div style="display: flex; justify-content: flex-end">
 				<!-- <button class="btn btn-outline-dark" (click)="editWorkout(index)">
 					<i class="bi bi-pencil-square"></i>
 				</button> -->
 
-				<button class="btn btn-outline-danger" style="margin-left: 10px;" (click)="deleteWorkout(index)">
+				<button
+					class="btn btn-outline-danger"
+					style="margin-left: 10px"
+					(click)="deleteWorkout(index)"
+				>
 					<i class="bi bi-trash"></i>
 				</button>
 			</div>
 		</mat-expansion-panel>
 	</mat-accordion>
 
-	<div style="display: flex; justify-content: center; margin-top: 25px;">
-		<button class="btn btn-primary" style="font-weight: bold; font-family: 'Josefin Sans', sans-serif;" (click)="createWorkoutButton()">
+	<div style="display: flex; justify-content: center; margin-top: 25px">
+		<button
+			class="btn btn-primary"
+			style="font-weight: bold; font-family: 'Josefin Sans', sans-serif"
+			(click)="createWorkoutButton()"
+		>
 			<i class="bi bi-plus-square"></i>
 			Crea un nuovo allenamento
 		</button>

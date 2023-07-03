@@ -3,7 +3,9 @@
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
 ### Env
+
 In the "environment" folder, you need to add the "environment.ts" and "environment.development.ts" files in order to run with a Firebase configuration. The file should look like this:
+
 ```
 export const environment = {
   firebaseConfig: {

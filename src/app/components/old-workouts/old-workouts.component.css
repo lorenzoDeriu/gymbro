@@ -7,7 +7,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	font-weight: bold;
 	color: rgb(69, 69, 188);
 	margin-top: 10px;
@@ -23,7 +23,7 @@
 }
 
 #title-container button {
-	margin: 10px
+	margin: 10px;
 }
 
 mat-expansion-panel button {
@@ -48,10 +48,10 @@ mat-expansion-panel button {
 
 @media (max-width: 750px) {
 	#old-workouts-container {
-		width:95%;
+		width: 95%;
 	}
 
 	.mdc-data-table__header-cell::ng-deep {
-		padding:10px;
+		padding: 10px;
 	}
 }

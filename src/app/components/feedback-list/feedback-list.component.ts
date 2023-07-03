@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/services/firebase.service';
+import { Component, OnInit } from "@angular/core";
+import { FirebaseService } from "src/app/services/firebase.service";
 
 @Component({
-	selector: 'app-feedback-list',
-	templateUrl: './feedback-list.component.html',
-	styleUrls: ['./feedback-list.component.css']
+	selector: "app-feedback-list",
+	templateUrl: "./feedback-list.component.html",
+	styleUrls: ["./feedback-list.component.css"],
 })
 export class FeedbackListComponent implements OnInit {
 	public loading: boolean;
@@ -23,7 +23,7 @@ export class FeedbackListComponent implements OnInit {
 	}
 
 	async removeFeedback(index: number) {
-		await this.firebase.removeFeedback(this.feedbacks[index].id)
-		this.ngOnInit()
+		await this.firebase.removeFeedback(this.feedbacks[index].id);
+		this.ngOnInit();
 	}
 }

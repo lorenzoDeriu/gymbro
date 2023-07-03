@@ -4,7 +4,7 @@
 }
 
 mat-expansion-panel {
-	margin-bottom: 10px
+	margin-bottom: 10px;
 }
 
 #title-container {
@@ -13,7 +13,7 @@ mat-expansion-panel {
 }
 
 #title-container span {
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 	font-weight: bold;
 	color: rgb(69, 69, 188);
 }
@@ -21,7 +21,7 @@ mat-expansion-panel {
 #info-text-container {
 	display: flex;
 	justify-content: center;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: "Josefin Sans", sans-serif;
 }
 
 @media (max-width: 700px) {

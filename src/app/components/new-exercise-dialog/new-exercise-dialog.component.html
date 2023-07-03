@@ -1,58 +1,282 @@
-<form #newWorkoutForm="ngForm" id="new-workout-form" (ngSubmit)="onSubmit(newWorkoutForm)">
+<div style="padding: 20px; border-radius: 50px">
+	<span class="custom-span" style="font-size: 1.4em; width: 100%">
+		Nuovo Esercizio
+	</span>
+	<mat-divider style="margin-top: 10px; margin-bottom: 10px"></mat-divider>
+	<div class="input-group mb-2">
+		<label
+			class="input-group-text custom-span"
+			style="width: 70px"
+			for="inputGroupSelect01"
+		>
+			Esercizio
+		</label>
+		<select
+			class="form-select custom-select"
+			[ngStyle]="!isDesktop() && { 'font-size': '80%' }"
+			style="box-shadow: none; font-family: 'Josefin Sans'"
+			id="inputGroupSelect01"
+			[(ngModel)]="exercise.name"
+		>
+			<option selected disabled value="">Seleziona un esercizio</option>
+			<option *ngFor="let exercise of options" [value]="exercise">
+				{{ exercise }}
+			</option>
+		</select>
+		<button
+			(click)="openCustomExerciseDialog()"
+			class="btn btn-outline-secondary custom-button"
+			type="button"
+			id="button-addon2"
+		>
+			<i class="bi bi-plus-circle"></i>
+			<span style="font-size: 0.8em; margin-left: 5px">Crea</span>
+		</button>
+	</div>
+
+	<div class="input-group mb-2" style="color: rgb(69, 69, 188)">
+		<span
+			class="input-group-text custom-span"
+			style="width: 70px"
+			id="inputGroup-sizing-default"
+		>
+			Serie
+		</span>
+		<input
+			type="number"
+			class="form-control"
+			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
+			[(ngModel)]="this.exercise.series"
+		/>
+	</div>
+
+	<div class="input-group mb-2" style="color: rgb(69, 69, 188)">
+		<span
+			class="input-group-text custom-span"
+			style="width: 70px"
+			id="inputGroup-sizing-default"
+		>
+			Min Reps
+		</span>
+		<input
+			type="number"
+			class="form-control"
+			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
+			[(ngModel)]="this.exercise.range[0]"
+			[max]="this.exercise.range[1]"
+		/>
+		<span
+			class="input-group-text custom-span"
+			style="width: 70px"
+			id="inputGroup-sizing-default"
+		>
+			Max Reps
+		</span>
+		<input
+			type="number"
+			class="form-control"
+			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
+			[(ngModel)]="this.exercise.range[1]"
+			[min]="this.exercise.range[0]"
+		/>
+	</div>
+
+	<div class="input-group mb-2" style="color: rgb(69, 69, 188)">
+		<label
+			class="input-group-text custom-span"
+			for="inputGroupSelect01"
+			style="width: 70px"
+		>
+			RPE
+		</label>
+		<select
+			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
+			class="form-select custom-select"
+			id="inputGroupSelect01"
+			[(ngModel)]="this.exercise.RPE"
+		>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+		</select>
+	</div>
+
+	<div class="input-group mb-2">
+		<label
+			class="input-group-text custom-span"
+			for="inputGroupSelect01"
+			style="width: 70px"
+		>
+			Recupero
+		</label>
+		<select
+			class="form-select custom-select"
+			id="inputGroupSelect01"
+			style="font-family: 'Josefin Sans', sans-serif"
+			[(ngModel)]="this.exercise.rest.minutes"
+		>
+			<option value="00">00</option>
+			<option value="01">01</option>
+			<option value="02">02</option>
+			<option value="03">03</option>
+			<option value="04">04</option>
+			<option value="05">05</option>
+		</select>
+		<label class="input-group-text" for="inputGroupSelect01">:</label>
+		<select
+			class="form-select custom-select"
+			id="inputGroupSelect01"
+			style="font-family: 'Josefin Sans', sans-serif"
+			[(ngModel)]="this.exercise.rest.seconds"
+		>
+			<option value="00">00</option>
+			<option value="15">15</option>
+			<option value="30">30</option>
+			<option value="45">45</option>
+		</select>
+	</div>
+
+	<div class="input-group mb-2" style="color: rgb(69, 69, 188)">
+		<span
+			class="input-group-text custom-span"
+			style="width: 70px"
+			id="inputGroup-sizing-default"
+		>
+			Note
+		</span>
+		<input
+			type="text"
+			class="form-control"
+			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
+			[(ngModel)]="this.exercise.note"
+		/>
+	</div>
+
+	<div style="display: flex; justify-content: flex-end" (click)="save()">
+		<button class="btn custom-button" [disabled]="!savable()">
+			<i class="bi bi-check-circle-fill"></i>
+			Save
+		</button>
+	</div>
+</div>
+
+<!-- <form
+	#newWorkoutForm="ngForm"
+	id="new-workout-form"
+	(ngSubmit)="onSubmit(newWorkoutForm)"
+>
 	<div id="exercise-name-container">
 		<mat-form-field appearance="outline">
 			<mat-label>Esercizio</mat-label>
-			<mat-select name="exerciseName" [(ngModel)]="exercise.exerciseName" required>
+			<mat-select
+				name="exerciseName"
+				[(ngModel)]="exercise.exerciseName"
+				required
+			>
 				<mat-option *ngFor="let exercise of options" [value]="exercise">
-					{{exercise}}
+					{{ exercise }}
 				</mat-option>
 			</mat-select>
 		</mat-form-field>
 
-		<button mat-icon-button type="button" id="add-custom-exercise-button" (click)="onAddCustomExercise()" #tooltip="matTooltip" matTooltip="Aggiungi un esercizio personalizzato">
-			<img src="../../../assets/AddExerciseIcon.png" alt="">
+		<button
+			mat-icon-button
+			type="button"
+			id="add-custom-exercise-button"
+			(click)="onAddCustomExercise()"
+			#tooltip="matTooltip"
+			matTooltip="Aggiungi un esercizio personalizzato"
+		>
+			<img src="../../../assets/AddExerciseIcon.png" alt="" />
 		</button>
 	</div>
 
 	<mat-form-field appearance="outline">
 		<mat-label>Serie</mat-label>
-		<input matInput name="series" type="number" [(ngModel)]="exercise.series">
+		<input
+			matInput
+			name="series"
+			type="number"
+			[(ngModel)]="exercise.series"
+		/>
 	</mat-form-field>
 
-	<!-- <mat-form-field appearance="outline">
-		<mat-label>Ripetizioni</mat-label>
-		<input matInput name="reps" type="number" [(ngModel)]="exercise.reps">
-	</mat-form-field> -->
-
 	<mat-label>Rep-Range</mat-label>
-	<mat-slider id="slider" min="1" max="25" step="1" discrete [displayWith]="formatLabel">
-		<!-- <input matSliderThumb name="RPE" name="rpe" [(ngModel)]="exercise.RPE"> -->
-		<input matSliderStartThumb name="min" [(ngModel)]="exercise.range[0]">
-		<input matSliderEndThumb name="max" [(ngModel)]="exercise.range[1]">
+	<mat-slider
+		id="slider"
+		min="1"
+		max="25"
+		step="1"
+		discrete
+		[displayWith]="formatLabel"
+	>
+		<input matSliderStartThumb name="min" [(ngModel)]="exercise.range[0]" />
+		<input matSliderEndThumb name="max" [(ngModel)]="exercise.range[1]" />
 	</mat-slider>
 
 	<mat-form-field appearance="outline">
 		<mat-label>Carico</mat-label>
-		<input matInput name="load" type="number" [(ngModel)]="exercise.load">
+		<input matInput name="load" type="number" [(ngModel)]="exercise.load" />
 	</mat-form-field>
 
 	<mat-form-field appearance="outline">
-	<mat-label>Tempo di recupero</mat-label>
-		<input matInput name="restTime" type="time" [(ngModel)]="exercise.restTime">
+		<mat-label>Tempo di recupero</mat-label>
+		<input
+			matInput
+			name="restTime"
+			type="time"
+			[(ngModel)]="exercise.restTime"
+		/>
 	</mat-form-field>
 
 	<mat-label>RPE</mat-label>
-	<mat-slider id="slider" min="1" max="10" step="1" discrete [displayWith]="formatLabel">
-		<input matSliderThumb name="RPE" name="rpe" [(ngModel)]="exercise.RPE">
+	<mat-slider
+		id="slider"
+		min="1"
+		max="10"
+		step="1"
+		discrete
+		[displayWith]="formatLabel"
+	>
+		<input
+			matSliderThumb
+			name="RPE"
+			name="rpe"
+			[(ngModel)]="exercise.RPE"
+		/>
 	</mat-slider>
 
 	<mat-form-field appearance="outline">
 		<mat-label>Note</mat-label>
-		<textarea matInput name="note" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="2" [(ngModel)]="exercise.note"></textarea>
+		<textarea
+			matInput
+			name="note"
+			cdkTextareaAutosize
+			cdkAutosizeMinRows="1"
+			cdkAutosizeMaxRows="2"
+			[(ngModel)]="exercise.note"
+		></textarea>
 	</mat-form-field>
 
 	<div id="button-container">
-		<button type="submit" mat-raised-button color="primary" [mat-dialog-close]="" [disabled]="!newWorkoutForm.valid">Aggiungi</button>
-		<button mat-raised-button color="warn" [mat-dialog-close]="">Annulla</button>
+		<button
+			type="submit"
+			mat-raised-button
+			color="primary"
+			[mat-dialog-close]=""
+			[disabled]="!newWorkoutForm.valid"
+		>
+			Aggiungi
+		</button>
+		<button mat-raised-button color="warn" [mat-dialog-close]="">
+			Annulla
+		</button>
 	</div>
-</form>
+</form> -->
