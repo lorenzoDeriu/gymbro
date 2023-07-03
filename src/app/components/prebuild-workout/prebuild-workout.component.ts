@@ -12,11 +12,14 @@ import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-
 	styleUrls: ["./prebuild-workout.component.css"],
 })
 export class PrebuildWorkoutComponent implements OnInit {
-	public workout: any;
+	public workout: any = {
+		name: "",
+		exercises: [],
+	};
 	public restTime: any[] = [];
 	public date: Date = new Date();
 
-	public availableExercise: string[];
+	public availableExercise: string[] = [];
 
 	public chosenDate: Date;
 
@@ -71,7 +74,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 					: { minutes: "00", seconds: "00", running: false }
 			);
 
-			this.workout.exercises[i].reps = this.workout.exercises[i].range[0] ?? 0;
+			this.workout.exercises[i].reps =
+				this.workout.exercises[i].range[0] ?? 0;
 		}
 
 		this.workout.date = this.formatDate(this.date);
@@ -223,7 +227,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 			RPE: 0,
 			rest: { minutes: "00", seconds: "00", running: false },
 			series: 0,
-			reps: 0
+			range: [0, 0],
+			reps: 0,
 		};
 
 		this.workout.exercises.push(exercise);

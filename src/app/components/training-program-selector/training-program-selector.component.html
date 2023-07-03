@@ -82,7 +82,9 @@
 							<td mat-cell *matCellDef="let element">
 								{{
 									element.rest != undefined
-										? element.rest.minutes +":"+ element.rest.seconds
+										? element.rest.minutes +
+										  ":" +
+										  element.rest.seconds
 										: element.restTime ?? "/"
 								}}
 							</td>
