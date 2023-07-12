@@ -319,8 +319,8 @@
 					id="button-addon2"
 					(click)="
 						!this.restTime[exerciseIndex].running
-							? this.startRestTime(exerciseIndex)
-							: this.stopRestTime()
+							? this.timer(exerciseIndex)
+							: this.stopRestTime(exerciseIndex)
 					"
 				>
 					<i
