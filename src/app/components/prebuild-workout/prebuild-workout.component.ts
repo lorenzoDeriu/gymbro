@@ -174,7 +174,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		const startTime = Date.now();
 
-		while (Date.now() - startTime < this.totalSeconds * 1000 && !this.stopTimer) {
+		while (
+			Date.now() - startTime < this.totalSeconds * 1000 &&
+			!this.stopTimer
+		) {
 			minutes = Math.floor(this.secondsRemaining / 60);
 			seconds = this.secondsRemaining % 60;
 
@@ -182,7 +185,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 			seconds = seconds < 10 ? 0 + seconds : seconds;
 
 			await (() => new Promise(resolve => setTimeout(resolve, 1000)))();
-			this.secondsRemaining = this.totalSeconds - Math.floor((Date.now() - startTime) / 1000);
+			this.secondsRemaining =
+				this.totalSeconds - Math.floor((Date.now() - startTime) / 1000);
 		}
 
 		this.restTime[exerciseIndex].running = false;
