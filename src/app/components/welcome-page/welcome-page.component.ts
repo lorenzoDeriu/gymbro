@@ -32,8 +32,7 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	login() {
-		this.authService
-			.signin(this.email, this.password)
+		this.authService.signin(this.email, this.password);
 	}
 
 	signUp() {
@@ -50,14 +49,7 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	accessWithGoogle() {
-		this.authService
-			.accessWithGoogle()
-			.then(() => {
-				this.router.navigate(["/home/dashboard"]);
-			})
-			.catch(error => {
-				console.log(error);
-			});
+		this.authService.accessWithGoogle();
 	}
 
 	forgotPassword() {
