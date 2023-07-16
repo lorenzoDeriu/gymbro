@@ -34,12 +34,6 @@ export class WelcomePageComponent implements OnInit {
 	login() {
 		this.authService
 			.signin(this.email, this.password)
-			.then(() => {
-				this.router.navigate(["/home/dashboard"]);
-			})
-			.catch(error => {
-				console.log(error);
-			});
 	}
 
 	signUp() {
