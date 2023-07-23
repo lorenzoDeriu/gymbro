@@ -82,6 +82,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.availableExercise = await this.firebase.getExercise(
 			JSON.parse(localStorage.getItem("user")).uid
 		);
+
+		this.availableExercise.sort();
 	}
 
 	private formatDate(date: Date): string {
@@ -217,6 +219,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 			.open(AddExerciseDialogComponent)
 			.afterClosed()
 			.subscribe(async customExercise => {
+				if (customExercise == undefined || customExercise === "") return;
+
 				exercise.name = customExercise;
 
 				console.log(exercise.name, customExercise);
