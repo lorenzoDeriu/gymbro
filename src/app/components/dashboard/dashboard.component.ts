@@ -12,4 +12,8 @@ export class DashboardComponent implements OnInit {
 	ngOnInit() {
 		this.authService.isAuthenticated();
 	}
+
+	workoutExists() {
+		return localStorage.getItem("workout") != null;
+	}
 }

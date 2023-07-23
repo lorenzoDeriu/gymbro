@@ -7,6 +7,17 @@
 }
 
 #button-container button {
-	margin-bottom: 10px;
+	/* margin-bottom: 10px; */
+	border-color: rgb(69, 69, 188);
+	background-color: white;
+	color: rgb(69, 69, 188);
+	height: 60px;
+}
+
+#button-container button:hover {
+	/* margin-bottom: 10px; */
+	border-color: rgb(69, 69, 188);
+	background-color: rgb(69, 69, 188);
+	color: white;
 	height: 60px;
 }
