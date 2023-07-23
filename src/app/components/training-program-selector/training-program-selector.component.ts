@@ -2,6 +2,8 @@ import { Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
 import { Component, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
+import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
 	selector: "app-training-program-selector",
@@ -22,7 +24,8 @@ export class TrainingProgramSelectorComponent implements OnInit {
 	constructor(
 		private userService: UserService,
 		private router: Router,
-		private firebase: FirebaseService
+		private firebase: FirebaseService,
+		private dialog: MatDialog
 	) {}
 
 	async ngOnInit() {
@@ -40,5 +43,20 @@ export class TrainingProgramSelectorComponent implements OnInit {
 
 	cancel() {
 		this.router.navigate(["/home"]);
+	}
+
+	showNotes(
+		trainingProgramIndex: number,
+		sessionIndex: number,
+		exerciseIndex: number
+	) {
+		this.dialog.open(NotesDialogComponent, {
+			width: "300px",
+			data: {
+				notes: this.trainingPrograms[trainingProgramIndex]["session"][
+					sessionIndex
+				]["exercises"][exerciseIndex]["note"],
+			},
+		});
 	}
 }
