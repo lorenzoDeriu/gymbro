@@ -21,7 +21,10 @@
 	<mat-accordion>
 		<mat-expansion-panel
 			hideToggle
-			*ngFor="let program of this.trainingPrograms; index as trainingProgramIndex"
+			*ngFor="
+				let program of this.trainingPrograms;
+				index as trainingProgramIndex
+			"
 		>
 			<mat-expansion-panel-header>
 				<mat-panel-title>{{ program.name }}</mat-panel-title>
@@ -56,53 +59,78 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr *ngFor="let exercise of session.exercises; index as exerciseIndex">
-								<th scope="row">{{exercise.name}}</th>
-								<td>{{
-									exercise.series > 0
-										? exercise.series +
-										  "x" +
-										  (exercise.range &&
-										  exercise.range[0] != exercise.range[1]
-												? exercise.range[0] +
-												  "-" +
-												  exercise.range[1]
-												: exercise.reps
-												? exercise.reps
-												: exercise.range[0])
-										: "/"
-								}}</td>
-								<td>{{exercise.RPE}}</td>
-								<td>{{
-									exercise.rest
-										? exercise.rest.minutes +
-										  ":" +
-										  exercise.rest.seconds
-										: exercise.restTime
-										? exercise.restTime
-										: "/"
-								}}</td>
-								<td><i
-									*ngIf="exercise.note && exercise.note != ''"
-									class="bi bi-question-circle-fill"
-									style="cursor: pointer"
-									(click)="
-										showNotes(
-											trainingProgramIndex,
-											sessionIndex,
-											exerciseIndex
-										)
-									"
-								></i></td>
+							<tr
+								*ngFor="
+									let exercise of session.exercises;
+									index as exerciseIndex
+								"
+							>
+								<th scope="row">{{ exercise.name }}</th>
+								<td>
+									{{
+										exercise.series > 0
+											? exercise.series +
+											  "x" +
+											  (exercise.range &&
+											  exercise.range[0] !=
+													exercise.range[1]
+													? exercise.range[0] +
+													  "-" +
+													  exercise.range[1]
+													: exercise.reps
+													? exercise.reps
+													: exercise.range[0])
+											: "/"
+									}}
+								</td>
+								<td>{{ exercise.RPE }}</td>
+								<td>
+									{{
+										exercise.rest
+											? exercise.rest.minutes +
+											  ":" +
+											  exercise.rest.seconds
+											: exercise.restTime
+											? exercise.restTime
+											: "/"
+									}}
+								</td>
+								<td>
+									<i
+										*ngIf="
+											exercise.note && exercise.note != ''
+										"
+										class="bi bi-question-circle-fill"
+										style="cursor: pointer"
+										(click)="
+											showNotes(
+												trainingProgramIndex,
+												sessionIndex,
+												exerciseIndex
+											)
+										"
+									></i>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 
-					<div style="display: flex; flex-direction: row; justify-content: flex-end;">
+					<div
+						style="
+							display: flex;
+							flex-direction: row;
+							justify-content: flex-end;
+						"
+					>
 						<button
 							class="btn btn-primary custom-button"
 							color="primary"
-							(click)="selectWorkout(trainingProgramIndex, sessionIndex)"
+							(click)="
+								selectWorkout(
+									trainingProgramIndex,
+									sessionIndex
+								)
+							"
 						>
 							Seleziona
 						</button>

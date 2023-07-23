@@ -219,7 +219,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 			.open(AddExerciseDialogComponent)
 			.afterClosed()
 			.subscribe(async customExercise => {
-				if (customExercise == undefined || customExercise === "") return;
+				if (customExercise == undefined || customExercise === "")
+					return;
 
 				exercise.name = customExercise;
 
