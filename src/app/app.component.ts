@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
-import { SwPush, SwUpdate } from "@angular/service-worker";
-import { FirebaseService } from "./services/firebase.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { SwUpdate, VersionReadyEvent } from "@angular/service-worker";
+import { filter } from "rxjs";
 
 @Component({
 	selector: "app-root",
@@ -10,13 +11,40 @@ import { FirebaseService } from "./services/firebase.service";
 export class AppComponent {
 	title = "GymBro";
 
-	constructor(
-		updates: SwUpdate,
-		private swPush: SwPush,
-		private firebase: FirebaseService
-	) {
-		updates.available.subscribe(event => {
-			updates.activateUpdate().then(() => document.location.reload());
-		});
+	constructor(swUpdate: SwUpdate, snackbar: MatSnackBar) {
+		setInterval(() => {
+			swUpdate.versionUpdates
+				.pipe(
+					filter(
+						(evt): evt is VersionReadyEvent =>
+							evt.type === "VERSION_READY"
+					)
+				)
+				.subscribe(evt => {
+					snackbar
+						.open(
+							"Nuova versione disponibile per GymBro.",
+							"Aggiorna",
+							{
+								duration: 5000,
+							}
+						)
+						.afterDismissed()
+						.subscribe(() => {
+							document.location.reload();
+						});
+				});
+		}, 60000);
+		// swUpdate.versionUpdates
+		// 	.pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
+		// 	.subscribe(evt => {
+		// 		snackbar.open(
+		// 			"Nuova versione disponibile per GymBro.", "Aggiorna", {
+		// 				duration: 5000
+		// 			}
+		// 		).afterDismissed().subscribe(() => {
+		// 			document.location.reload();
+		// 		})
+		// 	});
 	}
 }
