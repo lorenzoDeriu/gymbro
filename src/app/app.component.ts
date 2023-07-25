@@ -12,39 +12,26 @@ export class AppComponent {
 	title = "GymBro";
 
 	constructor(swUpdate: SwUpdate, snackbar: MatSnackBar) {
-		setInterval(() => {
-			swUpdate.versionUpdates
-				.pipe(
-					filter(
-						(evt): evt is VersionReadyEvent =>
-							evt.type === "VERSION_READY"
-					)
+		swUpdate.versionUpdates
+			.pipe(
+				filter(
+					(evt): evt is VersionReadyEvent =>
+						evt.type === "VERSION_READY"
 				)
-				.subscribe(evt => {
-					snackbar
-						.open(
-							"Nuova versione disponibile per GymBro.",
-							"Aggiorna",
-							{
-								duration: 5000,
-							}
-						)
-						.afterDismissed()
-						.subscribe(() => {
-							document.location.reload();
-						});
-				});
-		}, 60000);
-		// swUpdate.versionUpdates
-		// 	.pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
-		// 	.subscribe(evt => {
-		// 		snackbar.open(
-		// 			"Nuova versione disponibile per GymBro.", "Aggiorna", {
-		// 				duration: 5000
-		// 			}
-		// 		).afterDismissed().subscribe(() => {
-		// 			document.location.reload();
-		// 		})
-		// 	});
+			)
+			.subscribe(evt => {
+				snackbar
+					.open(
+						"Nuova versione disponibile per GymBro.",
+						"Aggiorna",
+						{
+							duration: 5000,
+						}
+					)
+					.afterDismissed()
+					.subscribe(() => {
+						document.location.reload();
+					});
+			});
 	}
 }
