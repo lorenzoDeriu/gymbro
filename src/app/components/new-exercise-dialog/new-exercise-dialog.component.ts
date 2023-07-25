@@ -21,8 +21,8 @@ export class NewExerciseDialogComponent {
 		series: 0,
 		range: [0, 0],
 		rest: {
-			minutes: 0,
-			seconds: 0,
+			minutes: "00",
+			seconds: "00",
 		},
 		RPE: 0,
 		note: "",
