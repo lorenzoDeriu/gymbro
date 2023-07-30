@@ -7,10 +7,8 @@ import { UserService } from "src/app/services/user.service";
 	templateUrl: "./new-workout.component.html",
 	styleUrls: ["./new-workout.component.css"],
 })
-export class NewWorkoutComponent implements OnInit {
+export class NewWorkoutComponent {
 	constructor(private router: Router, private userService: UserService) {}
-
-	ngOnInit() {}
 
 	workoutExists() {
 		return localStorage.getItem("workout") != null;

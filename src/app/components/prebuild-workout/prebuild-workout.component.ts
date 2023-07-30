@@ -20,38 +20,19 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public date: Date = new Date();
 
 	public availableExercise: string[] = [];
-
-	public chosenDate: Date;
-
 	constructor(
 		private userService: UserService,
 		private router: Router,
 		private firebase: FirebaseService,
 		private dialog: MatDialog
 	) {}
-
-	get dateUTC() {
-		if (this.chosenDate) {
-			return new Date(
-				this.chosenDate.getUTCFullYear(),
-				this.chosenDate.getUTCMonth(),
-				this.chosenDate.getUTCDate(),
-				this.chosenDate.getUTCHours(),
-				this.chosenDate.getUTCMinutes(),
-				this.chosenDate.getUTCSeconds()
-			);
-		}
-
-		return null;
-	}
-
 	async ngOnInit() {
 		this.workout = this.userService.getWorkoutSelected();
 
 		if (this.workout == undefined) {
-			const workoutjson = localStorage.getItem("workout");
-			if (workoutjson != null) {
-				this.workout = JSON.parse(workoutjson);
+			const workoutJson = localStorage.getItem("workout");
+			if (workoutJson != null) {
+				this.workout = JSON.parse(workoutJson);
 			} else {
 				this.workout = {
 					name: "Nuovo Allenamento",
@@ -183,8 +164,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 			minutes = Math.floor(this.secondsRemaining / 60);
 			seconds = this.secondsRemaining % 60;
 
-			minutes = minutes < 10 ? 0 + minutes : minutes;
-			seconds = seconds < 10 ? 0 + seconds : seconds;
+			minutes = minutes < 10 ? minutes : minutes;
+			seconds = seconds < 10 ? seconds : seconds;
 
 			await (() => new Promise(resolve => setTimeout(resolve, 1000)))();
 			this.secondsRemaining =

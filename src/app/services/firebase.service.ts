@@ -186,24 +186,6 @@ export class FirebaseService {
 			workouts.push(body);
 
 			updateDoc(documentReference, { workouts: workouts });
-			// .catch(e => console.log(e))
-			// .then(() => {
-			// 	if (Notification.permission == "granted") {
-			// 		let notification = new Notification(
-			// 			"Allenamento Salvato",
-			// 			{
-			// 				body: "Un nuovo allenamento è stato aggiunto,controlla i tuoi progressi per vedere i miglioramenti!",
-			// 				icon: "assets/images/logo.png",
-			// 			}
-			// 		);
-
-			// 		notification.onclick = () => {
-			// 			this.router.navigate(["home/progress"]);
-			// 		};
-
-			// 		console.log(notification);
-			// 	}
-			// });
 		}
 	}
 
