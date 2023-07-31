@@ -26,6 +26,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		private firebase: FirebaseService,
 		private dialog: MatDialog
 	) {}
+
 	async ngOnInit() {
 		this.workout = this.userService.getWorkoutSelected();
 
@@ -218,15 +219,43 @@ export class PrebuildWorkoutComponent implements OnInit {
 		let exercise = {
 			name: "",
 			load: 0,
-			RPE: 0,
-			rest: { minutes: "00", seconds: "00", running: false },
+			RPE: 9,
+			rest: {
+				minutes: "02",
+				seconds: "00",
+				running: false,
+			},
 			series: 0,
 			range: [0, 0],
 			reps: 0,
+			configurationType: "basic",
+
+			// superset data:
+			secondExercise: "",
+
+			// advanced data:
+			advanced: {
+				sets: [{ reps: 0, load: 0 }],
+			},
 		};
 
 		this.workout.exercises.push(exercise);
 		this.restTime.push({ minutes: "00", seconds: "00", running: false });
 		this.updateWorkoutOnLocalStorage();
+	}
+
+	deleteSet(exerciseIndex: number, setIndex: number) {
+		this.workout.exercises[exerciseIndex].advanced.sets.splice(setIndex, 1);
+	}
+
+	addSet(exerciseIndex: number) {
+		this.workout.exercises[exerciseIndex].advanced.sets.push({
+			reps: 0,
+			load: 0,
+		});
+	}
+
+	setExerciseConfigurationType(exercise: any, type: string) {
+		exercise.configType = type;
 	}
 }
