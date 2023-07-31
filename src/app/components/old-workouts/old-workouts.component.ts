@@ -30,6 +30,10 @@ export class OldWorkoutsComponent implements OnInit {
 		this.loading = false;
 	}
 
+	public array = (n: number) => {
+		return Array(n).fill(0, 0, n).map((x, i) => i);
+	};
+
 	async getWorkouts() {
 		this.workouts = (await this.firebase.getWorkouts()).sort(
 			(a: any, b: any) => {

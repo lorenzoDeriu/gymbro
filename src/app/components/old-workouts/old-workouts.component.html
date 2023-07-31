@@ -39,8 +39,7 @@
 				<thead>
 					<tr>
 						<th scope="col">Esercizio</th>
-						<th scope="col">Serie x Reps</th>
-						<th scope="col">Carico</th>
+						<th scope="col">Reps@Carico</th>
 						<th scope="col">RPE</th>
 						<th scope="col">Note</th>
 					</tr>
@@ -53,8 +52,19 @@
 						"
 					>
 						<th scope="row">{{ exercise.name }}</th>
-						<td>{{ exercise.series + " x " + exercise.reps }}</td>
-						<td>{{ exercise.load }} kg</td>
+						<td>
+							<ng-container *ngIf="exercise.configurationType && exercise.configurationType === 'advanced'">
+								<ng-container *ngFor="let set of exercise.advanced.sets">
+									- {{ set.reps }}@{{ set.load }}kg<br>
+								</ng-container>
+							</ng-container>
+
+							<ng-container *ngIf="!exercise.configurationType || exercise.configurationType === 'basic'">
+								<ng-container *ngFor="let i of array(exercise.series)">
+									- {{exercise.reps}}@{{exercise.load}}kg<br>
+								</ng-container>
+							</ng-container>
+						</td>
 						<td>{{ exercise.RPE }}</td>
 						<td>
 							<i
