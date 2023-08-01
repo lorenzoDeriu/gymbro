@@ -22,6 +22,10 @@ export class ExerciseStatsDialogComponent implements OnInit {
 		private firebase: FirebaseService
 	) {}
 
+	exerciseName() {
+		return this.data.exerciseName;
+	}
+
 	async ngOnInit() {
 		this.loading = true;
 		this.workouts = await this.firebase.getWorkouts();
@@ -30,11 +34,13 @@ export class ExerciseStatsDialogComponent implements OnInit {
 			this.data.exerciseName,
 			this.workouts
 		);
+
 		this.stats = this.utils.getSessionExerciseFor(
 			this.data.exerciseName,
 			dates,
 			this.workouts
 		);
+
 		this.stats.reverse();
 
 		this.loading = false;

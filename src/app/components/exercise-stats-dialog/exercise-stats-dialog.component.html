@@ -1,12 +1,31 @@
 <div>
-	<h1><span>Storico</span></h1>
+	<h1><span>Storico <i style="font-size: 0.6em">{{exerciseName()}}</i></span></h1>
+	<!-- <mat-divider class="mb-2"></mat-divider> -->
 
 	<ng-container *ngIf="this.stats.length == 0 && !this.loading">
 		<p>Non ci sono dati per questo esercizio</p>
 	</ng-container>
 
-	<p *ngFor="let item of this.stats">
-		{{ item.date }}: {{ item.exercise.series }}x{{ item.exercise.reps }} -
-		{{ item.exercise.load }}kg
-	</p>
+	<ng-container *ngIf="!this.loading">
+		<ng-container *ngFor="let item of this.stats">
+			<p>
+				{{ item.date.split("/")[0] + "/" +  item.date.split("/")[1]}}:
+				<ng-container *ngIf="item.exercise.configurationType === 'advanced'">
+					<ng-container *ngFor="let set of item.exercise.advanced.sets; index as i">
+						{{i === 0 ? "" : "|" }} {{ set.reps }}@{{ set.load }}kg
+					</ng-container>
+				</ng-container>
+
+				<ng-container *ngIf="!item.exercise.configurationType || item.exercise.configurationType === 'basic'">
+					{{item.exercise.series}}x{{item.exercise.reps}}@{{item.exercise.load}}kg
+				</ng-container>
+
+				<ng-container *ngIf="item.exercise.note != '' && item.exercise.note">
+					<br>
+					<i style="font-size: 0.7em; color: darkgray">"{{ item.exercise.note }}"</i>
+				</ng-container>
+			</p>
+			<mat-divider class="mb-1"></mat-divider>
+		</ng-container>
+	</ng-container>
 </div>
