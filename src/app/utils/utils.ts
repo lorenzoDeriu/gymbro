@@ -41,12 +41,23 @@ export class Utils {
 
 		const date = new Set(workoutsDate);
 
+		const max = (arr: any) =>
+			arr.reduce((x: any, y: any) => Math.max(x, y));
+
 		date.forEach((date: string) => {
 			sortedWorkouts.forEach((workout: any) => {
 				if (workout.date === date) {
 					workout.exercises.forEach((exercise: any) => {
 						if (exercise.name === exerciseName) {
-							weights.push(exercise.load);
+							weights.push(
+								exercise.configurationType === "advanced"
+									? max(
+											exercise.advanced.sets.map(
+												(set: any) => set.load
+											)
+									  )
+									: exercise.load
+							);
 						}
 					});
 				}

@@ -236,7 +236,16 @@
 							class="input-group-text custom-span"
 							id="inputGroup-sizing-default"
 						>
-							Reps {{exercise.range[0] != exercise.range[1] ? "(" + exercise.range[0] + "-" + exercise.range[1] + ")" : ""}}
+							Reps
+							{{
+								exercise.range[0] != exercise.range[1]
+									? "(" +
+									  exercise.range[0] +
+									  "-" +
+									  exercise.range[1] +
+									  ")"
+									: ""
+							}}
 						</span>
 						<input
 							[disabled]="exercise.completed"
