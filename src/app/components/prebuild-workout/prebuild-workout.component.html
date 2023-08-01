@@ -68,19 +68,21 @@
 				class="btn-group btn-group-sm mb-4"
 				role="group"
 				style="width: 100%"
-				[id]="'btn-group'+exerciseIndex"
+				[id]="'btn-group' + exerciseIndex"
 			>
 				<input
 					[disabled]="exercise.completed"
 					type="radio"
 					class="btn-check"
-					[id]="'radio1-'+exerciseIndex"
+					[id]="'radio1-' + exerciseIndex"
 					[name]="'rd1-' + exerciseIndex"
 					[(ngModel)]="exercise.configurationType"
-					(checked)="exercise.configurationType = 'basic'"
 					value="basic"
 				/>
-				<label class="btn btn-outline-dark" [for]="'radio1-'+exerciseIndex">
+				<label
+					class="btn btn-outline-dark"
+					[for]="'radio1-' + exerciseIndex"
+				>
 					Base
 				</label>
 
@@ -88,26 +90,17 @@
 					[disabled]="exercise.completed"
 					type="radio"
 					class="btn-check"
-					[id]="'radio2-'+exerciseIndex"
+					[id]="'radio2-' + exerciseIndex"
 					[name]="'rd2-' + exerciseIndex"
 					value="advanced"
 					[(ngModel)]="exercise.configurationType"
 				/>
-				<label class="btn btn-outline-dark" [for]="'radio2-'+exerciseIndex">
+				<label
+					class="btn btn-outline-dark"
+					[for]="'radio2-' + exerciseIndex"
+				>
 					Avanzato
 				</label>
-
-				<!-- <input
-					type="radio"
-					class="btn-check"
-					[id]="'radio3-'+exerciseIndex"
-					[name]="'rd3-' + exerciseIndex"
-					value="superset"
-					[(ngModel)]="exercise.configurationType"
-				/>
-				<label class="btn btn-outline-dark" [for]="'radio3-'+exerciseIndex">
-					Superset
-				</label> -->
 			</div>
 
 			<div class="input-group mb-2">
@@ -146,30 +139,7 @@
 				</button>
 			</div>
 
-			<div
-				*ngIf="exercise.range && exercise.range[0] != exercise.range[1]"
-				class="alert alert-info custom-alert"
-			>
-				<i
-					style="font-size: 1.2em"
-					class="bi bi-info-square-fill"
-					style="margin-right: 10px"
-				></i>
-				{{
-					"Il range di ripetizioni per questo esercizio è " +
-						exercise.range[0] +
-						"-" +
-						exercise.range[1] +
-						" reps"
-				}}
-			</div>
-
-			<div
-				*ngIf="
-					!exercise.configurationType ||
-					exercise.configurationType === 'basic'
-				"
-			>
+			<ng-container *ngIf="exercise.configurationType === 'basic'">
 				<div
 					*ngIf="isDesktop()"
 					class="input-group mb-2"
@@ -198,6 +168,15 @@
 						id="inputGroup-sizing-default"
 					>
 						Reps
+						{{
+							exercise.range[0] != exercise.range[1]
+								? "(" +
+								  exercise.range[0] +
+								  "-" +
+								  exercise.range[1] +
+								  ")"
+								: ""
+						}}
 					</span>
 					<input
 						[disabled]="exercise.completed"
@@ -228,81 +207,76 @@
 						"
 						[(ngModel)]="exercise.load"
 					/>
-
-					<!-- Mobile -->
-					<div *ngIf="!isDesktop()">
-						<div
-							class="input-group mb-2"
-							style="color: rgb(69, 69, 188); margin: auto"
-						>
-							<span
-								class="input-group-text custom-span"
-								id="inputGroup-sizing-default"
-							>
-								Serie
-							</span>
-							<input
-								[disabled]="exercise.completed"
-								type="number"
-								min="0"
-								class="form-control"
-								style="
-									box-shadow: none;
-									font-family: 'Josefin Sans', sans-serif;
-								"
-								[(ngModel)]="exercise.series"
-							/>
-							<span
-								class="input-group-text custom-span"
-								id="inputGroup-sizing-default"
-							>
-								Reps
-							</span>
-							<input
-								[disabled]="exercise.completed"
-								type="number"
-								min="0"
-								class="form-control"
-								style="
-									box-shadow: none;
-									font-family: 'Josefin Sans', sans-serif;
-								"
-								[(ngModel)]="exercise.reps"
-							/>
-						</div>
-
-						<div
-							class="input-group mb-2"
-							style="color: rgb(69, 69, 188); margin: auto"
-						>
-							<span
-								class="input-group-text custom-span"
-								id="inputGroup-sizing-default"
-							>
-								Carico (kg)
-							</span>
-							<input
-								[disabled]="exercise.completed"
-								type="number"
-								min="0"
-								class="form-control"
-								style="
-									box-shadow: none;
-									font-family: 'Josefin Sans', sans-serif;
-								"
-								[(ngModel)]="exercise.load"
-							/>
-						</div>
-					</div>
 				</div>
-			</div>
 
-			<div
-				*ngIf="
-					exercise.configurationType === 'advanced' ||
-					exercise.configurationType === 'superset'
-				"
-			>
+				<!-- Mobile -->
+				<ng-container *ngIf="!isDesktop()">
+					<div
+						class="input-group mb-2"
+						style="color: rgb(69, 69, 188); margin: auto"
+					>
+						<span
+							class="input-group-text custom-span"
+							id="inputGroup-sizing-default"
+						>
+							Serie
+						</span>
+						<input
+							[disabled]="exercise.completed"
+							type="number"
+							min="0"
+							class="form-control"
+							style="
+								box-shadow: none;
+								font-family: 'Josefin Sans', sans-serif;
+							"
+							[(ngModel)]="exercise.series"
+						/>
+						<span
+							class="input-group-text custom-span"
+							id="inputGroup-sizing-default"
+						>
+							Reps {{exercise.range[0] != exercise.range[1] ? "(" + exercise.range[0] + "-" + exercise.range[1] + ")" : ""}}
+						</span>
+						<input
+							[disabled]="exercise.completed"
+							type="number"
+							min="0"
+							class="form-control"
+							style="
+								box-shadow: none;
+								font-family: 'Josefin Sans', sans-serif;
+							"
+							[(ngModel)]="exercise.reps"
+						/>
+					</div>
+
+					<div
+						class="input-group mb-2"
+						style="color: rgb(69, 69, 188); margin: auto"
+					>
+						<span
+							class="input-group-text custom-span"
+							id="inputGroup-sizing-default"
+						>
+							Carico (kg)
+						</span>
+						<input
+							[disabled]="exercise.completed"
+							type="number"
+							min="0"
+							class="form-control"
+							style="
+								box-shadow: none;
+								font-family: 'Josefin Sans', sans-serif;
+							"
+							[(ngModel)]="exercise.load"
+						/>
+					</div>
+				</ng-container>
+			</ng-container>
+
+			<ng-container *ngIf="exercise.configurationType === 'advanced'">
 				<div
 					*ngFor="let set of exercise.advanced.sets; index as i"
 					class="input-group mb-2"
@@ -312,14 +286,19 @@
 						class="input-group-text custom-span"
 						style="width: 30px"
 					>
-						{{ i }}
+						{{ i + 1 }}
 					</span>
 
 					<span
 						class="input-group-text custom-span"
-						style="width: 40px"
+						style="width: 80px"
 					>
-						Rep
+						{{
+							"Reps " +
+								(set.min && set.max && set.min < set.max
+									? "(" + set.min + "-" + set.max + ")"
+									: "")
+						}}
 					</span>
 					<input
 						[disabled]="exercise.completed"
@@ -385,7 +364,7 @@
 						</span>
 					</button>
 				</div>
-			</div>
+			</ng-container>
 
 			<div
 				class="input-group mb-2"
@@ -498,13 +477,7 @@
 				</div>
 			</div>
 
-			<div
-				class="mt-4"
-				style="
-					display: flex;
-					justify-content: flex-end;
-				"
-			>
+			<div class="mt-4" style="display: flex; justify-content: flex-end">
 				<button
 					class="btn btn-outline-primary"
 					style="margin-right: 10px"

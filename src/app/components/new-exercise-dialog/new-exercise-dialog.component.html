@@ -3,7 +3,30 @@
 		Nuovo Esercizio
 	</span>
 	<mat-divider style="margin-top: 10px; margin-bottom: 10px"></mat-divider>
-	<div class="input-group mb-2">
+
+	<div class="btn-group btn-group-sm mb-4" role="group" style="width: 100%">
+		<input
+			type="radio"
+			class="btn-check"
+			id="rd1"
+			name="rd1"
+			[(ngModel)]="exercise.configurationType"
+			value="basic"
+		/>
+		<label class="btn btn-outline-dark" for="rd1">Base</label>
+
+		<input
+			type="radio"
+			class="btn-check"
+			id="rd2"
+			name="rd2"
+			value="advanced"
+			[(ngModel)]="exercise.configurationType"
+		/>
+		<label class="btn btn-outline-dark" for="rd2">Avanzato</label>
+	</div>
+
+	<div class="input-group mb-3">
 		<label
 			class="input-group-text custom-span"
 			style="width: 70px"
@@ -34,54 +57,147 @@
 		</button>
 	</div>
 
-	<div class="input-group mb-2" style="color: rgb(69, 69, 188)">
-		<span
-			class="input-group-text custom-span"
-			style="width: 70px"
-			id="inputGroup-sizing-default"
-		>
-			Serie
-		</span>
-		<input
-			type="number"
-			class="form-control"
-			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
-			[(ngModel)]="this.exercise.series"
-		/>
-	</div>
+	<ng-container
+		*ngIf="
+			!exercise.configurationType ||
+			exercise.configurationType === 'basic'
+		"
+	>
+		<div class="input-group mb-3" style="color: rgb(69, 69, 188)">
+			<span
+				class="input-group-text custom-span"
+				style="width: 70px"
+				id="inputGroup-sizing-default"
+			>
+				Serie
+			</span>
+			<input
+				type="number"
+				class="form-control"
+				style="
+					box-shadow: none;
+					font-family: 'Josefin Sans', sans-serif;
+				"
+				[(ngModel)]="this.exercise.series"
+			/>
+		</div>
 
-	<div class="input-group mb-2" style="color: rgb(69, 69, 188)">
-		<span
-			class="input-group-text custom-span"
-			style="width: 70px"
-			id="inputGroup-sizing-default"
-		>
-			Min Reps
-		</span>
-		<input
-			type="number"
-			class="form-control"
-			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
-			[(ngModel)]="this.exercise.range[0]"
-			[max]="this.exercise.range[1]"
-		/>
-		<span
-			class="input-group-text custom-span"
-			style="width: 70px"
-			id="inputGroup-sizing-default"
-		>
-			Max Reps
-		</span>
-		<input
-			type="number"
-			class="form-control"
-			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
-			[(ngModel)]="this.exercise.range[1]"
-			[min]="this.exercise.range[0]"
-		/>
-	</div>
+		<div class="input-group mb-3" style="color: rgb(69, 69, 188)">
+			<span
+				class="input-group-text custom-span"
+				style="width: 70px"
+				id="inputGroup-sizing-default"
+			>
+				Min Reps
+			</span>
+			<input
+				type="number"
+				class="form-control"
+				style="
+					box-shadow: none;
+					font-family: 'Josefin Sans', sans-serif;
+				"
+				[(ngModel)]="this.exercise.range[0]"
+				[max]="this.exercise.range[1]"
+			/>
+			<span
+				class="input-group-text custom-span"
+				style="width: 70px"
+				id="inputGroup-sizing-default"
+			>
+				Max Reps
+			</span>
+			<input
+				type="number"
+				class="form-control"
+				style="
+					box-shadow: none;
+					font-family: 'Josefin Sans', sans-serif;
+				"
+				[(ngModel)]="this.exercise.range[1]"
+				[min]="this.exercise.range[0]"
+			/>
+		</div>
+	</ng-container>
 
-	<div class="input-group mb-2" style="color: rgb(69, 69, 188)">
+	<ng-container *ngIf="exercise.configurationType === 'advanced'">
+		<div
+			class="input-group mb-1"
+			style="color: rgb(69, 69, 188)"
+			*ngFor="let set of exercise.advanced.sets; index as i"
+		>
+			<span
+				class="input-group-text custom-span"
+				style="width: 15px"
+				id="inputGroup-sizing-default"
+			>
+				{{ i + 1 }}
+			</span>
+			<span
+				class="input-group-text custom-span"
+				[ngStyle]="isDesktop() ? { width: '70px' } : { width: '40px' }"
+				id="inputGroup-sizing-default"
+			>
+				{{ isDesktop() ? "Min Reps" : "Min" }}
+			</span>
+			<input
+				type="number"
+				class="form-control"
+				style="
+					box-shadow: none;
+					font-family: 'Josefin Sans', sans-serif;
+				"
+				[(ngModel)]="set.min"
+				[max]="set.max"
+			/>
+			<span
+				class="input-group-text custom-span"
+				[ngStyle]="isDesktop() ? { width: '70px' } : { width: '40px' }"
+				id="inputGroup-sizing-default"
+			>
+				{{ isDesktop() ? "Max Reps" : "Max" }}
+			</span>
+			<input
+				type="number"
+				class="form-control"
+				style="
+					box-shadow: none;
+					font-family: 'Josefin Sans', sans-serif;
+				"
+				[(ngModel)]="set.max"
+				[min]="set.min"
+			/>
+
+			<button
+				class="btn custom-button"
+				id="button-addon2"
+				(click)="removeSet(i)"
+			>
+				<i class="bi bi-trash"></i>
+			</button>
+		</div>
+
+		<div
+			style="
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				width: 100%;
+			"
+			class="mb-3 mt-2"
+		>
+			<button
+				class="btn btn-outline-secondary custom-button"
+				type="button"
+				id="button-addon2"
+				(click)="addSet()"
+			>
+				Aggiungi Serie
+			</button>
+		</div>
+	</ng-container>
+
+	<div class="input-group mb-3" style="color: rgb(69, 69, 188)">
 		<label
 			class="input-group-text custom-span"
 			for="inputGroupSelect01"
@@ -108,7 +224,7 @@
 		</select>
 	</div>
 
-	<div class="input-group mb-2">
+	<div class="input-group mb-3">
 		<label
 			class="input-group-text custom-span"
 			for="inputGroupSelect01"
@@ -143,7 +259,7 @@
 		</select>
 	</div>
 
-	<div class="input-group mb-2" style="color: rgb(69, 69, 188)">
+	<div class="input-group mb-3" style="color: rgb(69, 69, 188)">
 		<span
 			class="input-group-text custom-span"
 			style="width: 70px"
@@ -166,117 +282,3 @@
 		</button>
 	</div>
 </div>
-
-<!-- <form
-	#newWorkoutForm="ngForm"
-	id="new-workout-form"
-	(ngSubmit)="onSubmit(newWorkoutForm)"
->
-	<div id="exercise-name-container">
-		<mat-form-field appearance="outline">
-			<mat-label>Esercizio</mat-label>
-			<mat-select
-				name="exerciseName"
-				[(ngModel)]="exercise.exerciseName"
-				required
-			>
-				<mat-option *ngFor="let exercise of options" [value]="exercise">
-					{{ exercise }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-
-		<button
-			mat-icon-button
-			type="button"
-			id="add-custom-exercise-button"
-			(click)="onAddCustomExercise()"
-			#tooltip="matTooltip"
-			matTooltip="Aggiungi un esercizio personalizzato"
-		>
-			<img src="../../../assets/AddExerciseIcon.png" alt="" />
-		</button>
-	</div>
-
-	<mat-form-field appearance="outline">
-		<mat-label>Serie</mat-label>
-		<input
-			matInput
-			name="series"
-			type="number"
-			[(ngModel)]="exercise.series"
-		/>
-	</mat-form-field>
-
-	<mat-label>Rep-Range</mat-label>
-	<mat-slider
-		id="slider"
-		min="1"
-		max="25"
-		step="1"
-		discrete
-		[displayWith]="formatLabel"
-	>
-		<input matSliderStartThumb name="min" [(ngModel)]="exercise.range[0]" />
-		<input matSliderEndThumb name="max" [(ngModel)]="exercise.range[1]" />
-	</mat-slider>
-
-	<mat-form-field appearance="outline">
-		<mat-label>Carico</mat-label>
-		<input matInput name="load" type="number" [(ngModel)]="exercise.load" />
-	</mat-form-field>
-
-	<mat-form-field appearance="outline">
-		<mat-label>Tempo di recupero</mat-label>
-		<input
-			matInput
-			name="restTime"
-			type="time"
-			[(ngModel)]="exercise.restTime"
-		/>
-	</mat-form-field>
-
-	<mat-label>RPE</mat-label>
-	<mat-slider
-		id="slider"
-		min="1"
-		max="10"
-		step="1"
-		discrete
-		[displayWith]="formatLabel"
-	>
-		<input
-			matSliderThumb
-			name="RPE"
-			name="rpe"
-			[(ngModel)]="exercise.RPE"
-		/>
-	</mat-slider>
-
-	<mat-form-field appearance="outline">
-		<mat-label>Note</mat-label>
-		<textarea
-			matInput
-			name="note"
-			cdkTextareaAutosize
-			cdkAutosizeMinRows="1"
-			cdkAutosizeMaxRows="2"
-			[(ngModel)]="exercise.note"
-		></textarea>
-	</mat-form-field>
-
-	<div id="button-container">
-		<button
-			type="submit"
-			mat-raised-button
-			color="primary"
-			[mat-dialog-close]=""
-			[disabled]="!newWorkoutForm.valid"
-		>
-			Aggiungi
-		</button>
-		<button mat-raised-button color="warn" [mat-dialog-close]="">
-			Annulla
-		</button>
-	</div>
-</form> -->

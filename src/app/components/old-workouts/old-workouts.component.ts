@@ -31,7 +31,9 @@ export class OldWorkoutsComponent implements OnInit {
 	}
 
 	public array = (n: number) => {
-		return Array(n).fill(0, 0, n).map((x, i) => i);
+		return Array(n)
+			.fill(0, 0, n)
+			.map((x, i) => i);
 	};
 
 	async getWorkouts() {

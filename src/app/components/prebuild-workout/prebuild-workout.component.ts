@@ -20,6 +20,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public date: Date = new Date();
 
 	public availableExercise: string[] = [];
+
 	constructor(
 		private userService: UserService,
 		private router: Router,

@@ -89,6 +89,34 @@ export class UserService {
 	}
 
 	public getWorkoutSelected(): any {
+		console.log(this.workoutSelected);
+
+		this.workoutSelected?.exercises?.forEach((exercise: any) => {
+			if (!exercise.configurationType) {
+				exercise.configurationType = "basic";
+			}
+
+			if (exercise.advanced == undefined) {
+				exercise.advanced = {
+					sets: [],
+				};
+			}
+
+			if (exercise.configurationType === "advanced") {
+				exercise.advanced?.sets?.forEach((set: any) => {
+					if (set.load == undefined) {
+						set.load = 0;
+					}
+
+					if (set.reps == undefined) {
+						set.reps = set.min;
+					}
+				});
+			}
+		});
+
+		console.log(this.workoutSelected);
+
 		return this.workoutSelected;
 	}
 }

@@ -132,14 +132,45 @@
 					>
 						<th scope="row">{{ exercise.name }}</th>
 						<td>
-							{{ exercise.series }} x
-							{{
-								exercise.range[0] != exercise.range[1]
-									? exercise.range[0] +
-									  "-" +
-									  exercise.range[1]
-									: exercise.range[0]
-							}}
+							<ng-container
+								*ngIf="
+									exercise.configurationType === 'advanced'
+								"
+							>
+								<ng-container
+									*ngFor="
+										let set of exercise.advanced.sets;
+										index as i
+									"
+								>
+									<b>{{ i + 1 + ":" }}</b>
+									{{
+										set.min != set.max
+											? set.min +
+											  " reps - " +
+											  set.max +
+											  " reps"
+											: set.min + " reps"
+									}}
+									<br />
+								</ng-container>
+							</ng-container>
+
+							<ng-container
+								*ngIf="
+									!exercise.configurationType ||
+									exercise.configurationType === 'basic'
+								"
+							>
+								{{ exercise.series }} x
+								{{
+									exercise.range[0] != exercise.range[1]
+										? exercise.range[0] +
+										  "-" +
+										  exercise.range[1]
+										: exercise.range[0]
+								}}
+							</ng-container>
 						</td>
 						<td>{{ exercise.RPE }}</td>
 						<td>

@@ -18,14 +18,25 @@ export class NewExerciseDialogComponent {
 	public options: string[] = [];
 	public exercise = {
 		name: "",
-		series: 0,
-		range: [0, 0],
+		series: 3,
+		range: [6, 8],
 		rest: {
-			minutes: "00",
+			minutes: "02",
 			seconds: "00",
 		},
-		RPE: 0,
+		RPE: 8,
 		note: "",
+
+		// superset data:
+		secondExercise: "",
+
+		// advanced data:
+		advanced: {
+			sets: [{ min: 6, max: 8 }],
+		},
+
+		// configuration type:
+		configurationType: "basic",
 	};
 
 	private editMode = false;
@@ -50,6 +61,14 @@ export class NewExerciseDialogComponent {
 		this.options = (await this.firebase.getExercise(uid)).sort(
 			(a: string, b: string) => a.localeCompare(b)
 		);
+	}
+
+	addSet() {
+		this.exercise.advanced.sets.push({ min: 6, max: 8 });
+	}
+
+	removeSet(index: number) {
+		this.exercise.advanced.sets.splice(index, 1);
 	}
 
 	openCustomExerciseDialog() {
