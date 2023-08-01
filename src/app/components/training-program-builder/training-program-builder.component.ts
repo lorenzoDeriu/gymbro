@@ -45,6 +45,28 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		trainingProgram.session = trainingProgram.session.map(
 			(session: any) => {
 				session.exercises = session.exercises.map((exercise: any) => {
+					if (!exercise.configurationType) {
+						exercise.configurationType = "basic";
+					}
+
+					if (exercise.advanced == undefined) {
+						exercise.advanced = {
+							sets: [],
+						};
+					}
+
+					if (exercise.configurationType === "advanced") {
+						exercise.advanced?.sets?.forEach((set: any) => {
+							if (set.load == undefined) {
+								set.load = 0;
+							}
+
+							if (set.reps == undefined) {
+								set.reps = set.min;
+							}
+						});
+					}
+
 					if (exercise.reps) {
 						exercise.range = [exercise.reps, exercise.reps];
 						delete exercise.reps;
