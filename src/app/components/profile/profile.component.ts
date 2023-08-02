@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
-import { UserService } from "src/app/services/user.service";
+import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 
 @Component({
 	selector: "app-profile",
@@ -22,8 +23,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private firebase: FirebaseService,
-		private userService: UserService,
-		private snackBar: MatSnackBar
+		private snackBar: MatSnackBar,
+		private dialog: MatDialog
 	) {}
 
 	async ngOnInit() {
@@ -69,5 +70,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
 			this.trainingPrograms[trainingProgramIndex]
 		);
 		this.snackBar.open("Scheda salvata!", "Ok", { duration: 3000 });
+	}
+
+	showNotes(
+		programIndex: number,
+		workoutIndex: number,
+		exerciseIndex: number
+	) {
+		console.log(this.trainingPrograms);
+
+		this.dialog.open(NotesDialogComponent, {
+			width: "300px",
+			data: {
+				notes: this.trainingPrograms[programIndex].session[
+					workoutIndex
+				].exercises[exerciseIndex].note,
+			},
+		});
 	}
 }
