@@ -93,15 +93,6 @@
 						[(ngModel)]="session.name"
 					/>
 				</div>
-
-				<button
-					class="btn custom-button"
-					style="margin-top: -8px"
-					(click)="addExercise(session)"
-				>
-					<i class="bi bi-plus-lg"></i>
-					Aggiungi Esercizio
-				</button>
 			</div>
 			<table class="table">
 				<thead>
@@ -199,6 +190,7 @@
 					</tr>
 				</tbody>
 			</table>
+
 			<span
 				*ngIf="session.exercises.length == 0"
 				style="margin: auto; width: 140px; color: black"
@@ -206,6 +198,24 @@
 			>
 				Non ci sono esercizi
 			</span>
+
+			<div
+				style="
+					display: flex;
+					flex-direction: row;
+					justify-content: center;
+					align-items: center;
+				"
+				class="mb-3 mt-2"
+			>
+				<button
+					class="btn custom-button"
+					(click)="addExercise(session)"
+				>
+					<i class="bi bi-plus-lg"></i>
+					Aggiungi Esercizio
+				</button>
+			</div>
 		</mat-expansion-panel>
 	</mat-accordion>
 
