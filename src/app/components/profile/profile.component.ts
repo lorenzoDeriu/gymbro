@@ -77,14 +77,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		workoutIndex: number,
 		exerciseIndex: number
 	) {
-		console.log(this.trainingPrograms);
-
 		this.dialog.open(NotesDialogComponent, {
 			width: "300px",
 			data: {
-				notes: this.trainingPrograms[programIndex].session[
-					workoutIndex
-				].exercises[exerciseIndex].note,
+				notes: this.trainingPrograms[programIndex].session[workoutIndex]
+					.exercises[exerciseIndex].note,
 			},
 		});
 	}

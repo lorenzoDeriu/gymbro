@@ -1,1 +1,20 @@
-<p style="padding: 10px">{{ this.notes }}</p>
+<div
+	style="
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 100%;
+		padding: 0.5em;
+		flex-direction: row;
+	"
+>
+	<span style="font-family: Josefin Sans, sans-serif">
+		{{ this.notes }}
+	</span>
+
+	<i
+		(click)="this.dialogRef.close()"
+		style="cursor: pointer; margin-left: 0.5em"
+		class="bi bi-x-lg"
+	></i>
+</div>
