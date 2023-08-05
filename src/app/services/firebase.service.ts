@@ -547,26 +547,19 @@ export class FirebaseService {
 			});
 		});
 
-		feedback.sort((a, b) => {
-			if (a["date"] < b["date"]) return 1;
-			if (a["date"] > b["date"]) return -1;
-			return 0;
+		feedback.sort((a: any, b: any) => {
+			const dateA = this.convertToDate(a.date);
+			const dateB = this.convertToDate(b.date);
+			return dateB.getTime() - dateA.getTime();
 		});
-
-		// feedback.sort(this.compareDates);
 
 		return feedback;
 	}
 
-	/* compareDates(a: any, b: any) {
-		var dateA = new Date(
-		  a.date.split('/').reverse().join('-') + 'T00:00:00'
-		).getTime();
-		var dateB = new Date(
-		  b.date.split('/').reverse().join('-') + 'T00:00:00'
-		).getTime();
-		return dateA - dateB;
-	  } */
+	private convertToDate(dateString: string): Date {
+		const [day, month, year] = dateString.split("/").map(Number);
+		return new Date(year, month - 1, day);
+	}
 
 	async removeFeedback(id: string) {
 		await deleteDoc(doc(this.db, "feedback", id));
