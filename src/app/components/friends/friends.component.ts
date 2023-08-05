@@ -25,7 +25,6 @@ export class FriendsComponent implements OnInit {
 
 		this.loading = true;
 		this.userData = await this.firebase.getUserData(this.uid);
-		console.log(this.userData);
 
 		this.username = this.userData["username"];
 
