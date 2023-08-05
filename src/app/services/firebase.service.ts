@@ -1,5 +1,4 @@
-import { AuthService } from "src/app/services/auth.service";
-import { Injectable, OnChanges } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 
 import { initializeApp } from "firebase/app";
@@ -19,13 +18,10 @@ import {
 	initializeFirestore,
 	CACHE_SIZE_UNLIMITED,
 	enableIndexedDbPersistence,
-	getDocFromServer,
 	getDocFromCache,
 	DocumentReference,
 	getDoc,
 	getDocsFromCache,
-	onSnapshot,
-	DocumentChange,
 } from "firebase/firestore";
 import {
 	getAuth,
@@ -239,12 +235,9 @@ export class FirebaseService {
 			documentReference
 		);
 
-		console.log(documentSnapshot.exists());
-
 		if (documentSnapshot.exists()) {
 			let data = documentSnapshot.data();
 			data["trainingPrograms"][index] = trainingProgram;
-			console.log(data["trainingPrograms"]);
 			updateDoc(documentReference, {
 				trainingPrograms: data["trainingPrograms"],
 			}).catch(e => console.log(e));

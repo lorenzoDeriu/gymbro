@@ -4,6 +4,7 @@ import { Component, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
+import { SafetyActionConfirmDialogComponent } from "src/app/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 
 @Component({
 	selector: "app-training-programs",
@@ -54,8 +55,22 @@ export class TrainingProgramsComponent implements OnInit {
 	}
 
 	async removeTrainingProgram(index: number) {
-		await this.userService.removeTrainingProgram(index);
-		this.trainingPrograms = await this.firebase.getTrainingPrograms();
+		this.dialog.open(SafetyActionConfirmDialogComponent, {
+			data: {
+				title: "Elimina programma di allenamento",
+				message:
+					"Sei sicuro di voler eliminare questo programma di allenamento?",
+				args: [index, this.trainingPrograms, this.userService],
+				confirm: async (
+					index: number,
+					trainingPrograms: any,
+					userService: any
+				) => {
+					trainingPrograms.splice(index, 1);
+					await userService.updateTrainingPrograms(trainingPrograms);
+				}
+			},
+		});
 	}
 
 	showNotes(

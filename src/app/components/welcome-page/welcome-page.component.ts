@@ -22,7 +22,6 @@ export class WelcomePageComponent implements OnInit {
 
 	async ngOnInit() {
 		if (this.authService.isAuthenticated()) {
-			console.log("User is authenticated");
 			this.router.navigate(["/home/dashboard"]);
 		}
 	}

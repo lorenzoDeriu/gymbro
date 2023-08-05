@@ -5,6 +5,7 @@ import { UserService } from "src/app/services/user.service";
 import { Component, OnInit } from "@angular/core";
 import { ExerciseStatsDialogComponent } from "../exercise-stats-dialog/exercise-stats-dialog.component";
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
+import { SafetyActionConfirmDialogComponent } from "src/app/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 
 @Component({
 	selector: "app-prebuild-workout",
@@ -131,7 +132,16 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	delete(exerciseIndex: number) {
-		this.workout.exercises.splice(exerciseIndex, 1);
+		this.dialog.open(SafetyActionConfirmDialogComponent, {
+			data: {
+				title: "Elimina esercizio",
+				message: "Sei sicuro di voler eliminare questo esercizio?",
+				args: [this.workout, exerciseIndex],
+				confirm: (workout: any, index: number) => {
+					workout.exercises.splice(index, 1);
+				},
+			},
+		});
 	}
 
 	onDate(event: any): void {
@@ -139,8 +149,20 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	onCancel() {
-		localStorage.removeItem("workout");
-		this.router.navigate(["/home"]);
+		// localStorage.removeItem("workout");
+		// this.router.navigate(["/home"]);
+
+		this.dialog.open(SafetyActionConfirmDialogComponent, {
+			data: {
+				title: "Annulla",
+				message: "Sei sicuro di voler annullare l'allenamento?",
+				args: [],
+				confirm: () => {
+					localStorage.removeItem("workout");
+					this.router.navigate(["/home"]);
+				}
+			},
+		});
 	}
 
 	public totalSeconds: number = 0;
@@ -207,7 +229,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 				exercise.name = customExercise;
 
-				console.log(exercise.name, customExercise);
 				this.availableExercise = await this.firebase.getExercise(
 					JSON.parse(localStorage.getItem("user")).uid
 				);

@@ -89,8 +89,6 @@ export class UserService {
 	}
 
 	public getWorkoutSelected(): any {
-		console.log(this.workoutSelected);
-
 		this.workoutSelected?.exercises?.forEach((exercise: any) => {
 			if (!exercise.configurationType) {
 				exercise.configurationType = "basic";
@@ -114,8 +112,6 @@ export class UserService {
 				});
 			}
 		});
-
-		console.log(this.workoutSelected);
 
 		return this.workoutSelected;
 	}

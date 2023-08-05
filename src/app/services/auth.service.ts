@@ -33,7 +33,6 @@ export class AuthService {
 
 	public async accessWithGoogle() {
 		let credential: any = await this.firebase.accessWithGoogle();
-		console.log("access google: " + credential);
 		if (credential != null) {
 			this.loginUser({
 				uid: credential.user.uid,
@@ -48,21 +47,6 @@ export class AuthService {
 			}
 		}
 	}
-
-	// sendWelcomeNotification() {
-	// 	Notification.requestPermission().then(
-	// 		(result: NotificationPermission) => {
-	// 			if (result === "granted") {
-	// 				let notification = new Notification("Benvenuto su GymBro", {
-	// 					body: "Grazie per aver scelto GymBro, l'applicazione che ti aiuta a gestire i tuoi allenamenti e monitora i tuoi progressi.",
-	// 					icon: "assets/icons/icon-72x72.png",
-	// 				});
-
-	// 				console.log(notification);
-	// 			}
-	// 		}
-	// 	);
-	// }
 
 	public createNewUserInfo() {
 		let user = JSON.parse(localStorage.getItem("user"));

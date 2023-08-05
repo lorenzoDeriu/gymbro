@@ -5,6 +5,7 @@ import { Component, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
+import { SafetyActionConfirmDialogComponent } from "src/app/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 
 @Component({
 	selector: "app-old-workouts",
@@ -57,9 +58,17 @@ export class OldWorkoutsComponent implements OnInit {
 	}
 
 	deleteWorkout(index: number) {
-		this.workouts.splice(index, 1);
-
-		this.userService.updateWorkouts(this.workouts);
+		this.dialog.open(SafetyActionConfirmDialogComponent, {
+			data: {
+				title: "Elimina allenamento",
+				message: "Sei sicuro di voler eliminare questo allenamento?",
+				args: [index, this.workouts, this.userService],
+				confirm: async (index: number, workouts: any, userService: any) => {
+					workouts.splice(index, 1);
+					await userService.updateWorkouts(workouts);
+				}
+			},
+		});
 	}
 
 	editWorkout(index: number) {
