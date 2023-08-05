@@ -33,8 +33,6 @@ export class TrainingProgramsComponent implements OnInit {
 		this.loading = true;
 		this.trainingPrograms = await this.firebase.getTrainingPrograms();
 		this.loading = false;
-
-		console.log(this.trainingPrograms);
 	}
 
 	backToHomeButton() {
@@ -67,7 +65,7 @@ export class TrainingProgramsComponent implements OnInit {
 					userService: any
 				) => {
 					trainingPrograms.splice(index, 1);
-					await userService.updateTrainingPrograms(trainingPrograms);
+					await userService.removeTrainingProgram(index);
 				}
 			},
 		});

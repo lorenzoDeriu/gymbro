@@ -36,7 +36,6 @@ export class ExercisePickerDialogComponent implements OnInit {
 			.afterClosed()
 			.subscribe(exercise => {
 				this.getExercises();
-				console.log(exercise);
 				this.selectedExercise = exercise;
 			});
 	}
