@@ -84,12 +84,11 @@ export class SettingsPageComponent implements OnInit {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina esercizio",
-				message:
-					"Sei sicuro di voler eliminare questo esercizio?",
+				message: "Sei sicuro di voler eliminare questo esercizio?",
 				args: [index, this.customExercises],
 				confirm: async (index: number, customExercises: any) => {
 					customExercises.splice(index, 1);
-				}
+				},
 			},
 		});
 	}

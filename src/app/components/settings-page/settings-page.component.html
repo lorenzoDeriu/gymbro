@@ -35,7 +35,11 @@
 				[(ngModel)]="this.visibility"
 				[checked]="this.visibility"
 			/>
-			<label class="form-check-label" for="flexSwitchCheckDefault" style="font-family: Josefin Sans, sans-serif;">
+			<label
+				class="form-check-label"
+				for="flexSwitchCheckDefault"
+				style="font-family: Josefin Sans, sans-serif"
+			>
 				Rendi visibili le tue schede agli altri
 			</label>
 		</div>
@@ -47,7 +51,9 @@
 		>
 			<b>Visualizza gli esercizi che hai creato:</b>
 			<mat-accordion>
-				<mat-expansion-panel style="box-shadow: none; border: 1px solid">
+				<mat-expansion-panel
+					style="box-shadow: none; border: 1px solid"
+				>
 					<mat-expansion-panel-header>
 						<mat-panel-title>Esercizi custom</mat-panel-title>
 					</mat-expansion-panel-header>
@@ -57,7 +63,10 @@
 						id="exercise-setting-container"
 					>
 						<span id="custom-exercise-name">{{ item }}</span>
-						<button class="btn btn-outline-secondary btn-sm" (click)="deleteItem(i)">
+						<button
+							class="btn btn-outline-secondary btn-sm"
+							(click)="deleteItem(i)"
+						>
 							Elimina
 						</button>
 					</div>
@@ -66,7 +75,12 @@
 		</div>
 
 		<div id="button-container">
-			<button class="btn custom-button" color="primary" type="button" (click)="saveSettings()">
+			<button
+				class="btn custom-button"
+				color="primary"
+				type="button"
+				(click)="saveSettings()"
+			>
 				Salva
 			</button>
 		</div>
