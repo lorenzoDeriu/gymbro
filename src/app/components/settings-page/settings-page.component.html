@@ -1,74 +1,88 @@
-<div id="settings-container">
-	<div id="title">
+<mat-progress-bar *ngIf="this.loading" mode="indeterminate" />
+
+<div id="settings-container" *ngIf="!this.loading">
+	<div id="title" class="mb-1">
 		<h1><span>Impostazioni</span></h1>
 	</div>
 
-	<button
-		style="margin-bottom: 10px"
-		mat-raised-button
-		(click)="backToHome()"
-	>
+	<button class="btn btn-outline-secondary mb-4" (click)="backToHome()">
+		<i class="bi bi-house-fill" style="margin-right: 5px"></i>
 		Torna alla home
 	</button>
 
-	<form #settingsForm="ngForm" (ngSubmit)="saveSettings(settingsForm)">
-		<div id="slide-container">
-			<mat-slide-toggle
-				name="visibility"
-				color="primary"
-				[(ngModel)]="this.visibility"
-			>
-				Rendi visibili le tue schede agli altri
-			</mat-slide-toggle>
-		</div>
+	<div id="settings-sub-container">
+		<div class="mb-3 input-group">
+			<span class="input-group-text" id="basic-addon1">Username</span>
 
-		<mat-form-field appearance="outline" [style.width.px]="300">
-			<mat-label>Cambia il tuo username</mat-label>
 			<input
-				matInput
 				type="text"
+				class="form-control"
+				placeholder="Username"
+				aria-label="Username"
+				aria-describedby="basic-addon1"
 				name="username"
 				[(ngModel)]="this.username"
+				style="box-shadow: none"
 			/>
-		</mat-form-field>
+		</div>
+
+		<div class="form-check form-switch mb-3" style="box-shadow: none">
+			<input
+				class="form-check-input"
+				type="checkbox"
+				role="switch"
+				id="flexSwitchCheckDefault"
+				[(ngModel)]="this.visibility"
+				[checked]="this.visibility"
+			/>
+			<label class="form-check-label" for="flexSwitchCheckDefault" style="font-family: Josefin Sans, sans-serif;">
+				Rendi visibili le tue schede agli altri
+			</label>
+		</div>
+
+		<div
+			id="expansion-panel-container"
+			*ngIf="this.customExercises.length > 0"
+			class="mb-2"
+		>
+			<b>Visualizza gli esercizi che hai creato:</b>
+			<mat-accordion>
+				<mat-expansion-panel style="box-shadow: none; border: 1px solid">
+					<mat-expansion-panel-header>
+						<mat-panel-title>Esercizi custom</mat-panel-title>
+					</mat-expansion-panel-header>
+
+					<div
+						*ngFor="let item of customExercises; index as i"
+						id="exercise-setting-container"
+					>
+						<span id="custom-exercise-name">{{ item }}</span>
+						<button class="btn btn-outline-secondary btn-sm" (click)="deleteItem(i)">
+							Elimina
+						</button>
+					</div>
+				</mat-expansion-panel>
+			</mat-accordion>
+		</div>
 
 		<div id="button-container">
-			<button mat-raised-button color="primary" type="submit">
+			<button class="btn custom-button" color="primary" type="button" (click)="saveSettings()">
 				Salva
 			</button>
 		</div>
-	</form>
-
-	<div id="expansion-panel-container" *ngIf="this.customExercises.length > 0">
-		<mat-accordion>
-			<mat-expansion-panel>
-				<mat-expansion-panel-header>
-					<mat-panel-title>Esercizi custom</mat-panel-title>
-				</mat-expansion-panel-header>
-
-				<div
-					*ngFor="let item of customExercises; index as i"
-					id="exercise-setting-container"
-				>
-					<span id="custom-exercise-name">{{ item }}</span>
-					<button mat-button color="warn" (click)="deleteItem(i)">
-						Elimina
-					</button>
-				</div>
-			</mat-expansion-panel>
-		</mat-accordion>
 	</div>
 
 	<br />
-	<button mat-button color="primary" (click)="changePassword()">
-		Cambia password
-	</button>
-	<button
-		mat-raised-button
-		color="warn"
-		(click)="deleteAccount()"
-		style="margin-top: 30px"
-	>
-		Elimina Account
-	</button>
+	<div style="display: flex; flex-direction: row; align-items: center">
+		<button
+			class="btn btn-outline-secondary"
+			style="margin-right: 8px"
+			(click)="changePassword()"
+		>
+			Cambia password
+		</button>
+		<button class="btn btn-danger" (click)="deleteAccount()">
+			Elimina Account
+		</button>
+	</div>
 </div>

@@ -4,6 +4,8 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { SafetyActionConfirmDialogComponent } from "src/app/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 
 @Component({
 	selector: "app-settings-page",
@@ -13,24 +15,33 @@ import { Router } from "@angular/router";
 export class SettingsPageComponent implements OnInit {
 	public customExercises: any[] = [];
 	public visibility: boolean;
+
+	private originalUsername: string;
 	public username: string;
+
+	public loading: boolean = false;
 
 	constructor(
 		private firebase: FirebaseService,
 		private snackBar: MatSnackBar,
 		private authService: AuthService,
-		private router: Router
+		private router: Router,
+		private dialog: MatDialog
 	) {}
 
 	async ngOnInit() {
+		this.loading = true;
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
-		let user = await this.firebase.getUserData(uid);
+		let user: any = await this.firebase.getUserData(uid);
 
 		this.customExercises =
-			user["customExercises"] == undefined ? [] : user["customExercises"];
-		this.visibility = user["visibility"];
-		this.username = user["username"];
+			user.customExercises == undefined ? [] : user.customExercises;
+		this.visibility = user.visibility;
+		this.username = user.username;
+		this.originalUsername = user.username;
+
+		this.loading = false;
 	}
 
 	changePassword() {
@@ -43,26 +54,44 @@ export class SettingsPageComponent implements OnInit {
 	}
 
 	deleteAccount() {
-		this.authService.deleteAccount();
+		this.dialog.open(SafetyActionConfirmDialogComponent, {
+			data: {
+				title: "Elimina account",
+				message:
+					"Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile",
+				args: [this.authService],
+				confirm: async (authService: any) => {
+					await authService.deleteAccount();
+				},
+			},
+		});
 	}
 
-	saveSettings(form: NgForm) {
+	saveSettings() {
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
-		if (form.value.username != "") {
-			this.firebase.updateUsername(uid, form.value.username);
+		if (this.username != "" && this.username != this.originalUsername) {
+			this.firebase.updateUsername(uid, this.username);
 		}
 
 		this.firebase.updateVisibility(uid, this.visibility);
+		this.firebase.updateCustomExercises(uid, this.customExercises);
 
 		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
 		this.router.navigate(["/home"]);
 	}
 
 	deleteItem(index: number) {
-		let uid = JSON.parse(localStorage.getItem("user")).uid;
-
-		this.firebase.deleteCustomExercise(uid, this.customExercises[index].id);
-		this.customExercises.splice(index, 1);
+		this.dialog.open(SafetyActionConfirmDialogComponent, {
+			data: {
+				title: "Elimina esercizio",
+				message:
+					"Sei sicuro di voler eliminare questo esercizio?",
+				args: [index, this.customExercises],
+				confirm: async (index: number, customExercises: any) => {
+					customExercises.splice(index, 1);
+				}
+			},
+		});
 	}
 
 	backToHome() {

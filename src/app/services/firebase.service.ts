@@ -615,17 +615,22 @@ export class FirebaseService {
 		updateDoc(documentReference, { visibility: visibility });
 	}
 
-	async deleteCustomExercise(uid: string, exercise: string) {
+	updateCustomExercises(uid: string, customExercises: string[]) {
 		let documentReference = doc(this.db, "users", uid);
-
-		let documentSnapshot = await this.getDocumentSnapshot(
-			documentReference
-		);
-		let exercises: string[] = documentSnapshot.data()["customExercises"];
-
-		let index = exercises.indexOf(exercise);
-		exercises.splice(index, 1);
-
-		await updateDoc(documentReference, { customExercises: exercises });
+		updateDoc(documentReference, { customExercises: customExercises });
 	}
+
+	// async deleteCustomExercise(uid: string, exercise: string) {
+	// 	let documentReference = doc(this.db, "users", uid);
+
+	// 	let documentSnapshot = await this.getDocumentSnapshot(
+	// 		documentReference
+	// 	);
+	// 	let exercises: string[] = documentSnapshot.data()["customExercises"];
+
+	// 	let index = exercises.indexOf(exercise);
+	// 	exercises.splice(index, 1);
+
+	// 	await updateDoc(documentReference, { customExercises: exercises });
+	// }
 }

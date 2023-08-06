@@ -58,15 +58,16 @@ export class UserService {
 
 	public updateWorkouts(workouts: any) {
 		let user = JSON.parse(localStorage.getItem("user"));
-		this.firebase.updateWorkouts(workouts.sort(
-			(a: any, b: any) => {
+		this.firebase.updateWorkouts(
+			workouts.sort((a: any, b: any) => {
 				let [day, month, year] = String(a.date).split("/");
 				const dateA = +new Date(+year, +month - 1, +day);
 				[day, month, year] = String(b.date).split("/");
 				const dateB = +new Date(+year, +month - 1, +day);
 				return dateB - dateA;
-			}
-		), user.uid);
+			}),
+			user.uid
+		);
 
 		return this.firebase.getWorkouts();
 	}

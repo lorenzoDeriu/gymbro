@@ -3,20 +3,30 @@
 	margin: auto;
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: center;
 	justify-content: flex-start;
 	height: 100%;
 }
 
-form {
+#settings-sub-container {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	padding: 0;
-	border: rgb(69, 69, 188) 1px solid;
-	border-radius: 10px;
 	padding: 10px;
 	margin-bottom: 20px;
+}
+
+.custom-button {
+	background-color: rgb(69, 69, 188);
+	color: white;
+	font-family: "Josefin Sans", sans-serif;
+	font-weight: bold;
+}
+
+.custom-button:hover {
+	background-color: rgb(69, 69, 188);
+	color: white;
 }
 
 #slide-container {
@@ -37,12 +47,11 @@ form {
 
 #custom-exercise-name {
 	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
 }
 
 #expansion-panel-container {
 	display: flex;
+	flex-direction: column;
 	justify-content: flex-start;
 }
 
