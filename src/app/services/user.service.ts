@@ -58,9 +58,34 @@ export class UserService {
 
 	public updateWorkouts(workouts: any) {
 		let user = JSON.parse(localStorage.getItem("user"));
-		this.firebase.updateWorkouts(workouts, user.uid);
+		this.firebase.updateWorkouts(workouts.sort(
+			(a: any, b: any) => {
+				let [day, month, year] = String(a.date).split("/");
+				const dateA = +new Date(+year, +month - 1, +day);
+				[day, month, year] = String(b.date).split("/");
+				const dateB = +new Date(+year, +month - 1, +day);
+				return dateB - dateA;
+			}
+		), user.uid);
 
 		return this.firebase.getWorkouts();
+	}
+
+	public async updateWorkout(workout: any, index: number) {
+		let user = JSON.parse(localStorage.getItem("user"));
+		let workouts = (await this.firebase.getWorkouts()).sort(
+			(a: any, b: any) => {
+				let [day, month, year] = String(a.date).split("/");
+				const dateA = +new Date(+year, +month - 1, +day);
+				[day, month, year] = String(b.date).split("/");
+				const dateB = +new Date(+year, +month - 1, +day);
+				return dateB - dateA;
+			}
+		);
+
+		workouts[index] = workout;
+
+		this.firebase.updateWorkouts(workouts, user.uid);
 	}
 
 	public addSessionToTrainingProgram(session: any) {

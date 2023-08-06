@@ -66,7 +66,7 @@ export class TrainingProgramsComponent implements OnInit {
 				) => {
 					trainingPrograms.splice(index, 1);
 					await userService.removeTrainingProgram(index);
-				}
+				},
 			},
 		});
 	}

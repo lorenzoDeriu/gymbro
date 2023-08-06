@@ -2,7 +2,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ExerciseStatsDialogComponent } from "../exercise-stats-dialog/exercise-stats-dialog.component";
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "src/app/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
@@ -12,14 +12,13 @@ import { SafetyActionConfirmDialogComponent } from "src/app/safety-action-confir
 	templateUrl: "./prebuild-workout.component.html",
 	styleUrls: ["./prebuild-workout.component.css"],
 })
-export class PrebuildWorkoutComponent implements OnInit {
+export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 	public workout: any = {
 		name: "",
 		exercises: [],
 	};
+	public workoutIndex: number;
 	public restTime: any[] = [];
-	public date: Date = new Date();
-
 	public availableExercise: string[] = [];
 
 	constructor(
@@ -30,24 +29,39 @@ export class PrebuildWorkoutComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
-		this.workout = this.userService.getWorkoutSelected();
+		if (localStorage.getItem("workoutToEdit") != null) {
+			this.workout = JSON.parse(
+				localStorage.getItem("workoutToEdit")
+			).workout;
+			this.workoutIndex = JSON.parse(
+				localStorage.getItem("workoutToEdit")
+			).index;
 
-		if (this.workout == undefined) {
+			let [day, month, year] = String(this.workout.date).split("/");
+			this.workout.date = this.adaptDate(
+				new Date(+year, +month - 1, +day)
+			);
+		} else if (!this.userService.getWorkoutSelected()) {
 			const workoutJson = localStorage.getItem("workout");
 			if (workoutJson != null) {
 				this.workout = JSON.parse(workoutJson);
+				this.workout.date = this.adaptDate(new Date());
 			} else {
 				this.workout = {
 					name: "Nuovo Allenamento",
+					date: this.adaptDate(new Date()),
 					exercises: [],
 				};
 			}
 		} else {
-			localStorage.setItem("workout", JSON.stringify(this.workout));
+			this.workout = this.userService.getWorkoutSelected();
+			this.workout.date = this.adaptDate(new Date());
 		}
 
+		localStorage.setItem("workout", JSON.stringify(this.workout));
+
 		for (let i = 0; i < this.workout.exercises.length; i++) {
-			this.workout.exercises[i]["completed"] =
+			this.workout.exercises[i].completed =
 				this.workout.exercises[i].completed != undefined
 					? this.workout.exercises[i].completed
 					: false;
@@ -58,11 +72,16 @@ export class PrebuildWorkoutComponent implements OnInit {
 					: { minutes: "00", seconds: "00", running: false }
 			);
 
-			this.workout.exercises[i].reps =
-				this.workout.exercises[i].range[0] ?? 0;
+			if (!this.workout.exercises[i].reps) {
+				if (!this.workout.exercises[i].range) {
+					this.workout.exercises[i].range = [0, 0];
+				}
+
+				this.workout.exercises[i].reps =
+					this.workout.exercises[i].range[0];
+			}
 		}
 
-		this.workout.date = this.formatDate(this.date);
 		this.availableExercise = await this.firebase.getExercise(
 			JSON.parse(localStorage.getItem("user")).uid
 		);
@@ -70,11 +89,23 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.availableExercise.sort();
 	}
 
+	ngOnDestroy(): void {
+		if (localStorage.getItem("workoutToEdit") != null) {
+			localStorage.removeItem("workoutToEdit");
+			localStorage.removeItem("workout");
+		}
+	}
+
 	private formatDate(date: Date): string {
 		const year = date.getFullYear();
 		const month = String(date.getMonth() + 1).padStart(2, "0");
 		const day = String(date.getDate()).padStart(2, "0");
-		return `${year}-${month}-${day}`;
+
+		return `${day}/${month}/${year}`;
+	}
+
+	private adaptDate(date: Date): string {
+		return this.formatDate(date).split("/").reverse().join("-");
 	}
 
 	isDesktop() {
@@ -110,13 +141,19 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	saveWorkout() {
-		let user = JSON.parse(localStorage.getItem("user"));
+		this.workout.date = this.workout.date.split("-").reverse().join("/");
 
-		this.workout["date"] = this.date.toLocaleDateString();
+		let user = JSON.parse(localStorage.getItem("user"));
 
 		localStorage.removeItem("workout");
 
-		this.firebase.saveWorkout(this.workout, user.uid);
+		if (localStorage.getItem("workoutToEdit") != null) {
+			this.userService.updateWorkout(this.workout, this.workoutIndex);
+			localStorage.removeItem("workoutToEdit");
+		} else {
+			this.firebase.saveWorkout(this.workout, user.uid);
+		}
+
 		this.router.navigate(["/home"]);
 	}
 
@@ -144,14 +181,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		});
 	}
 
-	onDate(event: any): void {
-		this.date = event.date;
-	}
-
 	onCancel() {
-		// localStorage.removeItem("workout");
-		// this.router.navigate(["/home"]);
-
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Annulla",
@@ -160,7 +190,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 				confirm: () => {
 					localStorage.removeItem("workout");
 					this.router.navigate(["/home"]);
-				}
+				},
 			},
 		});
 	}
