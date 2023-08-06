@@ -63,16 +63,25 @@ export class OldWorkoutsComponent implements OnInit {
 				title: "Elimina allenamento",
 				message: "Sei sicuro di voler eliminare questo allenamento?",
 				args: [index, this.workouts, this.userService],
-				confirm: async (index: number, workouts: any, userService: any) => {
+				confirm: async (
+					index: number,
+					workouts: any,
+					userService: any
+				) => {
 					workouts.splice(index, 1);
 					await userService.updateWorkouts(workouts);
-				}
+				},
 			},
 		});
 	}
 
 	editWorkout(index: number) {
-		console.log("edit workout", this.workouts[index]);
+		this.router.navigate(["/home/prebuild-workout"]);
+
+		localStorage.setItem(
+			"workoutToEdit",
+			JSON.stringify({ index: index, workout: this.workouts[index] })
+		);
 	}
 
 	showNotes(workoutIndex: number, exerciseIndex: number) {
