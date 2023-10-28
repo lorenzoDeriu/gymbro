@@ -12,7 +12,15 @@ import { MatDialog } from "@angular/material/dialog";
 export class WelcomePageComponent implements OnInit {
 	public email: string;
 	public password: string;
-	public hide: boolean = true;
+	public username: string;
+	public emailRegister: string;
+	public passwordRegister: string;
+	public confirmPassword: string;
+	public hidePwd: boolean = true;
+	public hidePwdConfirm: boolean = true;
+	public onLogin: boolean = true;
+	public scrollableContainer: HTMLElement =
+		document.querySelector(".scrollable");
 
 	constructor(
 		private authService: AuthService,
@@ -26,12 +34,68 @@ export class WelcomePageComponent implements OnInit {
 		}
 	}
 
-	isDesktop(): boolean {
-		return window.innerWidth > 1050;
+	async ngAfterViewInit() {
+		this.scrollableContainer = document.querySelector(".scrollable");
+
+		this.scrollableContainer.addEventListener("scroll", () => {
+			const scrollLeft: number = this.scrollableContainer.scrollLeft;
+
+			if (scrollLeft === 0) {
+				this.activeSlide(0, false);
+				this.activeSlide(0, true);
+			}
+
+			if (scrollLeft === innerWidth) {
+				this.activeSlide(1, false);
+				this.activeSlide(1, true);
+			}
+
+			if (scrollLeft === 2 * innerWidth) {
+				this.activeSlide(2, false);
+				this.activeSlide(2, true);
+			}
+		});
+
+		this.scrollableContainer.addEventListener("wheel", () => {
+			const scrollLeft: number = this.scrollableContainer.scrollLeft;
+
+			console.log(scrollLeft);
+
+			if (scrollLeft === 0) {
+				this.activeSlide(0, false);
+				this.activeSlide(0, true);
+			}
+
+			if (scrollLeft === innerWidth) {
+				this.activeSlide(1, false);
+				this.activeSlide(1, true);
+			}
+
+			if (scrollLeft === 2 * innerWidth) {
+				this.activeSlide(2, false);
+				this.activeSlide(2, true);
+			}
+		});
+	}
+
+	async ngOnDestroy() {
+		this.scrollableContainer.removeEventListener("scroll", () => {});
 	}
 
 	login() {
 		this.authService.signin(this.email, this.password);
+	}
+
+	register() {
+		this.authService.signup(
+			this.emailRegister,
+			this.passwordRegister,
+			this.username
+		);
+	}
+
+	access() {
+		this.router.navigate(["/access"]);
 	}
 
 	signUp() {
@@ -41,9 +105,27 @@ export class WelcomePageComponent implements OnInit {
 	allowLogin(): boolean {
 		return (
 			this.email &&
-			this.email != "" &&
+			!!this.email.match(
+				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+			) &&
 			this.password &&
-			this.password != ""
+			this.password != "" &&
+			this.password.length >= 8
+		);
+	}
+
+	allowRegister(): boolean {
+		return (
+			this.emailRegister &&
+			!!this.emailRegister.match(
+				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+			) &&
+			this.passwordRegister &&
+			this.passwordRegister != "" &&
+			this.passwordRegister.length >= 8 &&
+			this.passwordRegister === this.confirmPassword &&
+			this.username &&
+			this.username != ""
 		);
 	}
 
@@ -51,11 +133,138 @@ export class WelcomePageComponent implements OnInit {
 		this.authService.accessWithGoogle();
 	}
 
+	accessWithFacebook() {
+		this.authService.accessWithMeta();
+	}
+
+	accessWithTwitter() {
+		this.authService.accessWithX();
+	}
+
+	showHidePassword() {
+		this.hidePwd = !this.hidePwd;
+	}
+
+	showHidePasswordC() {
+		this.hidePwdConfirm = !this.hidePwdConfirm;
+	}
+
+	switchToLogin() {
+		this.clearForms();
+		this.onLogin = true;
+	}
+
+	switchToRegister() {
+		this.clearForms();
+		this.onLogin = false;
+	}
+
+	clearForms() {
+		this.email = "";
+		this.password = "";
+		this.emailRegister = "";
+		this.passwordRegister = "";
+		this.confirmPassword = "";
+		this.username = "";
+	}
+
 	forgotPassword() {
 		this.dialog.open(PasswordRecoverDialogComponent, {
-			width: "300px",
-			height: "135px",
 			disableClose: false,
 		});
+	}
+
+	activeSlide(slide: number, mobile: boolean) {
+		if (mobile) {
+			switch (slide) {
+				case 0:
+					document.getElementById("ctrl0-m")!.classList.add("active");
+					document
+						.getElementById("ctrl1-m")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl2-m")!
+						.classList.remove("active");
+					break;
+				case 1:
+					document.getElementById("ctrl1-m")!.classList.add("active");
+					document
+						.getElementById("ctrl0-m")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl2-m")!
+						.classList.remove("active");
+					break;
+				case 2:
+					document.getElementById("ctrl2-m")!.classList.add("active");
+					document
+						.getElementById("ctrl0-m")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl1-m")!
+						.classList.remove("active");
+					break;
+			}
+		} else {
+			switch (slide) {
+				case 0:
+					document.getElementById("ctrl0")!.classList.add("active");
+					document
+						.getElementById("ctrl1")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl2")!
+						.classList.remove("active");
+					break;
+				case 1:
+					document.getElementById("ctrl1")!.classList.add("active");
+					document
+						.getElementById("ctrl0")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl2")!
+						.classList.remove("active");
+					break;
+				case 2:
+					document.getElementById("ctrl2")!.classList.add("active");
+					document
+						.getElementById("ctrl0")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl1")!
+						.classList.remove("active");
+					break;
+			}
+		}
+	}
+
+	toFirstSlide() {
+		document.getElementById("0")!.scrollIntoView(true);
+		this.activeSlide(0, false);
+	}
+
+	toSecondSlide() {
+		document.getElementById("1")!.scrollIntoView(true);
+		this.activeSlide(1, false);
+	}
+
+	toThirdSlide() {
+		document.getElementById("2")!.scrollIntoView(true);
+		this.activeSlide(2, false);
+	}
+
+	toFirstSlideM() {
+		document.getElementById("0-m")!.scrollIntoView(true);
+		this.activeSlide(0, true);
+	}
+
+	toSecondSlideM() {
+		document.getElementById("1-m")!.scrollIntoView(true);
+		this.activeSlide(1, true);
+	}
+
+	toThirdSlideM() {
+		document.getElementById("2-m")!.scrollIntoView(true);
+		this.activeSlide(2, true);
 	}
 }

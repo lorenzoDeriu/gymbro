@@ -31,36 +31,117 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 	styleUrls: ["./access.component.css"],
 })
 export class AccessComponent implements OnInit {
-	public matcher = new MyErrorStateMatcher();
-	public hide: boolean = true;
+	public username: string;
+	public emailRegister: string;
+	public passwordRegister: string;
+	public confirmPassword: string;
+	public email: string;
+	public password: string;
+	public hidePwd: boolean = true;
+	public hidePwdConfirm: boolean = true;
+	public onLogin: boolean = true;
 
 	constructor(
 		private authService: AuthService,
-		public dialog: MatDialog,
-		private router: Router
+		private router: Router,
+		private dialog: MatDialog
 	) {}
 
 	async ngOnInit() {
-		if (this.authService.isAuthenticated())
+		if (this.authService.isAuthenticated()) {
 			this.router.navigate(["/home/dashboard"]);
+		}
 	}
 
-	onLoginSubmit(form: NgForm) {
-		this.authService.signin(form.value.email, form.value.password);
+	login() {
+		this.authService.signin(this.email, this.password);
 	}
 
-	onRegisterSubmit(form: NgForm) {
-		this.authService.signup(form.value.email, form.value.password);
+	register() {
+		this.authService.signup(
+			this.emailRegister,
+			this.passwordRegister,
+			this.username
+		);
+	}
+
+	access() {
+		this.router.navigate(["/access"]);
+	}
+
+	signUp() {
+		this.router.navigate(["/access"]);
+	}
+
+	allowLogin(): boolean {
+		return (
+			this.email &&
+			!!this.email.match(
+				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+			) &&
+			this.password &&
+			this.password != "" &&
+			this.password.length >= 8
+		);
+	}
+
+	allowRegister(): boolean {
+		return (
+			this.emailRegister &&
+			!!this.emailRegister.match(
+				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+			) &&
+			this.passwordRegister &&
+			this.passwordRegister != "" &&
+			this.passwordRegister.length >= 8 &&
+			this.passwordRegister === this.confirmPassword &&
+			this.username &&
+			this.username != ""
+		);
 	}
 
 	accessWithGoogle() {
 		this.authService.accessWithGoogle();
 	}
 
+	accessWithFacebook() {
+		this.authService.accessWithMeta();
+	}
+
+	accessWithTwitter() {
+		this.authService.accessWithX();
+	}
+
+	showHidePassword() {
+		this.hidePwd = !this.hidePwd;
+	}
+
+	showHidePasswordC() {
+		this.hidePwdConfirm = !this.hidePwdConfirm;
+	}
+
+	switchToLogin() {
+		this.clearForms();
+		this.onLogin = true;
+	}
+
+	switchToRegister() {
+		this.clearForms();
+		this.onLogin = false;
+	}
+
+	clearForms() {
+		this.email = "";
+		this.password = "";
+		this.emailRegister = "";
+		this.passwordRegister = "";
+		this.confirmPassword = "";
+		this.username = "";
+	}
+
 	forgotPassword() {
 		this.dialog.open(PasswordRecoverDialogComponent, {
-			width: "300px",
-			height: "130px",
+			disableClose: false,
 		});
 	}
 }

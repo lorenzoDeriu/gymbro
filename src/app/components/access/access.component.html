@@ -1,48 +1,245 @@
-<div id="logo-container">
-	<img id="logo" src="../../../assets/logo.png" />
+<div
+	*ngIf="onLogin"
+	class="right-wrap d-flex justify-content-center align-items-center"
+	style="width: 100vw; height: 100svh"
+>
+	<div
+		class="d-flex flex-column justify-content-center align-items-center p-3 h-100 w-100"
+	>
+		<img src="assets/logo.png" width="200" />
+		<div
+			class="mt-5 d-flex flex-column justify-content-center align-items-center px-3"
+			style="
+				min-width: 250px;
+				width: 80vw;
+				max-width: 400px;
+				margin-bottom: 32px;
+			"
+		>
+			<div class="d-flex flex-column w-100 mb-3">
+				<p class="mb-0">E-mail</p>
+				<input
+					[(ngModel)]="email"
+					type="email"
+					class="border-0 border-bottom py-1"
+					style="background-color: transparent"
+				/>
+			</div>
+			<div class="d-flex flex-column w-100 mb-3">
+				<p class="mb-0">
+					Password
+					<button
+						tabindex="-1"
+						(click)="showHidePassword()"
+						class="btn btn-sm border-0"
+					>
+						<i *ngIf="hidePwd" class="bi bi-eye"></i>
+						<i *ngIf="!hidePwd" class="bi bi-eye-slash"></i>
+					</button>
+				</p>
+				<input
+					[(ngModel)]="password"
+					[type]="hidePwd ? 'password' : 'text'"
+					class="border-0 border-bottom py-1 w-100"
+					style="background-color: transparent"
+				/>
+			</div>
+			<a
+				(click)="forgotPassword()"
+				class="mb-3 text-decoration-none"
+				style="color: #4089c9; cursor: pointer"
+			>
+				Password dimenticata?
+			</a>
+			<button
+				[disabled]="!allowLogin()"
+				(click)="login()"
+				class="login-btn btn w-100 mb-3 text-light"
+				style="background-color: #6b44d4; border: none"
+			>
+				Accedi
+			</button>
+			<div
+				class="mb-3 d-flex justify-content-center align-items-center w-100"
+			>
+				<hr size="5px" width="100" color="white" />
+				<span class="mx-3">or</span>
+				<hr size="5px" width="100" color="white" />
+			</div>
+			<div
+				class="d-flex justify-content-around align-items-center w-100 mb-3"
+			>
+				<button
+					(click)="accessWithGoogle()"
+					class="btn"
+					style="border: none"
+				>
+					<img src="assets/google-logo.png" height="30" alt="" />
+				</button>
+				<button
+					(click)="accessWithFacebook()"
+					class="btn"
+					style="border: none"
+				>
+					<img src="assets/facebook-logo.jpg" height="30" alt="" />
+				</button>
+				<button
+					(click)="accessWithTwitter()"
+					class="btn"
+					style="border: none"
+				>
+					<img src="assets/x-logo.webp" height="30" alt="" />
+				</button>
+			</div>
+			<p class="mb-0">
+				Non hai un account?
+				<a
+					(click)="switchToRegister()"
+					style="color: #4089c9; cursor: pointer"
+				>
+					Registrati
+				</a>
+			</p>
+			<a
+				target="_blank"
+				href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
+				class="align-self-center"
+				style="
+					cursor: pointer;
+					font-size: 0.5rem;
+					color: black;
+					text-decoration: underline;
+				"
+			>
+				Privacy
+			</a>
+		</div>
+
+		<button
+			routerLink="/welcome"
+			class="back-btn btn btn-sm text-light"
+			style="border: none; background-color: #4089c9"
+		>
+			<i class="me-1 bi bi-arrow-left"></i>
+			Indietro
+		</button>
+	</div>
 </div>
 
-<div id="access-container">
-	<form #registerForm="ngForm" (ngSubmit)="onRegisterSubmit(registerForm)">
-		<div style="padding-top: 20px; margin: auto; color: rgb(69, 69, 188)">
-			<h2>
-				<span style="font-family: 'Josefin Sans', sans-serif">
-					Benvenuto su GymBro!
-				</span>
-			</h2>
-		</div>
-
-		<mat-form-field class="email-input" appearance="outline">
-			<mat-label>Email</mat-label>
-			<input matInput type="text" name="email" required email ngModel />
-		</mat-form-field>
-
-		<mat-form-field appearance="outline">
-			<mat-label>Password</mat-label>
-			<input
-				matInput
-				[type]="hide ? 'password' : 'text'"
-				name="password"
-				ngModel
-				required
-			/>
-			<mat-icon matSuffix (click)="hide = !hide">
-				{{ hide ? "visibility_off" : "visibility" }}
-			</mat-icon>
-		</mat-form-field>
-
-		<div id="btn-container">
+<!-- Registrazione -->
+<div
+	*ngIf="!onLogin"
+	class="right-wrap d-flex justify-content-center align-items-center"
+	style="width: 100vw; height: 100svh"
+>
+	<div
+		class="d-flex flex-column justify-content-center align-items-center p-3 h-100 w-100"
+	>
+		<img src="assets/logo.png" width="200" />
+		<div
+			class="mt-5 d-flex flex-column justify-content-center align-items-center px-3"
+			style="
+				min-width: 250px;
+				width: 80vw;
+				max-width: 400px;
+				margin-bottom: 32px;
+			"
+		>
+			<div class="d-flex flex-column w-100 mb-3">
+				<p class="mb-0">Username</p>
+				<input
+					[(ngModel)]="username"
+					type="text"
+					class="border-0 border-bottom py-1"
+					style="background-color: transparent"
+				/>
+			</div>
+			<div class="d-flex flex-column w-100 mb-3">
+				<p class="mb-0">E-mail</p>
+				<input
+					[(ngModel)]="emailRegister"
+					type="email"
+					class="border-0 border-bottom py-1"
+					style="background-color: transparent"
+				/>
+			</div>
+			<div class="d-flex flex-column w-100 mb-3">
+				<p class="mb-0">
+					Password
+					<button
+						tabindex="-1"
+						(click)="showHidePassword()"
+						class="btn btn-sm border-0"
+					>
+						<i *ngIf="hidePwd" class="bi bi-eye"></i>
+						<i *ngIf="!hidePwd" class="bi bi-eye-slash"></i>
+					</button>
+				</p>
+				<input
+					[(ngModel)]="passwordRegister"
+					[type]="hidePwd ? 'password' : 'text'"
+					class="border-0 border-bottom py-1 w-100"
+					style="background-color: transparent"
+				/>
+			</div>
+			<div class="d-flex flex-column w-100 mb-3">
+				<p class="mb-0">
+					Conferma Password
+					<button
+						tabindex="-1"
+						(click)="showHidePasswordC()"
+						class="btn btn-sm border-0"
+					>
+						<i *ngIf="hidePwdConfirm" class="bi bi-eye"></i>
+						<i *ngIf="!hidePwdConfirm" class="bi bi-eye-slash"></i>
+					</button>
+				</p>
+				<input
+					[(ngModel)]="confirmPassword"
+					[type]="hidePwdConfirm ? 'password' : 'text'"
+					class="border-0 border-bottom py-1 w-100"
+					style="background-color: transparent"
+				/>
+			</div>
 			<button
-				class="btn btn-primary"
-				type="submit"
-				[disabled]="!registerForm.valid"
+				[disabled]="!allowRegister()"
+				(click)="login()"
+				class="login-btn btn w-100 mb-3 text-light"
+				style="background-color: #6b44d4; border: none"
 			>
-				Register
+				Registrati
 			</button>
-			<button class="btn btn-primary" (click)="accessWithGoogle()">
-				<i class="bi bi-google" style="margin-right: 5px"></i>
-				<b style="font-size: 90%">Accedi con Google</b>
-			</button>
+			<p class="mb-0">
+				Hai già un account?
+				<a
+					(click)="switchToLogin()"
+					style="color: #4089c9; cursor: pointer"
+				>
+					Accedi
+				</a>
+			</p>
+			<a
+				target="_blank"
+				href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
+				class="align-self-center"
+				style="
+					cursor: pointer;
+					font-size: 0.5rem;
+					color: black;
+					text-decoration: underline;
+				"
+			>
+				Privacy
+			</a>
 		</div>
-	</form>
+
+		<button
+			routerLink="/welcome"
+			class="back-btn btn btn-sm text-light"
+			style="border: none; background-color: #4089c9"
+		>
+			<i class="me-1 bi bi-arrow-left"></i>
+			Indietro
+		</button>
+	</div>
 </div>
