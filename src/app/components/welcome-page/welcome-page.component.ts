@@ -13,11 +13,11 @@ export class WelcomePageComponent implements OnInit {
 	public email: string;
 	public password: string;
 	public username: string;
-	public emailR: string;
-	public passwordR: string;
-	public confirmPasswordR: string;
+	public emailRegister: string;
+	public passwordRegister: string;
+	public confirmPassword: string;
 	public hidePwd: boolean = true;
-	public hidePwdC: boolean = true;
+	public hidePwdConfirm: boolean = true;
 	public onLogin: boolean = true;
 	public scrollableContainer: HTMLElement = document.querySelector('.scrollable');
 
@@ -69,7 +69,7 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	register() {
-		this.authService.signup(this.emailR, this.passwordR);
+		this.authService.signup(this.emailRegister, this.passwordRegister); // TODO add username
 	}
 
 	access() {
@@ -94,14 +94,14 @@ export class WelcomePageComponent implements OnInit {
 
 	allowRegister(): boolean {
 		return (
-			this.emailR &&
-			!!this.emailR.match(
+			this.emailRegister &&
+			!!this.emailRegister.match(
 				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 			) &&
-			this.passwordR &&
-			this.passwordR != "" &&
-			this.passwordR.length >= 8 &&
-			this.passwordR === this.confirmPasswordR &&
+			this.passwordRegister &&
+			this.passwordRegister != "" &&
+			this.passwordRegister.length >= 8 &&
+			this.passwordRegister === this.confirmPassword &&
 			this.username &&
 			this.username != ""
 		);
@@ -124,7 +124,7 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	showHidePasswordC() {
-		this.hidePwdC = !this.hidePwdC;
+		this.hidePwdConfirm = !this.hidePwdConfirm;
 	}
 
 	switchToLogin() {
@@ -140,9 +140,9 @@ export class WelcomePageComponent implements OnInit {
 	clearForms() {
 		this.email = "";
 		this.password = "";
-		this.emailR = "";
-		this.passwordR = "";
-		this.confirmPasswordR = "";
+		this.emailRegister = "";
+		this.passwordRegister = "";
+		this.confirmPassword = "";
 		this.username = "";
 	}
 
