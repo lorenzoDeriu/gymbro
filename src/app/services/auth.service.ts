@@ -1,6 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { FirebaseService } from "./firebase.service";
+import { MatDialog } from "@angular/material/dialog";
+import { ErrorLoginDialogComponent } from "../components/error-login-dialog/error-login-dialog.component";
+import { ErrorRegisterDialogComponent } from "../components/error-register-dialog/error-register-dialog.component";
 
 @Injectable({
 	providedIn: "root",
@@ -8,7 +11,11 @@ import { FirebaseService } from "./firebase.service";
 export class AuthService {
 	private loggedIn: boolean = false;
 
-	constructor(private firebase: FirebaseService, private router: Router) {}
+	constructor(
+		private firebase: FirebaseService,
+		private router: Router,
+		private dialog: MatDialog
+	) {}
 
 	public async signup(email: string, password: string, username: string) {
 		let credential: any = await this.firebase.registerNewUser(
@@ -17,7 +24,9 @@ export class AuthService {
 		);
 
 		if (credential == null) {
-			alert("La registrazione non è andata a buon fine");
+			this.dialog.open(ErrorRegisterDialogComponent, {
+				disableClose: false,
+			});
 			return;
 		}
 
@@ -28,6 +37,7 @@ export class AuthService {
 			idToken: credential.user.accessToken,
 			refreshToken: credential.user.stsTokenManager.refreshToken,
 		});
+
 		this.createNewUserInfo(username);
 	}
 
@@ -98,7 +108,9 @@ export class AuthService {
 		);
 
 		if (credential == null) {
-			alert("L'accesso non è andata a buon fine");
+			this.dialog.open(ErrorLoginDialogComponent, {
+				disableClose: false,
+			});
 			return;
 		}
 

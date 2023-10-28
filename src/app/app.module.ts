@@ -70,6 +70,8 @@ import { WelcomePageComponent } from "./components/welcome-page/welcome-page.com
 import { CustomDateAdapter } from "./components/prebuild-workout/date-picker-adapter";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SafetyActionConfirmDialogComponent } from "./safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { ErrorLoginDialogComponent } from './components/error-login-dialog/error-login-dialog.component';
+import { ErrorRegisterDialogComponent } from './components/error-register-dialog/error-register-dialog.component';
 
 @NgModule({
 	declarations: [
@@ -104,6 +106,8 @@ import { SafetyActionConfirmDialogComponent } from "./safety-action-confirm-dial
 		ExerciseStatsDialogComponent,
 		WelcomePageComponent,
 		SafetyActionConfirmDialogComponent,
+  ErrorLoginDialogComponent,
+  ErrorRegisterDialogComponent,
 	],
 	imports: [
 		BrowserModule,
