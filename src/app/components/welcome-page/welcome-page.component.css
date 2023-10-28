@@ -64,7 +64,7 @@ input:focus {
 
 .swipe-up {
 	cursor: pointer;
-	animation: floating ease 2s infinite;
+	animation: floating ease 1.5s infinite;
 }
 
 @keyframes floating {

@@ -1,12 +1,12 @@
 <div class="welcome overflow-hidden">
 	<!-- Mobile -->
-	<div class="scrollable overflow-auto h-100 w-100 d-block d-lg-none">
+	<div class="overflow-auto h-100 w-100 d-block d-lg-none">
 		<section
 			class="d-flex flex-column justify-content-between align-items-center p-3 h-100 w-100"
 		>
 			<img src="assets/logo.png" width="200" />
 			<div
-				class="mt-5 rounded-4 d-flex flex-column justify-content-center align-items-center px-5"
+				class="mt-5 rounded-4 d-flex flex-column justify-content-center align-items-center px-3"
 				style="
 					min-width: 250px;
 					width: 80vw;
@@ -14,7 +14,10 @@
 					margin-bottom: 32px;
 				"
 			>
-				<div class="d-flex flex-column w-100 mb-3">
+				<div
+					class="d-flex flex-column w-100 mb-3"
+					style="font-size: 1rem"
+				>
 					<p class="mb-0">E-mail</p>
 					<input
 						[(ngModel)]="email"
@@ -23,7 +26,10 @@
 						style="background-color: transparent"
 					/>
 				</div>
-				<div class="d-flex flex-column w-100 mb-3">
+				<div
+					class="d-flex flex-column w-100 mb-3"
+					style="font-size: 1rem"
+				>
 					<p class="mb-0">
 						Password
 						<button
@@ -44,7 +50,7 @@
 				<a
 					(click)="forgotPassword()"
 					class="mb-3 text-decoration-none"
-					style="color: #4089c9; cursor: pointer"
+					style="color: #4089c9; cursor: pointer; font-size: 1rem"
 				>
 					Password dimenticata?
 				</a>
@@ -80,7 +86,7 @@
 						<img src="assets/apple-logo.png" height="30" alt="" />
 					</button>
 				</div>
-				<p>
+				<p style="font-size: 1rem">
 					Non hai un account?
 					<a
 						(click)="signUp()"
@@ -93,8 +99,7 @@
 			<div
 				class="see-more d-flex flex-column justify-content-center align-items-center"
 			>
-				<p>Scorri per scoprire di più</p>
-				<i class="bi bi-chevron-down swipe-up"></i>
+				<i class="bi bi-chevron-double-down swipe-up mb-4"></i>
 			</div>
 		</section>
 	</div>
@@ -112,7 +117,7 @@
 						class="position-relative tip text-light text-center lh-base w-75 mt-5 p-5"
 						style="font-size: 1.2rem"
 					>
-						Monitora i tuoi allenamenti tenendo traccia dei
+						Monitora i tuoi allenamenti tenendo traccia dei tuoi
 						progressi
 						<i
 							class="bi bi-heart-pulse-fill position-absolute top-100 start-50 translate-middle"
