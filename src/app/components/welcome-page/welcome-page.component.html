@@ -1,8 +1,11 @@
 <div class="welcome overflow-hidden">
 	<!-- Mobile -->
-	<div class="mobile-wrap h-100 w-100 d-block d-lg-none overflow-auto" style="height: 100svh;">
-		<div class="d-flex justify-content-center pt-3" style="height: 15%;">
-			<img src="assets/logo-w.png"/>
+	<div
+		class="mobile-wrap h-100 w-100 d-block d-lg-none overflow-auto"
+		style="height: 100svh"
+	>
+		<div class="d-flex justify-content-center pt-3" style="height: 15%">
+			<img src="assets/logo-w.png" />
 		</div>
 		<div class="scrollable" style="height: 70%">
 			<section
@@ -10,11 +13,10 @@
 				class="d-flex flex-column justify-content-center align-items-center"
 			>
 				<img style="width: 60%" src="assets/tip1.svg" alt="" />
-				<div class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75">
-					<p
-						class="lh-base w-75 me-3"
-						style="font-size: 0.9rem"
-					>
+				<div
+					class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75"
+				>
+					<p class="lh-base w-75 me-3" style="font-size: 0.9rem">
 						Monitora i tuoi allenamenti tenendo traccia dei tuoi
 						progressi
 					</p>
@@ -29,11 +31,10 @@
 				class="d-flex flex-column justify-content-center align-items-center"
 			>
 				<img style="width: 50%" src="assets/tip2.svg" alt="" />
-				<div class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75">
-					<p
-						class="lh-base w-75"
-						style="font-size: 0.9rem"
-					>
+				<div
+					class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75"
+				>
+					<p class="lh-base w-75" style="font-size: 0.9rem">
 						Tieni d'occhio i tuoi risultati con grafici interattivi
 						e statistiche dettagliate
 					</p>
@@ -48,11 +49,10 @@
 				class="d-flex flex-column justify-content-center align-items-center"
 			>
 				<img style="width: 50%" src="assets/tip3.svg" alt="" />
-				<div class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75">
-					<p
-						class="lh-base w-75"
-						style="font-size: 0.9rem"
-					>
+				<div
+					class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75"
+				>
+					<p class="lh-base w-75" style="font-size: 0.9rem">
 						Connettiti con altri GymBro in modo da condivere le
 						vostre routine di allenamento
 					</p>
@@ -63,8 +63,17 @@
 				</div>
 			</section>
 		</div>
-		<div class="d-flex justify-content-center align-items-center w-100" style="height: 10%;">
-			<button (click)="access()" class="mobile-access-btn text-light btn" style="background-color: #4089c9; border: none;">Accedi</button>
+		<div
+			class="d-flex justify-content-center align-items-center w-100"
+			style="height: 10%"
+		>
+			<button
+				(click)="access()"
+				class="mobile-access-btn text-light btn"
+				style="background-color: #4089c9; border: none"
+			>
+				Accedi
+			</button>
 		</div>
 		<ul class="nav justify-content-center" style="height: 5%">
 			<li class="nav-item">
@@ -256,33 +265,41 @@
 					<div
 						class="mb-3 d-flex justify-content-center align-items-center w-100"
 					>
-						<hr size="5px" width="100" color="white"/>
+						<hr size="5px" width="100" color="white" />
 						<span class="mx-3">or</span>
-						<hr size="5px" width="100" color="white"/>
+						<hr size="5px" width="100" color="white" />
 					</div>
 					<div
 						class="d-flex justify-content-around align-items-center w-100 mb-3"
 					>
-						<button (click)="accessWithGoogle()" class="btn" style="border: none">
+						<button
+							(click)="accessWithGoogle()"
+							class="btn"
+							style="border: none"
+						>
 							<img
 								src="assets/google-logo.png"
 								height="30"
 								alt=""
 							/>
 						</button>
-						<button (click)="accessWithFacebook()" class="btn" style="border: none">
+						<button
+							(click)="accessWithFacebook()"
+							class="btn"
+							style="border: none"
+						>
 							<img
 								src="assets/facebook-logo.jpg"
 								height="30"
 								alt=""
 							/>
 						</button>
-						<button (click)="accessWithTwitter()" class="btn" style="border: none">
-							<img
-								src="assets/x-logo.webp"
-								height="30"
-								alt=""
-							/>
+						<button
+							(click)="accessWithTwitter()"
+							class="btn"
+							style="border: none"
+						>
+							<img src="assets/x-logo.webp" height="30" alt="" />
 						</button>
 					</div>
 					<p class="mb-0">
@@ -298,7 +315,12 @@
 						target="_blank"
 						href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
 						class="align-self-center"
-						style="cursor: pointer; font-size: 0.5rem; color: black; text-decoration: underline;"
+						style="
+							cursor: pointer;
+							font-size: 0.5rem;
+							color: black;
+							text-decoration: underline;
+						"
 					>
 						Privacy
 					</a>
@@ -369,7 +391,10 @@
 								class="btn btn-sm border-0"
 							>
 								<i *ngIf="hidePwdConfirm" class="bi bi-eye"></i>
-								<i *ngIf="!hidePwdConfirm" class="bi bi-eye-slash"></i>
+								<i
+									*ngIf="!hidePwdConfirm"
+									class="bi bi-eye-slash"
+								></i>
 							</button>
 						</p>
 						<input
@@ -381,7 +406,7 @@
 					</div>
 					<button
 						[disabled]="!allowRegister()"
-						(click)="login()"
+						(click)="register()"
 						class="login-btn btn w-100 mb-3 text-light"
 						style="background-color: #6b44d4; border: none"
 					>
@@ -400,7 +425,12 @@
 						target="_blank"
 						href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
 						class="align-self-center"
-						style="cursor: pointer; font-size: 0.5rem; color: black; text-decoration: underline;"
+						style="
+							cursor: pointer;
+							font-size: 0.5rem;
+							color: black;
+							text-decoration: underline;
+						"
 					>
 						Privacy
 					</a>

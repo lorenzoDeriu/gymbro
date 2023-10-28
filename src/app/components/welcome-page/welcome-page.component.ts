@@ -19,7 +19,8 @@ export class WelcomePageComponent implements OnInit {
 	public hidePwd: boolean = true;
 	public hidePwdConfirm: boolean = true;
 	public onLogin: boolean = true;
-	public scrollableContainer: HTMLElement = document.querySelector('.scrollable');
+	public scrollableContainer: HTMLElement =
+		document.querySelector(".scrollable");
 
 	constructor(
 		private authService: AuthService,
@@ -34,9 +35,9 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	async ngAfterViewInit() {
-		this.scrollableContainer = document.querySelector('.scrollable');
+		this.scrollableContainer = document.querySelector(".scrollable");
 
-		this.scrollableContainer.addEventListener('scroll', () => {
+		this.scrollableContainer.addEventListener("scroll", () => {
 			const scrollLeft: number = this.scrollableContainer.scrollLeft;
 
 			if (scrollLeft === 0) {
@@ -49,7 +50,7 @@ export class WelcomePageComponent implements OnInit {
 				this.activeSlide(1, true);
 			}
 
-			if ((scrollLeft === (2 * innerWidth))) {
+			if (scrollLeft === 2 * innerWidth) {
 				this.activeSlide(2, false);
 				this.activeSlide(2, true);
 			}
@@ -78,7 +79,7 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	async ngOnDestroy() {
-		this.scrollableContainer.removeEventListener('scroll', () => {});
+		this.scrollableContainer.removeEventListener("scroll", () => {});
 	}
 
 	login() {
@@ -86,7 +87,11 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	register() {
-		this.authService.signup(this.emailRegister, this.passwordRegister); // TODO add username
+		this.authService.signup(
+			this.emailRegister,
+			this.passwordRegister,
+			this.username
+		);
 	}
 
 	access() {
@@ -133,7 +138,7 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	accessWithTwitter() {
-		//
+		this.authService.accessWithX();
 	}
 
 	showHidePassword() {
@@ -174,38 +179,60 @@ export class WelcomePageComponent implements OnInit {
 			switch (slide) {
 				case 0:
 					document.getElementById("ctrl0-m")!.classList.add("active");
-					document.getElementById("ctrl1-m")!.classList.remove("active");
-					document.getElementById("ctrl2-m")!.classList.remove("active");
+					document
+						.getElementById("ctrl1-m")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl2-m")!
+						.classList.remove("active");
 					break;
 				case 1:
 					document.getElementById("ctrl1-m")!.classList.add("active");
-					document.getElementById("ctrl0-m")!.classList.remove("active");
-					document.getElementById("ctrl2-m")!.classList.remove("active");
+					document
+						.getElementById("ctrl0-m")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl2-m")!
+						.classList.remove("active");
 					break;
 				case 2:
 					document.getElementById("ctrl2-m")!.classList.add("active");
-					document.getElementById("ctrl0-m")!.classList.remove("active");
-					document.getElementById("ctrl1-m")!.classList.remove("active");
+					document
+						.getElementById("ctrl0-m")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl1-m")!
+						.classList.remove("active");
 					break;
 			}
-		}
-
-		else {
+		} else {
 			switch (slide) {
 				case 0:
 					document.getElementById("ctrl0")!.classList.add("active");
-					document.getElementById("ctrl1")!.classList.remove("active");
-					document.getElementById("ctrl2")!.classList.remove("active");
+					document
+						.getElementById("ctrl1")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl2")!
+						.classList.remove("active");
 					break;
 				case 1:
 					document.getElementById("ctrl1")!.classList.add("active");
-					document.getElementById("ctrl0")!.classList.remove("active");
-					document.getElementById("ctrl2")!.classList.remove("active");
+					document
+						.getElementById("ctrl0")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl2")!
+						.classList.remove("active");
 					break;
 				case 2:
 					document.getElementById("ctrl2")!.classList.add("active");
-					document.getElementById("ctrl0")!.classList.remove("active");
-					document.getElementById("ctrl1")!.classList.remove("active");
+					document
+						.getElementById("ctrl0")!
+						.classList.remove("active");
+					document
+						.getElementById("ctrl1")!
+						.classList.remove("active");
 					break;
 			}
 		}

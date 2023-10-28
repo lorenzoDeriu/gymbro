@@ -10,7 +10,7 @@ export class AuthService {
 
 	constructor(private firebase: FirebaseService, private router: Router) {}
 
-	public async signup(email: string, password: string) {
+	public async signup(email: string, password: string, username: string) {
 		let credential: any = await this.firebase.registerNewUser(
 			email,
 			password
@@ -28,7 +28,7 @@ export class AuthService {
 			idToken: credential.user.accessToken,
 			refreshToken: credential.user.stsTokenManager.refreshToken,
 		});
-		this.createNewUserInfo();
+		this.createNewUserInfo(username);
 	}
 
 	public async accessWithGoogle() {
@@ -65,10 +65,30 @@ export class AuthService {
 		}
 	}
 
-	public createNewUserInfo() {
+	public async accessWithX() {
+		let credential: any = await this.firebase.accessWithX();
+		if (credential != null) {
+			this.loginUser({
+				uid: credential.user.uid,
+				email: credential.email,
+				expiresIn: credential.user.stsTokenManager.expirationTime,
+				idToken: credential.user.accessToken,
+				refreshToken: credential.user.stsTokenManager.refreshToken,
+			});
+
+			if (!(await this.firebase.existInfoOf(credential.user.uid))) {
+				this.createNewUserInfo();
+			}
+		}
+	}
+
+	public createNewUserInfo(username?: string) {
 		let user = JSON.parse(localStorage.getItem("user"));
 
-		this.firebase.addUser({ workouts: [], trainingPrograms: [] }, user.uid);
+		this.firebase.addUser(
+			{ username: username, workouts: [], trainingPrograms: [] },
+			user.uid
+		);
 	}
 
 	public async signin(email: string, password: string) {
@@ -94,10 +114,6 @@ export class AuthService {
 	private loginUser(user: any) {
 		this.loggedIn = true;
 		localStorage.setItem("user", JSON.stringify(user));
-
-		// //check if browser is safari: if not, send welcome notification
-		// if (!navigator.userAgent.includes("Safari"))
-		// 	this.sendWelcomeNotification();
 
 		this.router.navigate(["/home/dashboard"]);
 	}
