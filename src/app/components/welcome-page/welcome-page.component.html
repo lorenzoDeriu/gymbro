@@ -9,21 +9,31 @@
 					<input [(ngModel)]="email" type="email" class="border-0 border-bottom py-1" style="background-color: transparent;">
 				</div>
 				<div class="d-flex flex-column w-100 mb-3">
-					<p class="mb-0">Password <button class="btn btn-sm border-0"><i class="bi bi-eye"></i></button></p>
-					<input [(ngModel)]="password" type="password" class=" border-0 border-bottom py-1 w-100" style="background-color: transparent;">
+					<p class="mb-0">
+						Password
+						<button (click)="showHidePassword()" class="btn btn-sm border-0">
+							<i *ngIf="hidePwd" class="bi bi-eye"></i>
+							<i *ngIf="!hidePwd" class="bi bi-eye-slash"></i>
+						</button>
+					</p>
+					<input [(ngModel)]="password" [type]="hidePwd ? 'password' : 'text'" class="border-0 border-bottom py-1 w-100" style="background-color: transparent;">
 				</div>
 				<a (click)="forgotPassword()" class="mb-3 text-decoration-none" style="color: #4089c9; cursor: pointer;">Password dimenticata?</a>
-				<button [disabled]="!allowLogin()" (click)="login()" class="login-btn btn w-100 mb-3 text-light" style="background-color: #6b44d4; border: none">Log in</button>
+				<button [disabled]="!allowLogin()" (click)="login()" class="login-btn btn w-100 mb-3 text-light" style="background-color: #6b44d4; border: none">Accedi</button>
 				<div class="mb-3 d-flex justify-content-center align-items-center w-100">
 					<hr size="5px" width="100" color="white"/>
 					<span class="mx-3 ">or</span>
 					<hr size="5px" width="100" color="white"/>
 				</div>
-				<button (click)="accessWithGoogle()" class="btn btn-dark w-100 d-flex justify-content-center align-items-center mb-3"><img src="assets/google-logo.png" class="me-2" width="20" alt=""> Google</button>
+				<div class="d-flex justify-content-around align-items-center w-100 mb-3">
+					<button (click)="accessWithGoogle()" class="btn"><img src="assets/google-logo.png" height="30" alt=""></button>
+					<button (click)="accessWithFacebook()" class="btn"><img src="assets/facebook-logo.jpg" height="30" alt=""></button>
+					<button (click)="accessWithApple()" class="btn"><img src="assets/apple-logo.png" height="30" alt=""></button>
+				</div>
 				<p>Non hai un account? <a (click)="signUp()" style="color: #4089c9; cursor: pointer;">Registrati</a></p>
 			</div>
 			<div class="see-more d-flex flex-column justify-content-center align-items-center">
-				<p>Swipe up to see more</p>
+				<p>Scorri per scoprire di più</p>
 				<i class="bi bi-chevron-down swipe-up"></i>
 			</div>
 		</section>
@@ -76,17 +86,27 @@
 						<input [(ngModel)]="email" type="email" class="border-0 border-bottom py-1" style="background-color: transparent;">
 					</div>
 					<div class="d-flex flex-column w-100 mb-3">
-						<p class="mb-0">Password <button class="btn btn-sm border-0"><i class="bi bi-eye"></i></button></p>
-						<input [(ngModel)]="password" type="password" class=" border-0 border-bottom py-1 w-100" style="background-color: transparent;">
+						<p class="mb-0">
+							Password
+							<button (click)="showHidePassword()" class="btn btn-sm border-0">
+								<i *ngIf="hidePwd" class="bi bi-eye"></i>
+								<i *ngIf="!hidePwd" class="bi bi-eye-slash"></i>
+							</button>
+						</p>
+						<input [(ngModel)]="password" [type]="hidePwd ? 'password' : 'text'" class="border-0 border-bottom py-1 w-100" style="background-color: transparent;">
 					</div>
 					<a (click)="forgotPassword()" class="mb-3 text-decoration-none" style="color: #4089c9; cursor: pointer;">Password dimenticata?</a>
-					<button [disabled]="!allowLogin()" (click)="login()" class="login-btn btn w-100 mb-3 text-light" style="background-color: #6b44d4; border: none">Log in</button>
+					<button [disabled]="!allowLogin()" (click)="login()" class="login-btn btn w-100 mb-3 text-light" style="background-color: #6b44d4; border: none">Accedi</button>
 					<div class="mb-3 d-flex justify-content-center align-items-center w-100">
 						<hr size="5px" width="100" color="white"/>
 						<span class="mx-3 ">or</span>
 						<hr size="5px" width="100" color="white"/>
 					</div>
-					<button (click)="accessWithGoogle()" class="btn btn-dark w-100 d-flex justify-content-center align-items-center mb-3"><img src="assets/google-logo.png" class="me-2" width="20" alt=""> Google</button>
+					<div class="d-flex justify-content-around align-items-center w-100 mb-3">
+						<button (click)="accessWithGoogle()" class="btn"><img src="assets/google-logo.png" height="30" alt=""></button>
+						<button (click)="accessWithFacebook()" class="btn"><img src="assets/facebook-logo.jpg" height="30" alt=""></button>
+						<button (click)="accessWithApple()" class="btn"><img src="assets/apple-logo.png" height="30" alt=""></button>
+					</div>
 					<p>Non hai un account? <a (click)="signUp()" style="color: #4089c9; cursor: pointer;">Registrati</a></p>
 				</div>
 			</div>

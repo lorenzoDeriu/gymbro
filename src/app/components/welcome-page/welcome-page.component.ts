@@ -12,7 +12,7 @@ import { MatDialog } from "@angular/material/dialog";
 export class WelcomePageComponent implements OnInit {
 	public email: string;
 	public password: string;
-	public hide: boolean = true;
+	public hidePwd: boolean = true;
 
 	constructor(
 		private authService: AuthService,
@@ -37,14 +37,27 @@ export class WelcomePageComponent implements OnInit {
 	allowLogin(): boolean {
 		return (
 			this.email &&
-			this.email != "" &&
+			!!this.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/) &&
 			this.password &&
-			this.password != ""
+			this.password != "" &&
+			this.password.length >= 8
 		);
 	}
 
 	accessWithGoogle() {
 		this.authService.accessWithGoogle();
+	}
+
+	accessWithFacebook() {
+		//
+	}
+
+	accessWithApple() {
+		//
+	}
+
+	showHidePassword() {
+		this.hidePwd = !this.hidePwd;
 	}
 
 	forgotPassword() {
