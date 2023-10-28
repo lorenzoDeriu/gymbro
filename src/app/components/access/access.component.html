@@ -156,7 +156,7 @@
 			<div class="d-flex flex-column w-100 mb-3">
 				<p class="mb-0">E-mail</p>
 				<input
-					[(ngModel)]="emailR"
+					[(ngModel)]="emailRegister"
 					type="email"
 					class="border-0 border-bottom py-1"
 					style="background-color: transparent"
@@ -174,7 +174,7 @@
 					</button>
 				</p>
 				<input
-					[(ngModel)]="passwordR"
+					[(ngModel)]="passwordRegister"
 					[type]="hidePwd ? 'password' : 'text'"
 					class="border-0 border-bottom py-1 w-100"
 					style="background-color: transparent"
@@ -187,13 +187,13 @@
 						(click)="showHidePasswordC()"
 						class="btn btn-sm border-0"
 					>
-						<i *ngIf="hidePwdC" class="bi bi-eye"></i>
-						<i *ngIf="!hidePwdC" class="bi bi-eye-slash"></i>
+						<i *ngIf="hidePwdConfirm" class="bi bi-eye"></i>
+						<i *ngIf="!hidePwdConfirm" class="bi bi-eye-slash"></i>
 					</button>
 				</p>
 				<input
-					[(ngModel)]="confirmPasswordR"
-					[type]="hidePwdC ? 'password' : 'text'"
+					[(ngModel)]="confirmPassword"
+					[type]="hidePwdConfirm ? 'password' : 'text'"
 					class="border-0 border-bottom py-1 w-100"
 					style="background-color: transparent"
 				/>

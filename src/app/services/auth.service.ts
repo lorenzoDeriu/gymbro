@@ -10,7 +10,7 @@ export class AuthService {
 
 	constructor(private firebase: FirebaseService, private router: Router) {}
 
-	public async signup(email: string, password: string) {
+	public async signup(email: string, password: string, username: string) {
 		let credential: any = await this.firebase.registerNewUser(
 			email,
 			password
@@ -28,7 +28,7 @@ export class AuthService {
 			idToken: credential.user.accessToken,
 			refreshToken: credential.user.stsTokenManager.refreshToken,
 		});
-		this.createNewUserInfo();
+		this.createNewUserInfo(username);
 	}
 
 	public async accessWithGoogle() {
@@ -82,10 +82,10 @@ export class AuthService {
 		}
 	}
 
-	public createNewUserInfo() {
+	public createNewUserInfo(username?: string) {
 		let user = JSON.parse(localStorage.getItem("user"));
 
-		this.firebase.addUser({ workouts: [], trainingPrograms: [] }, user.uid);
+		this.firebase.addUser({username: username, workouts: [], trainingPrograms: [] }, user.uid);
 	}
 
 	public async signin(email: string, password: string) {
