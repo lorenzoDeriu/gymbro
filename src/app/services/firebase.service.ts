@@ -35,6 +35,7 @@ import {
 	signInWithPopup,
 	FacebookAuthProvider,
 	signInWithRedirect,
+	TwitterAuthProvider,
 } from "firebase/auth";
 import { Router } from "@angular/router";
 
@@ -56,6 +57,7 @@ export class FirebaseService {
 	private auth: Auth = getAuth();
 	private googleProvider = new GoogleAuthProvider();
 	private metaProvider = new FacebookAuthProvider();
+	private xProvider = new TwitterAuthProvider();
 
 	constructor(private router: Router) {
 		enableIndexedDbPersistence(this.db, { forceOwnership: true }).catch(e =>
@@ -98,6 +100,10 @@ export class FirebaseService {
 
 	async accessWithMeta() {
 		return await signInWithRedirect(this.auth, this.metaProvider);
+	}
+
+	async accessWithX() {
+		return await signInWithRedirect(this.auth, this.xProvider);
 	}
 
 	public async existInfoOf(uid: string) {

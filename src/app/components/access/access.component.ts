@@ -60,7 +60,7 @@ export class AccessComponent implements OnInit {
 	register() {
 		this.authService.signup(this.emailR, this.passwordR);
 	}
-	
+
 	access() {
 		this.router.navigate(["/access"]);
 	}
@@ -101,11 +101,11 @@ export class AccessComponent implements OnInit {
 	}
 
 	accessWithFacebook() {
-		//
+		this.authService.accessWithMeta();
 	}
 
 	accessWithTwitter() {
-		//
+		this.authService.accessWithX();
 	}
 
 	showHidePassword() {

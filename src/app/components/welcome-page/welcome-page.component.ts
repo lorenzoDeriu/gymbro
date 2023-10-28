@@ -116,7 +116,7 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	accessWithTwitter() {
-		//
+		this.authService.accessWithX();
 	}
 
 	showHidePassword() {
