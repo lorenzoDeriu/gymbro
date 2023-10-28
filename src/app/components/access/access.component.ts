@@ -58,7 +58,11 @@ export class AccessComponent implements OnInit {
 	}
 
 	register() {
-		this.authService.signup(this.emailRegister, this.passwordRegister, this.username);
+		this.authService.signup(
+			this.emailRegister,
+			this.passwordRegister,
+			this.username
+		);
 	}
 
 	access() {

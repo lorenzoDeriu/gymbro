@@ -85,7 +85,10 @@ export class AuthService {
 	public createNewUserInfo(username?: string) {
 		let user = JSON.parse(localStorage.getItem("user"));
 
-		this.firebase.addUser({username: username, workouts: [], trainingPrograms: [] }, user.uid);
+		this.firebase.addUser(
+			{ username: username, workouts: [], trainingPrograms: [] },
+			user.uid
+		);
 	}
 
 	public async signin(email: string, password: string) {
@@ -111,10 +114,6 @@ export class AuthService {
 	private loginUser(user: any) {
 		this.loggedIn = true;
 		localStorage.setItem("user", JSON.stringify(user));
-
-		// //check if browser is safari: if not, send welcome notification
-		// if (!navigator.userAgent.includes("Safari"))
-		// 	this.sendWelcomeNotification();
 
 		this.router.navigate(["/home/dashboard"]);
 	}
