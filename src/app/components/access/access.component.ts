@@ -31,36 +31,113 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 	styleUrls: ["./access.component.css"],
 })
 export class AccessComponent implements OnInit {
-	public matcher = new MyErrorStateMatcher();
-	public hide: boolean = true;
+	public username: string;
+	public emailR: string;
+	public passwordR: string;
+	public confirmPasswordR: string;
+	public email: string;
+	public password: string;
+	public hidePwd: boolean = true;
+	public hidePwdC: boolean = true;
+	public onLogin: boolean = true;
 
 	constructor(
 		private authService: AuthService,
-		public dialog: MatDialog,
-		private router: Router
+		private router: Router,
+		private dialog: MatDialog
 	) {}
 
 	async ngOnInit() {
-		if (this.authService.isAuthenticated())
+		if (this.authService.isAuthenticated()) {
 			this.router.navigate(["/home/dashboard"]);
+		}
 	}
 
-	onLoginSubmit(form: NgForm) {
-		this.authService.signin(form.value.email, form.value.password);
+	login() {
+		this.authService.signin(this.email, this.password);
 	}
 
-	onRegisterSubmit(form: NgForm) {
-		this.authService.signup(form.value.email, form.value.password);
+	register() {
+		this.authService.signup(this.emailR, this.passwordR);
+	}
+	
+	access() {
+		this.router.navigate(["/access"]);
+	}
+
+	signUp() {
+		this.router.navigate(["/access"]);
+	}
+
+	allowLogin(): boolean {
+		return (
+			this.email &&
+			!!this.email.match(
+				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+			) &&
+			this.password &&
+			this.password != "" &&
+			this.password.length >= 8
+		);
+	}
+
+	allowRegister(): boolean {
+		return (
+			this.emailR &&
+			!!this.emailR.match(
+				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+			) &&
+			this.passwordR &&
+			this.passwordR != "" &&
+			this.passwordR.length >= 8 &&
+			this.passwordR === this.confirmPasswordR &&
+			this.username &&
+			this.username != ""
+		);
 	}
 
 	accessWithGoogle() {
 		this.authService.accessWithGoogle();
 	}
 
+	accessWithFacebook() {
+		//
+	}
+
+	accessWithTwitter() {
+		//
+	}
+
+	showHidePassword() {
+		this.hidePwd = !this.hidePwd;
+	}
+
+	showHidePasswordC() {
+		this.hidePwdC = !this.hidePwdC;
+	}
+
+	switchToLogin() {
+		this.clearForms();
+		this.onLogin = true;
+	}
+
+	switchToRegister() {
+		this.clearForms();
+		this.onLogin = false;
+	}
+
+	clearForms() {
+		this.email = "";
+		this.password = "";
+		this.emailR = "";
+		this.passwordR = "";
+		this.confirmPasswordR = "";
+		this.username = "";
+	}
+
 	forgotPassword() {
 		this.dialog.open(PasswordRecoverDialogComponent, {
-			width: "300px",
-			height: "130px",
+			disableClose: false,
 		});
 	}
 }

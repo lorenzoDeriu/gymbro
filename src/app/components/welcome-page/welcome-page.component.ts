@@ -12,7 +12,14 @@ import { MatDialog } from "@angular/material/dialog";
 export class WelcomePageComponent implements OnInit {
 	public email: string;
 	public password: string;
+	public username: string;
+	public emailR: string;
+	public passwordR: string;
+	public confirmPasswordR: string;
 	public hidePwd: boolean = true;
+	public hidePwdC: boolean = true;
+	public onLogin: boolean = true;
+	public scrollableContainer: HTMLElement = document.querySelector('.scrollable');
 
 	constructor(
 		private authService: AuthService,
@@ -24,10 +31,49 @@ export class WelcomePageComponent implements OnInit {
 		if (this.authService.isAuthenticated()) {
 			this.router.navigate(["/home/dashboard"]);
 		}
+
+		document.addEventListener('scroll', () => {
+			console.log('scrolling');
+		});
+	}
+
+	async ngAfterViewInit() {
+		this.scrollableContainer = document.querySelector('.scrollable');
+
+		this.scrollableContainer.addEventListener('scroll', () => {
+			const scrollLeft: number = this.scrollableContainer.scrollLeft;
+
+			if (scrollLeft === 0) {
+				this.activeSlide(0, false);
+				this.activeSlide(0, true);
+			}
+
+			if (scrollLeft === innerWidth) {
+				this.activeSlide(1, false);
+				this.activeSlide(1, true);
+			}
+
+			if ((scrollLeft === (2 * innerWidth))) {
+				this.activeSlide(2, false);
+				this.activeSlide(2, true);
+			}
+		});
+	}
+
+	async ngOnDestroy() {
+		this.scrollableContainer.removeEventListener('scroll', () => {});
 	}
 
 	login() {
 		this.authService.signin(this.email, this.password);
+	}
+
+	register() {
+		this.authService.signup(this.emailR, this.passwordR);
+	}
+
+	access() {
+		this.router.navigate(["/access"]);
 	}
 
 	signUp() {
@@ -46,6 +92,21 @@ export class WelcomePageComponent implements OnInit {
 		);
 	}
 
+	allowRegister(): boolean {
+		return (
+			this.emailR &&
+			!!this.emailR.match(
+				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+			) &&
+			this.passwordR &&
+			this.passwordR != "" &&
+			this.passwordR.length >= 8 &&
+			this.passwordR === this.confirmPasswordR &&
+			this.username &&
+			this.username != ""
+		);
+	}
+
 	accessWithGoogle() {
 		this.authService.accessWithGoogle();
 	}
@@ -54,12 +115,35 @@ export class WelcomePageComponent implements OnInit {
 		this.authService.accessWithMeta();
 	}
 
-	accessWithApple() {
-		// to do
+	accessWithTwitter() {
+		//
 	}
 
 	showHidePassword() {
 		this.hidePwd = !this.hidePwd;
+	}
+
+	showHidePasswordC() {
+		this.hidePwdC = !this.hidePwdC;
+	}
+
+	switchToLogin() {
+		this.clearForms();
+		this.onLogin = true;
+	}
+
+	switchToRegister() {
+		this.clearForms();
+		this.onLogin = false;
+	}
+
+	clearForms() {
+		this.email = "";
+		this.password = "";
+		this.emailR = "";
+		this.passwordR = "";
+		this.confirmPasswordR = "";
+		this.username = "";
 	}
 
 	forgotPassword() {
@@ -68,24 +152,75 @@ export class WelcomePageComponent implements OnInit {
 		});
 	}
 
+	activeSlide(slide: number, mobile: boolean) {
+		if (mobile) {
+			switch (slide) {
+				case 0:
+					document.getElementById("ctrl0-m")!.classList.add("active");
+					document.getElementById("ctrl1-m")!.classList.remove("active");
+					document.getElementById("ctrl2-m")!.classList.remove("active");
+					break;
+				case 1:
+					document.getElementById("ctrl1-m")!.classList.add("active");
+					document.getElementById("ctrl0-m")!.classList.remove("active");
+					document.getElementById("ctrl2-m")!.classList.remove("active");
+					break;
+				case 2:
+					document.getElementById("ctrl2-m")!.classList.add("active");
+					document.getElementById("ctrl0-m")!.classList.remove("active");
+					document.getElementById("ctrl1-m")!.classList.remove("active");
+					break;
+			}
+		}
+
+		else {
+			switch (slide) {
+				case 0:
+					document.getElementById("ctrl0")!.classList.add("active");
+					document.getElementById("ctrl1")!.classList.remove("active");
+					document.getElementById("ctrl2")!.classList.remove("active");
+					break;
+				case 1:
+					document.getElementById("ctrl1")!.classList.add("active");
+					document.getElementById("ctrl0")!.classList.remove("active");
+					document.getElementById("ctrl2")!.classList.remove("active");
+					break;
+				case 2:
+					document.getElementById("ctrl2")!.classList.add("active");
+					document.getElementById("ctrl0")!.classList.remove("active");
+					document.getElementById("ctrl1")!.classList.remove("active");
+					break;
+			}
+		}
+	}
+
 	toFirstSlide() {
 		document.getElementById("0")!.scrollIntoView(true);
-		document.getElementById("ctrl0")!.classList.add("active");
-		document.getElementById("ctrl1")!.classList.remove("active");
-		document.getElementById("ctrl2")!.classList.remove("active");
+		this.activeSlide(0, false);
 	}
 
 	toSecondSlide() {
 		document.getElementById("1")!.scrollIntoView(true);
-		document.getElementById("ctrl1")!.classList.add("active");
-		document.getElementById("ctrl0")!.classList.remove("active");
-		document.getElementById("ctrl2")!.classList.remove("active");
+		this.activeSlide(1, false);
 	}
 
 	toThirdSlide() {
 		document.getElementById("2")!.scrollIntoView(true);
-		document.getElementById("ctrl2")!.classList.add("active");
-		document.getElementById("ctrl0")!.classList.remove("active");
-		document.getElementById("ctrl1")!.classList.remove("active");
+		this.activeSlide(2, false);
+	}
+
+	toFirstSlideM() {
+		document.getElementById("0-m")!.scrollIntoView(true);
+		this.activeSlide(0, true);
+	}
+
+	toSecondSlideM() {
+		document.getElementById("1-m")!.scrollIntoView(true);
+		this.activeSlide(1, true);
+	}
+
+	toThirdSlideM() {
+		document.getElementById("2-m")!.scrollIntoView(true);
+		this.activeSlide(2, true);
 	}
 }
