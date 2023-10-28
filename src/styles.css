@@ -1,20 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-@import "~bootstrap-icons/font/bootstrap-icons.css";
+@font-face {
+	font-family: Poppins;
+	src: url(https://static1.squarespace.com/static/6412b954167fb959080a9874/t/64e08b2ec3dafa01ab100e59/1692437295189/Poppins-Regular.ttf);
+  }
 
-/* html, body { height: 100%; } */
-body {
-	margin: 0;
-	padding: 0;
-	font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-html {
-	overflow: scroll;
-	scroll-snap-type: y mandatory;
+* {
+	font-family: 'Poppins', sans-serif !important;
+	overscroll-behavior: none;
+	scroll-behavior: smooth;
 }
 
-@media (max-width: 600px) {
-	div.mat-expansion-panel-body {
-		padding: 0 5px 16px !important;
-	}
+::-moz-selection {
+	color: #fff;
+	background: #4089c9;
+}
+
+::selection {
+	color: #fff;
+	background: #4089c9;
+}
+
+::-webkit-scrollbar{
+	display: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
 }

@@ -26,10 +26,6 @@ export class WelcomePageComponent implements OnInit {
 		}
 	}
 
-	isDesktop(): boolean {
-		return window.innerWidth > 1050;
-	}
-
 	login() {
 		this.authService.signin(this.email, this.password);
 	}
@@ -53,9 +49,28 @@ export class WelcomePageComponent implements OnInit {
 
 	forgotPassword() {
 		this.dialog.open(PasswordRecoverDialogComponent, {
-			width: "300px",
-			height: "135px",
 			disableClose: false,
 		});
+	}
+
+	toFirstSlide() {
+		document.getElementById('0')!.scrollIntoView(true);
+		document.getElementById('ctrl0')!.classList.add('active');
+		document.getElementById('ctrl1')!.classList.remove('active');
+		document.getElementById('ctrl2')!.classList.remove('active');
+	}
+
+	toSecondSlide() {
+		document.getElementById('1')!.scrollIntoView(true);
+		document.getElementById('ctrl1')!.classList.add('active');
+		document.getElementById('ctrl0')!.classList.remove('active');
+		document.getElementById('ctrl2')!.classList.remove('active');
+	}
+
+	toThirdSlide() {
+		document.getElementById('2')!.scrollIntoView(true);
+		document.getElementById('ctrl2')!.classList.add('active');
+		document.getElementById('ctrl0')!.classList.remove('active');
+		document.getElementById('ctrl1')!.classList.remove('active');
 	}
 }

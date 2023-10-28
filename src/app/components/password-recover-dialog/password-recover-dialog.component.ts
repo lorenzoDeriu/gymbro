@@ -28,11 +28,11 @@ export class PasswordRecoverDialogComponent {
 		this.closeDialog();
 	}
 
-	private closeDialog() {
+	public closeDialog() {
 		this.dialogRef.close();
 	}
 
 	public allowSend(): boolean {
-		return this.email && this.email != "" && this.email.includes("@");
+		return this.email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
 	}
 }
