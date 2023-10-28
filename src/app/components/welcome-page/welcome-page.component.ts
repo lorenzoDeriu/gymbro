@@ -51,11 +51,11 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	accessWithFacebook() {
-		//
+		this.authService.accessWithMeta();
 	}
 
 	accessWithApple() {
-		//
+		// to do
 	}
 
 	showHidePassword() {

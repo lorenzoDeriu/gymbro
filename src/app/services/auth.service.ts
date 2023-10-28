@@ -48,6 +48,23 @@ export class AuthService {
 		}
 	}
 
+	public async accessWithMeta() {
+		let credential: any = await this.firebase.accessWithMeta();
+		if (credential != null) {
+			this.loginUser({
+				uid: credential.user.uid,
+				email: credential.email,
+				expiresIn: credential.user.stsTokenManager.expirationTime,
+				idToken: credential.user.accessToken,
+				refreshToken: credential.user.stsTokenManager.refreshToken,
+			});
+
+			if (!(await this.firebase.existInfoOf(credential.user.uid))) {
+				this.createNewUserInfo();
+			}
+		}
+	}
+
 	public createNewUserInfo() {
 		let user = JSON.parse(localStorage.getItem("user"));
 
