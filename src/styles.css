@@ -1,10 +1,10 @@
 @font-face {
 	font-family: Poppins;
 	src: url(https://static1.squarespace.com/static/6412b954167fb959080a9874/t/64e08b2ec3dafa01ab100e59/1692437295189/Poppins-Regular.ttf);
-  }
+}
 
 * {
-	font-family: 'Poppins', sans-serif !important;
+	font-family: "Poppins", sans-serif !important;
 	overscroll-behavior: none;
 	scroll-behavior: smooth;
 }
@@ -19,7 +19,7 @@
 	background: #4089c9;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
 	display: none;
 }
 
@@ -32,7 +32,7 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-text-fill-color: white;
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-  transition: background-color 5000s ease-in-out 0s;
+	-webkit-text-fill-color: white;
+	-webkit-box-shadow: 0 0 0px 1000px transparent inset;
+	transition: background-color 5000s ease-in-out 0s;
 }

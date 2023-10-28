@@ -1,38 +1,98 @@
 <div class="welcome overflow-hidden">
 	<!-- Mobile -->
 	<div class="scrollable overflow-auto h-100 w-100 d-block d-lg-none">
-		<section class="d-flex flex-column justify-content-between align-items-center p-3 h-100 w-100">
-			<img src="assets/logo.png" width="200">
-			<div class="mt-5 rounded-4 d-flex flex-column justify-content-center align-items-center px-5" style="min-width: 250px; width: 80vw; max-width: 400px; margin-bottom: 32px;">
+		<section
+			class="d-flex flex-column justify-content-between align-items-center p-3 h-100 w-100"
+		>
+			<img src="assets/logo.png" width="200" />
+			<div
+				class="mt-5 rounded-4 d-flex flex-column justify-content-center align-items-center px-5"
+				style="
+					min-width: 250px;
+					width: 80vw;
+					max-width: 400px;
+					margin-bottom: 32px;
+				"
+			>
 				<div class="d-flex flex-column w-100 mb-3">
 					<p class="mb-0">E-mail</p>
-					<input [(ngModel)]="email" type="email" class="border-0 border-bottom py-1" style="background-color: transparent;">
+					<input
+						[(ngModel)]="email"
+						type="email"
+						class="border-0 border-bottom py-1"
+						style="background-color: transparent"
+					/>
 				</div>
 				<div class="d-flex flex-column w-100 mb-3">
 					<p class="mb-0">
 						Password
-						<button (click)="showHidePassword()" class="btn btn-sm border-0">
+						<button
+							(click)="showHidePassword()"
+							class="btn btn-sm border-0"
+						>
 							<i *ngIf="hidePwd" class="bi bi-eye"></i>
 							<i *ngIf="!hidePwd" class="bi bi-eye-slash"></i>
 						</button>
 					</p>
-					<input [(ngModel)]="password" [type]="hidePwd ? 'password' : 'text'" class="border-0 border-bottom py-1 w-100" style="background-color: transparent;">
+					<input
+						[(ngModel)]="password"
+						[type]="hidePwd ? 'password' : 'text'"
+						class="border-0 border-bottom py-1 w-100"
+						style="background-color: transparent"
+					/>
 				</div>
-				<a (click)="forgotPassword()" class="mb-3 text-decoration-none" style="color: #4089c9; cursor: pointer;">Password dimenticata?</a>
-				<button [disabled]="!allowLogin()" (click)="login()" class="login-btn btn w-100 mb-3 text-light" style="background-color: #6b44d4; border: none">Accedi</button>
-				<div class="mb-3 d-flex justify-content-center align-items-center w-100">
-					<hr size="5px" width="100" color="white"/>
-					<span class="mx-3 ">or</span>
-					<hr size="5px" width="100" color="white"/>
+				<a
+					(click)="forgotPassword()"
+					class="mb-3 text-decoration-none"
+					style="color: #4089c9; cursor: pointer"
+				>
+					Password dimenticata?
+				</a>
+				<button
+					[disabled]="!allowLogin()"
+					(click)="login()"
+					class="login-btn btn w-100 mb-3 text-light"
+					style="background-color: #6b44d4; border: none"
+				>
+					Accedi
+				</button>
+				<div
+					class="mb-3 d-flex justify-content-center align-items-center w-100"
+				>
+					<hr size="5px" width="100" color="white" />
+					<span class="mx-3">or</span>
+					<hr size="5px" width="100" color="white" />
 				</div>
-				<div class="d-flex justify-content-around align-items-center w-100 mb-3">
-					<button (click)="accessWithGoogle()" class="btn"><img src="assets/google-logo.png" height="30" alt=""></button>
-					<button (click)="accessWithFacebook()" class="btn"><img src="assets/facebook-logo.jpg" height="30" alt=""></button>
-					<button (click)="accessWithApple()" class="btn"><img src="assets/apple-logo.png" height="30" alt=""></button>
+				<div
+					class="d-flex justify-content-around align-items-center w-100 mb-3"
+				>
+					<button (click)="accessWithGoogle()" class="btn">
+						<img src="assets/google-logo.png" height="30" alt="" />
+					</button>
+					<button (click)="accessWithFacebook()" class="btn">
+						<img
+							src="assets/facebook-logo.jpg"
+							height="30"
+							alt=""
+						/>
+					</button>
+					<button (click)="accessWithApple()" class="btn">
+						<img src="assets/apple-logo.png" height="30" alt="" />
+					</button>
 				</div>
-				<p>Non hai un account? <a (click)="signUp()" style="color: #4089c9; cursor: pointer;">Registrati</a></p>
+				<p>
+					Non hai un account?
+					<a
+						(click)="signUp()"
+						style="color: #4089c9; cursor: pointer"
+					>
+						Registrati
+					</a>
+				</p>
 			</div>
-			<div class="see-more d-flex flex-column justify-content-center align-items-center">
+			<div
+				class="see-more d-flex flex-column justify-content-center align-items-center"
+			>
 				<p>Scorri per scoprire di più</p>
 				<i class="bi bi-chevron-down swipe-up"></i>
 			</div>
@@ -41,73 +101,194 @@
 
 	<!-- Desktop -->
 	<div class="wrapper d-none d-lg-flex">
-		<div class="left-wrap" style="width: 60%; height: 100svh;">
-			<div class="scrollable" style="height: 95%;">
-				<section id="0" class="d-flex flex-column justify-content-center align-items-center">
-					<img style="width: 60%;" src="assets/tip1.svg" alt="">
-					<p class="position-relative tip text-light text-center lh-base w-75 mt-5 p-5" style="font-size: 1.2rem;">
-						Monitora i tuoi allenamenti tenendo traccia dei progressi
-						<i class="bi bi-heart-pulse-fill position-absolute top-100 start-50 translate-middle" style="font-size: 4rem;"></i>
+		<div class="left-wrap" style="width: 60%; height: 100svh">
+			<div class="scrollable" style="height: 95%">
+				<section
+					id="0"
+					class="d-flex flex-column justify-content-center align-items-center"
+				>
+					<img style="width: 60%" src="assets/tip1.svg" alt="" />
+					<p
+						class="position-relative tip text-light text-center lh-base w-75 mt-5 p-5"
+						style="font-size: 1.2rem"
+					>
+						Monitora i tuoi allenamenti tenendo traccia dei
+						progressi
+						<i
+							class="bi bi-heart-pulse-fill position-absolute top-100 start-50 translate-middle"
+							style="font-size: 4rem"
+						></i>
 					</p>
 				</section>
-				<section id="1" class="d-flex flex-column justify-content-center align-items-center">
-					<img style="width: 50%;" src="assets/tip2.svg" alt="">
-					<p class="position-relative tip text-light text-center lh-base w-75 mt-5 p-5" style="font-size: 1.2rem;">
-						Tieni d'occhio i tuoi risultati con grafici interattivi e statistiche dettagliate
-						<i class="bi bi-bar-chart-fill position-absolute top-100 start-50 translate-middle" style="font-size: 4rem;"></i>
+				<section
+					id="1"
+					class="d-flex flex-column justify-content-center align-items-center"
+				>
+					<img style="width: 50%" src="assets/tip2.svg" alt="" />
+					<p
+						class="position-relative tip text-light text-center lh-base w-75 mt-5 p-5"
+						style="font-size: 1.2rem"
+					>
+						Tieni d'occhio i tuoi risultati con grafici interattivi
+						e statistiche dettagliate
+						<i
+							class="bi bi-bar-chart-fill position-absolute top-100 start-50 translate-middle"
+							style="font-size: 4rem"
+						></i>
 					</p>
 				</section>
-				<section id="2" class="d-flex flex-column justify-content-center align-items-center">
-					<img style="width: 50%;" src="assets/tip3.svg" alt="">
-					<p class="position-relative tip text-light text-center lh-base w-75 mt-5 p-5" style="font-size: 1.2rem;">
-						Connettiti con altri GymBro in modo da condivere le vostre routine di allenamento
-						<i class="bi bi-person-fill-add position-absolute top-100 start-50 translate-middle" style="font-size: 4rem;"></i>
+				<section
+					id="2"
+					class="d-flex flex-column justify-content-center align-items-center"
+				>
+					<img style="width: 50%" src="assets/tip3.svg" alt="" />
+					<p
+						class="position-relative tip text-light text-center lh-base w-75 mt-5 p-5"
+						style="font-size: 1.2rem"
+					>
+						Connettiti con altri GymBro in modo da condivere le
+						vostre routine di allenamento
+						<i
+							class="bi bi-person-fill-add position-absolute top-100 start-50 translate-middle"
+							style="font-size: 4rem"
+						></i>
 					</p>
 				</section>
 			</div>
-			<ul class="nav justify-content-center" style="height: 5%;">
+			<ul class="nav justify-content-center" style="height: 5%">
 				<li class="nav-item">
-				  <a id="ctrl0" class="nav-link active" aria-current="page" (click)="toFirstSlide()" style="font-size: 10px;"><i class="bi bi-circle-fill"></i></a>
+					<a
+						id="ctrl0"
+						class="nav-link active"
+						aria-current="page"
+						(click)="toFirstSlide()"
+						style="font-size: 10px"
+					>
+						<i class="bi bi-circle-fill"></i>
+					</a>
 				</li>
 				<li class="nav-item">
-				  <a id="ctrl1" class="nav-link" (click)="toSecondSlide()" style="font-size: 10px;"><i class="bi bi-circle-fill"></i></a>
+					<a
+						id="ctrl1"
+						class="nav-link"
+						(click)="toSecondSlide()"
+						style="font-size: 10px"
+					>
+						<i class="bi bi-circle-fill"></i>
+					</a>
 				</li>
 				<li class="nav-item">
-				  <a id="ctrl2" class="nav-link" (click)="toThirdSlide()" style="font-size: 10px;"><i class="bi bi-circle-fill"></i></a>
+					<a
+						id="ctrl2"
+						class="nav-link"
+						(click)="toThirdSlide()"
+						style="font-size: 10px"
+					>
+						<i class="bi bi-circle-fill"></i>
+					</a>
 				</li>
-			  </ul>
+			</ul>
 		</div>
-		<div class="right-wrap d-flex justify-content-center align-items-center" style="width: 40%; height: 100svh;">
-			<div class="d-flex flex-column justify-content-center align-items-center p-3 h-100 w-100">
-				<img src="assets/logo.png" width="200">
-				<div class="mt-5 rounded-4 d-flex flex-column justify-content-center align-items-center px-5" style="min-width: 250px; width: 80vw; max-width: 400px; margin-bottom: 32px;">
+		<div
+			class="right-wrap d-flex justify-content-center align-items-center"
+			style="width: 40%; height: 100svh"
+		>
+			<div
+				class="d-flex flex-column justify-content-center align-items-center p-3 h-100 w-100"
+			>
+				<img src="assets/logo.png" width="200" />
+				<div
+					class="mt-5 rounded-4 d-flex flex-column justify-content-center align-items-center px-5"
+					style="
+						min-width: 250px;
+						width: 80vw;
+						max-width: 400px;
+						margin-bottom: 32px;
+					"
+				>
 					<div class="d-flex flex-column w-100 mb-3">
 						<p class="mb-0">E-mail</p>
-						<input [(ngModel)]="email" type="email" class="border-0 border-bottom py-1" style="background-color: transparent;">
+						<input
+							[(ngModel)]="email"
+							type="email"
+							class="border-0 border-bottom py-1"
+							style="background-color: transparent"
+						/>
 					</div>
 					<div class="d-flex flex-column w-100 mb-3">
 						<p class="mb-0">
 							Password
-							<button (click)="showHidePassword()" class="btn btn-sm border-0">
+							<button
+								(click)="showHidePassword()"
+								class="btn btn-sm border-0"
+							>
 								<i *ngIf="hidePwd" class="bi bi-eye"></i>
 								<i *ngIf="!hidePwd" class="bi bi-eye-slash"></i>
 							</button>
 						</p>
-						<input [(ngModel)]="password" [type]="hidePwd ? 'password' : 'text'" class="border-0 border-bottom py-1 w-100" style="background-color: transparent;">
+						<input
+							[(ngModel)]="password"
+							[type]="hidePwd ? 'password' : 'text'"
+							class="border-0 border-bottom py-1 w-100"
+							style="background-color: transparent"
+						/>
 					</div>
-					<a (click)="forgotPassword()" class="mb-3 text-decoration-none" style="color: #4089c9; cursor: pointer;">Password dimenticata?</a>
-					<button [disabled]="!allowLogin()" (click)="login()" class="login-btn btn w-100 mb-3 text-light" style="background-color: #6b44d4; border: none">Accedi</button>
-					<div class="mb-3 d-flex justify-content-center align-items-center w-100">
-						<hr size="5px" width="100" color="white"/>
-						<span class="mx-3 ">or</span>
-						<hr size="5px" width="100" color="white"/>
+					<a
+						(click)="forgotPassword()"
+						class="mb-3 text-decoration-none"
+						style="color: #4089c9; cursor: pointer"
+					>
+						Password dimenticata?
+					</a>
+					<button
+						[disabled]="!allowLogin()"
+						(click)="login()"
+						class="login-btn btn w-100 mb-3 text-light"
+						style="background-color: #6b44d4; border: none"
+					>
+						Accedi
+					</button>
+					<div
+						class="mb-3 d-flex justify-content-center align-items-center w-100"
+					>
+						<hr size="5px" width="100" color="white" />
+						<span class="mx-3">or</span>
+						<hr size="5px" width="100" color="white" />
 					</div>
-					<div class="d-flex justify-content-around align-items-center w-100 mb-3">
-						<button (click)="accessWithGoogle()" class="btn"><img src="assets/google-logo.png" height="30" alt=""></button>
-						<button (click)="accessWithFacebook()" class="btn"><img src="assets/facebook-logo.jpg" height="30" alt=""></button>
-						<button (click)="accessWithApple()" class="btn"><img src="assets/apple-logo.png" height="30" alt=""></button>
+					<div
+						class="d-flex justify-content-around align-items-center w-100 mb-3"
+					>
+						<button (click)="accessWithGoogle()" class="btn">
+							<img
+								src="assets/google-logo.png"
+								height="30"
+								alt=""
+							/>
+						</button>
+						<button (click)="accessWithFacebook()" class="btn">
+							<img
+								src="assets/facebook-logo.jpg"
+								height="30"
+								alt=""
+							/>
+						</button>
+						<button (click)="accessWithApple()" class="btn">
+							<img
+								src="assets/apple-logo.png"
+								height="30"
+								alt=""
+							/>
+						</button>
 					</div>
-					<p>Non hai un account? <a (click)="signUp()" style="color: #4089c9; cursor: pointer;">Registrati</a></p>
+					<p>
+						Non hai un account?
+						<a
+							(click)="signUp()"
+							style="color: #4089c9; cursor: pointer"
+						>
+							Registrati
+						</a>
+					</p>
 				</div>
 			</div>
 		</div>

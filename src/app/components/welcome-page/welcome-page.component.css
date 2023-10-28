@@ -34,11 +34,12 @@ section {
 	color: rgb(204, 204, 204);
 }
 
-.nav-link:active, .nav-link.active {
+.nav-link:active,
+.nav-link.active {
 	color: rgb(255, 255, 255);
 }
 
-input:focus{
+input:focus {
 	outline: none;
 }
 
@@ -53,12 +54,12 @@ input:focus{
 }
 
 .tip {
-	background: rgba( 255, 255, 255, 0.25 );
-	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-	backdrop-filter: blur( 5px );
-	-webkit-backdrop-filter: blur( 5px );
+	background: rgba(255, 255, 255, 0.25);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
 	border-radius: 10px;
-	border: 1px solid rgba( 255, 255, 255, 0.18 );
+	border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .swipe-up {
@@ -68,14 +69,14 @@ input:focus{
 
 @keyframes floating {
 	0% {
-		transform: translate(0%, 0%)
+		transform: translate(0%, 0%);
 	}
 
 	50% {
-		transform: translate(0%, 25%)
+		transform: translate(0%, 25%);
 	}
 
 	100% {
-		transform: translate(0%, 0%)
+		transform: translate(0%, 0%);
 	}
 }
