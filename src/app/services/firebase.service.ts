@@ -39,10 +39,10 @@ import {
 } from "firebase/auth";
 import { Router } from "@angular/router";
 
-export interface user {
-	uid: string;
-	workout: any[];
-	trainingPrograms: any[];
+export type User = {
+	uid: string,
+	workout: any[],
+	trainingPrograms: any[],
 }
 
 @Injectable({

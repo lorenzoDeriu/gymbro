@@ -1,4 +1,12 @@
-export class Exercise {
+import { Set } from "./TrainingProgram.model";
+
+export type Exercise = {
+	name: string;
+	rpe: number;
+	set: Set[];
+};
+
+export class ExerciseClass {
 	public exerciseName: string;
 	public series: number;
 	public reps: number;

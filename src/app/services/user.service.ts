@@ -1,5 +1,4 @@
 import { FirebaseService } from "./firebase.service";
-import { Exercise } from "../Models/Exercise.model";
 import { Injectable, OnInit } from "@angular/core";
 
 @Injectable({
@@ -13,7 +12,7 @@ export class UserService {
 
 	constructor(private firebase: FirebaseService) {}
 
-	addExercise(exercise: Exercise) {
+	addExercise(exercise: any) {
 		this.exercises.push({
 			name: exercise.exerciseName,
 			series: exercise.series,

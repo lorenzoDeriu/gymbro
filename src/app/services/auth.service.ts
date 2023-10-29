@@ -6,6 +6,7 @@ import { ErrorLoginDialogComponent } from "../components/error-login-dialog/erro
 import { ErrorRegisterDialogComponent } from "../components/error-register-dialog/error-register-dialog.component";
 import { ErrorProviderDialogComponent } from "../components/error-provider-dialog/error-provider-dialog.component";
 import { UserCredential } from "firebase/auth";
+import { User } from "../Models/User.model";
 
 export type UserData = {
 	uid: string;
