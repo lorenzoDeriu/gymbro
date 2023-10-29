@@ -10,7 +10,7 @@ In the "environment" folder, you need to add the "environment.ts" and "environme
 export const environment = {
   firebaseConfig: {
     apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",w
+    authDomain: "YOUR_AUTH_DOMAIN",
     databaseURL: "YOUR_DATABASE_URL",
     projectId: "YOUR_PROJECT_ID",
     storageBucket: "YOUR_STORAGE_BUCKET",

@@ -124,8 +124,15 @@ export class AuthService {
 	public createNewUserInfo(username?: string) {
 		let user = JSON.parse(localStorage.getItem("user"));
 
+		let userObj: any = {
+			trainingPrograms: [],
+			workouts: []
+		};
+
+		if (username) userObj = {...userObj, username: username};
+
 		this.firebase.addUser(
-			{ username: username, workouts: [], trainingPrograms: [] },
+			userObj,
 			user.uid
 		);
 	}

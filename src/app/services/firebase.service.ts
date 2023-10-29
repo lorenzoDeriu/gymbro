@@ -99,11 +99,11 @@ export class FirebaseService {
 	}
 
 	async accessWithMeta() {
-		return await signInWithRedirect(this.auth, this.metaProvider);
+		return await signInWithPopup(this.auth, this.metaProvider);
 	}
 
 	async accessWithX() {
-		return await signInWithRedirect(this.auth, this.xProvider);
+		return await signInWithPopup(this.auth, this.xProvider);
 	}
 
 	public async existInfoOf(uid: string) {
