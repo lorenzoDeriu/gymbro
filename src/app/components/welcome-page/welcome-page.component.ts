@@ -55,27 +55,6 @@ export class WelcomePageComponent implements OnInit {
 				this.activeSlide(2, true);
 			}
 		});
-
-		this.scrollableContainer.addEventListener('wheel', () => {
-			const scrollLeft: number = this.scrollableContainer.scrollLeft;
-
-			console.log(scrollLeft)
-
-			if (scrollLeft === 0) {
-				this.activeSlide(0, false);
-				this.activeSlide(0, true);
-			}
-
-			if (scrollLeft === innerWidth) {
-				this.activeSlide(1, false);
-				this.activeSlide(1, true);
-			}
-
-			if ((scrollLeft === (2 * innerWidth))) {
-				this.activeSlide(2, false);
-				this.activeSlide(2, true);
-			}
-		});
 	}
 
 	async ngOnDestroy() {

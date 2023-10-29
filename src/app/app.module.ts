@@ -72,6 +72,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SafetyActionConfirmDialogComponent } from "./safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { ErrorLoginDialogComponent } from './components/error-login-dialog/error-login-dialog.component';
 import { ErrorRegisterDialogComponent } from './components/error-register-dialog/error-register-dialog.component';
+import { ErrorProviderDialogComponent } from './components/error-provider-dialog/error-provider-dialog.component';
 
 @NgModule({
 	declarations: [
@@ -108,6 +109,7 @@ import { ErrorRegisterDialogComponent } from './components/error-register-dialog
 		SafetyActionConfirmDialogComponent,
   ErrorLoginDialogComponent,
   ErrorRegisterDialogComponent,
+  ErrorProviderDialogComponent,
 	],
 	imports: [
 		BrowserModule,
