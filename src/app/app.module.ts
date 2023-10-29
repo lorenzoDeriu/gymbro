@@ -69,7 +69,7 @@ import { ExerciseStatsDialogComponent } from "./components/exercise-stats-dialog
 import { WelcomePageComponent } from "./components/welcome-page/welcome-page.component";
 import { CustomDateAdapter } from "./components/prebuild-workout/date-picker-adapter";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { SafetyActionConfirmDialogComponent } from "./safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { SafetyActionConfirmDialogComponent } from "./components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { ErrorLoginDialogComponent } from './components/error-login-dialog/error-login-dialog.component';
 import { ErrorRegisterDialogComponent } from './components/error-register-dialog/error-register-dialog.component';
 import { ErrorProviderDialogComponent } from './components/error-provider-dialog/error-provider-dialog.component';

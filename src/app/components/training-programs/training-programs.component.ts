@@ -4,7 +4,7 @@ import { Component, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
-import { SafetyActionConfirmDialogComponent } from "src/app/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 
 @Component({
 	selector: "app-training-programs",
