@@ -77,7 +77,6 @@ export class AuthService {
 
 	public async accessWithX() {
 		let credential: any = await this.firebase.accessWithX();
-		console.log("X credential: ", credential);
 		if (credential != null) {
 			this.loginUser({
 				uid: credential.user.uid,
