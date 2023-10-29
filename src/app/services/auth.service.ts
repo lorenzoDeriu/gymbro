@@ -1,10 +1,18 @@
-import { Injectable } from "@angular/core";
+import { Component, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { FirebaseService } from "./firebase.service";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogContainer, _MatDialogBase } from "@angular/material/dialog";
 import { ErrorLoginDialogComponent } from "../components/error-login-dialog/error-login-dialog.component";
 import { ErrorRegisterDialogComponent } from "../components/error-register-dialog/error-register-dialog.component";
 import { ErrorProviderDialogComponent } from "../components/error-provider-dialog/error-provider-dialog.component";
+import { UserCredential } from "firebase/auth";
+
+export type UserData = {
+	uid: string;
+	email: string;
+	idToken: string;
+	refreshToken: string;
+};
 
 @Injectable({
 	providedIn: "root",
@@ -18,100 +26,72 @@ export class AuthService {
 		private dialog: MatDialog
 	) {}
 
-	public async signup(email: string, password: string, username: string) {
-		let credential: any = await this.firebase.registerNewUser(
-			email,
-			password
-		);
-
-		if (credential == null) {
-			this.dialog.open(ErrorRegisterDialogComponent, {
-				disableClose: false,
-			});
-
-			return;
-		}
+	private async access(
+		callbackFunc: (email?: string, psw?: string) => Promise<UserCredential>,
+		args?: string[]
+	) {
+		const credential: UserCredential = await callbackFunc(...args);
 
 		this.loginUser({
 			uid: credential.user.uid,
-			email: credential.email,
-			expiresIn: credential.user.stsTokenManager.expirationTime,
-			idToken: credential.user.accessToken,
-			refreshToken: credential.user.stsTokenManager.refreshToken,
+			email: credential.user.email,
+			idToken: await credential.user.getIdToken(),
+			refreshToken: credential.user.refreshToken,
 		});
 
-		this.createNewUserInfo(username);
+		if (!(await this.firebase.existInfoOf(credential.user.uid))) {
+			this.createNewUserInfo();
+		}
+	}
+
+	public async signup(email: string, password: string, username: string) {
+		try {
+			await this.access(this.firebase.registerNewUser, [email, password, username]);
+		} catch (error) {
+			this.dialog.open(ErrorRegisterDialogComponent, {
+				disableClose: false,
+			});
+		}
+	}
+
+	public async signin(email: string, password: string) {
+		try {
+			await this.access(this.firebase.loginEmailPsw, [email, password]);
+		} catch (error) {
+			console.log(error);
+			this.dialog.open(ErrorLoginDialogComponent, {
+				disableClose: false,
+			});
+		}
 	}
 
 	public async accessWithGoogle() {
-		let credential: any = await this.firebase.accessWithGoogle();
-
-		if (credential != null) {
-			this.loginUser({
-				uid: credential.user.uid,
-				email: credential.email,
-				expiresIn: credential.user.stsTokenManager.expirationTime,
-				idToken: credential.user.accessToken,
-				refreshToken: credential.user.stsTokenManager.refreshToken,
-			});
-
-			if (!(await this.firebase.existInfoOf(credential.user.uid))) {
-				this.createNewUserInfo();
-			}
-		} else {
+		try {
+			await this.access(this.firebase.accessWithGoogle);
+		} catch (error) {
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
-			});
-
-			return;
+			})
 		}
 	}
 
 	public async accessWithMeta() {
-		let credential: any = await this.firebase.accessWithMeta();
-
-		if (credential != null) {
-			this.loginUser({
-				uid: credential.user.uid,
-				email: credential.email,
-				expiresIn: credential.user.stsTokenManager.expirationTime,
-				idToken: credential.user.accessToken,
-				refreshToken: credential.user.stsTokenManager.refreshToken,
-			});
-
-			if (!(await this.firebase.existInfoOf(credential.user.uid))) {
-				this.createNewUserInfo();
-			}
-		} else {
+		try {
+			await this.access(this.firebase.accessWithMeta);
+		} catch (error) {
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
-			});
-
-			return;
+			})
 		}
 	}
 
 	public async accessWithX() {
-		let credential: any = await this.firebase.accessWithX();
-
-		if (credential != null) {
-			this.loginUser({
-				uid: credential.user.uid,
-				email: credential.email,
-				expiresIn: credential.user.stsTokenManager.expirationTime,
-				idToken: credential.user.accessToken,
-				refreshToken: credential.user.stsTokenManager.refreshToken,
-			});
-
-			if (!(await this.firebase.existInfoOf(credential.user.uid))) {
-				this.createNewUserInfo();
-			}
-		} else {
+		try {
+			await this.access(this.firebase.accessWithX);
+		} catch (error) {
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
-			});
-
-			return;
+			})
 		}
 	}
 
@@ -128,30 +108,7 @@ export class AuthService {
 		this.firebase.addUser(userObj, user.uid);
 	}
 
-	public async signin(email: string, password: string) {
-		let credential: any = await this.firebase.loginEmailPsw(
-			email,
-			password
-		);
-
-		if (credential == null) {
-			this.dialog.open(ErrorLoginDialogComponent, {
-				disableClose: false,
-			});
-
-			return;
-		}
-
-		this.loginUser({
-			uid: credential.user.uid,
-			email: credential.email,
-			expiresIn: credential.user.stsTokenManager.expirationTime,
-			idToken: credential.user.accessToken,
-			refreshToken: credential.user.stsTokenManager.refreshToken,
-		});
-	}
-
-	private loginUser(user: any) {
+	private loginUser(user: UserData) {
 		this.loggedIn = true;
 		localStorage.setItem("user", JSON.stringify(user));
 

@@ -36,6 +36,7 @@ import {
 	FacebookAuthProvider,
 	signInWithRedirect,
 	TwitterAuthProvider,
+	UserCredential,
 } from "firebase/auth";
 import { Router } from "@angular/router";
 
@@ -94,16 +95,16 @@ export class FirebaseService {
 		}
 	}
 
-	async accessWithGoogle() {
-		return await signInWithPopup(this.auth, this.googleProvider);
+	public accessWithGoogle() {
+		return signInWithPopup(this.auth, this.googleProvider);
 	}
 
-	async accessWithMeta() {
-		return await signInWithPopup(this.auth, this.metaProvider);
+	public accessWithMeta() {
+		return signInWithPopup(this.auth, this.metaProvider);
 	}
 
-	async accessWithX() {
-		return await signInWithPopup(this.auth, this.xProvider);
+	public accessWithX() {
+		return signInWithPopup(this.auth, this.xProvider);
 	}
 
 	public async existInfoOf(uid: string) {
@@ -129,18 +130,15 @@ export class FirebaseService {
 	}
 
 	public async loginEmailPsw(email: string, password: string) {
-		try {
-			let userCredential = await signInWithEmailAndPassword(
-				this.auth,
-				email,
-				password
-			);
-			if (!this.auth.currentUser.emailVerified) return null;
-			return userCredential;
-		} catch (e) {
-			console.log(e);
-			return null;
-		}
+		let userCredential: UserCredential = await signInWithEmailAndPassword(
+			this.auth,
+			email,
+			password
+		);
+
+		if (!this.auth.currentUser.emailVerified) return null;
+
+		return userCredential;
 	}
 
 	public signout() {
