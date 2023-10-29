@@ -1,7 +1,7 @@
-import { Component, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { MatDialog, _MatDialogBase } from "@angular/material/dialog";
 import { FirebaseService } from "./firebase.service";
-import { MatDialog, MatDialogContainer, _MatDialogBase } from "@angular/material/dialog";
 import { ErrorLoginDialogComponent } from "../components/error-login-dialog/error-login-dialog.component";
 import { ErrorRegisterDialogComponent } from "../components/error-register-dialog/error-register-dialog.component";
 import { ErrorProviderDialogComponent } from "../components/error-provider-dialog/error-provider-dialog.component";
@@ -27,11 +27,9 @@ export class AuthService {
 	) {}
 
 	private async access(
-		callbackFunc: (email?: string, psw?: string) => Promise<UserCredential>,
-		args?: string[]
+		credential: UserCredential,
+		username?: string
 	) {
-		const credential: UserCredential = await callbackFunc(...args);
-
 		this.loginUser({
 			uid: credential.user.uid,
 			email: credential.user.email,
@@ -40,13 +38,13 @@ export class AuthService {
 		});
 
 		if (!(await this.firebase.existInfoOf(credential.user.uid))) {
-			this.createNewUserInfo();
+			this.createNewUserInfo(username);
 		}
 	}
 
 	public async signup(email: string, password: string, username: string) {
 		try {
-			await this.access(this.firebase.registerNewUser, [email, password, username]);
+			await this.access(await this.firebase.registerNewUser(email, password), username);
 		} catch (error) {
 			this.dialog.open(ErrorRegisterDialogComponent, {
 				disableClose: false,
@@ -56,7 +54,7 @@ export class AuthService {
 
 	public async signin(email: string, password: string) {
 		try {
-			await this.access(this.firebase.loginEmailPsw, [email, password]);
+			await this.access(await this.firebase.loginEmailPsw(email, password));
 		} catch (error) {
 			console.log(error);
 			this.dialog.open(ErrorLoginDialogComponent, {
@@ -67,8 +65,9 @@ export class AuthService {
 
 	public async accessWithGoogle() {
 		try {
-			await this.access(this.firebase.accessWithGoogle);
+			await this.access(await this.firebase.accessWithGoogle());
 		} catch (error) {
+			console.log(error);
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
 			})
@@ -77,7 +76,7 @@ export class AuthService {
 
 	public async accessWithMeta() {
 		try {
-			await this.access(this.firebase.accessWithMeta);
+			await this.access(await this.firebase.accessWithMeta());
 		} catch (error) {
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
@@ -87,7 +86,7 @@ export class AuthService {
 
 	public async accessWithX() {
 		try {
-			await this.access(this.firebase.accessWithX);
+			await this.access(await this.firebase.accessWithX());
 		} catch (error) {
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,

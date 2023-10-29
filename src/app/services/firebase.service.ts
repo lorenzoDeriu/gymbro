@@ -34,7 +34,6 @@ import {
 	Auth,
 	signInWithPopup,
 	FacebookAuthProvider,
-	signInWithRedirect,
 	TwitterAuthProvider,
 	UserCredential,
 } from "firebase/auth";
@@ -42,8 +41,8 @@ import { Router } from "@angular/router";
 
 export interface user {
 	uid: string;
-	workout: any;
-	trainingPrograms: any;
+	workout: any[];
+	trainingPrograms: any[];
 }
 
 @Injectable({
@@ -56,6 +55,7 @@ export class FirebaseService {
 	});
 
 	private auth: Auth = getAuth();
+
 	private googleProvider = new GoogleAuthProvider();
 	private metaProvider = new FacebookAuthProvider();
 	private xProvider = new TwitterAuthProvider();
@@ -95,16 +95,17 @@ export class FirebaseService {
 		}
 	}
 
-	public accessWithGoogle() {
-		return signInWithPopup(this.auth, this.googleProvider);
+	public async accessWithGoogle() {
+		console.log(this.auth);
+		return await signInWithPopup(this.auth, this.googleProvider);
 	}
 
-	public accessWithMeta() {
-		return signInWithPopup(this.auth, this.metaProvider);
+	public async accessWithMeta() {
+		return await signInWithPopup(this.auth, this.metaProvider);
 	}
 
-	public accessWithX() {
-		return signInWithPopup(this.auth, this.xProvider);
+	public async accessWithX() {
+		return await signInWithPopup(this.auth, this.xProvider);
 	}
 
 	public async existInfoOf(uid: string) {
