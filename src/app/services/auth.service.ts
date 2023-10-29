@@ -58,9 +58,7 @@ export class AuthService {
 			if (!(await this.firebase.existInfoOf(credential.user.uid))) {
 				this.createNewUserInfo();
 			}
-		}
-
-		else {
+		} else {
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
 			});
@@ -84,9 +82,7 @@ export class AuthService {
 			if (!(await this.firebase.existInfoOf(credential.user.uid))) {
 				this.createNewUserInfo();
 			}
-		}
-
-		else {
+		} else {
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
 			});
@@ -110,9 +106,7 @@ export class AuthService {
 			if (!(await this.firebase.existInfoOf(credential.user.uid))) {
 				this.createNewUserInfo();
 			}
-		}
-
-		else {
+		} else {
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
 			});
@@ -126,15 +120,12 @@ export class AuthService {
 
 		let userObj: any = {
 			trainingPrograms: [],
-			workouts: []
+			workouts: [],
 		};
 
-		if (username) userObj = {...userObj, username: username};
+		if (username) userObj = { ...userObj, username: username };
 
-		this.firebase.addUser(
-			userObj,
-			user.uid
-		);
+		this.firebase.addUser(userObj, user.uid);
 	}
 
 	public async signin(email: string, password: string) {
