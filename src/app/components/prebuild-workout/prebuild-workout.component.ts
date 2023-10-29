@@ -5,7 +5,7 @@ import { UserService } from "src/app/services/user.service";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ExerciseStatsDialogComponent } from "../exercise-stats-dialog/exercise-stats-dialog.component";
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
-import { SafetyActionConfirmDialogComponent } from "src/app/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 
 @Component({
 	selector: "app-prebuild-workout",
