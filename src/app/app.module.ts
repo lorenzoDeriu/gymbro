@@ -107,9 +107,9 @@ import { ErrorProviderDialogComponent } from './components/error-provider-dialog
 		ExerciseStatsDialogComponent,
 		WelcomePageComponent,
 		SafetyActionConfirmDialogComponent,
-  ErrorLoginDialogComponent,
-  ErrorRegisterDialogComponent,
-  ErrorProviderDialogComponent,
+		ErrorLoginDialogComponent,
+		ErrorRegisterDialogComponent,
+		ErrorProviderDialogComponent,
 	],
 	imports: [
 		BrowserModule,
