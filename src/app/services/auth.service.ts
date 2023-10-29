@@ -77,6 +77,7 @@ export class AuthService {
 
 	public async accessWithX() {
 		let credential: any = await this.firebase.accessWithX();
+		console.log("X credential: ", credential);
 		if (credential != null) {
 			this.loginUser({
 				uid: credential.user.uid,
@@ -95,8 +96,15 @@ export class AuthService {
 	public createNewUserInfo(username?: string) {
 		let user = JSON.parse(localStorage.getItem("user"));
 
+		let userObj: any = {
+			trainingPrograms: [],
+			workouts: []
+		};
+
+		if (username) userObj = {...userObj, username: username};
+
 		this.firebase.addUser(
-			{ username: username, workouts: [], trainingPrograms: [] },
+			userObj,
 			user.uid
 		);
 	}

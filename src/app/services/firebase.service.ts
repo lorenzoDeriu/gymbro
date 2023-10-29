@@ -103,7 +103,7 @@ export class FirebaseService {
 	}
 
 	async accessWithX() {
-		return await signInWithRedirect(this.auth, this.xProvider);
+		return await signInWithPopup(this.auth, this.xProvider);
 	}
 
 	public async existInfoOf(uid: string) {
