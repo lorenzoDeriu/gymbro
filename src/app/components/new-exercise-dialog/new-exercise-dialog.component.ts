@@ -1,5 +1,4 @@
 import { UserService } from "../../services/user.service";
-import { Exercise } from "../../Models/Exercise.model";
 import { FirebaseService } from "../../services/firebase.service";
 import { Component, Inject } from "@angular/core";
 import {

@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
 import { MatDialog } from "@angular/material/dialog";
 import { FeedbackDialogComponent } from "../feedback-dialog/feedback-dialog.component";
+import { FirebaseService } from "src/app/services/firebase.service";
 
 @Component({
 	selector: "app-home",
@@ -15,13 +16,18 @@ export class HomeComponent implements OnInit {
 	constructor(
 		private authservice: AuthService,
 		private router: Router,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private firebase: FirebaseService,
 	) {}
 
 	ngOnInit(): void {
 		setInterval(() => {
 			this.trainingTime = new Date();
 		}, 1000);
+	}
+
+	fixDB() {
+		this.firebase.fixDB();
 	}
 
 	onLogout() {

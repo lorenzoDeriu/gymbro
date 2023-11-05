@@ -1,4 +1,39 @@
-export class Exercise {
+export interface Exercise {
+	name: string;
+	intensity: IntensityType;
+	rest: RestTime;
+	note: string;
+};
+
+export type IntensityType = "failure" | "hard" | "light"
+
+export interface TrainingProgramExercises extends Exercise {
+	set: Set[];
+}
+
+export interface EffectiveExercise extends Exercise {
+	set: EffectiveSet[];
+}
+
+export type RestTime = {
+	minutes: number;
+	seconds: number;
+}
+
+export type Set = {
+	minimumReps: number;
+	maximumReps: number;
+}
+
+export type EffectiveSet = {
+	reps: number;
+	load: number;
+}
+
+// ---- old class ---- //
+// todo: remove //
+
+export class ExerciseClass {
 	public exerciseName: string;
 	public series: number;
 	public reps: number;
@@ -7,16 +42,6 @@ export class Exercise {
 	public RPE: number;
 	public note?: string;
 	public range?: [number, number];
-
-	// constructor (exerciseName: string, series: number, reps: number, load: number, rpe: number, restTime: string, note: string, range?: [number, number]) {
-	// 	this.exerciseName = exerciseName;
-	// 	this.series = series;
-	// 	this.reps = reps;
-	// 	this.load = load;
-	// 	this.RPE = rpe;
-	// 	this.restTime = restTime;
-	// 	this.note = note;
-	// }
 
 	constructor() {
 		this.exerciseName = "";
