@@ -101,12 +101,10 @@ export class UserService {
 	}
 
 	public async removeTrainingProgram(index: number) {
-		let user: any = JSON.parse(localStorage.getItem("user"));
-
 		let trainingPrograms = await this.firebase.getTrainingPrograms();
 		trainingPrograms.splice(index, 1);
 
-		await this.firebase.updateTrainingPrograms(trainingPrograms, user.uid);
+		await this.firebase.updateTrainingPrograms(trainingPrograms);
 	}
 
 	public setWorkoutSelected(workout: any) {
