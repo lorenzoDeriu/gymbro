@@ -1,47 +1,14 @@
-#new-workout-form {
-	padding-top: 5%;
-	padding-left: 5%;
-	padding-right: 5%;
-	display: flex;
-	flex-direction: column;
+select:focus {
+  outline: none;
+  box-shadow: none;
 }
 
-#button-container {
-	display: flex;
-	justify-content: space-around;
+.add-btn:hover {
+	background-color: #785ebe !important;
 }
 
-#exercise-name-container {
-	display: flex;
-	flex-direction: row;
-	/* align-items: center; */
-}
-
-#add-custom-exercise {
-	margin-top: 15px;
-}
-
-.custom-span {
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-	width: 100px;
-	display: flex;
-	justify-content: center;
-	font-size: 0.9em;
-}
-
-.custom-button {
-	color: rgb(69, 69, 188) !important;
-	background-color: #fff !important;
-	border-color: rgb(69, 69, 188) !important;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-}
-
-.custom-button:hover {
-	color: #fff !important;
-	background-color: rgb(69, 69, 188) !important;
-	border-color: rgb(69, 69, 188) !important;
-	text-decoration: none;
+.add-btn:active {
+	background-color: #957dd6 !important;
+	border: #957dd6 !important;
+	outline: #957dd6 !important;
 }

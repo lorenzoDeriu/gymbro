@@ -1,94 +1,75 @@
-#training-programs-container {
-	width: 50%;
-	margin: auto;
-	margin-bottom: 10vh;
+#wrapper {
+	width: 100vw;
+	height: calc(100svh - 70px);
+	transform: translateY(70px);
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
+}
+
+#main-container {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	overflow: auto;
 }
 
-#title-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	color: rgb(69, 69, 188);
-	margin-top: 20px;
+.back-btn:hover {
+	background-color: #785ebe !important;
 }
 
-mat-accordion {
-	width: 100%;
+.back-btn:active {
+	background-color: #957dd6 !important;
+	border: #957dd6 !important;
+	outline: #957dd6 !important;
 }
 
-mat-accordion table {
-	margin-bottom: 10px;
+.edit-btn:hover {
+	background-color: #659fd2 !important;
 }
 
-.title {
-	color: rgb(69, 69, 188);
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	/* font-size: 180%; */
+.edit-btn:active {
+	background-color: #7eafda !important;
+	border: #7eafda !important;
+	outline: #7eafda !important;
 }
 
-#secondary-title {
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	margin-top: 10px;
-	font-size: 120%;
+.program-collapse-focus {
+	background-color: #d3d4d5 !important;
 }
 
-button {
-	margin-top: 10px;
+.session-collapse-focus {
+	background-color: #e4e4e4 !important;
 }
 
-#divider {
-	margin-top: 15px;
-}
-
-#exercise-name-cell {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-#exercise-name-cell img {
-	width: 20px;
-	height: 20px;
-}
-
-#exercise-name-cell button {
-	margin-bottom: 10px;
-}
-
-.custom-button {
-	color: rgb(69, 69, 188) !important;
-	background-color: #fff !important;
-	border-color: rgb(69, 69, 188) !important;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-}
-
-.custom-button:hover {
-	color: #fff !important;
-	background-color: rgb(69, 69, 188) !important;
-	border-color: rgb(69, 69, 188) !important;
-	text-decoration: none;
+@media (min-width: 900px) {
+	#main-container {
+		width: 75%;
+	}
 }
 
 @media (max-width: 900px) {
-	#training-programs-container {
-		width: 95%;
+	#main-container {
+		width: 100%;
 	}
 
-	.table-header {
-		font-size: 0.8em;
+	.table {
+		font-size: 10px;
+		white-space: nowrap;
 	}
 
-	.mdc-data-table__header-cell::ng-deep {
-		padding: 5px;
+	.mobile-btn {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 300px) {
+	.table {
+		font-size: 8px;
 	}
 
-	td {
-		font-size: smaller;
+	.mobile-btn {
+		font-size: 10px;
 	}
 }

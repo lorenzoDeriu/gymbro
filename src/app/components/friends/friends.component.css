@@ -1,71 +1,30 @@
-#friends-page-container {
-	width: 60%;
-	margin: auto;
-}
-
-#title-container {
+#wrapper {
+	width: 100vw;
+	height: calc(100svh - 70px);
+	transform: translateY(70px);
 	display: flex;
 	justify-content: center;
+	overflow: hidden;
 }
 
-.text {
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-}
-
-.form {
+#main-container {
+	height: 100%;
 	display: flex;
-	justify-content: center;
-}
-
-.form button {
-	margin-top: 10px;
-}
-
-mat-form-field {
-	margin-right: 10px;
-}
-
-.info-text-container {
-	display: flex;
-	justify-content: center;
-}
-
-mat-card {
-	margin-top: 10px;
-	display: flex;
-	justify-content: space-between;
-	flex-direction: row;
+	flex-direction: column;
 	align-items: center;
+	overflow: auto;
 }
 
-#card-title {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+input:focus {
+	outline: none;
 }
 
-#card-button-container {
-	display: flex;
-	flex-direction: row;
-	align-content: center;
-	justify-content: space-around;
+.search-btn:hover {
+	background-color: #785ebe !important;
 }
 
-#card-title img {
-	width: 30px;
-	height: 30px;
-}
-
-#back-to-home-button-container {
-	display: flex;
-	justify-content: center;
-	padding-top: 20px;
-}
-
-@media (max-width: 600px) {
-	#friends-page-container {
-		width: 95%;
-	}
+.search-btn:active {
+	background-color: #957dd6 !important;
+	border: #957dd6 !important;
+	outline: #957dd6 !important;
 }

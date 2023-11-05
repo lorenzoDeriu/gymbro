@@ -1,206 +1,194 @@
-<mat-progress-bar
-	mode="indeterminate"
-	*ngIf="this.loading"
-	color="primary"
-></mat-progress-bar>
-<div id="training-programs-container">
-	<div id="title-container">
-		<h1>
-			<span class="title">Le tue schede di allenamento</span>
-		</h1>
-		<span
-			id="secondary-title"
-			*ngIf="this.trainingPrograms.length == 0 && !this.loading"
-		>
-			Non ci sono schede, creane una nuova!
-		</span>
-	</div>
+<div id="wrapper" *ngIf="!loading">
+	<div id="main-container" class="p-3">
+		<h1 *ngIf="trainingPrograms.length !== 0" class="mt-3 mb-4 text-center w-100">Le tue schede di allenamento</h1>
+		<h1 *ngIf="trainingPrograms.length === 0" class="mt-3 mb-4 text-center w-100">Non ci sono schede, creane una nuova!</h1>
 
-	<div style="display: flex; flex-direction: row; margin-bottom: 30px">
-		<button
-			class="btn btn-primary custom-button"
-			style="margin-right: 10px"
-			color="primary"
-			(click)="buildTrainingProgramButton()"
-		>
-			<i class="bi bi-plus-circle-fill"></i>
-			Nuova Scheda
-		</button>
-		<button
-			class="btn btn-outline-dark custom-button"
-			(click)="backToHomeButton()"
-		>
-			<i class="bi bi-house-fill"></i>
-			Home
-		</button>
-	</div>
-
-	<mat-accordion>
-		<mat-expansion-panel
-			hideToggle
-			*ngFor="
-				let trainingProgram of this.trainingPrograms;
-				index as trainingProgramIndex
-			"
-		>
-			<mat-expansion-panel-header>
-				<mat-panel-title>
-					<span id="training-program-name">
-						{{ trainingProgram.name }}
-					</span>
-				</mat-panel-title>
-				<mat-panel-description>
-					Numero di sessioni: {{ trainingProgram.session.length }}
-				</mat-panel-description>
-			</mat-expansion-panel-header>
-
-			<section
-				*ngFor="
-					let session of trainingProgram.session;
-					index as sessionIndex
-				"
+		<div class="d-none d-lg-flex justify-content-center mb-4">
+			<button
+				class="btn back-btn text-light me-2"
+				style="border: none; background-color: #6b44d4;"
+				(click)="buildTrainingProgramButton()"
 			>
-				<h2>
-					<span class="title">{{ session.name }}</span>
-				</h2>
+				Nuova scheda
+				<i class="ms-1 bi bi-plus"></i>
+			</button>
+			<button
+				class="btn btn-dark ms-2"
+				(click)="backToHomeButton()"
+			>
+				Torna alla home
+				<i class="ms-1 bi bi-house-fill"></i>
+			</button>
+		</div>
 
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">
-								<span class="table-header">Esercizio</span>
-							</th>
-							<th scope="col">
-								<span class="table-header">
-									Serie-Ripetizioni
-								</span>
-							</th>
-							<th scope="col">
-								<span class="table-header">RPE</span>
-							</th>
-							<th scope="col">
-								<span class="table-header">Riposo</span>
-							</th>
-							<th scope="col">
-								<span class="table-header">Note</span>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr
-							*ngFor="
-								let exercise of session.exercises;
-								index as exerciseIndex
-							"
+		<div class="d-flex justify-content-center d-lg-none mb-4">
+			<button
+				class="btn back-btn text-light me-2"
+				style="border: none; background-color: #6b44d4;"
+				(click)="buildTrainingProgramButton()"
+			>
+				Nuova
+				<i class="ms-1 bi bi-plus"></i>
+			</button>
+			<button
+				class="btn btn-dark ms-2"
+				(click)="backToHomeButton()"
+			>
+				Home
+				<i class="bi bi-house-fill"></i>
+			</button>
+		</div>
+
+		<div *ngFor="let program of trainingPrograms; index as programIndex" class="w-100 mb-2">
+			<a
+				[href]="'#program' + programIndex"
+				class="btn btn-light w-100 mb-1 border programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				data-bs-toggle="collapse"
+				role="button"
+				aria-expanded="false"
+				aria-controls="collapseExample"
+				(click)="focusCollapse($event, 'program')"
+			>
+				<p style="pointer-events: none;" class="text-center text-truncate me-2 mb-0">{{ program.name }}</p>
+				<p class="mb-0" style="white-space: nowrap; pointer-events: none;">{{ 'Sessioni: ' + program.session.length }}</p>
+			</a>
+
+
+			<div class="collapse w-100 programs-collapse-body collapse-body" [id]="'program' + programIndex">
+				<div class="card card-body p-1">
+					<h5 class="text-center">Sessioni</h5>
+					<div *ngFor="let session of program.session; index as sessionIndex" class="w-100 mb-2">
+						<a
+							[href]="'#session' + programIndex + sessionIndex"
+							class="btn btn-light w-100 mb-1 border sessions-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+							data-bs-toggle="collapse"
+							role="button"
+							aria-expanded="false"
+							aria-controls="collapseExample"
+							(click)="focusCollapse($event, 'session')"
 						>
-							<th scope="row">{{ exercise.name }}</th>
-							<td>
-								<ng-container
-									*ngIf="
-										exercise.configurationType ===
-										'advanced'
-									"
-								>
-									<ng-container
-										*ngFor="
-											let set of exercise.advanced.sets;
-											index as i
-										"
-									>
-										<b>{{ i + 1 + ":" }}</b>
-										{{
-											set.min != set.max
-												? set.min +
-												  " reps - " +
-												  set.max +
-												  " reps"
-												: set.min + " reps"
-										}}
-										<br />
-									</ng-container>
-								</ng-container>
+							<p style="pointer-events: none;" class="text-center text-truncate mb-0">{{ session.name }}</p>
+						</a>
 
-								<ng-container
-									*ngIf="
-										!exercise.configurationType ||
-										exercise.configurationType === 'basic'
-									"
-								>
-									{{
-										exercise.series > 0
-											? exercise.series +
-											  "x" +
-											  (exercise.range &&
-											  exercise.range[0] !=
-													exercise.range[1]
-													? exercise.range[0] +
-													  "-" +
-													  exercise.range[1]
-													: exercise.reps
-													? exercise.reps
-													: exercise.range[0])
-											: "/"
-									}}
-								</ng-container>
-							</td>
-							<td>{{ exercise.RPE }}</td>
-							<td>
-								{{
-									exercise.rest
-										? exercise.rest.minutes +
-										  ":" +
-										  exercise.rest.seconds
-										: exercise.restTime
-										? exercise.restTime
-										: "/"
-								}}
-							</td>
-							<td>
-								<i
-									*ngIf="exercise.note && exercise.note != ''"
-									class="bi bi-question-circle-fill"
-									style="cursor: pointer"
-									(click)="
-										showNotes(
-											trainingProgramIndex,
-											sessionIndex,
-											exerciseIndex
-										)
-									"
-								></i>
-							</td>
-						</tr>
-					</tbody>
-				</table>
 
-				<mat-divider id="divider"></mat-divider>
-			</section>
+						<div class="collapse w-100 sessions-collapse-body collapse-body" [id]="'session' + programIndex + sessionIndex">
+							<div class="card card-body p-1">
+								<table class="table table-sm table-striped table-hover">
+									<thead>
+										<tr>
+											<th scope="col">Esercizio</th>
+											<th scope="col">Serie x Reps</th>
+											<th scope="col">RPE</th>
+											<th scope="col">Riposo</th>
+										</tr>
+									</thead>
+									<tbody class="table-group-divider">
+										<tr
+											*ngFor="
+												let exercise of session.exercises;
+												index as exerciseIndex
+											"
+										>
+											<th>
+												<i
+													*ngIf="
+														exercise.note && exercise.note != ''
+													"
+													(click)="
+														showNotes(
+															programIndex,
+															sessionIndex,
+															exerciseIndex
+														)
+													"
+													style="cursor: pointer"
+													class="me-1 bi bi-info-circle-fill"
+												></i>
+												{{ exercise.name }}
+											</th>
 
-			<div
-				style="
-					display: flex;
-					flex-direction: row;
-					justify-content: flex-end;
-				"
-			>
-				<button
-					class="btn btn-outline-dark custom-button"
-					style="margin-right: 10px"
-					(click)="editTrainingProgram(trainingProgramIndex)"
-				>
-					<i class="bi bi-pencil-fill"></i>
-					Modifica
-				</button>
-				<button
-					class="btn btn-outline-danger"
-					color="warn"
-					style="font-family: 'Josefin Sans', sans-serif"
-					(click)="removeTrainingProgram(trainingProgramIndex)"
-				>
-					<i class="bi bi-trash-fill"></i>
-					Elimina
-				</button>
+											<td>
+												<div
+													*ngIf="
+														exercise.configurationType ===
+														'advanced'
+													"
+												>
+													<div
+														*ngFor="
+															let set of exercise.advanced.sets;
+															index as i
+														"
+													>
+														{{
+															exercise.series > 0
+															? exercise.series +
+																" x " +
+																(set.min != set.max
+																	? set.min +
+																	"-" +
+																	set.max
+																	: set.min)
+															: "/"
+														}}
+														<br />
+													</div>
+												</div>
+
+												<div
+													*ngIf="
+														!exercise.configurationType ||
+														exercise.configurationType === 'basic'
+													"
+												>
+													{{
+														exercise.series > 0
+															? exercise.series +
+															  " x " +
+															  (exercise.range[0] !=
+															  exercise.range[1]
+																	? exercise.range[0] +
+																	  "-" +
+																	  exercise.range[1]
+																	: exercise.range[0])
+															: "/"
+													}}
+												</div>
+											</td>
+
+											<td>
+												{{ exercise.RPE > 0 ? exercise.RPE : "" }}
+											</td>
+											<td>
+												{{
+													exercise.rest
+													? exercise.rest.minutes +
+														":" +
+														exercise.rest.seconds
+													: exercise.restTime
+														? exercise.restTime
+														: "/"
+												}}
+											</td>
+											<td>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="w-100 d-none d-lg-flex">
+						<button class="btn me-2 w-100 text-light edit-btn" style="background-color: #4089c9;" (click)="editTrainingProgram(programIndex)">Modifica <i class="ms-1 bi bi-pencil-square"></i></button>
+						<button class="btn btn-danger ms-2 w-100" (click)="removeTrainingProgram(programIndex)">Elimina <i class="ms-1 bi bi-trash3"></i></button>
+					</div>
+					<div class="w-100 d-flex d-lg-none">
+						<button class="btn btn-sm me-1 w-100 text-light edit-btn" style="background-color: #4089c9;" (click)="editTrainingProgram(programIndex)"><i class="bi bi-pencil-square"></i></button>
+						<button class="btn btn-sm btn-danger ms-1 w-100" (click)="removeTrainingProgram(programIndex)"><i class="bi bi-trash3"></i></button>
+					</div>
+				</div>
 			</div>
-		</mat-expansion-panel>
-	</mat-accordion>
+		</div>
+	</div>
 </div>

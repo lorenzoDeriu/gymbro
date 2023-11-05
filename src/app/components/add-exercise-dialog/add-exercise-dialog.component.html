@@ -1,26 +1,24 @@
-<div id="add-exercise-container">
-	<form #addExerciseForm="ngForm" (ngSubmit)="addExercise(addExerciseForm)">
-		<mat-form-field appearance="outline">
-			<mat-label>Nome Esercizio</mat-label>
-			<input matInput type="text" name="exercise" required ngModel />
-		</mat-form-field>
+<div
+	class="d-flex flex-column justify-content-center align-items-center p-3 overflow-hidden"
+	style="max-height: 60svh; max-width: 350px;"
+>
+	<h1>Crea esercizio</h1>
 
-		<button
-			mat-raised-button
-			color="primary"
-			type="submit"
-			[disabled]="!addExerciseForm.valid"
-		>
-			Aggiungi
-		</button>
+	<form class="w-100 d-flex flex-column justify-content-center align-items-center" #addExerciseForm="ngForm" (ngSubmit)="addExercise(addExerciseForm)">
+		<div class="d-flex flex-column w-100 mx-2 mb-3 mt-2 input-container">
+			<input
+				required
+				ngModel
+				name="exercise"
+				type="text"
+				class="border-0 border-bottom py-1"
+				style="background-color: transparent"
+			/>
+		</div>
+
+		<div class="w-100 d-flex align-items-center">
+			<button type="submit" class="btn me-2 create-btn me-2 text-light w-100" style="border: none; background-color: #6b44d4;" [disabled]="!addExerciseForm.valid">Crea</button>
+			<button type="button" class="btn btn-dark ms-2 w-100" (click)="closeDialog()">Annulla</button>
+		</div>
 	</form>
-
-	<button
-		mat-raised-button
-		color="warn"
-		id="cancel-button"
-		(click)="closeDialog()"
-	>
-		Annulla
-	</button>
 </div>

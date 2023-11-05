@@ -28,11 +28,35 @@ export class FriendsComponent implements OnInit {
 
 		this.username = this.userData["username"];
 
-		this._hasFollow =
+/* 		this._hasFollow =
 			this.userData["follow"] != undefined
 				? this.userData.follow.length > 0
 				: false;
-		this.followed = await this.firebase.getFollowed(this.uid);
+		this.followed = await this.firebase.getFollowed(this.uid); */
+
+		this._hasFollow = true;
+		this.followed = [
+			{
+				username: 'Lorenzo',
+				visibilityPermission: true
+			},
+			{
+				username: 'Mario',
+				visibilityPermission: true
+			},
+			{
+				username: 'Marco',
+				visibilityPermission: true
+			},
+			{
+				username: 'Lorenzo',
+				visibilityPermission: true
+			},
+			{
+				username: 'Mario',
+				visibilityPermission: true
+			}
+		]
 
 		this.loading = false;
 	}
@@ -58,6 +82,7 @@ export class FriendsComponent implements OnInit {
 		let matchingUsername = await this.firebase.getMatchingUsername(
 			username
 		);
+
 		localStorage.setItem("search-result", JSON.stringify(matchingUsername));
 
 		this.router.navigate(["/home/search-result"]);

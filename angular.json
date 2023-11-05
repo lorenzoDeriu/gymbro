@@ -27,12 +27,10 @@
 							"src/manifest.webmanifest"
 						],
 						"styles": [
-							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"@angular/material/prebuilt-themes/indigo-pink.css",
 							"src/styles.css"
 						],
 						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
 						],
 						"serviceWorker": true,
 						"ngswConfigPath": "ngsw-config.json"

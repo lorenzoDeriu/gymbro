@@ -1,40 +1,17 @@
-<div id="feedback-container">
-	<h1><span id="title">Feedback</span></h1>
+<div class="d-flex flex-column justify-content-center align-items-center p-3" style="max-width: 500px;">
+	<h1 class="text-center w-100">Feedback</h1>
 
-	<p>
-		Ciao! Spero che tu stia apprezzando l'utilizzo di GymBro. Qui puoi
-		condividere con noi un tuo feedback sull'app: ci piacerebbe sapere cosa
-		ti piace e cosa pensi possiamo migliorare per rendere l'esperienza
-		ancora migliore. Grazie in anticipo per il tuo tempo e la tua opinione!
+	<p class="text-center w-100">
+		Ciao! Stai apprezzando GymBro? Condividi il tuo feedback. Ci aiuta a migliorare. Grazie!
 	</p>
 
-	<form #feedbackForm="ngForm" (ngSubmit)="sendFeedback(feedbackForm)">
-		<mat-form-field appearance="outline" class="full-width">
-			<mat-label>Feedback</mat-label>
-			<textarea
-				matInput
-				name="feedback"
-				cdkTextareaAutosize
-				cdkAutosizeMinRows="5"
-				cdkAutosizeMaxRows="5"
-				ngModel
-				required
-			></textarea>
-		</mat-form-field>
-		<div class="button-container">
-			<button
-				mat-raised-button
-				type="submit"
-				color="primary"
-				[mat-dialog-close]=""
-				[disabled]="!feedbackForm.valid"
-			>
-				Invia
-			</button>
-		</div>
-	</form>
 
-	<div class="button-container">
-		<button mat-button [mat-dialog-close] color="warn">Annulla</button>
+	<div class="form-floating mb-3 w-100" style="height: 50%;">
+		<textarea class="form-control" placeholder="Leave a comment here" id="feedback" style="height: 100%; resize: none;"></textarea>
+	</div>
+
+	<div class="d-flex justify-content-center align-items-center w-100">
+		<button [disabled]="!allowSendFeedback()" (click)="sendFeedback()" class="text-light send-btn btn me-3" style="background-color: #6b44d4; border: none;">Invia <i class="ms-1 bi bi-send"></i></button>
+		<button (click)="closeDialog()" class="btn btn-dark">Annulla</button>
 	</div>
 </div>

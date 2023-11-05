@@ -35,6 +35,13 @@ export class TrainingProgramsComponent implements OnInit {
 		this.loading = false;
 	}
 
+	focusCollapse(e: Event, type: 'program' | 'session') {
+		if (type === 'program')
+			(e.target as HTMLAnchorElement).classList.toggle("program-collapse-focus")
+		else
+			(e.target as HTMLAnchorElement).classList.toggle("session-collapse-focus")
+	}
+
 	backToHomeButton() {
 		this.router.navigate(["/home/dashboard"]);
 	}
@@ -55,7 +62,7 @@ export class TrainingProgramsComponent implements OnInit {
 	async removeTrainingProgram(index: number) {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
-				title: "Elimina programma di allenamento",
+				title: "Elimina scheda",
 				message:
 					"Sei sicuro di voler eliminare questo programma di allenamento?",
 				args: [index, this.trainingPrograms, this.userService],

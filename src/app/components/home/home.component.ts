@@ -10,13 +10,19 @@ import { FeedbackDialogComponent } from "../feedback-dialog/feedback-dialog.comp
 	styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
+	trainingTime: Date = new Date();
+
 	constructor(
 		private authservice: AuthService,
 		private router: Router,
 		private dialog: MatDialog
 	) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		setInterval(() => {
+			this.trainingTime = new Date();
+		}, 1000);
+	}
 
 	onLogout() {
 		this.authservice.logout();
@@ -28,8 +34,7 @@ export class HomeComponent implements OnInit {
 
 	onFeedback() {
 		this.dialog.open(FeedbackDialogComponent, {
-			width: "600px",
-			height: "370px",
+			disableClose: false,
 		});
 	}
 

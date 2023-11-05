@@ -1,52 +1,30 @@
-#search-result-container {
-	width: 50%;
-	margin: auto;
-}
-
-mat-card {
-	margin-top: 10px;
-	display: flex;
-	justify-content: space-between;
-	flex-direction: row;
-	align-items: center;
-}
-
-#card-title {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-#username {
-	margin-left: 20px;
-}
-
-#cancel-button-container {
+#wrapper {
+	width: 100vw;
+	height: calc(100svh - 70px);
+	transform: translateY(70px);
 	display: flex;
 	justify-content: center;
+	overflow: hidden;
 }
 
-#cancel-button {
-	margin-top: 20px;
-}
-
-img {
-	width: 30px;
-	height: 30px;
-}
-
-#info {
-	margin-top: 10px;
+#main-container {
+	height: 100%;
 	display: flex;
-	justify-content: center;
-	color: rgb(69, 69, 188);
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	font-size: 120%;
+	flex-direction: column;
+	align-items: center;
+	overflow: auto;
 }
 
-@media (max-width: 768px) {
-	#search-result-container {
-		width: 90%;
-	}
+input:focus {
+	outline: none;
+}
+
+.back-btn:hover {
+	background-color: #785ebe !important;
+}
+
+.back-btn:active {
+	background-color: #957dd6 !important;
+	border: #957dd6 !important;
+	outline: #957dd6 !important;
 }

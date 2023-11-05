@@ -19,6 +19,7 @@
 			<div class="d-flex flex-column w-100 mb-3">
 				<p class="mb-0">E-mail</p>
 				<input
+					name="email"
 					[(ngModel)]="email"
 					type="email"
 					class="border-0 border-bottom py-1"
@@ -38,6 +39,7 @@
 					</button>
 				</p>
 				<input
+					name="password"
 					[(ngModel)]="password"
 					[type]="hidePwd ? 'password' : 'text'"
 					class="border-0 border-bottom py-1 w-100"
@@ -149,6 +151,7 @@
 			<div class="d-flex flex-column w-100 mb-3">
 				<p class="mb-0">Username</p>
 				<input
+					name="username"
 					[(ngModel)]="username"
 					type="text"
 					class="border-0 border-bottom py-1"
@@ -158,6 +161,7 @@
 			<div class="d-flex flex-column w-100 mb-3">
 				<p class="mb-0">E-mail</p>
 				<input
+					name="emailRegister"
 					[(ngModel)]="emailRegister"
 					type="email"
 					class="border-0 border-bottom py-1"
@@ -177,6 +181,7 @@
 					</button>
 				</p>
 				<input
+					name="passwordRegister"
 					[(ngModel)]="passwordRegister"
 					[type]="hidePwd ? 'password' : 'text'"
 					class="border-0 border-bottom py-1 w-100"
@@ -196,6 +201,7 @@
 					</button>
 				</p>
 				<input
+					name="confirmPassword"
 					[(ngModel)]="confirmPassword"
 					[type]="hidePwdConfirm ? 'password' : 'text'"
 					class="border-0 border-bottom py-1 w-100"

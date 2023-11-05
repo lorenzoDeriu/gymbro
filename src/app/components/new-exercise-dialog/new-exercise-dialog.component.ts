@@ -63,6 +63,10 @@ export class NewExerciseDialogComponent {
 		);
 	}
 
+	closeDialog() {
+		this.dialogRef.close();
+	}
+
 	addSet() {
 		this.exercise.advanced.sets.push({ min: 6, max: 8 });
 	}
@@ -88,10 +92,10 @@ export class NewExerciseDialogComponent {
 
 	savable() {
 		return (
-			this.exercise.name != "" &&
-			this.exercise.series != 0 &&
-			this.exercise.range[0] != 0 &&
-			this.exercise.range[1] != 0
+			this.exercise.name !== "" &&
+			this.exercise.series !== 0 &&
+			this.exercise.range[0] !== 0 &&
+			this.exercise.range[1] !== 0
 		);
 	}
 }

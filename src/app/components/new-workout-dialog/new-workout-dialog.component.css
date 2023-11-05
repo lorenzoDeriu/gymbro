@@ -1,12 +1,8 @@
-input:focus {
-	outline: none;
-}
-
-.create-btn:hover {
+.workout-btn:hover {
 	background-color: #785ebe !important;
 }
 
-.create-btn:active {
+.workout-btn:active {
 	background-color: #957dd6 !important;
 	border: #957dd6 !important;
 	outline: #957dd6 !important;

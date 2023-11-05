@@ -1,102 +1,74 @@
-<mat-progress-bar *ngIf="this.loading" mode="indeterminate" />
+<div id="wrapper" *ngIf="!loading">
+	<div id="main-container" class="p-3">
+		<div class="ms-2 h-100 p-3 d-flex flex-column align-items-center">
+			<h1 class="text-center">Impostazioni</h1>
 
-<div id="settings-container" *ngIf="!this.loading">
-	<div id="title" class="mb-1">
-		<h1><span>Impostazioni</span></h1>
-	</div>
+			<img class="mb-2 mt-4 d-none d-lg-block" src="assets/profile.png" width="200" alt="Profile pic">
+			<img class="mb-2 mt-4 d-block d-lg-none" src="assets/profile.png" width="150" alt="Profile pic">
 
-	<button class="btn btn-outline-secondary mb-4" (click)="backToHome()">
-		<i class="bi bi-house-fill" style="margin-right: 5px"></i>
-		Torna alla home
-	</button>
+			<p *ngIf="username">{{ username }}</p>
 
-	<div id="settings-sub-container">
-		<div class="mb-3 input-group">
-			<span class="input-group-text" id="basic-addon1">Username</span>
+			<div class="d-flex justify-content-center align-items-center mb-4">
+				<button (click)="shareUsername()" class="btn btn-light rounded-5 btn-sm me-2" style="border: none"><i class="bi bi-link-45deg"></i></button>
+				<button *ngIf="!onModify" (click)="onModify = true" class="btn btn-light rounded-5 btn-sm ms-2" style="border: none"><i class="bi bi-pencil-square"></i></button>
+			</div>
 
-			<input
-				type="text"
-				class="form-control"
-				placeholder="Username"
-				aria-label="Username"
-				aria-describedby="basic-addon1"
-				name="username"
-				[(ngModel)]="this.username"
-				style="box-shadow: none"
-			/>
-		</div>
-
-		<div class="form-check form-switch mb-3" style="box-shadow: none">
-			<input
-				class="form-check-input"
-				type="checkbox"
-				role="switch"
-				id="flexSwitchCheckDefault"
-				[(ngModel)]="this.visibility"
-				[checked]="this.visibility"
-			/>
-			<label
-				class="form-check-label"
-				for="flexSwitchCheckDefault"
-				style="font-family: Josefin Sans, sans-serif"
-			>
-				Rendi visibili le tue schede agli altri
-			</label>
-		</div>
-
-		<div
-			id="expansion-panel-container"
-			*ngIf="this.customExercises.length > 0"
-			class="mb-2"
-		>
-			<b>Visualizza gli esercizi che hai creato:</b>
-			<mat-accordion>
-				<mat-expansion-panel
-					style="box-shadow: none; border: 1px solid"
+			<div class="form-check mb-4 align-self-start">
+				<input
+					*ngIf="!onModify"
+					disabled
+					id="checkbox-profile"
+					class="form-check-input"
+					type="checkbox"
+					[checked]="visibility"
 				>
-					<mat-expansion-panel-header>
-						<mat-panel-title>Esercizi custom</mat-panel-title>
-					</mat-expansion-panel-header>
+				<input
+					*ngIf="onModify"
+					id="checkbox-profile"
+					class="form-check-input"
+					type="checkbox"
+					[(ngModel)]="visibility"
+					[checked]="visibility"
+				>
+				<label class="form-check-label d-none d-lg-block" for="flexCheckDefault">
+					Rendi visibili le tue schede agli altri
+				</label>
+				<label class="form-check-label d-block d-lg-none" for="flexCheckDefault" style="font-size: small;">
+					Rendi visibili le tue schede agli altri
+				</label>
+			</div>
 
-					<div
-						*ngFor="let item of customExercises; index as i"
-						id="exercise-setting-container"
-					>
-						<span id="custom-exercise-name">{{ item }}</span>
-						<button
-							class="btn btn-outline-secondary btn-sm"
-							(click)="deleteItem(i)"
-						>
-							Elimina
-						</button>
+			<div class="mb-3">
+				<button (click)="openExcerciseDialog()" class="btn btn-light w-100 mb-4">Esercizi custom <i class="ms-2 bi bi-arrows-angle-expand"></i></button>
+
+				<div *ngIf="onModify" class="d-flex align-items-center w-100 mb-2 input-container">
+					<div class="d-flex flex-column mb-4 me-3">
+						<p class="mb-0">Username</p>
+						<input
+							[(ngModel)]="username"
+							type="text"
+							class="border-0 border-bottom py-1"
+							style="background-color: transparent"
+						/>
 					</div>
-				</mat-expansion-panel>
-			</mat-accordion>
-		</div>
+					<div class="d-flex justify-content-center align-items-center w-100">
+						<button (click)="saveSettings()" class="me-1 btn btn-success w-100 d-none d-lg-block">Salva <i class="ms-1 bi bi-check"></i></button>
+						<button class="me-1 btn btn-success w-100 d-block d-lg-none"><i class="bi bi-check"></i></button>
+						<button (click)="onModify = false" class="ms-1 btn btn-dark"><i class="bi bi-x"></i></button>
+					</div>
+				</div>
 
-		<div id="button-container">
-			<button
-				class="btn custom-button"
-				color="primary"
-				type="button"
-				(click)="saveSettings()"
-			>
-				Salva
-			</button>
-		</div>
-	</div>
+				<button class="btn btn-secondary w-100 mb-4" (click)="changePassword()">Cambia password <i class="ms-1 bi bi-lock-fill"></i></button>
 
-	<br />
-	<div style="display: flex; flex-direction: row; align-items: center">
-		<button
-			class="btn btn-outline-secondary"
-			style="margin-right: 8px"
-			(click)="changePassword()"
-		>
-			Cambia password
-		</button>
-		<button class="btn btn-danger" (click)="deleteAccount()">
-			Elimina Account
-		</button>
+				<div class="d-flex justify-content-center align-items-center d-none d-lg-block mb-4">
+					<button (click)="backToHome()" class="btn btn-dark me-2">Torna alla home <i class="ms-1 bi bi-house-fill"></i></button>
+					<button (click)="deleteAccount()" class="btn btn-danger ms-2">Elimina Account <i class="ms-1 bi bi-trash3-fill"></i></button>
+				</div>
+				<div class="d-flex flex-column justify-content-center align-items-center d-block d-lg-none mb-4">
+					<button (click)="backToHome()" class="btn btn-dark mb-4 w-100">Torna alla home <i class="ms-1 bi bi-house-fill"></i></button>
+					<button (click)="deleteAccount()" class="btn btn-danger w-100">Elimina Account <i class="ms-1 bi bi-trash3-fill"></i></button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

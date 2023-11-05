@@ -1,29 +1,15 @@
-#feedback-container {
-	padding: 10px;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-	display: flex;
-	flex-direction: column;
+textarea:focus {
+	outline: none;
+	box-shadow: none;
+	border: 1px solid #cdcdcd;
 }
 
-#title {
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
+.send-btn:hover {
+	background-color: #785ebe !important;
 }
 
-form {
-	max-width: 100%;
-}
-
-.full-width {
-	width: 100%;
-}
-
-.button-container {
-	width: 100%;
-	display: flex;
-	justify-content: last baseline;
-	align-items: center;
-	margin-bottom: 10px;
+.send-btn:active {
+	background-color: #957dd6 !important;
+	border: #957dd6 !important;
+	outline: #957dd6 !important;
 }

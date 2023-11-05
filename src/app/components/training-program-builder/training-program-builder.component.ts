@@ -45,18 +45,18 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		trainingProgram.session = trainingProgram.session.map(
 			(session: any) => {
 				session.exercises = session.exercises.map((exercise: any) => {
-					if (!exercise.configurationType) {
+					if (!exercise?.configurationType) {
 						exercise.configurationType = "basic";
 					}
 
-					if (exercise.advanced == undefined) {
+					if (exercise?.advanced == undefined) {
 						exercise.advanced = {
 							sets: [],
 						};
 					}
 
-					if (exercise.configurationType === "advanced") {
-						exercise.advanced?.sets?.forEach((set: any) => {
+					if (exercise?.configurationType === "advanced") {
+						exercise?.advanced?.sets?.forEach((set: any) => {
 							if (set.load == undefined) {
 								set.load = 0;
 							}
@@ -67,22 +67,22 @@ export class TrainingProgramBuilderComponent implements OnInit {
 						});
 					}
 
-					if (exercise.reps) {
+					if (exercise?.reps) {
 						exercise.range = [exercise.reps, exercise.reps];
 						delete exercise.reps;
 					}
 
-					if (exercise.load != undefined) {
-						delete exercise.load;
+					if (exercise?.load != undefined) {
+						delete exercise?.load;
 					}
 
-					if (exercise.restTime) {
+					if (exercise?.restTime) {
 						exercise.rest = {
-							minutes: exercise.restTime.split(":")[0],
-							seconds: exercise.restTime.split(":")[1],
+							minutes: exercise?.restTime.split(":")[0],
+							seconds: exercise?.restTime.split(":")[1],
 						};
 
-						delete exercise.restTime;
+						delete exercise?.restTime;
 					}
 
 					return exercise;
@@ -112,12 +112,11 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	addExercise(session: any) {
 		this.dialog
 			.open(NewExerciseDialogComponent, {
-				width: "500px",
-				maxWidth: "95vw",
+				disableClose: false,
 			})
 			.afterClosed()
 			.subscribe(exercise => {
-				if (exercise.name != "") {
+				if (exercise && exercise.name !== "") {
 					session.exercises.push(exercise);
 				}
 			});
@@ -144,13 +143,11 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	editExercise(session: any, exerciseIndex: number) {
 		this.dialog
 			.open(NewExerciseDialogComponent, {
-				width: "500px",
-				maxWidth: "95vw",
 				data: session.exercises[exerciseIndex],
 			})
 			.afterClosed()
 			.subscribe(exercise => {
-				if (exercise.name != "") {
+				if (exercise && exercise.name !== "") {
 					session.exercises[exerciseIndex] = exercise;
 				}
 			});

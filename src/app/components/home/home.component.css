@@ -1,7 +1,9 @@
-.spacer {
-	flex: 1 1 auto;
+.timer-btn:hover {
+	background-color: #659fd2 !important;
 }
 
-p {
-	margin-bottom: 0;
+.timer-btn:active {
+	background-color: #7eafda !important;
+	border: #7eafda !important;
+	outline: #7eafda !important;
 }

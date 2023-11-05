@@ -6,6 +6,8 @@ import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { CustomExcerciseDialogComponent } from "../custom-excercise-dialog/custom-excercise-dialog.component";
+import { ShareDialogComponent } from "../share-dialog/share-dialog.component";
 
 @Component({
 	selector: "app-settings-page",
@@ -20,6 +22,7 @@ export class SettingsPageComponent implements OnInit {
 	public username: string;
 
 	public loading: boolean = false;
+	public onModify: boolean = false;
 
 	constructor(
 		private firebase: FirebaseService,
@@ -35,13 +38,31 @@ export class SettingsPageComponent implements OnInit {
 
 		let user: any = await this.firebase.getUserData(uid);
 
-		this.customExercises =
-			user.customExercises == undefined ? [] : user.customExercises;
+		//this.customExercises = user.customExercises == undefined ? [] : user.customExercises;
+		this.customExercises = ['Hyperextension', 'Panca piana', 'Curl DB', 'Hyperextension', 'Panca piana', 'Curl DB', 'Hyperextension', 'Panca piana', 'Curl DB', 'Hyperextension', 'Panca piana', 'Curl DB', 'Hyperextension', 'Panca piana', 'Curl DB', 'Hyperextension', 'Panca piana', 'Curl DB'];
 		this.visibility = user.visibility;
-		this.username = user.username;
+		this.username = user.username || 'Mxo';
 		this.originalUsername = user.username;
 
 		this.loading = false;
+	}
+
+	openExcerciseDialog() {
+		this.dialog.open(CustomExcerciseDialogComponent, {
+			data: {
+				excercises: this.customExercises,
+			},
+			disableClose: false,
+		});
+	}
+
+	shareUsername() {
+		this.dialog.open(ShareDialogComponent, {
+			data: {
+				username: this.username,
+			},
+			disableClose: false,
+		});
 	}
 
 	changePassword() {
@@ -68,6 +89,8 @@ export class SettingsPageComponent implements OnInit {
 	}
 
 	saveSettings() {
+		this.onModify = false;
+
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 		if (this.username != "" && this.username != this.originalUsername) {
 			this.firebase.updateUsername(uid, this.username);
@@ -78,19 +101,6 @@ export class SettingsPageComponent implements OnInit {
 
 		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
 		this.router.navigate(["/home"]);
-	}
-
-	deleteItem(index: number) {
-		this.dialog.open(SafetyActionConfirmDialogComponent, {
-			data: {
-				title: "Elimina esercizio",
-				message: "Sei sicuro di voler eliminare questo esercizio?",
-				args: [index, this.customExercises],
-				confirm: async (index: number, customExercises: any) => {
-					customExercises.splice(index, 1);
-				},
-			},
-		});
 	}
 
 	backToHome() {

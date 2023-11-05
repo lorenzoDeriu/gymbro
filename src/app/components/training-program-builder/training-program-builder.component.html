@@ -1,4 +1,245 @@
-<div id="builder-container">
+<div id="wrapper">
+	<div id="main-container" class="p-3">
+		<h1 class="my-3 text-center">Nuova scheda di allenamento</h1>
+
+		<form
+			class="d-flex justify-content-center align-items-center mb-4"
+		>
+			<button
+				type="button"
+				class="btn text-light save-btn me-2 d-none d-lg-flex"
+				style="border: none; background-color: #6b44d4;"
+				routerLink="/home/training-programs"
+			>
+				<i class="me-1 bi bi-arrow-left"></i>
+				Indietro
+			</button>
+			<button
+				type="button"
+				class="btn btn-sm text-light save-btn me-2 d-flex d-lg-none"
+				style="border: none; background-color: #6b44d4;"
+				routerLink="/home/training-programs"
+			>
+				<i class="bi bi-arrow-left"></i>
+			</button>
+
+			<div class="d-flex flex-column w-50 mx-2 mb-3 mt-2 input-container">
+				<p class="mb-0 text-center">Nome</p>
+				<input
+					[ngModelOptions]="{standalone: true}"
+					[(ngModel)]="trainingProgram.name"
+					type="text"
+					class="border-0 border-bottom py-1"
+					style="background-color: transparent"
+				/>
+			</div>
+
+			<button
+				type="submit"
+				class="btn btn-success text-light ms-2 d-none d-lg-flex"
+				(click)="saveTrainingProgram()"
+			>
+				Salva
+				<i class="ms-1 bi bi-check"></i>
+			</button>
+			<button
+				type="submit"
+				class="btn btn-sm btn-success text-light ms-2 d-flex d-lg-none"
+				(click)="saveTrainingProgram()"
+			>
+				<i class="bi bi-check"></i>
+			</button>
+		</form>
+
+		<div *ngFor="let session of trainingProgram.session; index as sessionIndex" class="w-100 mb-2">
+			<a
+				[href]="'#session' + sessionIndex"
+				class="btn btn-light w-100 mb-1 border sessions-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				data-bs-toggle="collapse"
+				role="button"
+				aria-expanded="false"
+				aria-controls="collapseExample"
+			>
+				<p class="text-center mb-0 text-truncate me-3">{{ session.name }}</p>
+				<button
+					class="btn btn-danger d-none d-lg-block"
+					(click)="deleteSession(sessionIndex)"
+				>
+					<i class="bi bi-trash3"></i>
+				</button>
+
+				<button
+					class="btn btn-sm btn-danger d-block d-lg-none"
+					(click)="deleteSession(sessionIndex)"
+				>
+					<i class="bi bi-trash3"></i>
+				</button>
+			</a>
+
+
+			<div class="collapse w-100 sessions-collapse-body collapse-body" [id]="'session' + sessionIndex">
+				<div class="card card-body p-1">
+					<div class="d-flex flex-column w-25 mx-2 mb-3 mt-2 input-container session-name">
+						<p class="mb-0">Nome</p>
+						<input
+							[ngModelOptions]="{standalone: true}"
+							[(ngModel)]="session.name"
+							type="text"
+							class="border-0 border-bottom py-1"
+							style="background-color: transparent"
+						/>
+					</div>
+
+					<table class="table table-sm table-striped table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Esercizio</th>
+								<th scope="col">Serie x Reps</th>
+								<th scope="col">RPE</th>
+								<th scope="col">Riposo</th>
+								<th scope="col">Azioni</th>
+							</tr>
+						</thead>
+						<tbody class="table-group-divider">
+							<tr
+								*ngFor="
+									let exercise of session.exercises;
+									index as exerciseIndex
+								"
+							>
+								<th>
+									<i
+										*ngIf="
+											exercise?.note && exercise?.note != ''
+										"
+										style="cursor: pointer"
+										class="me-1 bi bi-info-circle-fill"
+									></i>
+									{{ exercise?.name }}
+								</th>
+
+								<td>
+									<div
+										*ngIf="
+											exercise?.configurationType ===
+											'advanced'
+										"
+									>
+										<div
+											*ngFor="
+												let set of exercise?.advanced.sets;
+												index as i
+											"
+										>
+											{{
+												exercise?.series > 0
+												? exercise?.series +
+													" x " +
+													(set.min != set.max
+														? set.min +
+														"-" +
+														set.max
+														: set.min)
+												: "/"
+											}}
+											<br />
+										</div>
+									</div>
+
+									<div
+										*ngIf="
+											!exercise?.configurationType ||
+											exercise?.configurationType === 'basic'
+										"
+									>
+										{{
+											exercise?.series > 0
+												? exercise?.series +
+												  " x " +
+												  (exercise?.range[0] !=
+												  exercise?.range[1]
+														? exercise?.range[0] +
+														  "-" +
+														  exercise?.range[1]
+														: exercise?.range[0])
+												: "/"
+										}}
+									</div>
+								</td>
+
+								<td>
+									{{ exercise?.RPE > 0 ? exercise?.RPE : "" }}
+								</td>
+								<td>
+									{{
+										exercise?.rest.minutes +
+											":" +
+											exercise?.rest.seconds
+									}}
+								</td>
+								<td>
+									<div class="d-flex align-items-center">
+										<i
+											class="bi bi-pencil-square me-2"
+											(click)="editExercise(session, exerciseIndex)"
+											style="cursor: pointer;"
+										></i>
+										<i
+											class="text-danger bi bi-trash3"
+											(click)="deleteExercise(session, exerciseIndex)"
+											style="cursor: pointer;"
+										></i>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<p
+						*ngIf="session.exercises.length == 0"
+						class="text-center"
+					>
+						Non ci sono esercizi
+					</p>
+
+					<button
+						class="btn btn-dark text-light d-none d-lg-block"
+						(click)="addExercise(session)"
+					>
+						Aggiungi esercizio
+						<i class="ms-1 bi bi-plus-lg"></i>
+					</button>
+					<button
+						class="btn btn-sm btn-dark text-light d-block d-lg-none"
+						(click)="addExercise(session)"
+					>
+						Aggiungi esercizio
+						<i class="ms-1 bi bi-plus-lg"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<button
+			class="btn text-light add-session-button d-none d-lg-block"
+			(click)="addSession()"
+			style="border: none; background-color: #4089c9;"
+		>
+			Aggiungi sessione
+			<i class="ms-1 bi bi-plus-lg"></i>
+		</button>
+		<button
+			class="btn btn-sm text-light add-session-button d-block d-lg-none"
+			(click)="addSession()"
+			style="border: none; background-color: #4089c9;"
+		>
+			Aggiungi sessione
+			<i class="ms-1 bi bi-plus-lg"></i>
+		</button>
+	</div>
+</div>
+
+<!-- <div id="builder-container">
 	<h1><span id="title">Nuova Scheda di Allenamento</span></h1>
 
 	<div
@@ -234,4 +475,4 @@
 			Salva
 		</button>
 	</div>
-</div>
+</div> -->

@@ -1,36 +1,43 @@
-<div id="main-container" style="margin-bottom: 30px">
+<div
+	id="wrapper"
+>
 	<div
-		class="home-div"
-		id="new-workout"
-		matRipple
-		routerLink="/home/new-workout-choice"
+		id="main-container"
 	>
-		<h2>{{ workoutExists() ? "Continua" : "Crea" }} Allenamento</h2>
-		<img src="../../../assets/dumbbellIcon.png" alt="" />
-	</div>
+		<div
+			class="home-div rounded-5"
+			id="new-workout"
+			(click)="openNewWorkoutDialog()"
+		>
+			<h3 class="mb-0 fw-bold">{{ workoutExists() ? "Continua" : "Crea" }} Allenamento</h3>
+			<img src="assets/dumbbell.png" alt="" />
+		</div>
 
-	<div
-		class="home-div"
-		id="old-workout"
-		matRipple
-		routerLink="/home/old-workouts"
-	>
-		<h2>Vecchi Allenamenti</h2>
-		<img src="../../../assets/historyIcon.png" alt="" />
-	</div>
+		<div
+			class="home-div rounded-5"
+			id="old-workout"
+			routerLink="/home/old-workouts"
+		>
+			<h3 class="mb-0 fw-bold">Vecchi Allenamenti</h3>
+			<img src="assets/history.png" alt="" />
+		</div>
 
-	<div class="home-div" id="progress" matRipple routerLink="/home/progress">
-		<h2>I tuoi Progressi</h2>
-		<img src="../../../assets/progressIcon.png" alt="" />
-	</div>
+		<div
+			class="home-div rounded-5"
+			id="progress"
+			routerLink="/home/progress"
+		>
+			<h3 class="mb-0 fw-bold text-center">I tuoi Progressi</h3>
+			<img src="assets/progress.png" alt="" />
+		</div>
 
-	<div
-		class="home-div"
-		id="training-programs"
-		matRipple
-		routerLink="/home/training-programs"
-	>
-		<h2>Le tue Schede</h2>
-		<img src="../../../assets/documentIcon.png" alt="" />
+		<div
+			class="home-div rounded-5"
+			id="training-programs"
+			routerLink="/home/training-programs"
+		>
+			<h3 class="mb-0 fw-bold">Le tue Schede</h3>
+			<img src="assets/programs.png" alt="" />
+		</div>
 	</div>
 </div>
