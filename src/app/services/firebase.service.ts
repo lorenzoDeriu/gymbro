@@ -38,12 +38,10 @@ import {
 	UserCredential,
 } from "firebase/auth";
 import { Router } from "@angular/router";
-
-export type User = {
-	uid: string,
-	workout: any[],
-	trainingPrograms: any[],
-}
+import { User } from "../Models/User.model";
+import { Session, TrainingProgram } from "../Models/TrainingProgram.model";
+import { EffectiveExercise, EffectiveSet, Exercise, IntensityType, Set, TrainingProgramExercises } from "../Models/Exercise.model";
+import { Workout } from "../Models/Workout.model";
 
 @Injectable({
 	providedIn: "root",
@@ -64,6 +62,178 @@ export class FirebaseService {
 		enableIndexedDbPersistence(this.db, { forceOwnership: true }).catch(e =>
 			console.log(e)
 		);
+	}
+
+	public async fixDB() {
+		console.log("Fixing DB");
+
+		const collectionReference = collection(this.db, "users");
+		const querySnapshot = await getDocs(collectionReference);
+
+		querySnapshot.forEach((doc: DocumentSnapshot) => {
+			if (doc.id.startsWith("WU") || true) {
+				const data = doc.data();
+
+				console.log(data)
+
+				let newData: User;
+
+				console.log("parsing ", doc.id, data);
+
+				newData = {
+					username: data["username"] ?? "",
+					customExercises: data["customExercises"] ?? [],
+					follow: data["follow"] ?? [],
+					trainingPrograms: this.normalizeTrainingPrograms(data["trainingPrograms"]),
+					workout: this.normalizeWorkout(data["workouts"]),
+					admin: data["admin"] ?? false,
+					visibility: data["visibility"] ?? false,
+				}
+
+				console.log("complete parsing", doc.id, data, newData);
+			}
+		});
+		console.log("db fixed");
+	}
+
+	private normalizeWorkout(workouts: any[]): Workout[] {
+		let normalizedWorkout: Workout[] = [];
+
+		workouts.forEach((workouts: any) => {
+			let newWorkout: Workout;
+
+			newWorkout = {
+				name: workouts["name"],
+				date: workouts["date"],
+				exercises: []
+			}
+
+			let exercises: EffectiveExercise[] = [];
+
+			workouts["exercises"].forEach((exerciseObj: any) => {
+				let newExercise: EffectiveExercise;
+
+				newExercise = {
+					name: exerciseObj["name"],
+					set: this.getEffectiveSet(exerciseObj),
+					note: exerciseObj["note"] ?? "",
+					intensity: this.getIntensity(exerciseObj["RPE"]),
+					rest: {
+						minutes: exerciseObj.rest?.minutes ?? "00",
+						seconds: exerciseObj.rest?.seconds ?? "00"
+					}
+				}
+
+				exercises.push(newExercise);
+			});
+
+			newWorkout.exercises = exercises;
+
+			normalizedWorkout.push(newWorkout);
+		});
+
+		return normalizedWorkout;
+	}
+
+	private normalizeTrainingPrograms(trainingPrograms: any[]): TrainingProgram[] {
+		let normalizedTraining: TrainingProgram[] = [];
+
+		trainingPrograms.forEach((trainingProgram: any) => {
+			let newNormalizedTraining: TrainingProgram;
+
+			newNormalizedTraining = {
+				name: trainingProgram["name"],
+				session: [],
+			}
+
+			let session: Session[] = [];
+
+			trainingProgram["session"].forEach((sessionObj: any) => {
+				let newSession: Session;
+
+				newSession = {
+					name: sessionObj["name"],
+					exercises: []
+				}
+
+				sessionObj["exercises"].forEach((exerciseObj: any) => {
+					let newExercise: TrainingProgramExercises;
+
+					newExercise = {
+						name: exerciseObj["name"],
+						set: this.getSet(exerciseObj),
+						note: exerciseObj["note"] ?? "",
+						intensity: this.getIntensity(exerciseObj["RPE"]),
+						rest: {
+							minutes: exerciseObj.rest?.minutes ?? "00",
+							seconds: exerciseObj.rest?.seconds ?? "00"
+						}
+					}
+
+					newSession.exercises.push(newExercise);
+				});
+
+				session.push(newSession);
+			});
+
+			newNormalizedTraining.session = session;
+			normalizedTraining.push(newNormalizedTraining);
+		});
+
+		return normalizedTraining;
+	}
+
+	private getIntensity(rpe: string): IntensityType {
+		if (rpe === "10") return "failure";
+
+		if (rpe === "9" || rpe === "8") return "hard";
+
+		else return "light";
+
+	}
+
+	private getSet(exercise: any): Set[] {
+		let set: Set[] = [];
+
+		if ((exercise.configurationType ?? "basic") === "basic") {
+			for (let i = 0; i < exercise["series"]; i++) {
+				set.push({
+					minimumReps: exercise.range[0],
+					maximumReps: exercise.range[1],
+				});
+			}
+		} else if (exercise.configurationType === "advanced") {
+			exercise.advanced?.sets?.forEach((setObj: any) => {
+				set.push({
+					minimumReps: setObj["min"],
+					maximumReps: setObj["max"],
+				});
+			})
+		}
+
+		return set;
+	}
+
+	private getEffectiveSet(exercise: any): EffectiveSet[] {
+		let set: EffectiveSet[] = [];
+
+		if ((exercise.configurationType ?? "basic") === "basic") {
+			for (let i = 0; i < exercise["series"]; i++) {
+				set.push({
+					reps: exercise.reps,
+					load: exercise.load,
+				});
+			}
+		} else if (exercise.configurationType === "advanced") {
+			exercise.advanced?.sets?.forEach((setObj: any) => {
+				set.push({
+					reps: setObj["reps"],
+					load: setObj["load"],
+				});
+			})
+		}
+
+		return set;
 	}
 
 	public async getDocumentSnapshot(

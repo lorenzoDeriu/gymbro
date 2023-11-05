@@ -1,6 +1,7 @@
-import { Exercise } from "./Exercise.model";
+import { EffectiveExercise } from "./Exercise.model";
 
 export type Workout = {
+	name: string;
 	date: string;
-	exericise: Exercise[];
+	exercises: EffectiveExercise[];
 }

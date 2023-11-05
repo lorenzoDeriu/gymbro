@@ -1,4 +1,4 @@
-import { Exercise } from "./Exercise.model";
+import { TrainingProgramExercises } from "./Exercise.model";
 
 export type TrainingProgram = {
 	name: string;
@@ -7,11 +7,5 @@ export type TrainingProgram = {
 
 export type Session = {
 	name: string;
-	exercises: Exercise[];
+	exercises: TrainingProgramExercises[];
 };
-
-export type Set = {
-	minimumReps: number;
-	maximumReps: number;
-	load?: number;
-}

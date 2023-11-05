@@ -6,6 +6,7 @@ export type User = {
 	username: string;
 	customExercises: string[];
 	follow: string[];
+	visibility: boolean;
 	trainingPrograms: TrainingProgram[];
 	workout: Workout[];
 }
