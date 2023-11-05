@@ -379,19 +379,21 @@ export class FirebaseService {
 	}
 
 	async getWorkouts() {
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
+		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
+		let workouts: Workout[] = [];
+
 		if (documentSnapshot.exists()) {
-			let data = documentSnapshot.data();
-			return data["workouts"];
+			let data = documentSnapshot.data() as User;
+			workouts = data.workout;
 		}
 
-		return [];
+		return workouts;
 	}
 
 	updateWorkouts(workout: Workout[], uid: string) {
