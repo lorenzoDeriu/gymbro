@@ -97,17 +97,20 @@ export class AuthService {
 		}
 	}
 
-	public createNewUserInfo(username?: string) {
-		let user = JSON.parse(localStorage.getItem("user"));
+	public createNewUserInfo(username: string = "") {
+		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
-		let userObj: any = {
+		let userObj: User = {
+			username: username,
 			trainingPrograms: [],
-			workouts: [],
+			workout: [],
+			visibility: true,
+			follow: [],
+			customExercises: [],
+			admin: false,
 		};
 
-		if (username) userObj = { ...userObj, username: username };
-
-		this.firebase.addUser(userObj, user.uid);
+		this.firebase.addUser(userObj, uid);
 	}
 
 	private loginUser(user: UserData) {
@@ -130,12 +133,6 @@ export class AuthService {
 		this.loggedIn = false;
 		localStorage.removeItem("user");
 		this.router.navigate(["/welcome"]);
-	}
-
-	public getUserToken() {
-		let user = JSON.parse(localStorage.getItem("user"));
-
-		return user.idToken;
 	}
 
 	public async deleteAccount() {

@@ -68,7 +68,7 @@ export class FriendsComponent implements OnInit {
 	async addUsername(form: NgForm) {
 		let username = form.value.username;
 
-		this.firebase.updateUsername(this.uid, username);
+		this.firebase.updateUsername(username);
 		this.username = await this.firebase.getUsername(this.uid);
 	}
 
@@ -90,8 +90,8 @@ export class FriendsComponent implements OnInit {
 
 	async onUnfollow(index: number) {
 		await this.firebase.unfollow(this.uid, this.followed[index].uid);
-		this.followed = await this.firebase.getFollowed(this.uid);
-		this._hasFollow = await this.firebase.hasFollow(this.uid);
+		this.followed = await this.firebase.getFollowed();
+		this._hasFollow = await this.firebase.hasFollow();
 	}
 
 	backToHome() {

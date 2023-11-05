@@ -1,6 +1,5 @@
 import { FriendsComponent } from "./components/friends/friends.component";
 import { PrebuildWorkoutComponent } from "./components/prebuild-workout/prebuild-workout.component";
-import { SessionBuilderComponent } from "./components/session-builder/session-builder.component";
 import { TrainingProgramSelectorComponent } from "./components/training-program-selector/training-program-selector.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
@@ -13,7 +12,6 @@ import { PageNotFoundComponent } from "./components/page-not-found/page-not-foun
 import { TrainingProgramsComponent } from "./components/training-programs/training-programs.component";
 import { YourProgressComponent } from "./components/your-progress/your-progress.component";
 import { AuthGuard } from "./services/auth.guard";
-import { NewWorkoutBuilderComponent } from "./components/new-workout-builder/new-workout-builder.component";
 import { TrainingProgramBuilderComponent } from "./components/training-program-builder/training-program-builder.component";
 import { SearchResultComponent } from "./components/search-result/search-result.component";
 import { ProfileComponent } from "./components/profile/profile.component";
@@ -34,10 +32,6 @@ const routes: Routes = [
 			{ path: "", redirectTo: "dashboard", pathMatch: "full" },
 			{ path: "dashboard", component: DashboardComponent },
 			{ path: "new-workout-choice", component: NewWorkoutComponent },
-			{
-				path: "new-workout-builder",
-				component: NewWorkoutBuilderComponent,
-			},
 			{ path: "old-workouts", component: OldWorkoutsComponent },
 			{ path: "progress", component: YourProgressComponent },
 			{
@@ -49,7 +43,6 @@ const routes: Routes = [
 				path: "training-program-builder",
 				component: TrainingProgramBuilderComponent,
 			},
-			{ path: "session-builder", component: SessionBuilderComponent },
 			{ path: "prebuild-workout", component: PrebuildWorkoutComponent },
 			{ path: "friends", component: FriendsComponent },
 			{ path: "search-result", component: SearchResultComponent },

@@ -112,11 +112,11 @@ export class SettingsPageComponent implements OnInit {
 
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 		if (this.username != "" && this.username != this.originalUsername) {
-			this.firebase.updateUsername(uid, this.username);
+			this.firebase.updateUsername(this.username);
 		}
 
-		this.firebase.updateVisibility(uid, this.visibility);
-		this.firebase.updateCustomExercises(uid, this.customExercises);
+		this.firebase.updateVisibility(this.visibility);
+		this.firebase.updateCustomExercises(this.customExercises);
 
 		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
 		this.router.navigate(["/home"]);
