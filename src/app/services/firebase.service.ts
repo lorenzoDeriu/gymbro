@@ -93,12 +93,12 @@ export class FirebaseService {
 					username: data["username"] ?? "",
 					customExercises: data["customExercises"] ?? [],
 					follow: data["follow"] ?? [],
+					visibility: data["visibility"] ?? false,
 					trainingPrograms: this.normalizeTrainingPrograms(
 						data["trainingPrograms"]
 					),
 					workout: this.normalizeWorkout(data["workouts"]),
 					admin: data["admin"] ?? false,
-					visibility: data["visibility"] ?? false,
 				};
 
 				console.log("complete parsing", doc.id, data, newData);
@@ -261,7 +261,7 @@ export class FirebaseService {
 		return documentSnapshot;
 	}
 
-	async registerNewUser(email: string, password: string) {
+	public async registerNewUser(email: string, password: string) {
 		try {
 			let userCredential = await createUserWithEmailAndPassword(
 				this.auth,
@@ -298,7 +298,7 @@ export class FirebaseService {
 		return documentSnapshot.exists();
 	}
 
-	async getUserData(uid: string) {
+	public async getUserData(uid: string) {
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -327,7 +327,7 @@ export class FirebaseService {
 		signOut(this.auth).catch(e => console.log(e));
 	}
 
-	async getExercise(uid: string) {
+	public async getExercise(uid: string) {
 		let exercise: string[] = [];
 
 		let documentReference = doc(this.db, "exercise", "exercises");
@@ -358,11 +358,11 @@ export class FirebaseService {
 		return exercise;
 	}
 
-	addUser(body: User, uid: string) {
+	public addUser(body: User, uid: string) {
 		setDoc(doc(this.db, "users", uid), body as WithFieldValue<DocumentData>).catch(e => console.log(e));
 	}
 
-	async saveWorkout(body: Workout, uid: string) {
+	public async saveWorkout(body: Workout, uid: string) {
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -378,7 +378,7 @@ export class FirebaseService {
 		}
 	}
 
-	async getWorkouts() {
+	public async getWorkouts() {
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
 		const documentReference = doc(this.db, "users", uid);
@@ -396,7 +396,8 @@ export class FirebaseService {
 		return workouts;
 	}
 
-	updateWorkouts(workout: Workout[], uid: string) {
+	public updateWorkouts(workout: Workout[]) {
+		const uid: string = JSON.parse(localStorage.getItem("user")).uid;
 		const documentReference = doc(this.db, "users", uid);
 
 		updateDoc(documentReference, { workout: workout }).catch(e =>
@@ -404,7 +405,7 @@ export class FirebaseService {
 		);
 	}
 
-	async addTrainingProgram(trainingProgram: TrainingProgram) {
+	public async addTrainingProgram(trainingProgram: TrainingProgram) {
 		let uid: string = JSON.parse(localStorage.getItem("user"))["uid"];
 
 		const documentReference = doc(this.db, "users", uid);
@@ -422,7 +423,7 @@ export class FirebaseService {
 		}
 	}
 
-	async editTrainingProgram(trainingProgram: TrainingProgram, index: number) {
+	public async editTrainingProgram(trainingProgram: TrainingProgram, index: number) {
 		let uid: string = JSON.parse(localStorage.getItem("user"))["uid"];
 
 		const documentReference = doc(this.db, "users", uid);
@@ -441,7 +442,7 @@ export class FirebaseService {
 		}
 	}
 
-	async getTrainingPrograms() {
+	public async getTrainingPrograms() {
 		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
 
 		const documentReference = doc(this.db, "users", uid);
@@ -459,7 +460,7 @@ export class FirebaseService {
 		return trainingPrograms;
 	}
 
-	async getTrainingProgramsFromUser(uid: string) {
+	public async getTrainingProgramsFromUser(uid: string) {
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -475,7 +476,7 @@ export class FirebaseService {
 		return trainingPrograms;
 	}
 
-	async updateTrainingPrograms(trainingPrograms: TrainingProgram[]) {
+	public async updateTrainingPrograms(trainingPrograms: TrainingProgram[]) {
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 		const documentReference = doc(this.db, "users", uid);
 
@@ -484,7 +485,7 @@ export class FirebaseService {
 		}).catch(e => console.log(e));
 	}
 
-	async recoverPassword(email: string) {
+	public async recoverPassword(email: string) {
 		try {
 			await sendPasswordResetEmail(this.auth, email);
 		} catch (HttpErrorResponse) {
@@ -492,7 +493,7 @@ export class FirebaseService {
 		}
 	}
 
-	async getUsername(uid: string) {
+	public async getUsername(uid: string) {
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -507,7 +508,7 @@ export class FirebaseService {
 		return null;
 	}
 
-	async updateUsername(username: string) {
+	public async updateUsername(username: string) {
 		const uid = JSON.parse(localStorage.getItem("user")).uid;
 
 		const collectionReference = collection(this.db, "users");
@@ -534,7 +535,7 @@ export class FirebaseService {
 		await updateDoc(documentReference, { username: username });
 	}
 
-	async hasFollow() {
+	public async hasFollow() {
 		const uid = JSON.parse(localStorage.getItem("user")).uid;
 
 		let documentReference = doc(this.db, "users", uid);
@@ -552,7 +553,7 @@ export class FirebaseService {
 		return hasFollow;
 	}
 
-	async getMatchingUsername(username: string) {
+	public async getMatchingUsername(username: string) {
 		let collectionReference = collection(this.db, "users");
 		let querySnapshot = navigator.onLine
 			? await getDocs(
@@ -592,7 +593,7 @@ export class FirebaseService {
 		return result;
 	}
 
-	async addFollow(uidToFollow: string) {
+	public async addFollow(uidToFollow: string) {
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
 		let documentReference = doc(this.db, "users", uid);
@@ -613,7 +614,7 @@ export class FirebaseService {
 
 	}
 
-	async getFollowed() {
+	public async getFollowed() {
 		const uid = JSON.parse(localStorage.getItem("user")).uid;
 
 		let documentReference = doc(this.db, "users", uid);
@@ -653,7 +654,7 @@ export class FirebaseService {
 		return result;
 	}
 
-	async unfollow(uid: string, uidToUnfollow: string) {
+	public async unfollow(uid: string, uidToUnfollow: string) {
 		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -672,14 +673,14 @@ export class FirebaseService {
 		await updateDoc(documentReference, { follow: followed });
 	}
 
-	addFeedback(feedback: string) {
+	public addFeedback(feedback: string) {
 		addDoc(collection(this.db, "feedback"), {
 			content: feedback,
 			date: new Date().toLocaleDateString(),
 		});
 	}
 
-	async userIsAdmin() {
+	public async userIsAdmin() {
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
 		let documentReference = doc(this.db, "users", uid);
@@ -696,7 +697,7 @@ export class FirebaseService {
 		return data.admin ?? false;
 	}
 
-	async getFeedbacks() {
+	public async getFeedbacks() {
 		let feedbackCollection = collection(this.db, "feedback");
 		let docs = navigator.onLine
 			? await getDocs(feedbackCollection)
@@ -729,11 +730,11 @@ export class FirebaseService {
 		return new Date(year, month - 1, day);
 	}
 
-	async removeFeedback(id: string) {
+	public async removeFeedback(id: string) {
 		await deleteDoc(doc(this.db, "feedback", id));
 	}
 
-	async addExercise(exercise: string) {
+	public async addExercise(exercise: string) {
 		let documentReference = doc(this.db, "exercise", "exercises");
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -750,7 +751,7 @@ export class FirebaseService {
 		await updateDoc(documentReference, { name: exercises });
 	}
 
-	async addCustomExercise(exercise: string) {
+	public async addCustomExercise(exercise: string) {
 		const uid: string = JSON.parse(localStorage.getItem("user")).uid;
 
 		let documentReference = doc(this.db, "users", uid);
@@ -770,12 +771,12 @@ export class FirebaseService {
 		await updateDoc(documentReference, { customExercises: exercises });
 	}
 
-	changePassword() {
+	public changePassword() {
 		let email = this.auth.currentUser.email;
 		sendPasswordResetEmail(this.auth, email);
 	}
 
-	async deleteUser() {
+	public async deleteUser() {
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 		let documentReference = doc(this.db, "users", uid);
 
@@ -784,13 +785,13 @@ export class FirebaseService {
 		this.auth.currentUser.delete();
 	}
 
-	updateVisibility(visibility: boolean) {
+	public updateVisibility(visibility: boolean) {
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 		let documentReference = doc(this.db, "users", uid);
 		updateDoc(documentReference, { visibility: visibility });
 	}
 
-	updateCustomExercises(customExercises: string[]) {
+	public updateCustomExercises(customExercises: string[]) {
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 		let documentReference = doc(this.db, "users", uid);
 		updateDoc(documentReference, { customExercises: customExercises });

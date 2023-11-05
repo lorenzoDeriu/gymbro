@@ -1,7 +1,6 @@
 import { FirebaseService } from "src/app/services/firebase.service";
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { UserService } from "src/app/services/user.service";
 import { Chart } from "chart.js";
 
 @Component({
@@ -16,7 +15,6 @@ export class ExerciseStatsComponent implements OnInit {
 	public options: string[];
 
 	constructor(
-		private userService: UserService,
 		private firebase: FirebaseService
 	) {}
 

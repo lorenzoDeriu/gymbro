@@ -1,4 +1,3 @@
-import { Exercise } from "../../Models/Exercise.model";
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { Component, OnInit } from "@angular/core";
@@ -6,6 +5,7 @@ import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { Workout } from "src/app/Models/Workout.model";
 
 @Component({
 	selector: "app-old-workouts",
@@ -65,8 +65,8 @@ export class OldWorkoutsComponent implements OnInit {
 				args: [index, this.workouts, this.userService],
 				confirm: async (
 					index: number,
-					workouts: any,
-					userService: any
+					workouts: Workout[],
+					userService: UserService
 				) => {
 					workouts.splice(index, 1);
 					await userService.updateWorkouts(workouts);

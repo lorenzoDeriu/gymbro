@@ -1,6 +1,4 @@
-import { UserService } from "../../services/user.service";
 import { Component, OnInit } from "@angular/core";
-import { endOfWeek } from "date-fns";
 import { Chart, registerables } from "chart.js";
 import { MatDialog } from "@angular/material/dialog";
 import { ExerciseStatsComponent } from "../exercise-stats/exercise-stats.component";

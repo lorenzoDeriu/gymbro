@@ -1,3 +1,6 @@
+import { Exercise } from "../Models/Exercise.model";
+import { TrainingProgram } from "../Models/TrainingProgram.model";
+import { Workout } from "../Models/Workout.model";
 import { FirebaseService } from "./firebase.service";
 import { Injectable } from "@angular/core";
 
@@ -5,91 +8,36 @@ import { Injectable } from "@angular/core";
 	providedIn: "root",
 })
 export class UserService {
-	exercises: any[] = [];
-	trainingProgram: any[] = [];
-
-	workoutSelected: any;
+	public exercises: Exercise[] = [];
+	public trainingProgram: TrainingProgram[] = [];
+	public workoutSelected: Workout;
 
 	constructor(private firebase: FirebaseService) {}
 
-	addExercise(exercise: any) {
-		this.exercises.push({
-			name: exercise.exerciseName,
-			series: exercise.series,
-			reps: exercise.reps,
-			RPE: exercise.RPE,
-			load: exercise.load,
-			restTime: exercise.restTime,
-			note: exercise.note,
-			range: exercise.range,
-		});
 
-		localStorage.setItem("exercises", JSON.stringify(this.exercises));
+	private workoutSortingFunction(a: Workout, b: Workout) {
+		let [day, month, year] = String(a.date).split("/");
+		const dateA = +new Date(+year, +month - 1, +day);
+		[day, month, year] = String(b.date).split("/");
+		const dateB = +new Date(+year, +month - 1, +day);
+
+		return dateB - dateA;
 	}
 
-	exercisesReset() {
-		this.exercises = [];
-		localStorage.removeItem("exercises");
-	}
-
-	getExercises() {
-		if (this.exercises.length == 0) {
-			let exercises = JSON.parse(localStorage.getItem("exercises"));
-
-			if (exercises != null) {
-				this.exercises = exercises;
-			}
-		}
-
-		return this.exercises;
-	}
-
-	removeElement(index: number) {
-		this._remove(index);
-		localStorage.setItem("exercises", JSON.stringify(this.exercises));
-	}
-
-	private _remove(element: number) {
-		this.exercises.forEach((_, index) => {
-			if (index == element) this.exercises.splice(index, 1);
-		});
-	}
-
-	public updateWorkouts(workouts: any) {
-		let user = JSON.parse(localStorage.getItem("user"));
+	public updateWorkouts(workouts: Workout[]) {
 		this.firebase.updateWorkouts(
-			workouts.sort((a: any, b: any) => {
-				let [day, month, year] = String(a.date).split("/");
-				const dateA = +new Date(+year, +month - 1, +day);
-				[day, month, year] = String(b.date).split("/");
-				const dateB = +new Date(+year, +month - 1, +day);
-				return dateB - dateA;
-			}),
-			user.uid
+			workouts.sort(this.workoutSortingFunction),
 		);
 
 		return this.firebase.getWorkouts();
 	}
 
-	public async updateWorkout(workout: any, index: number) {
-		let user = JSON.parse(localStorage.getItem("user"));
-		let workouts = (await this.firebase.getWorkouts()).sort(
-			(a: any, b: any) => {
-				let [day, month, year] = String(a.date).split("/");
-				const dateA = +new Date(+year, +month - 1, +day);
-				[day, month, year] = String(b.date).split("/");
-				const dateB = +new Date(+year, +month - 1, +day);
-				return dateB - dateA;
-			}
-		);
+	public async updateWorkout(workout: Workout, index: number) {
+		let workouts = (await this.firebase.getWorkouts()).sort(this.workoutSortingFunction);
 
 		workouts[index] = workout;
 
-		this.firebase.updateWorkouts(workouts, user.uid);
-	}
-
-	public addSessionToTrainingProgram(session: any) {
-		this.trainingProgram.push(session);
+		this.firebase.updateWorkouts(workouts);
 	}
 
 	public removeSessionFromTrianingProgram(index: number) {
@@ -107,35 +55,11 @@ export class UserService {
 		await this.firebase.updateTrainingPrograms(trainingPrograms);
 	}
 
-	public setWorkoutSelected(workout: any) {
+	public setWorkoutSelected(workout: Workout) {
 		this.workoutSelected = workout;
 	}
 
-	public getWorkoutSelected(): any {
-		this.workoutSelected?.exercises?.forEach((exercise: any) => {
-			if (!exercise.configurationType) {
-				exercise.configurationType = "basic";
-			}
-
-			if (exercise.advanced == undefined) {
-				exercise.advanced = {
-					sets: [],
-				};
-			}
-
-			if (exercise.configurationType === "advanced") {
-				exercise.advanced?.sets?.forEach((set: any) => {
-					if (set.load == undefined) {
-						set.load = 0;
-					}
-
-					if (set.reps == undefined) {
-						set.reps = set.min;
-					}
-				});
-			}
-		});
-
+	public getWorkoutSelected(): Workout {
 		return this.workoutSelected;
 	}
 }

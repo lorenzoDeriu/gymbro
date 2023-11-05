@@ -5,6 +5,7 @@ import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { TrainingProgram } from "src/app/Models/TrainingProgram.model";
 
 @Component({
 	selector: "app-training-programs",
@@ -12,15 +13,8 @@ import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-ac
 	styleUrls: ["./training-programs.component.css"],
 })
 export class TrainingProgramsComponent implements OnInit {
-	loading: boolean;
-	trainingPrograms: any[] = [];
-
-	displayedColumns: string[] = [
-		"Esercizio",
-		"Serie x Ripetizioni",
-		"Recupero",
-		"RPE",
-	];
+	public loading: boolean;
+	public trainingPrograms: TrainingProgram[] = [];
 
 	constructor(
 		private router: Router,
@@ -72,8 +66,8 @@ export class TrainingProgramsComponent implements OnInit {
 				args: [index, this.trainingPrograms, this.userService],
 				confirm: async (
 					index: number,
-					trainingPrograms: any,
-					userService: any
+					trainingPrograms: TrainingProgram[],
+					userService: UserService
 				) => {
 					trainingPrograms.splice(index, 1);
 					await userService.removeTrainingProgram(index);
@@ -87,13 +81,13 @@ export class TrainingProgramsComponent implements OnInit {
 		sessionIndex: number,
 		exerciseIndex: number
 	) {
+		const trainingProgram = this.trainingPrograms[trainingProgramIndex];
+		const session = trainingProgram.session[sessionIndex];
+		const exercise = session.exercises[exerciseIndex];
+
 		this.dialog.open(NotesDialogComponent, {
 			width: "300px",
-			data: {
-				notes: this.trainingPrograms[trainingProgramIndex]["session"][
-					sessionIndex
-				]["exercises"][exerciseIndex]["note"],
-			},
+			data: { notes: exercise.note },
 		});
 	}
 }
