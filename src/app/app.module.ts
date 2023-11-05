@@ -29,7 +29,6 @@ import { OldWorkoutsComponent } from "./components/old-workouts/old-workouts.com
 import { YourProgressComponent } from "./components/your-progress/your-progress.component";
 import { TrainingProgramsComponent } from "./components/training-programs/training-programs.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
-import { NewWorkoutBuilderComponent } from "./components/new-workout-builder/new-workout-builder.component";
 import { TrainingProgramSelectorComponent } from "./components/training-program-selector/training-program-selector.component";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { NewExerciseDialogComponent } from "./components/new-exercise-dialog/new-exercise-dialog.component";
@@ -43,7 +42,6 @@ import { provideFirebaseApp, getApp, initializeApp } from "@angular/fire/app";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { MatTableModule } from "@angular/material/table";
 import { TrainingProgramBuilderComponent } from "./components/training-program-builder/training-program-builder.component";
-import { SessionBuilderComponent } from "./components/session-builder/session-builder.component";
 import { PrebuildWorkoutComponent } from "./components/prebuild-workout/prebuild-workout.component";
 import { MatDividerModule } from "@angular/material/divider";
 import { PasswordRecoverDialogComponent } from "./components/password-recover-dialog/password-recover-dialog.component";
@@ -88,11 +86,9 @@ import { ShareDialogComponent } from "./components/share-dialog/share-dialog.com
 		YourProgressComponent,
 		TrainingProgramsComponent,
 		DashboardComponent,
-		NewWorkoutBuilderComponent,
 		TrainingProgramSelectorComponent,
 		NewExerciseDialogComponent,
 		TrainingProgramBuilderComponent,
-		SessionBuilderComponent,
 		PrebuildWorkoutComponent,
 		PasswordRecoverDialogComponent,
 		ExercisePickerDialogComponent,
