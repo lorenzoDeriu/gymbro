@@ -39,9 +39,28 @@ export class SettingsPageComponent implements OnInit {
 		let user: any = await this.firebase.getUserData(uid);
 
 		//this.customExercises = user.customExercises == undefined ? [] : user.customExercises;
-		this.customExercises = ['Hyperextension', 'Panca piana', 'Curl DB', 'Hyperextension', 'Panca piana', 'Curl DB', 'Hyperextension', 'Panca piana', 'Curl DB', 'Hyperextension', 'Panca piana', 'Curl DB', 'Hyperextension', 'Panca piana', 'Curl DB', 'Hyperextension', 'Panca piana', 'Curl DB'];
+		this.customExercises = [
+			"Hyperextension",
+			"Panca piana",
+			"Curl DB",
+			"Hyperextension",
+			"Panca piana",
+			"Curl DB",
+			"Hyperextension",
+			"Panca piana",
+			"Curl DB",
+			"Hyperextension",
+			"Panca piana",
+			"Curl DB",
+			"Hyperextension",
+			"Panca piana",
+			"Curl DB",
+			"Hyperextension",
+			"Panca piana",
+			"Curl DB",
+		];
 		this.visibility = user.visibility;
-		this.username = user.username || 'Mxo';
+		this.username = user.username || "Mxo";
 		this.originalUsername = user.username;
 
 		this.loading = false;

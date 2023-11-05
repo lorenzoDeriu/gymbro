@@ -1,6 +1,6 @@
 <div
 	class="d-flex flex-column justify-content-center align-items-center overflow-hidden"
-	style="max-height: 60svh; max-width: 95vw;"
+	style="max-height: 60svh; max-width: 95vw"
 >
 	<div class="overflow-auto p-3">
 		<h1 class="text-center">Nuovo esercizio</h1>
@@ -12,16 +12,20 @@
 				<select
 					class="form-select"
 					aria-label="Default select example"
-					style="cursor: pointer;"
+					style="cursor: pointer"
 					[(ngModel)]="exercise.name"
-					[ngModelOptions]="{standalone: true}"
+					[ngModelOptions]="{ standalone: true }"
 				>
 					<option *ngFor="let exercise of options" [value]="exercise">
 						{{ exercise }}
 					</option>
 				</select>
 
-				<button class="btn btn-dark" type="button" (click)="openCustomExerciseDialog()">
+				<button
+					class="btn btn-dark"
+					type="button"
+					(click)="openCustomExerciseDialog()"
+				>
 					Crea
 					<i class="ms-1 bi bi-plus-lg"></i>
 				</button>
@@ -33,8 +37,8 @@
 					type="number"
 					class="form-control"
 					[(ngModel)]="exercise.series"
-					[ngModelOptions]="{standalone: true}"
-				>
+					[ngModelOptions]="{ standalone: true }"
+				/>
 			</div>
 
 			<div class="d-flex align-items-center mb-3">
@@ -45,8 +49,8 @@
 						class="form-control"
 						[(ngModel)]="exercise.range[0]"
 						[min]="exercise.range[1]"
-						[ngModelOptions]="{standalone: true}"
-					>
+						[ngModelOptions]="{ standalone: true }"
+					/>
 				</div>
 				<div class="input-group flex-nowrap ms-2">
 					<span class="input-group-text">Max Reps</span>
@@ -55,31 +59,60 @@
 						class="form-control"
 						[(ngModel)]="exercise.range[1]"
 						[max]="exercise.range[0]"
-						[ngModelOptions]="{standalone: true}"
-					>
+						[ngModelOptions]="{ standalone: true }"
+					/>
 				</div>
 			</div>
 
 			<p class="text-center">Intensità (RPE)</p>
 
-			<div class="btn-group d-flex justify-content-center mb-3 w-100" role="group" aria-label="Basic radio toggle button group">
-				<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-				<label class="btn btn-outline-dark" for="btnradio1">Leggero</label>
+			<div
+				class="btn-group d-flex justify-content-center mb-3 w-100"
+				role="group"
+				aria-label="Basic radio toggle button group"
+			>
+				<input
+					type="radio"
+					class="btn-check"
+					name="btnradio"
+					id="btnradio1"
+					autocomplete="off"
+				/>
+				<label class="btn btn-outline-dark" for="btnradio1">
+					Leggero
+				</label>
 
-				<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked>
-				<label class="btn btn-outline-dark" for="btnradio2">Moderato</label>
+				<input
+					type="radio"
+					class="btn-check"
+					name="btnradio"
+					id="btnradio2"
+					autocomplete="off"
+					checked
+				/>
+				<label class="btn btn-outline-dark" for="btnradio2">
+					Moderato
+				</label>
 
-				<input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-				<label class="btn btn-outline-dark" for="btnradio3">Cedimento</label>
+				<input
+					type="radio"
+					class="btn-check"
+					name="btnradio"
+					id="btnradio3"
+					autocomplete="off"
+				/>
+				<label class="btn btn-outline-dark" for="btnradio3">
+					Cedimento
+				</label>
 			</div>
 
 			<div class="input-group flex-nowrap mb-3">
 				<span class="input-group-text">Recupero</span>
 				<select
 					class="form-select custom-select"
-					style="cursor: pointer;"
+					style="cursor: pointer"
 					[(ngModel)]="exercise.rest.minutes"
-					[ngModelOptions]="{standalone: true}"
+					[ngModelOptions]="{ standalone: true }"
 				>
 					<option value="00">00</option>
 					<option value="01">01</option>
@@ -91,9 +124,9 @@
 				<span class="input-group-text">:</span>
 				<select
 					class="form-select custom-select"
-					style="cursor: pointer;"
+					style="cursor: pointer"
 					[(ngModel)]="exercise.rest.seconds"
-					[ngModelOptions]="{standalone: true}"
+					[ngModelOptions]="{ standalone: true }"
 				>
 					<option value="00">00</option>
 					<option value="15">15</option>
@@ -108,16 +141,24 @@
 					type="text"
 					class="form-control"
 					[(ngModel)]="exercise.note"
-					[ngModelOptions]="{standalone: true}"
-				>
+					[ngModelOptions]="{ standalone: true }"
+				/>
 			</div>
 
 			<div class="d-flex align-items-center w-100">
-				<button class="btn w-100 me-2 add-btn text-light" style="border: none; background-color: #6b44d4;" [disabled]="!savable()" (click)="save()">Aggiungi</button>
-				<button class="btn btn-dark w-100 ms-2" (click)="closeDialog()">Annulla</button>
+				<button
+					class="btn w-100 me-2 add-btn text-light"
+					style="border: none; background-color: #6b44d4"
+					[disabled]="!savable()"
+					(click)="save()"
+				>
+					Aggiungi
+				</button>
+				<button class="btn btn-dark w-100 ms-2" (click)="closeDialog()">
+					Annulla
+				</button>
 			</div>
 		</form>
-
 
 		<!-- Mobile -->
 		<form class="d-flex flex-column align-items-center d-lg-none">
@@ -127,16 +168,20 @@
 				<select
 					class="form-select"
 					aria-label="Default select example"
-					style="cursor: pointer;"
+					style="cursor: pointer"
 					[(ngModel)]="exercise.name"
-					[ngModelOptions]="{standalone: true}"
+					[ngModelOptions]="{ standalone: true }"
 				>
 					<option *ngFor="let exercise of options" [value]="exercise">
 						{{ exercise }}
 					</option>
 				</select>
 
-				<button class="btn btn-dark" type="button" (click)="openCustomExerciseDialog()">
+				<button
+					class="btn btn-dark"
+					type="button"
+					(click)="openCustomExerciseDialog()"
+				>
 					<i class="bi bi-plus-lg"></i>
 				</button>
 			</div>
@@ -147,8 +192,8 @@
 					type="number"
 					class="form-control"
 					[(ngModel)]="exercise.series"
-					[ngModelOptions]="{standalone: true}"
-				>
+					[ngModelOptions]="{ standalone: true }"
+				/>
 			</div>
 
 			<div class="d-flex align-items-center mb-3">
@@ -159,8 +204,8 @@
 						class="form-control"
 						[(ngModel)]="exercise.range[0]"
 						[min]="exercise.range[1]"
-						[ngModelOptions]="{standalone: true}"
-					>
+						[ngModelOptions]="{ standalone: true }"
+					/>
 				</div>
 				<div class="input-group input-group-sm flex-nowrap ms-2">
 					<span class="input-group-text">Max</span>
@@ -169,8 +214,8 @@
 						class="form-control"
 						[(ngModel)]="exercise.range[1]"
 						[max]="exercise.range[0]"
-						[ngModelOptions]="{standalone: true}"
-					>
+						[ngModelOptions]="{ standalone: true }"
+					/>
 				</div>
 			</div>
 
@@ -178,9 +223,9 @@
 				<span class="input-group-text">RPE</span>
 				<select
 					class="form-select custom-select"
-					style="cursor: pointer;"
+					style="cursor: pointer"
 					[(ngModel)]="exercise.RPE"
-					[ngModelOptions]="{standalone: true}"
+					[ngModelOptions]="{ standalone: true }"
 				>
 					<option value="leggero">Leggero (6-7)</option>
 					<option value="moderato" selected>Moderato (8-9)</option>
@@ -189,12 +234,14 @@
 			</div>
 
 			<div class="input-group input-group-sm flex-nowrap mb-3">
-				<span class="input-group-text"><i class="bi bi-stopwatch-fill"></i></span>
+				<span class="input-group-text">
+					<i class="bi bi-stopwatch-fill"></i>
+				</span>
 				<select
 					class="form-select custom-select"
-					style="cursor: pointer;"
+					style="cursor: pointer"
 					[(ngModel)]="exercise.rest.minutes"
-					[ngModelOptions]="{standalone: true}"
+					[ngModelOptions]="{ standalone: true }"
 				>
 					<option value="00">00</option>
 					<option value="01">01</option>
@@ -206,9 +253,9 @@
 				<span class="input-group-text">:</span>
 				<select
 					class="form-select custom-select"
-					style="cursor: pointer;"
+					style="cursor: pointer"
 					[(ngModel)]="exercise.rest.seconds"
-					[ngModelOptions]="{standalone: true}"
+					[ngModelOptions]="{ standalone: true }"
 				>
 					<option value="00">00</option>
 					<option value="15">15</option>
@@ -223,13 +270,25 @@
 					type="text"
 					class="form-control"
 					[(ngModel)]="exercise.note"
-					[ngModelOptions]="{standalone: true}"
-				>
+					[ngModelOptions]="{ standalone: true }"
+				/>
 			</div>
 
 			<div class="d-flex align-items-center w-100">
-				<button class="btn btn-sm w-100 me-1 add-btn text-light" style="border: none; background-color: #6b44d4;" [disabled]="!savable()" (click)="save()">Aggiungi</button>
-				<button class="btn btn-sm btn-dark w-100 ms-1" (click)="closeDialog()">Annulla</button>
+				<button
+					class="btn btn-sm w-100 me-1 add-btn text-light"
+					style="border: none; background-color: #6b44d4"
+					[disabled]="!savable()"
+					(click)="save()"
+				>
+					Aggiungi
+				</button>
+				<button
+					class="btn btn-sm btn-dark w-100 ms-1"
+					(click)="closeDialog()"
+				>
+					Annulla
+				</button>
 			</div>
 		</form>
 	</div>

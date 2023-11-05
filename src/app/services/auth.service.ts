@@ -27,10 +27,7 @@ export class AuthService {
 		private dialog: MatDialog
 	) {}
 
-	private async access(
-		credential: UserCredential,
-		username?: string
-	) {
+	private async access(credential: UserCredential, username?: string) {
 		this.loginUser({
 			uid: credential.user.uid,
 			email: credential.user.email,
@@ -45,7 +42,10 @@ export class AuthService {
 
 	public async signup(email: string, password: string, username: string) {
 		try {
-			await this.access(await this.firebase.registerNewUser(email, password), username);
+			await this.access(
+				await this.firebase.registerNewUser(email, password),
+				username
+			);
 		} catch (error) {
 			this.dialog.open(ErrorRegisterDialogComponent, {
 				disableClose: false,
@@ -55,7 +55,9 @@ export class AuthService {
 
 	public async signin(email: string, password: string) {
 		try {
-			await this.access(await this.firebase.loginEmailPsw(email, password));
+			await this.access(
+				await this.firebase.loginEmailPsw(email, password)
+			);
 		} catch (error) {
 			console.log(error);
 			this.dialog.open(ErrorLoginDialogComponent, {
@@ -71,7 +73,7 @@ export class AuthService {
 			console.log(error);
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
-			})
+			});
 		}
 	}
 
@@ -81,7 +83,7 @@ export class AuthService {
 		} catch (error) {
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
-			})
+			});
 		}
 	}
 
@@ -91,7 +93,7 @@ export class AuthService {
 		} catch (error) {
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
-			})
+			});
 		}
 	}
 

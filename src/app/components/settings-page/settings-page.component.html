@@ -3,14 +3,37 @@
 		<div class="ms-2 h-100 p-3 d-flex flex-column align-items-center">
 			<h1 class="text-center">Impostazioni</h1>
 
-			<img class="mb-2 mt-4 d-none d-lg-block" src="assets/profile.png" width="200" alt="Profile pic">
-			<img class="mb-2 mt-4 d-block d-lg-none" src="assets/profile.png" width="150" alt="Profile pic">
+			<img
+				class="mb-2 mt-4 d-none d-lg-block"
+				src="assets/profile.png"
+				width="200"
+				alt="Profile pic"
+			/>
+			<img
+				class="mb-2 mt-4 d-block d-lg-none"
+				src="assets/profile.png"
+				width="150"
+				alt="Profile pic"
+			/>
 
 			<p *ngIf="username">{{ username }}</p>
 
 			<div class="d-flex justify-content-center align-items-center mb-4">
-				<button (click)="shareUsername()" class="btn btn-light rounded-5 btn-sm me-2" style="border: none"><i class="bi bi-link-45deg"></i></button>
-				<button *ngIf="!onModify" (click)="onModify = true" class="btn btn-light rounded-5 btn-sm ms-2" style="border: none"><i class="bi bi-pencil-square"></i></button>
+				<button
+					(click)="shareUsername()"
+					class="btn btn-light rounded-5 btn-sm me-2"
+					style="border: none"
+				>
+					<i class="bi bi-link-45deg"></i>
+				</button>
+				<button
+					*ngIf="!onModify"
+					(click)="onModify = true"
+					class="btn btn-light rounded-5 btn-sm ms-2"
+					style="border: none"
+				>
+					<i class="bi bi-pencil-square"></i>
+				</button>
 			</div>
 
 			<div class="form-check mb-4 align-self-start">
@@ -21,7 +44,7 @@
 					class="form-check-input"
 					type="checkbox"
 					[checked]="visibility"
-				>
+				/>
 				<input
 					*ngIf="onModify"
 					id="checkbox-profile"
@@ -29,19 +52,35 @@
 					type="checkbox"
 					[(ngModel)]="visibility"
 					[checked]="visibility"
+				/>
+				<label
+					class="form-check-label d-none d-lg-block"
+					for="flexCheckDefault"
 				>
-				<label class="form-check-label d-none d-lg-block" for="flexCheckDefault">
 					Rendi visibili le tue schede agli altri
 				</label>
-				<label class="form-check-label d-block d-lg-none" for="flexCheckDefault" style="font-size: small;">
+				<label
+					class="form-check-label d-block d-lg-none"
+					for="flexCheckDefault"
+					style="font-size: small"
+				>
 					Rendi visibili le tue schede agli altri
 				</label>
 			</div>
 
 			<div class="mb-3">
-				<button (click)="openExcerciseDialog()" class="btn btn-light w-100 mb-4">Esercizi custom <i class="ms-2 bi bi-arrows-angle-expand"></i></button>
+				<button
+					(click)="openExcerciseDialog()"
+					class="btn btn-light w-100 mb-4"
+				>
+					Esercizi custom
+					<i class="ms-2 bi bi-arrows-angle-expand"></i>
+				</button>
 
-				<div *ngIf="onModify" class="d-flex align-items-center w-100 mb-2 input-container">
+				<div
+					*ngIf="onModify"
+					class="d-flex align-items-center w-100 mb-2 input-container"
+				>
 					<div class="d-flex flex-column mb-4 me-3">
 						<p class="mb-0">Username</p>
 						<input
@@ -51,22 +90,70 @@
 							style="background-color: transparent"
 						/>
 					</div>
-					<div class="d-flex justify-content-center align-items-center w-100">
-						<button (click)="saveSettings()" class="me-1 btn btn-success w-100 d-none d-lg-block">Salva <i class="ms-1 bi bi-check"></i></button>
-						<button class="me-1 btn btn-success w-100 d-block d-lg-none"><i class="bi bi-check"></i></button>
-						<button (click)="onModify = false" class="ms-1 btn btn-dark"><i class="bi bi-x"></i></button>
+					<div
+						class="d-flex justify-content-center align-items-center w-100"
+					>
+						<button
+							(click)="saveSettings()"
+							class="me-1 btn btn-success w-100 d-none d-lg-block"
+						>
+							Salva
+							<i class="ms-1 bi bi-check"></i>
+						</button>
+						<button
+							class="me-1 btn btn-success w-100 d-block d-lg-none"
+						>
+							<i class="bi bi-check"></i>
+						</button>
+						<button
+							(click)="onModify = false"
+							class="ms-1 btn btn-dark"
+						>
+							<i class="bi bi-x"></i>
+						</button>
 					</div>
 				</div>
 
-				<button class="btn btn-secondary w-100 mb-4" (click)="changePassword()">Cambia password <i class="ms-1 bi bi-lock-fill"></i></button>
+				<button
+					class="btn btn-secondary w-100 mb-4"
+					(click)="changePassword()"
+				>
+					Cambia password
+					<i class="ms-1 bi bi-lock-fill"></i>
+				</button>
 
-				<div class="d-flex justify-content-center align-items-center d-none d-lg-block mb-4">
-					<button (click)="backToHome()" class="btn btn-dark me-2">Torna alla home <i class="ms-1 bi bi-house-fill"></i></button>
-					<button (click)="deleteAccount()" class="btn btn-danger ms-2">Elimina Account <i class="ms-1 bi bi-trash3-fill"></i></button>
+				<div
+					class="d-flex justify-content-center align-items-center d-none d-lg-block mb-4"
+				>
+					<button (click)="backToHome()" class="btn btn-dark me-2">
+						Torna alla home
+						<i class="ms-1 bi bi-house-fill"></i>
+					</button>
+					<button
+						(click)="deleteAccount()"
+						class="btn btn-danger ms-2"
+					>
+						Elimina Account
+						<i class="ms-1 bi bi-trash3-fill"></i>
+					</button>
 				</div>
-				<div class="d-flex flex-column justify-content-center align-items-center d-block d-lg-none mb-4">
-					<button (click)="backToHome()" class="btn btn-dark mb-4 w-100">Torna alla home <i class="ms-1 bi bi-house-fill"></i></button>
-					<button (click)="deleteAccount()" class="btn btn-danger w-100">Elimina Account <i class="ms-1 bi bi-trash3-fill"></i></button>
+				<div
+					class="d-flex flex-column justify-content-center align-items-center d-block d-lg-none mb-4"
+				>
+					<button
+						(click)="backToHome()"
+						class="btn btn-dark mb-4 w-100"
+					>
+						Torna alla home
+						<i class="ms-1 bi bi-house-fill"></i>
+					</button>
+					<button
+						(click)="deleteAccount()"
+						class="btn btn-danger w-100"
+					>
+						Elimina Account
+						<i class="ms-1 bi bi-trash3-fill"></i>
+					</button>
 				</div>
 			</div>
 		</div>

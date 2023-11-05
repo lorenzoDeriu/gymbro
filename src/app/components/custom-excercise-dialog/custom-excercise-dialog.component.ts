@@ -1,11 +1,15 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SafetyActionConfirmDialogComponent } from '../safety-action-confirm-dialog/safety-action-confirm-dialog.component';
+import { Component, Inject } from "@angular/core";
+import {
+	MAT_DIALOG_DATA,
+	MatDialog,
+	MatDialogRef,
+} from "@angular/material/dialog";
+import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 
 @Component({
-  selector: 'app-custom-excercise-dialog',
-  templateUrl: './custom-excercise-dialog.component.html',
-  styleUrls: ['./custom-excercise-dialog.component.css']
+	selector: "app-custom-excercise-dialog",
+	templateUrl: "./custom-excercise-dialog.component.html",
+	styleUrls: ["./custom-excercise-dialog.component.css"],
 })
 export class CustomExcerciseDialogComponent {
 	constructor(
@@ -18,7 +22,8 @@ export class CustomExcerciseDialogComponent {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina esericizio",
-				message: "Sei sicuro di voler eliminare questo esercizio? Questa azione è irreversibile.",
+				message:
+					"Sei sicuro di voler eliminare questo esercizio? Questa azione è irreversibile.",
 				args: [index, this.data.excercises],
 				confirm: async (index: number, customExercises: any) => {
 					customExercises.splice(index, 1);

@@ -3,7 +3,8 @@
 	src: url(https://static1.squarespace.com/static/6412b954167fb959080a9874/t/64e08b2ec3dafa01ab100e59/1692437295189/Poppins-Regular.ttf);
 }
 
-html, body {
+html,
+body {
 	height: 100svh;
 	width: 100vw;
 }
@@ -28,13 +29,13 @@ img {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type="number"] {
+	-moz-appearance: textfield;
 }
 
 ::-moz-selection {
@@ -50,8 +51,6 @@ input[type=number] {
 ::-webkit-scrollbar {
 	display: none;
 }
-
-
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

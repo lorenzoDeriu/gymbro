@@ -28,7 +28,7 @@ export class FriendsComponent implements OnInit {
 
 		this.username = this.userData["username"];
 
-/* 		this._hasFollow =
+		/* 		this._hasFollow =
 			this.userData["follow"] != undefined
 				? this.userData.follow.length > 0
 				: false;
@@ -37,26 +37,26 @@ export class FriendsComponent implements OnInit {
 		this._hasFollow = true;
 		this.followed = [
 			{
-				username: 'Lorenzo',
-				visibilityPermission: true
+				username: "Lorenzo",
+				visibilityPermission: true,
 			},
 			{
-				username: 'Mario',
-				visibilityPermission: true
+				username: "Mario",
+				visibilityPermission: true,
 			},
 			{
-				username: 'Marco',
-				visibilityPermission: true
+				username: "Marco",
+				visibilityPermission: true,
 			},
 			{
-				username: 'Lorenzo',
-				visibilityPermission: true
+				username: "Lorenzo",
+				visibilityPermission: true,
 			},
 			{
-				username: 'Mario',
-				visibilityPermission: true
-			}
-		]
+				username: "Mario",
+				visibilityPermission: true,
+			},
+		];
 
 		this.loading = false;
 	}

@@ -1,21 +1,28 @@
 <div id="wrapper" *ngIf="!loading">
 	<div id="main-container" class="p-3">
-		<h1 *ngIf="trainingPrograms.length !== 0" class="mt-3 mb-4 text-center w-100">Le tue schede di allenamento</h1>
-		<h1 *ngIf="trainingPrograms.length === 0" class="mt-3 mb-4 text-center w-100">Non ci sono schede, creane una nuova!</h1>
+		<h1
+			*ngIf="trainingPrograms.length !== 0"
+			class="mt-3 mb-4 text-center w-100"
+		>
+			Le tue schede di allenamento
+		</h1>
+		<h1
+			*ngIf="trainingPrograms.length === 0"
+			class="mt-3 mb-4 text-center w-100"
+		>
+			Non ci sono schede, creane una nuova!
+		</h1>
 
 		<div class="d-none d-lg-flex justify-content-center mb-4">
 			<button
 				class="btn back-btn text-light me-2"
-				style="border: none; background-color: #6b44d4;"
+				style="border: none; background-color: #6b44d4"
 				(click)="buildTrainingProgramButton()"
 			>
 				Nuova scheda
 				<i class="ms-1 bi bi-plus"></i>
 			</button>
-			<button
-				class="btn btn-dark ms-2"
-				(click)="backToHomeButton()"
-			>
+			<button class="btn btn-dark ms-2" (click)="backToHomeButton()">
 				Torna alla home
 				<i class="ms-1 bi bi-house-fill"></i>
 			</button>
@@ -24,22 +31,22 @@
 		<div class="d-flex justify-content-center d-lg-none mb-4">
 			<button
 				class="btn back-btn text-light me-2"
-				style="border: none; background-color: #6b44d4;"
+				style="border: none; background-color: #6b44d4"
 				(click)="buildTrainingProgramButton()"
 			>
 				Nuova
 				<i class="ms-1 bi bi-plus"></i>
 			</button>
-			<button
-				class="btn btn-dark ms-2"
-				(click)="backToHomeButton()"
-			>
+			<button class="btn btn-dark ms-2" (click)="backToHomeButton()">
 				Home
 				<i class="bi bi-house-fill"></i>
 			</button>
 		</div>
 
-		<div *ngFor="let program of trainingPrograms; index as programIndex" class="w-100 mb-2">
+		<div
+			*ngFor="let program of trainingPrograms; index as programIndex"
+			class="w-100 mb-2"
+		>
 			<a
 				[href]="'#program' + programIndex"
 				class="btn btn-light w-100 mb-1 border programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
@@ -49,15 +56,33 @@
 				aria-controls="collapseExample"
 				(click)="focusCollapse($event, 'program')"
 			>
-				<p style="pointer-events: none;" class="text-center text-truncate me-2 mb-0">{{ program.name }}</p>
-				<p class="mb-0" style="white-space: nowrap; pointer-events: none;">{{ 'Sessioni: ' + program.session.length }}</p>
+				<p
+					style="pointer-events: none"
+					class="text-center text-truncate me-2 mb-0"
+				>
+					{{ program.name }}
+				</p>
+				<p
+					class="mb-0"
+					style="white-space: nowrap; pointer-events: none"
+				>
+					{{ "Sessioni: " + program.session.length }}
+				</p>
 			</a>
 
-
-			<div class="collapse w-100 programs-collapse-body collapse-body" [id]="'program' + programIndex">
+			<div
+				class="collapse w-100 programs-collapse-body collapse-body"
+				[id]="'program' + programIndex"
+			>
 				<div class="card card-body p-1">
 					<h5 class="text-center">Sessioni</h5>
-					<div *ngFor="let session of program.session; index as sessionIndex" class="w-100 mb-2">
+					<div
+						*ngFor="
+							let session of program.session;
+							index as sessionIndex
+						"
+						class="w-100 mb-2"
+					>
 						<a
 							[href]="'#session' + programIndex + sessionIndex"
 							class="btn btn-light w-100 mb-1 border sessions-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
@@ -67,13 +92,22 @@
 							aria-controls="collapseExample"
 							(click)="focusCollapse($event, 'session')"
 						>
-							<p style="pointer-events: none;" class="text-center text-truncate mb-0">{{ session.name }}</p>
+							<p
+								style="pointer-events: none"
+								class="text-center text-truncate mb-0"
+							>
+								{{ session.name }}
+							</p>
 						</a>
 
-
-						<div class="collapse w-100 sessions-collapse-body collapse-body" [id]="'session' + programIndex + sessionIndex">
+						<div
+							class="collapse w-100 sessions-collapse-body collapse-body"
+							[id]="'session' + programIndex + sessionIndex"
+						>
 							<div class="card card-body p-1">
-								<table class="table table-sm table-striped table-hover">
+								<table
+									class="table table-sm table-striped table-hover"
+								>
 									<thead>
 										<tr>
 											<th scope="col">Esercizio</th>
@@ -92,7 +126,8 @@
 											<th>
 												<i
 													*ngIf="
-														exercise.note && exercise.note != ''
+														exercise.note &&
+														exercise.note != ''
 													"
 													(click)="
 														showNotes(
@@ -116,20 +151,22 @@
 												>
 													<div
 														*ngFor="
-															let set of exercise.advanced.sets;
+															let set of exercise
+																.advanced.sets;
 															index as i
 														"
 													>
 														{{
 															exercise.series > 0
-															? exercise.series +
-																" x " +
-																(set.min != set.max
-																	? set.min +
-																	"-" +
-																	set.max
-																	: set.min)
-															: "/"
+																? exercise.series +
+																  " x " +
+																  (set.min !=
+																  set.max
+																		? set.min +
+																		  "-" +
+																		  set.max
+																		: set.min)
+																: "/"
 														}}
 														<br />
 													</div>
@@ -138,41 +175,49 @@
 												<div
 													*ngIf="
 														!exercise.configurationType ||
-														exercise.configurationType === 'basic'
+														exercise.configurationType ===
+															'basic'
 													"
 												>
 													{{
 														exercise.series > 0
 															? exercise.series +
 															  " x " +
-															  (exercise.range[0] !=
+															  (exercise
+																	.range[0] !=
 															  exercise.range[1]
-																	? exercise.range[0] +
+																	? exercise
+																			.range[0] +
 																	  "-" +
-																	  exercise.range[1]
-																	: exercise.range[0])
+																	  exercise
+																			.range[1]
+																	: exercise
+																			.range[0])
 															: "/"
 													}}
 												</div>
 											</td>
 
 											<td>
-												{{ exercise.RPE > 0 ? exercise.RPE : "" }}
+												{{
+													exercise.RPE > 0
+														? exercise.RPE
+														: ""
+												}}
 											</td>
 											<td>
 												{{
 													exercise.rest
-													? exercise.rest.minutes +
-														":" +
-														exercise.rest.seconds
-													: exercise.restTime
+														? exercise.rest
+																.minutes +
+														  ":" +
+														  exercise.rest.seconds
+														: exercise.restTime
 														? exercise.restTime
 														: "/"
 												}}
 											</td>
-											<td>
-
-											</td>
+											<td></td>
 										</tr>
 									</tbody>
 								</table>
@@ -180,12 +225,36 @@
 						</div>
 					</div>
 					<div class="w-100 d-none d-lg-flex">
-						<button class="btn me-2 w-100 text-light edit-btn" style="background-color: #4089c9;" (click)="editTrainingProgram(programIndex)">Modifica <i class="ms-1 bi bi-pencil-square"></i></button>
-						<button class="btn btn-danger ms-2 w-100" (click)="removeTrainingProgram(programIndex)">Elimina <i class="ms-1 bi bi-trash3"></i></button>
+						<button
+							class="btn me-2 w-100 text-light edit-btn"
+							style="background-color: #4089c9"
+							(click)="editTrainingProgram(programIndex)"
+						>
+							Modifica
+							<i class="ms-1 bi bi-pencil-square"></i>
+						</button>
+						<button
+							class="btn btn-danger ms-2 w-100"
+							(click)="removeTrainingProgram(programIndex)"
+						>
+							Elimina
+							<i class="ms-1 bi bi-trash3"></i>
+						</button>
 					</div>
 					<div class="w-100 d-flex d-lg-none">
-						<button class="btn btn-sm me-1 w-100 text-light edit-btn" style="background-color: #4089c9;" (click)="editTrainingProgram(programIndex)"><i class="bi bi-pencil-square"></i></button>
-						<button class="btn btn-sm btn-danger ms-1 w-100" (click)="removeTrainingProgram(programIndex)"><i class="bi bi-trash3"></i></button>
+						<button
+							class="btn btn-sm me-1 w-100 text-light edit-btn"
+							style="background-color: #4089c9"
+							(click)="editTrainingProgram(programIndex)"
+						>
+							<i class="bi bi-pencil-square"></i>
+						</button>
+						<button
+							class="btn btn-sm btn-danger ms-1 w-100"
+							(click)="removeTrainingProgram(programIndex)"
+						>
+							<i class="bi bi-trash3"></i>
+						</button>
 					</div>
 				</div>
 			</div>

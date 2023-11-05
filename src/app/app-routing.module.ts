@@ -24,7 +24,7 @@ import { WelcomePageComponent } from "./components/welcome-page/welcome-page.com
 
 const routes: Routes = [
 	{ path: "", redirectTo: "home", pathMatch: "full" },
-	{ path: "welcome",	component: WelcomePageComponent },
+	{ path: "welcome", component: WelcomePageComponent },
 	{ path: "access", component: AccessComponent },
 	{
 		path: "home",

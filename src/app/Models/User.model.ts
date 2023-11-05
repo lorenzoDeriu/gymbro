@@ -9,4 +9,4 @@ export type User = {
 	visibility: boolean;
 	trainingPrograms: TrainingProgram[];
 	workout: Workout[];
-}
+};

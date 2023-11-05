@@ -19,7 +19,7 @@ input:focus {
 #checkbox-profile {
 	outline: none;
 	box-shadow: none;
-	accent-color: #6b44d4!important;
+	accent-color: #6b44d4 !important;
 	cursor: pointer;
 	border-radius: 50%;
 	padding: 1px;

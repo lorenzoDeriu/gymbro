@@ -1,16 +1,26 @@
-<nav class="navbar fixed-top bg-body-tertiary shadow" style="z-index: 1;">
+<nav class="navbar fixed-top bg-body-tertiary shadow" style="z-index: 1">
 	<div class="container-fluid">
-		<a class="navbar-brand m-0" (click)="goToHome()" style="cursor: pointer;">
-			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="70">
+		<a
+			class="navbar-brand m-0"
+			(click)="goToHome()"
+			style="cursor: pointer"
+		>
+			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="70" />
 		</a>
 
-<!-- 		<button (click)="toContinueWorkout()" class="timer-btn text-light btn rounded-5 d-flex justify-content-between" style="width: 115px; border: none; background-color: #4089c9;">
+		<!-- 		<button (click)="toContinueWorkout()" class="timer-btn text-light btn rounded-5 d-flex justify-content-between" style="width: 115px; border: none; background-color: #4089c9;">
 			<i class="bi bi-stopwatch me-2"></i>
 			<p class="text-start m-0 w-100">{{ trainingTime | date: 'HH:mm:ss' }}</p>
 		</button> -->
 
 		<div class="btn-group">
-			<button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false" style="border: none;">
+			<button
+				type="button"
+				class="btn"
+				data-bs-toggle="dropdown"
+				aria-expanded="false"
+				style="border: none"
+			>
 				<i class="fs-3 bi bi-list"></i>
 			</button>
 			<ul class="dropdown-menu dropdown-menu-end">
@@ -18,7 +28,7 @@
 					<a
 						class="dropdown-item"
 						(click)="onSocial()"
-						style="cursor: pointer;"
+						style="cursor: pointer"
 					>
 						Gymbros
 						<i class="ms-2 bi bi-people-fill"></i>
@@ -28,7 +38,7 @@
 					<a
 						class="dropdown-item"
 						(click)="onFeedback()"
-						style="cursor: pointer;"
+						style="cursor: pointer"
 					>
 						Feedback
 						<i class="ms-2 bi bi-flag-fill"></i>
@@ -38,7 +48,7 @@
 					<a
 						class="dropdown-item"
 						(click)="onAbout()"
-						style="cursor: pointer;"
+						style="cursor: pointer"
 					>
 						About
 						<i class="ms-2 bi bi-info-circle-fill"></i>
@@ -48,7 +58,7 @@
 					<a
 						class="dropdown-item"
 						(click)="onSettings()"
-						style="cursor: pointer;"
+						style="cursor: pointer"
 					>
 						Impostazioni
 						<i class="ms-2 bi bi-gear-wide-connected"></i>
@@ -58,7 +68,7 @@
 					<a
 						class="dropdown-item"
 						(click)="onLogout()"
-						style="cursor: pointer;"
+						style="cursor: pointer"
 					>
 						Esci
 						<i class="ms-2 bi bi-box-arrow-right"></i>

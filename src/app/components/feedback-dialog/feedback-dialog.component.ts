@@ -9,7 +9,7 @@ import { FirebaseService } from "src/app/services/firebase.service";
 	styleUrls: ["./feedback-dialog.component.css"],
 })
 export class FeedbackDialogComponent {
-	feedback: string = '';
+	feedback: string = "";
 
 	constructor(
 		private firebase: FirebaseService,
@@ -18,7 +18,9 @@ export class FeedbackDialogComponent {
 	) {}
 
 	sendFeedback() {
-		this.feedback = (document.getElementById("feedback") as HTMLTextAreaElement).value;
+		this.feedback = (
+			document.getElementById("feedback") as HTMLTextAreaElement
+		).value;
 
 		this.firebase.addFeedback(this.feedback);
 
@@ -34,8 +36,10 @@ export class FeedbackDialogComponent {
 	}
 
 	allowSendFeedback() {
-		this.feedback = (document.getElementById("feedback") as HTMLTextAreaElement).value;
+		this.feedback = (
+			document.getElementById("feedback") as HTMLTextAreaElement
+		).value;
 
-		return this.feedback && this.feedback !== '';
+		return this.feedback && this.feedback !== "";
 	}
 }

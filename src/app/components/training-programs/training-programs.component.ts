@@ -35,11 +35,15 @@ export class TrainingProgramsComponent implements OnInit {
 		this.loading = false;
 	}
 
-	focusCollapse(e: Event, type: 'program' | 'session') {
-		if (type === 'program')
-			(e.target as HTMLAnchorElement).classList.toggle("program-collapse-focus")
+	focusCollapse(e: Event, type: "program" | "session") {
+		if (type === "program")
+			(e.target as HTMLAnchorElement).classList.toggle(
+				"program-collapse-focus"
+			);
 		else
-			(e.target as HTMLAnchorElement).classList.toggle("session-collapse-focus")
+			(e.target as HTMLAnchorElement).classList.toggle(
+				"session-collapse-focus"
+			);
 	}
 
 	backToHomeButton() {

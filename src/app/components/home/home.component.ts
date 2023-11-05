@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 		private authservice: AuthService,
 		private router: Router,
 		private dialog: MatDialog,
-		private firebase: FirebaseService,
+		private firebase: FirebaseService
 	) {}
 
 	ngOnInit(): void {

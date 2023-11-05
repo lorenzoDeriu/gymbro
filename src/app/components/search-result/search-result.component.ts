@@ -16,26 +16,26 @@ export class SearchResultComponent implements OnInit {
 		//this.searchResult = JSON.parse(localStorage.getItem("search-result"));
 		this.searchResult = [
 			{
-				username: 'Lorenzo',
-				visibilityPermission: true
+				username: "Lorenzo",
+				visibilityPermission: true,
 			},
 			{
-				username: 'Mario',
-				visibilityPermission: true
+				username: "Mario",
+				visibilityPermission: true,
 			},
 			{
-				username: 'Marco',
-				visibilityPermission: true
+				username: "Marco",
+				visibilityPermission: true,
 			},
 			{
-				username: 'Lorenzo',
-				visibilityPermission: true
+				username: "Lorenzo",
+				visibilityPermission: true,
 			},
 			{
-				username: 'Mario',
-				visibilityPermission: true
-			}
-		]
+				username: "Mario",
+				visibilityPermission: true,
+			},
+		];
 	}
 
 	onCancel() {

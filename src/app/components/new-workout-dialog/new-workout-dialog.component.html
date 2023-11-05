@@ -1,29 +1,32 @@
-<div class="d-flex flex-column jusitfy-content-center align-items-center p-3" style="width: fit-content;">
+<div
+	class="d-flex flex-column jusitfy-content-center align-items-center p-3"
+	style="width: fit-content"
+>
 	<h2 class="mb-3 text-center">
-		{{
-			workoutExists()
-			? "Continua allenamento"
-			: "Crea allenamento"
-		}}
+		{{ workoutExists() ? "Continua allenamento" : "Crea allenamento" }}
 	</h2>
-	<div class="d-flex jusitfy-content-around align-items-center w-100 h-100 mb-3">
-		<button (click)="navigate('/home/prebuild-workout')" class="me-1 btn w-100 text-light workout-btn " style="background-color: #6b44d4; border: none;">
+	<div
+		class="d-flex jusitfy-content-around align-items-center w-100 h-100 mb-3"
+	>
+		<button
+			(click)="navigate('/home/prebuild-workout')"
+			class="me-1 btn w-100 text-light workout-btn"
+			style="background-color: #6b44d4; border: none"
+		>
 			<p class="mb-0">
-				{{
-					workoutExists()
-					? "Continua"
-					: "Crea"
-				}}
+				{{ workoutExists() ? "Continua" : "Crea" }}
 			</p>
 			<i *ngIf="workoutExists()" class="ms-1 bi bi-play-fill"></i>
 			<i *ngIf="!workoutExists()" class="ms-1 bi bi-plus"></i>
 		</button>
-		<button (click)="navigate('/home/training-program-selector')" class="ms-1 btn w-100 text-light workout-btn " style="background-color: #6b44d4; border: none;">
+		<button
+			(click)="navigate('/home/training-program-selector')"
+			class="ms-1 btn w-100 text-light workout-btn"
+			style="background-color: #6b44d4; border: none"
+		>
 			<p class="mb-0">Scheda</p>
 			<i class="ms-1 bi bi-clipboard2-pulse"></i>
 		</button>
 	</div>
-	<button class="btn btn-dark w-100" (click)="closeDialog()">
-		Annulla
-	</button>
+	<button class="btn btn-dark w-100" (click)="closeDialog()">Annulla</button>
 </div>

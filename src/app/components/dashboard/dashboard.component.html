@@ -1,15 +1,13 @@
-<div
-	id="wrapper"
->
-	<div
-		id="main-container"
-	>
+<div id="wrapper">
+	<div id="main-container">
 		<div
 			class="home-div rounded-5"
 			id="new-workout"
 			(click)="openNewWorkoutDialog()"
 		>
-			<h3 class="mb-0 fw-bold">{{ workoutExists() ? "Continua" : "Crea" }} Allenamento</h3>
+			<h3 class="mb-0 fw-bold">
+				{{ workoutExists() ? "Continua" : "Crea" }} Allenamento
+			</h3>
 			<img src="assets/dumbbell.png" alt="" />
 		</div>
 

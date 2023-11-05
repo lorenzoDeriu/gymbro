@@ -22,57 +22,57 @@ export class ProfileComponent implements OnInit, OnDestroy {
 					name: "PUSH",
 					exercises: [
 						{
-							configurationType: 'advanced',
+							configurationType: "advanced",
 							name: "Panca piana",
 							series: 2,
 							range: [],
 							RPE: "8",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
 							advanced: {
 								sets: [
 									{
 										min: 6,
-										max: 8
-									}
-								]
-							}
+										max: 8,
+									},
+								],
+							},
 						},
 						{
-							configurationType: 'advanced',
+							configurationType: "advanced",
 							name: "Curl DB",
 							series: 4,
 							range: [],
 							RPE: "9",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
 							advanced: {
 								sets: [
 									{
 										min: 6,
-										max: 8
-									}
-								]
-							}
+										max: 8,
+									},
+								],
+							},
 						},
 						{
-							configurationType: 'basic',
+							configurationType: "basic",
 							name: "Alzate laterali",
 							series: 4,
 							range: [8, 10],
 							RPE: "9",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
-							advanced: {}
+							advanced: {},
 						},
 					],
 				},
@@ -80,54 +80,54 @@ export class ProfileComponent implements OnInit, OnDestroy {
 					name: "PULL",
 					exercises: [
 						{
-							configurationType: 'basic',
+							configurationType: "basic",
 							name: "LAT Machine",
 							series: 3,
 							range: [10, 12],
 							RPE: "8",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
-							advanced: {}
+							advanced: {},
 						},
 						{
-							configurationType: 'advanced',
+							configurationType: "advanced",
 							name: "Curl DB",
 							series: 4,
 							range: [],
 							RPE: "9",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
 							advanced: {
 								sets: [
 									{
 										min: 6,
-										max: 8
-									}
-								]
-							}
+										max: 8,
+									},
+								],
+							},
 						},
 						{
-							configurationType: 'basic',
+							configurationType: "basic",
 							name: "Rematore",
 							series: 3,
 							range: [8, 10],
 							RPE: "9",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
-							advanced: {}
+							advanced: {},
 						},
 					],
 				},
-			]
+			],
 		},
 		{
 			name: "Scheda di Mario",
@@ -136,57 +136,57 @@ export class ProfileComponent implements OnInit, OnDestroy {
 					name: "PULL",
 					exercises: [
 						{
-							configurationType: 'advanced',
+							configurationType: "advanced",
 							name: "Panca piana",
 							series: 2,
 							range: [],
 							RPE: "8",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
 							advanced: {
 								sets: [
 									{
 										min: 6,
-										max: 8
-									}
-								]
-							}
+										max: 8,
+									},
+								],
+							},
 						},
 						{
-							configurationType: 'advanced',
+							configurationType: "advanced",
 							name: "Curl DB",
 							series: 4,
 							range: [],
 							RPE: "9",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
 							advanced: {
 								sets: [
 									{
 										min: 6,
-										max: 8
-									}
-								]
-							}
+										max: 8,
+									},
+								],
+							},
 						},
 						{
-							configurationType: 'basic',
+							configurationType: "basic",
 							name: "Alzate laterali",
 							series: 4,
 							range: [8, 10],
 							RPE: "9",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
-							advanced: {}
+							advanced: {},
 						},
 					],
 				},
@@ -194,56 +194,56 @@ export class ProfileComponent implements OnInit, OnDestroy {
 					name: "PUSH",
 					exercises: [
 						{
-							configurationType: 'basic',
+							configurationType: "basic",
 							name: "LAT Machine",
 							series: 3,
 							range: [10, 12],
 							RPE: "8",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
-							advanced: {}
+							advanced: {},
 						},
 						{
-							configurationType: 'advanced',
+							configurationType: "advanced",
 							name: "Curl DB",
 							series: 4,
 							range: [],
 							RPE: "9",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
 							advanced: {
 								sets: [
 									{
 										min: 6,
-										max: 8
-									}
-								]
-							}
+										max: 8,
+									},
+								],
+							},
 						},
 						{
-							configurationType: 'basic',
+							configurationType: "basic",
 							name: "Rematore",
 							series: 3,
 							range: [8, 10],
 							RPE: "9",
 							rest: {
 								minutes: 2,
-								seconds: 30
+								seconds: 30,
 							},
 							note: "Bella!",
-							advanced: {}
+							advanced: {},
 						},
 					],
 				},
-			]
+			],
 		},
-	]
+	];
 
 	public loading: boolean;
 
@@ -296,7 +296,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		this.router.navigate(["/home/friends"]);
 	}
 
-/* 	closeAllCollapse(index: number, type: string) {
+	/* 	closeAllCollapse(index: number, type: string) {
 		if (type === 'programs') {
 			const collapsers: NodeListOf<Element> = document.querySelectorAll('.collapser');
 			const collapses: NodeListOf<Element> = document.querySelectorAll('.collapse-body');

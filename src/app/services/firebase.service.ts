@@ -40,7 +40,14 @@ import {
 import { Router } from "@angular/router";
 import { User } from "../Models/User.model";
 import { Session, TrainingProgram } from "../Models/TrainingProgram.model";
-import { EffectiveExercise, EffectiveSet, Exercise, IntensityType, Set, TrainingProgramExercises } from "../Models/Exercise.model";
+import {
+	EffectiveExercise,
+	EffectiveSet,
+	Exercise,
+	IntensityType,
+	Set,
+	TrainingProgramExercises,
+} from "../Models/Exercise.model";
 import { Workout } from "../Models/Workout.model";
 
 @Injectable({
@@ -74,7 +81,7 @@ export class FirebaseService {
 			if (doc.id.startsWith("WU") || true) {
 				const data = doc.data();
 
-				console.log(data)
+				console.log(data);
 
 				let newData: User;
 
@@ -84,11 +91,13 @@ export class FirebaseService {
 					username: data["username"] ?? "",
 					customExercises: data["customExercises"] ?? [],
 					follow: data["follow"] ?? [],
-					trainingPrograms: this.normalizeTrainingPrograms(data["trainingPrograms"]),
+					trainingPrograms: this.normalizeTrainingPrograms(
+						data["trainingPrograms"]
+					),
 					workout: this.normalizeWorkout(data["workouts"]),
 					admin: data["admin"] ?? false,
 					visibility: data["visibility"] ?? false,
-				}
+				};
 
 				console.log("complete parsing", doc.id, data, newData);
 			}
@@ -105,8 +114,8 @@ export class FirebaseService {
 			newWorkout = {
 				name: workouts["name"],
 				date: workouts["date"],
-				exercises: []
-			}
+				exercises: [],
+			};
 
 			let exercises: EffectiveExercise[] = [];
 
@@ -120,9 +129,9 @@ export class FirebaseService {
 					intensity: this.getIntensity(exerciseObj["RPE"]),
 					rest: {
 						minutes: exerciseObj.rest?.minutes ?? "00",
-						seconds: exerciseObj.rest?.seconds ?? "00"
-					}
-				}
+						seconds: exerciseObj.rest?.seconds ?? "00",
+					},
+				};
 
 				exercises.push(newExercise);
 			});
@@ -135,7 +144,9 @@ export class FirebaseService {
 		return normalizedWorkout;
 	}
 
-	private normalizeTrainingPrograms(trainingPrograms: any[]): TrainingProgram[] {
+	private normalizeTrainingPrograms(
+		trainingPrograms: any[]
+	): TrainingProgram[] {
 		let normalizedTraining: TrainingProgram[] = [];
 
 		trainingPrograms.forEach((trainingProgram: any) => {
@@ -144,7 +155,7 @@ export class FirebaseService {
 			newNormalizedTraining = {
 				name: trainingProgram["name"],
 				session: [],
-			}
+			};
 
 			let session: Session[] = [];
 
@@ -153,8 +164,8 @@ export class FirebaseService {
 
 				newSession = {
 					name: sessionObj["name"],
-					exercises: []
-				}
+					exercises: [],
+				};
 
 				sessionObj["exercises"].forEach((exerciseObj: any) => {
 					let newExercise: TrainingProgramExercises;
@@ -166,9 +177,9 @@ export class FirebaseService {
 						intensity: this.getIntensity(exerciseObj["RPE"]),
 						rest: {
 							minutes: exerciseObj.rest?.minutes ?? "00",
-							seconds: exerciseObj.rest?.seconds ?? "00"
-						}
-					}
+							seconds: exerciseObj.rest?.seconds ?? "00",
+						},
+					};
 
 					newSession.exercises.push(newExercise);
 				});
@@ -187,9 +198,7 @@ export class FirebaseService {
 		if (rpe === "10") return "failure";
 
 		if (rpe === "9" || rpe === "8") return "hard";
-
 		else return "light";
-
 	}
 
 	private getSet(exercise: any): Set[] {
@@ -208,7 +217,7 @@ export class FirebaseService {
 					minimumReps: setObj["min"],
 					maximumReps: setObj["max"],
 				});
-			})
+			});
 		}
 
 		return set;
@@ -230,7 +239,7 @@ export class FirebaseService {
 					reps: setObj["reps"],
 					load: setObj["load"],
 				});
-			})
+			});
 		}
 
 		return set;

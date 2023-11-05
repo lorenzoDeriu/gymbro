@@ -2,13 +2,11 @@
 	<div id="main-container" class="p-3">
 		<h1 class="my-3 text-center">Nuova scheda di allenamento</h1>
 
-		<form
-			class="d-flex justify-content-center align-items-center mb-4"
-		>
+		<form class="d-flex justify-content-center align-items-center mb-4">
 			<button
 				type="button"
 				class="btn text-light save-btn me-2 d-none d-lg-flex"
-				style="border: none; background-color: #6b44d4;"
+				style="border: none; background-color: #6b44d4"
 				routerLink="/home/training-programs"
 			>
 				<i class="me-1 bi bi-arrow-left"></i>
@@ -17,7 +15,7 @@
 			<button
 				type="button"
 				class="btn btn-sm text-light save-btn me-2 d-flex d-lg-none"
-				style="border: none; background-color: #6b44d4;"
+				style="border: none; background-color: #6b44d4"
 				routerLink="/home/training-programs"
 			>
 				<i class="bi bi-arrow-left"></i>
@@ -26,7 +24,7 @@
 			<div class="d-flex flex-column w-50 mx-2 mb-3 mt-2 input-container">
 				<p class="mb-0 text-center">Nome</p>
 				<input
-					[ngModelOptions]="{standalone: true}"
+					[ngModelOptions]="{ standalone: true }"
 					[(ngModel)]="trainingProgram.name"
 					type="text"
 					class="border-0 border-bottom py-1"
@@ -51,7 +49,13 @@
 			</button>
 		</form>
 
-		<div *ngFor="let session of trainingProgram.session; index as sessionIndex" class="w-100 mb-2">
+		<div
+			*ngFor="
+				let session of trainingProgram.session;
+				index as sessionIndex
+			"
+			class="w-100 mb-2"
+		>
 			<a
 				[href]="'#session' + sessionIndex"
 				class="btn btn-light w-100 mb-1 border sessions-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
@@ -60,7 +64,9 @@
 				aria-expanded="false"
 				aria-controls="collapseExample"
 			>
-				<p class="text-center mb-0 text-truncate me-3">{{ session.name }}</p>
+				<p class="text-center mb-0 text-truncate me-3">
+					{{ session.name }}
+				</p>
 				<button
 					class="btn btn-danger d-none d-lg-block"
 					(click)="deleteSession(sessionIndex)"
@@ -76,13 +82,17 @@
 				</button>
 			</a>
 
-
-			<div class="collapse w-100 sessions-collapse-body collapse-body" [id]="'session' + sessionIndex">
+			<div
+				class="collapse w-100 sessions-collapse-body collapse-body"
+				[id]="'session' + sessionIndex"
+			>
 				<div class="card card-body p-1">
-					<div class="d-flex flex-column w-25 mx-2 mb-3 mt-2 input-container session-name">
+					<div
+						class="d-flex flex-column w-25 mx-2 mb-3 mt-2 input-container session-name"
+					>
 						<p class="mb-0">Nome</p>
 						<input
-							[ngModelOptions]="{standalone: true}"
+							[ngModelOptions]="{ standalone: true }"
 							[(ngModel)]="session.name"
 							type="text"
 							class="border-0 border-bottom py-1"
@@ -110,7 +120,8 @@
 								<th>
 									<i
 										*ngIf="
-											exercise?.note && exercise?.note != ''
+											exercise?.note &&
+											exercise?.note != ''
 										"
 										style="cursor: pointer"
 										class="me-1 bi bi-info-circle-fill"
@@ -127,20 +138,21 @@
 									>
 										<div
 											*ngFor="
-												let set of exercise?.advanced.sets;
+												let set of exercise?.advanced
+													.sets;
 												index as i
 											"
 										>
 											{{
 												exercise?.series > 0
-												? exercise?.series +
-													" x " +
-													(set.min != set.max
-														? set.min +
-														"-" +
-														set.max
-														: set.min)
-												: "/"
+													? exercise?.series +
+													  " x " +
+													  (set.min != set.max
+															? set.min +
+															  "-" +
+															  set.max
+															: set.min)
+													: "/"
 											}}
 											<br />
 										</div>
@@ -149,7 +161,8 @@
 									<div
 										*ngIf="
 											!exercise?.configurationType ||
-											exercise?.configurationType === 'basic'
+											exercise?.configurationType ===
+												'basic'
 										"
 									>
 										{{
@@ -181,13 +194,23 @@
 									<div class="d-flex align-items-center">
 										<i
 											class="bi bi-pencil-square me-2"
-											(click)="editExercise(session, exerciseIndex)"
-											style="cursor: pointer;"
+											(click)="
+												editExercise(
+													session,
+													exerciseIndex
+												)
+											"
+											style="cursor: pointer"
 										></i>
 										<i
 											class="text-danger bi bi-trash3"
-											(click)="deleteExercise(session, exerciseIndex)"
-											style="cursor: pointer;"
+											(click)="
+												deleteExercise(
+													session,
+													exerciseIndex
+												)
+											"
+											style="cursor: pointer"
 										></i>
 									</div>
 								</td>
@@ -223,7 +246,7 @@
 		<button
 			class="btn text-light add-session-button d-none d-lg-block"
 			(click)="addSession()"
-			style="border: none; background-color: #4089c9;"
+			style="border: none; background-color: #4089c9"
 		>
 			Aggiungi sessione
 			<i class="ms-1 bi bi-plus-lg"></i>
@@ -231,7 +254,7 @@
 		<button
 			class="btn btn-sm text-light add-session-button d-block d-lg-none"
 			(click)="addSession()"
-			style="border: none; background-color: #4089c9;"
+			style="border: none; background-color: #4089c9"
 		>
 			Aggiungi sessione
 			<i class="ms-1 bi bi-plus-lg"></i>

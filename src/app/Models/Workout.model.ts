@@ -4,4 +4,4 @@ export type Workout = {
 	name: string;
 	date: string;
 	exercises: EffectiveExercise[];
-}
+};
