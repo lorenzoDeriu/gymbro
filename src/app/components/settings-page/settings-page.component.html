@@ -91,19 +91,15 @@
 						/>
 					</div>
 					<div
-						class="d-flex justify-content-center align-items-center w-100"
+						class="d-flex justify-content-center align-items-center w-100 mb-4"
 					>
 						<button
 							(click)="saveSettings()"
-							class="me-1 btn btn-success w-100 d-none d-lg-block"
+							class="me-1 btn save-btn text-light w-100"
+							style="background: #6b44d4; border: none;"
 						>
 							Salva
 							<i class="ms-1 bi bi-check"></i>
-						</button>
-						<button
-							class="me-1 btn btn-success w-100 d-block d-lg-none"
-						>
-							<i class="bi bi-check"></i>
 						</button>
 						<button
 							(click)="onModify = false"
@@ -149,7 +145,7 @@
 					</button>
 					<button
 						(click)="deleteAccount()"
-						class="btn btn-danger w-100"
+						class="btn btn-danger w-100 mb-4"
 					>
 						Elimina Account
 						<i class="ms-1 bi bi-trash3-fill"></i>

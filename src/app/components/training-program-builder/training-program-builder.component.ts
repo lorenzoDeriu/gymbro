@@ -103,6 +103,21 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		this.router.navigate(["/home/session-builder"]);
 	}
 
+	focusCollapse(type: "program" | "session", index: number) {
+		if (type === "program") {
+			const collapsers: NodeListOf<Element> = document.querySelectorAll('.collapser');
+			const collapses: NodeListOf<Element> = document.querySelectorAll('.collapse-body');
+
+			for (let i = 0; i < collapsers.length; i++) {
+				if (i !== index) {
+					collapsers[i].classList.remove('collapsed');
+					collapsers[i].setAttribute('aria-expanded', 'false');
+					collapses[i].classList.remove('show');
+				}
+			}
+		}
+	}
+
 	async removeElement(index: number) {
 		this.userService.removeSessionFromTrianingProgram(index);
 		this.trainingProgram.session =
@@ -152,6 +167,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 				}
 			});
 	}
+
 	async saveTrainingProgram() {
 		if (this.editMode) {
 			await this.firebase.editTrainingProgram(

@@ -47,4 +47,12 @@ export class SearchResultComponent implements OnInit {
 
 		this.router.navigate(["/home/friends"]);
 	}
+
+	viewProfile(index: number) {
+		localStorage.setItem(
+			"profile",
+			JSON.stringify({ uid: this.searchResult[index].uid })
+		);
+		this.router.navigate(["/home/profile"]);
+	}
 }

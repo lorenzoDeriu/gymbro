@@ -25,6 +25,16 @@ input:focus {
 	padding: 1px;
 }
 
+.save-btn:hover {
+	background-color: #785ebe !important;
+}
+
+.save-btn:active {
+	background-color: #957dd6 !important;
+	border: #957dd6 !important;
+	outline: #957dd6 !important;
+}
+
 @media (max-width: 360px) {
 	.input-container {
 		display: flex;

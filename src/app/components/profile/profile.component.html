@@ -44,8 +44,8 @@
 		/>
 
 		<div class="d-flex justify-content-center align-items-center mb-4">
-			<p class="mb-0" *ngIf="username" style="color: #4089c9">
-				{{ "@" + username }}
+			<p class="mb-0" *ngIf="username">
+				{{ username }}
 			</p>
 		</div>
 
@@ -84,6 +84,7 @@
 					role="button"
 					aria-expanded="false"
 					aria-controls="collapseExample"
+					(click)="focusCollapse('program', programIndex)"
 				>
 					<p class="text-center mb-0">{{ program.name }}</p>
 					<p class="mb-0">
@@ -113,6 +114,7 @@
 								role="button"
 								aria-expanded="false"
 								aria-controls="collapseExample"
+								(click)="focusCollapse('session', sessionIndex)"
 							>
 								<p class="text-center mb-0">
 									{{ session.name }}
@@ -135,10 +137,8 @@
 										<thead>
 											<tr>
 												<th scope="col">Esercizio</th>
-												<th scope="col">
-													Serie x Reps
-												</th>
-												<th scope="col">RPE</th>
+												<th scope="col">Serie</th>
+												<th scope="col">Intensità</th>
 											</tr>
 										</thead>
 										<tbody class="table-group-divider">
@@ -169,69 +169,44 @@
 
 												<td>
 													<div
-														*ngIf="
-															exercise.configurationType ===
-															'advanced'
-														"
+														class="d-flex flex-column"
 													>
-														<div
-															*ngFor="
-																let set of exercise
-																	.advanced
-																	.sets;
-																index as i
-															"
-														>
+														<div *ngFor="let set of exercise.set; index as setIndex">
 															{{
-																exercise.series >
-																0
-																	? exercise.series +
-																	  " x " +
-																	  (set.min !=
-																	  set.max
-																			? set.min +
-																			  "-" +
-																			  set.max
-																			: set.min)
-																	: "/"
+																'1 x ' +
+																set.minimumReps +
+																' - ' +
+																set.maximumReps
 															}}
-															<br />
 														</div>
-													</div>
-
-													<div
-														*ngIf="
-															!exercise.configurationType ||
-															exercise.configurationType ===
-																'basic'
-														"
-													>
-														{{
-															exercise.series > 0
-																? exercise.series +
-																  " x " +
-																  (exercise
-																		.range[0] !=
-																  exercise
-																		.range[1]
-																		? exercise
-																				.range[0] +
-																		  "-" +
-																		  exercise
-																				.range[1]
-																		: exercise
-																				.range[0])
-																: "/"
-														}}
 													</div>
 												</td>
 
 												<td>
-													{{
-														exercise.RPE > 0
-															? exercise.RPE
-															: ""
-													}}
+													<!--Desktop-->
+													<p *ngIf="exercise.intensity === 'light'" class="text-success mb-0 d-none d-lg-block">
+														Leggero
+														<i class="ms-1 bi bi-feather"></i>
+													</p>
+													<p *ngIf="exercise.intensity === 'hard'" class="text-warning mb-0 d-none d-lg-block">
+														Pesante
+														<i class="ms-1 bi bi-exclamation-triangle-fill"></i>
+													</p>
+													<p *ngIf="exercise.intensity === 'failure'" class="text-danger mb-0 d-none d-lg-block">
+														Cedimento
+														<i class="ms-1 bi bi-fire"></i>
+													</p>
+
+													<!--Mobile-->
+													<p *ngIf="exercise.intensity === 'light'" class="text-success mb-0 d-block d-lg-none">
+														<i class="bi bi-feather"></i>
+													</p>
+													<p *ngIf="exercise.intensity === 'hard'" class="text-warning mb-0 d-block d-lg-none">
+														<i class="bi bi-exclamation-triangle-fill"></i>
+													</p>
+													<p *ngIf="exercise.intensity === 'failure'" class="text-danger mb-0 d-block d-lg-none">
+														<i class="bi bi-fire"></i>
+													</p>
 												</td>
 											</tr>
 										</tbody>

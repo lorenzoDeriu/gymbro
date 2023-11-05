@@ -4,6 +4,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { Router } from "@angular/router";
+import { TrainingProgram } from "src/app/Models/TrainingProgram.model";
 
 @Component({
 	selector: "app-profile",
@@ -14,235 +15,48 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	/* public username: string;
 	public trainingPrograms: any[]; */
 	username: string = "Mario";
-	trainingPrograms: any[] = [
+	trainingPrograms: TrainingProgram[] = [
 		{
-			name: "Scheda di Lorenzo",
+			name: "Scheda 1",
 			session: [
 				{
-					name: "PUSH",
+					name: "Sessione 1",
 					exercises: [
 						{
-							configurationType: "advanced",
 							name: "Panca piana",
-							series: 2,
-							range: [],
-							RPE: "8",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {
-								sets: [
-									{
-										min: 6,
-										max: 8,
-									},
-								],
-							},
+							intensity: "failure",
+							rest: { minutes: 1, seconds: 30 },
+							note: "Muori",
+							set: [
+								{ minimumReps: 10, maximumReps: 12 },
+								{ minimumReps: 10, maximumReps: 12 },
+								{ minimumReps: 8, maximumReps: 10 },
+							],
 						},
 						{
-							configurationType: "advanced",
-							name: "Curl DB",
-							series: 4,
-							range: [],
-							RPE: "9",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {
-								sets: [
-									{
-										min: 6,
-										max: 8,
-									},
-								],
-							},
-						},
-						{
-							configurationType: "basic",
-							name: "Alzate laterali",
-							series: 4,
-							range: [8, 10],
-							RPE: "9",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {},
-						},
-					],
-				},
-				{
-					name: "PULL",
-					exercises: [
-						{
-							configurationType: "basic",
 							name: "LAT Machine",
-							series: 3,
-							range: [10, 12],
-							RPE: "8",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {},
+							intensity: "light",
+							rest: { minutes: 1, seconds: 15 },
+							note: "Respira",
+							set: [
+								{ minimumReps: 10, maximumReps: 12 },
+								{ minimumReps: 10, maximumReps: 12 },
+							],
 						},
 						{
-							configurationType: "advanced",
 							name: "Curl DB",
-							series: 4,
-							range: [],
-							RPE: "9",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {
-								sets: [
-									{
-										min: 6,
-										max: 8,
-									},
-								],
-							},
+							intensity: "hard",
+							rest: { minutes: 2, seconds: 30 },
+							note: "Respira",
+							set: [
+								{ minimumReps: 10, maximumReps: 12 },
+								{ minimumReps: 8, maximumReps: 10 },
+							],
 						},
-						{
-							configurationType: "basic",
-							name: "Rematore",
-							series: 3,
-							range: [8, 10],
-							RPE: "9",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {},
-						},
-					],
-				},
-			],
-		},
-		{
-			name: "Scheda di Mario",
-			session: [
-				{
-					name: "PULL",
-					exercises: [
-						{
-							configurationType: "advanced",
-							name: "Panca piana",
-							series: 2,
-							range: [],
-							RPE: "8",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {
-								sets: [
-									{
-										min: 6,
-										max: 8,
-									},
-								],
-							},
-						},
-						{
-							configurationType: "advanced",
-							name: "Curl DB",
-							series: 4,
-							range: [],
-							RPE: "9",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {
-								sets: [
-									{
-										min: 6,
-										max: 8,
-									},
-								],
-							},
-						},
-						{
-							configurationType: "basic",
-							name: "Alzate laterali",
-							series: 4,
-							range: [8, 10],
-							RPE: "9",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {},
-						},
-					],
-				},
-				{
-					name: "PUSH",
-					exercises: [
-						{
-							configurationType: "basic",
-							name: "LAT Machine",
-							series: 3,
-							range: [10, 12],
-							RPE: "8",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {},
-						},
-						{
-							configurationType: "advanced",
-							name: "Curl DB",
-							series: 4,
-							range: [],
-							RPE: "9",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {
-								sets: [
-									{
-										min: 6,
-										max: 8,
-									},
-								],
-							},
-						},
-						{
-							configurationType: "basic",
-							name: "Rematore",
-							series: 3,
-							range: [8, 10],
-							RPE: "9",
-							rest: {
-								minutes: 2,
-								seconds: 30,
-							},
-							note: "Bella!",
-							advanced: {},
-						},
-					],
-				},
-			],
-		},
+					]
+				}
+			]
+		}
 	];
 
 	public loading: boolean;
@@ -296,8 +110,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		this.router.navigate(["/home/friends"]);
 	}
 
-	/* 	closeAllCollapse(index: number, type: string) {
-		if (type === 'programs') {
+	focusCollapse(type: "program" | "session", index: number) {
+		if (type === "program") {
 			const collapsers: NodeListOf<Element> = document.querySelectorAll('.collapser');
 			const collapses: NodeListOf<Element> = document.querySelectorAll('.collapse-body');
 
@@ -309,21 +123,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 				}
 			}
 		}
-
-		else {
-			const collapsers: NodeListOf<Element> = document.querySelectorAll('.sessions-collapser');
-			const collapses: NodeListOf<Element> = document.querySelectorAll('.sessions-collapse-body');
-
-			for (let i = 0; i < collapsers.length; i++) {
-				if (i !== index) {
-					collapsers[i].classList.remove('collapsed');
-					collapsers[i].setAttribute('aria-expanded', 'false');
-					collapses[i].classList.remove('show');
-				}
-			}
-		}
-
-	} */
+	}
 
 	saveWorkout(trainingProgramIndex: number) {
 		this.firebase.addTrainingProgram(

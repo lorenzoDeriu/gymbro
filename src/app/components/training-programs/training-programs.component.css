@@ -35,14 +35,6 @@
 	outline: #7eafda !important;
 }
 
-.program-collapse-focus {
-	background-color: #d3d4d5 !important;
-}
-
-.session-collapse-focus {
-	background-color: #e4e4e4 !important;
-}
-
 @media (min-width: 900px) {
 	#main-container {
 		width: 75%;
