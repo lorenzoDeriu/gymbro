@@ -16,8 +16,8 @@ export interface EffectiveExercise extends Exercise {
 }
 
 export type RestTime = {
-	minutes: number;
-	seconds: number;
+	minutes: string;
+	seconds: string;
 };
 
 export type Set = {

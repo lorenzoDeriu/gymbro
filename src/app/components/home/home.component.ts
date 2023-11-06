@@ -4,6 +4,7 @@ import { AuthService } from "src/app/services/auth.service";
 import { MatDialog } from "@angular/material/dialog";
 import { FeedbackDialogComponent } from "../feedback-dialog/feedback-dialog.component";
 import { FirebaseService } from "src/app/services/firebase.service";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
 	selector: "app-home",
@@ -11,19 +12,34 @@ import { FirebaseService } from "src/app/services/firebase.service";
 	styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-	trainingTime: Date = new Date();
+	trainingTime: Date | undefined = undefined;
+	intervalID: any;
 
 	constructor(
 		private authservice: AuthService,
 		private router: Router,
 		private dialog: MatDialog,
-		private firebase: FirebaseService
+		private firebase: FirebaseService,
+		private userService: UserService
 	) {}
 
 	ngOnInit(): void {
-		setInterval(() => {
-			this.trainingTime = new Date();
-		}, 1000);
+		this.userService.stopwatchTimeObs.subscribe((time: Date) => {
+			if (time) {
+				this.intervalID = setInterval(() => {
+					const hours = new Date().getHours() - time.getHours();
+					const minutes = new Date().getMinutes() - time.getMinutes();
+					const seconds = new Date().getSeconds() - time.getSeconds();
+
+					this.trainingTime = new Date(0, 0, 0, hours, minutes, seconds);
+				}, 1000);
+			}
+
+			else {
+				this.trainingTime = undefined;
+				clearInterval(this.intervalID);
+			}
+		});
 	}
 
 	fixDB() {
@@ -42,6 +58,10 @@ export class HomeComponent implements OnInit {
 		this.dialog.open(FeedbackDialogComponent, {
 			disableClose: false,
 		});
+	}
+
+	toContinueWorkout() {
+		this.router.navigate(["/home/prebuild-workout"]);
 	}
 
 	onAbout() {

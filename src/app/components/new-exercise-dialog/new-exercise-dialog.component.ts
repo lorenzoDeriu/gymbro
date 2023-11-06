@@ -6,6 +6,7 @@ import {
 	MatDialogRef,
 } from "@angular/material/dialog";
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
+import { TrainingProgramExercises } from "src/app/Models/Exercise.model";
 
 @Component({
 	selector: "app-new-exercise-dialog",
@@ -14,30 +15,23 @@ import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-
 })
 export class NewExerciseDialogComponent {
 	public options: string[] = [];
-	public exercise = {
-		name: "",
-		series: 3,
-		range: [6, 8],
+	public exercise: TrainingProgramExercises = {
+		name: '',
+		intensity: 'hard',
 		rest: {
-			minutes: "02",
-			seconds: "00",
+			minutes: '02',
+			seconds: '00'
 		},
-		RPE: 8,
-		note: "",
-
-		// superset data:
-		secondExercise: "",
-
-		// advanced data:
-		advanced: {
-			sets: [{ min: 6, max: 8 }],
-		},
-
-		// configuration type:
-		configurationType: "basic",
+		note: '',
+		set: [
+			{
+				minimumReps: 6,
+				maximumReps: 8,
+			}
+		]
 	};
 
-	private editMode = false;
+	public editMode = false;
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: any,
@@ -66,11 +60,11 @@ export class NewExerciseDialogComponent {
 	}
 
 	addSet() {
-		this.exercise.advanced.sets.push({ min: 6, max: 8 });
+		this.exercise.set.push({ minimumReps: 6, maximumReps: 8 });
 	}
 
 	removeSet(index: number) {
-		this.exercise.advanced.sets.splice(index, 1);
+		this.exercise.set.splice(index, 1);
 	}
 
 	openCustomExerciseDialog() {
@@ -80,10 +74,6 @@ export class NewExerciseDialogComponent {
 		});
 	}
 
-	isDesktop() {
-		return window.innerWidth > 500;
-	}
-
 	save() {
 		this.dialogRef.close(this.exercise);
 	}
@@ -91,9 +81,9 @@ export class NewExerciseDialogComponent {
 	savable() {
 		return (
 			this.exercise.name !== "" &&
-			this.exercise.series !== 0 &&
-			this.exercise.range[0] !== 0 &&
-			this.exercise.range[1] !== 0
+			this.exercise.set.length > 0 &&
+			this.exercise.set.every((set) => set.minimumReps > 0 && set.maximumReps > 0) &&
+			this.exercise.set.every((set) => set.minimumReps < set.maximumReps && set.maximumReps > set.minimumReps)
 		);
 	}
 }

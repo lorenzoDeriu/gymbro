@@ -45,6 +45,21 @@ export class TrainingProgramSelectorComponent implements OnInit {
 		this.router.navigate(["/home"]);
 	}
 
+	focusCollapse(type: "program" | "session", index: number) {
+		if (type === "program") {
+			const collapsers: NodeListOf<Element> = document.querySelectorAll('.collapser');
+			const collapses: NodeListOf<Element> = document.querySelectorAll('.collapse-body');
+
+			for (let i = 0; i < collapsers.length; i++) {
+				if (i !== index) {
+					collapsers[i].classList.remove('collapsed');
+					collapsers[i].setAttribute('aria-expanded', 'false');
+					collapses[i].classList.remove('show');
+				}
+			}
+		}
+	}
+
 	showNotes(
 		trainingProgramIndex: number,
 		sessionIndex: number,

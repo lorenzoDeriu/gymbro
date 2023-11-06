@@ -12,7 +12,8 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 input:focus {

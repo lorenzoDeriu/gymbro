@@ -10,7 +10,15 @@
 		>
 			<button
 				type="button"
-				class="btn btn-dark text-light me-2"
+				class="btn btn-dark text-light me-2 d-none d-lg-block"
+				(click)="backToHome()"
+			>
+				<i class="bi bi-house-fill"></i>
+			</button>
+
+			<button
+				type="button"
+				class="btn btn-sm btn-dark text-light me-2 d-block d-lg-none"
 				(click)="backToHome()"
 			>
 				<i class="bi bi-house-fill"></i>
@@ -30,7 +38,16 @@
 
 			<button
 				type="submit"
-				class="btn search-btn text-light ms-2"
+				class="btn search-btn text-light ms-2 d-none d-lg-block"
+				style="border: none; background-color: #6b44d4"
+				[disabled]="!userSearchForm.valid"
+			>
+				<i class="bi bi-search"></i>
+			</button>
+
+			<button
+				type="submit"
+				class="btn btn-sm search-btn text-light ms-2 d-block d-lg-none"
 				style="border: none; background-color: #6b44d4"
 				[disabled]="!userSearchForm.valid"
 			>

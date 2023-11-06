@@ -1,3 +1,4 @@
+import { BehaviorSubject } from "rxjs";
 import { Exercise } from "../Models/Exercise.model";
 import { TrainingProgram } from "../Models/TrainingProgram.model";
 import { Workout } from "../Models/Workout.model";
@@ -12,8 +13,14 @@ export class UserService {
 	public trainingProgram: TrainingProgram[] = [];
 	public workoutSelected: Workout;
 
+	private stopwatchTime: BehaviorSubject<Date | undefined> = new BehaviorSubject<Date | undefined>(undefined);
+	public stopwatchTimeObs = this.stopwatchTime.asObservable();
+
 	constructor(private firebase: FirebaseService) {}
 
+	public setStopwatchTime(time: Date | undefined) {
+		this.stopwatchTime.next(time);
+	}
 
 	private workoutSortingFunction(a: Workout, b: Workout) {
 		let [day, month, year] = String(a.date).split("/");

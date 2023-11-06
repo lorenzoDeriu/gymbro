@@ -35,7 +35,7 @@ input:focus {
 	outline: #957dd6 !important;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 450px) {
 	.input-container {
 		display: flex;
 		flex-direction: column;

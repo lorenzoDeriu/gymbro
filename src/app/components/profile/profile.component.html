@@ -17,14 +17,14 @@
 
 		<div class="d-block d-lg-none mt-3">
 			<button
-				class="btn back-btn text-light me-2"
+				class="btn btn-sm back-btn text-light me-2"
 				style="border: none; background-color: #6b44d4"
 				(click)="onCancel()"
 			>
 				<i class="me-1 bi bi-arrow-left"></i>
 				Indietro
 			</button>
-			<button class="btn btn-dark ms-2" routerLink="/home">
+			<button class="btn btn-sm btn-dark ms-2" routerLink="/home">
 				Home
 				<i class="bi bi-house-fill"></i>
 			</button>
@@ -184,27 +184,27 @@
 
 												<td>
 													<!--Desktop-->
-													<p *ngIf="exercise.intensity === 'light'" class="text-success mb-0 d-none d-lg-block">
+													<p *ngIf="exercise.intensity === 'light'" class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
 														Leggero
 														<i class="ms-1 bi bi-feather"></i>
 													</p>
-													<p *ngIf="exercise.intensity === 'hard'" class="text-warning mb-0 d-none d-lg-block">
+													<p *ngIf="exercise.intensity === 'hard'" class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
 														Pesante
 														<i class="ms-1 bi bi-exclamation-triangle-fill"></i>
 													</p>
-													<p *ngIf="exercise.intensity === 'failure'" class="text-danger mb-0 d-none d-lg-block">
+													<p *ngIf="exercise.intensity === 'failure'" class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
 														Cedimento
 														<i class="ms-1 bi bi-fire"></i>
 													</p>
 
 													<!--Mobile-->
-													<p *ngIf="exercise.intensity === 'light'" class="text-success mb-0 d-block d-lg-none">
+													<p *ngIf="exercise.intensity === 'light'" class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
 														<i class="bi bi-feather"></i>
 													</p>
-													<p *ngIf="exercise.intensity === 'hard'" class="text-warning mb-0 d-block d-lg-none">
+													<p *ngIf="exercise.intensity === 'hard'" class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
 														<i class="bi bi-exclamation-triangle-fill"></i>
 													</p>
-													<p *ngIf="exercise.intensity === 'failure'" class="text-danger mb-0 d-block d-lg-none">
+													<p *ngIf="exercise.intensity === 'failure'" class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
 														<i class="bi bi-fire"></i>
 													</p>
 												</td>
@@ -222,6 +222,7 @@
 							Salva nelle tue schede
 							<i class="ms-1 bi bi-download"></i>
 						</button>
+
 						<button
 							class="btn btn-sm btn-dark d-block d-lg-none"
 							(click)="saveWorkout(programIndex)"

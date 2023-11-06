@@ -53,12 +53,7 @@ export class TrainingProgramsComponent implements OnInit {
 	}
 
 	editTrainingProgram(trainingProgramIndex: number) {
-		this.router.navigate(["/home/training-program-builder"]);
-
-		localStorage.setItem(
-			"trainingProgramToEdit",
-			JSON.stringify({ index: trainingProgramIndex })
-		);
+		this.router.navigate(["/home/training-program-builder", { id: trainingProgramIndex }]);
 	}
 
 	async removeTrainingProgram(index: number) {

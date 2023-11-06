@@ -1,4 +1,68 @@
-#workout-container {
+#wrapper {
+	width: 100vw;
+	height: calc(100svh - 70px);
+	transform: translateY(70px);
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
+}
+
+#main-container {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+input:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+#date-picker {
+	cursor: pointer;
+}
+
+#date-picker::-webkit-inner-spin-button,
+#date-picker::-webkit-calendar-picker-indicator {
+	cursor: pointer;
+}
+
+.complete-btn:hover {
+	background-color: #659fd2 !important;
+}
+
+.complete-btn:active {
+	background-color: #7eafda !important;
+	border: #7eafda !important;
+	outline: #7eafda !important;
+}
+
+.save-btn:hover, .history-btn:hover {
+	background-color: #785ebe !important;
+}
+
+.save-btn:active, .history-btn:active {
+	background-color: #957dd6 !important;
+	border: #957dd6 !important;
+	outline: #957dd6 !important;
+}
+
+@media (min-width: 900px) {
+	#main-container {
+		width: 75%;
+	}
+}
+
+@media (max-width: 900px) {
+	#main-container {
+		width: 100%;
+	}
+}
+
+/* #workout-container {
 	display: flex;
 	flex-direction: column;
 	width: 50%;
@@ -97,3 +161,4 @@ form button {
 		flex-direction: column;
 	}
 }
+ */

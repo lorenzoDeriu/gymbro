@@ -1,9 +1,10 @@
-import { UserService } from "src/app/services/user.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NewExerciseDialogComponent } from "../new-exercise-dialog/new-exercise-dialog.component";
+import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { Session } from "src/app/Models/TrainingProgram.model";
 
 @Component({
 	selector: "app-training-program-builder",
@@ -13,86 +14,33 @@ import { NewExerciseDialogComponent } from "../new-exercise-dialog/new-exercise-
 export class TrainingProgramBuilderComponent implements OnInit {
 	trainingProgram: any = {
 		name: "",
-		session: [{ name: "Sessione 1", exercises: [] }],
+		session: [
+			{
+				name: "Nuova sessione",
+				exercises: []
+			}
+		]
 	};
 
 	private editMode = false;
+	public loading = false;
 	private index: number;
 
 	constructor(
 		private router: Router,
-		private userService: UserService,
+		private route: ActivatedRoute,
 		private firebase: FirebaseService,
 		private dialog: MatDialog
 	) {}
 
 	async ngOnInit() {
-		if (localStorage.getItem("trainingProgramToEdit")) {
-			this.index = JSON.parse(
-				localStorage.getItem("trainingProgramToEdit")
-			).index;
-			localStorage.removeItem("trainingProgramToEdit");
-
-			this.trainingProgram = (await this.firebase.getTrainingPrograms())[
-				this.index
-			];
-			this.trainingProgram = this.legacyConversion(this.trainingProgram);
+		if (this.route.snapshot.paramMap.get('id')) {
+			this.loading = true;
+			this.index = parseInt(this.route.snapshot.paramMap.get('id'));
+			this.trainingProgram = (await this.firebase.getTrainingPrograms())[this.index];
 			this.editMode = true;
+			this.loading = false;
 		}
-	}
-
-	legacyConversion(trainingProgram: any) {
-		trainingProgram.session = trainingProgram.session.map(
-			(session: any) => {
-				session.exercises = session.exercises.map((exercise: any) => {
-					if (!exercise?.configurationType) {
-						exercise.configurationType = "basic";
-					}
-
-					if (exercise?.advanced == undefined) {
-						exercise.advanced = {
-							sets: [],
-						};
-					}
-
-					if (exercise?.configurationType === "advanced") {
-						exercise?.advanced?.sets?.forEach((set: any) => {
-							if (set.load == undefined) {
-								set.load = 0;
-							}
-
-							if (set.reps == undefined) {
-								set.reps = set.min;
-							}
-						});
-					}
-
-					if (exercise?.reps) {
-						exercise.range = [exercise.reps, exercise.reps];
-						delete exercise.reps;
-					}
-
-					if (exercise?.load != undefined) {
-						delete exercise?.load;
-					}
-
-					if (exercise?.restTime) {
-						exercise.rest = {
-							minutes: exercise?.restTime.split(":")[0],
-							seconds: exercise?.restTime.split(":")[1],
-						};
-
-						delete exercise?.restTime;
-					}
-
-					return exercise;
-				});
-
-				return session;
-			}
-		);
-
-		return trainingProgram;
 	}
 
 	onCancel() {
@@ -101,27 +49,6 @@ export class TrainingProgramBuilderComponent implements OnInit {
 
 	onNewSessionBuild() {
 		this.router.navigate(["/home/session-builder"]);
-	}
-
-	focusCollapse(type: "program" | "session", index: number) {
-		if (type === "program") {
-			const collapsers: NodeListOf<Element> = document.querySelectorAll('.collapser');
-			const collapses: NodeListOf<Element> = document.querySelectorAll('.collapse-body');
-
-			for (let i = 0; i < collapsers.length; i++) {
-				if (i !== index) {
-					collapsers[i].classList.remove('collapsed');
-					collapsers[i].setAttribute('aria-expanded', 'false');
-					collapses[i].classList.remove('show');
-				}
-			}
-		}
-	}
-
-	async removeElement(index: number) {
-		this.userService.removeSessionFromTrianingProgram(index);
-		this.trainingProgram.session =
-			await this.userService.getTrainingProgram();
 	}
 
 	addExercise(session: any) {
@@ -142,9 +69,42 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			...this.trainingProgram,
 			session: [
 				...this.trainingProgram.session,
-				{ name: "", exercises: [] },
+				{ name: "Nuova sessione", exercises: [] },
 			],
 		};
+	}
+
+	deleteSessionDialog(index: number) {
+		this.dialog.open(SafetyActionConfirmDialogComponent, {
+			data: {
+				title: "Elimina sessione",
+				message:
+					"Sei sicuro di voler eliminare questa sessione?",
+				args: [index],
+				confirm: async (
+					index: number,
+				) => {
+					this.deleteSession(index);
+				},
+			},
+		});
+	}
+
+	deleteExerciseDialog(session: Session, index: number) {
+		this.dialog.open(SafetyActionConfirmDialogComponent, {
+			data: {
+				title: "Elimina esercizio",
+				message:
+					"Sei sicuro di voler eliminare questo esercizio?",
+				args: [session, index],
+				confirm: async (
+					session: Session,
+					index: number,
+				) => {
+					this.deleteExercise(session, index);
+				},
+			},
+		});
 	}
 
 	deleteSession(index: number) {

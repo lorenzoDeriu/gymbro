@@ -8,10 +8,10 @@
 			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="70" />
 		</a>
 
-		<!-- 		<button (click)="toContinueWorkout()" class="timer-btn text-light btn rounded-5 d-flex justify-content-between" style="width: 115px; border: none; background-color: #4089c9;">
+		<button *ngIf="trainingTime" (click)="toContinueWorkout()" class="timer-btn text-light btn rounded-5 d-flex justify-content-between" style="width: 115px; border: none; background-color: #4089c9;">
 			<i class="bi bi-stopwatch me-2"></i>
 			<p class="text-start m-0 w-100">{{ trainingTime | date: 'HH:mm:ss' }}</p>
-		</button> -->
+		</button>
 
 		<div class="btn-group">
 			<button

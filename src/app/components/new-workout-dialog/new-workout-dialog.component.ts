@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
 	selector: "app-new-workout-dialog",
@@ -10,7 +11,8 @@ import { Router } from "@angular/router";
 export class NewWorkoutDialogComponent {
 	constructor(
 		public dialogRef: MatDialogRef<NewWorkoutDialogComponent>,
-		private router: Router
+		private router: Router,
+		private userService: UserService
 	) {}
 
 	workoutExists() {
@@ -27,6 +29,9 @@ export class NewWorkoutDialogComponent {
 	navigate(path: string) {
 		this.router.navigate([path]);
 		this.closeDialog();
+
+		// Set the stopwatch time to now
+		this.userService.setStopwatchTime(new Date());
 	}
 
 	closeDialog() {

@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 						{
 							name: "Panca piana",
 							intensity: "failure",
-							rest: { minutes: 1, seconds: 30 },
+							rest: { minutes: '01', seconds: '30' },
 							note: "Muori",
 							set: [
 								{ minimumReps: 10, maximumReps: 12 },
@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 						{
 							name: "LAT Machine",
 							intensity: "light",
-							rest: { minutes: 1, seconds: 15 },
+							rest: { minutes: '01', seconds: '15' },
 							note: "Respira",
 							set: [
 								{ minimumReps: 10, maximumReps: 12 },
@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 						{
 							name: "Curl DB",
 							intensity: "hard",
-							rest: { minutes: 2, seconds: 30 },
+							rest: { minutes: '02', seconds: '30' },
 							note: "Respira",
 							set: [
 								{ minimumReps: 10, maximumReps: 12 },

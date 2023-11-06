@@ -3,6 +3,11 @@ select:focus {
 	box-shadow: none;
 }
 
+input:focus {
+	outline: none;
+	box-shadow: none;
+}
+
 .add-btn:hover {
 	background-color: #785ebe !important;
 }

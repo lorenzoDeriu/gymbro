@@ -6,6 +6,8 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ExerciseStatsDialogComponent } from "../exercise-stats-dialog/exercise-stats-dialog.component";
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { Workout } from "src/app/Models/Workout.model";
+import { EffectiveExercise, EffectiveSet } from "src/app/Models/Exercise.model";
 
 @Component({
 	selector: "app-prebuild-workout",
@@ -13,8 +15,9 @@ import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-ac
 	styleUrls: ["./prebuild-workout.component.css"],
 })
 export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
-	public workout: any = {
-		name: "",
+	public workout: Workout = {
+		name: '',
+		date: '',
 		exercises: [],
 	};
 	public workoutIndex: number;
@@ -60,7 +63,7 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 
 		localStorage.setItem("workout", JSON.stringify(this.workout));
 
-		for (let i = 0; i < this.workout.exercises.length; i++) {
+		/* for (let i = 0; i < this.workout.exercises.length; i++) {
 			this.workout.exercises[i].completed =
 				this.workout.exercises[i].completed != undefined
 					? this.workout.exercises[i].completed
@@ -80,7 +83,7 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 				this.workout.exercises[i].reps =
 					this.workout.exercises[i].range[0];
 			}
-		}
+		} */
 
 		this.availableExercise = await this.firebase.getExercise(
 			JSON.parse(localStorage.getItem("user")).uid
@@ -108,16 +111,12 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 		return this.formatDate(date).split("/").reverse().join("-");
 	}
 
-	isDesktop() {
-		return window.innerWidth > 1250;
-	}
-
 	formatLabel(value: number): string {
 		return `${value}`;
 	}
 
 	saveExerciseData(exerciseIndex: number) {
-		this.workout.exercises[exerciseIndex].completed = true;
+		//this.workout.exercises[exerciseIndex].completed = true;
 		this.updateWorkoutOnLocalStorage();
 	}
 
@@ -127,7 +126,7 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 	}
 
 	onChangeExerciseData(exerciseIndex: number) {
-		this.workout.exercises[exerciseIndex].completed = false;
+		//this.workout.exercises[exerciseIndex].completed = false;
 
 		this.updateWorkoutOnLocalStorage();
 	}
@@ -158,11 +157,11 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 	}
 
 	savable() {
-		if (this.workout.name == "" || this.workout.exercises.length == 0)
+		if (this.workout.name === "" || this.workout.exercises.length === 0)
 			return false;
 
 		for (let exercise of this.workout.exercises) {
-			if (!exercise.completed) return false;
+			//if (!exercise.completed) return false;
 		}
 
 		return true;
@@ -188,8 +187,10 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 				message: "Sei sicuro di voler annullare l'allenamento?",
 				args: [],
 				confirm: () => {
+					this.userService.setStopwatchTime(undefined);
 					localStorage.removeItem("workout");
 					this.router.navigate(["/home"]);
+
 				},
 			},
 		});
@@ -251,7 +252,9 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 
 	openCustomExerciseDialog(exercise: any) {
 		this.dialog
-			.open(AddExerciseDialogComponent)
+			.open(AddExerciseDialogComponent, {
+				disableClose: false
+			})
 			.afterClosed()
 			.subscribe(async customExercise => {
 				if (customExercise == undefined || customExercise === "")
@@ -268,27 +271,15 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 	addExerciseToPrebuiltWorkout() {
 		localStorage.removeItem("exercise");
 
-		let exercise = {
-			name: "",
-			load: 0,
-			RPE: 9,
+		let exercise: EffectiveExercise = {
+			name: '',
+			intensity: 'hard',
 			rest: {
-				minutes: "02",
-				seconds: "00",
-				running: false,
+				minutes: '02',
+				seconds: '00',
 			},
-			series: 0,
-			range: [0, 0],
-			reps: 0,
-			configurationType: "basic",
-
-			// superset data:
-			secondExercise: "",
-
-			// advanced data:
-			advanced: {
-				sets: [{ reps: 0, load: 0 }],
-			},
+			note: '',
+			set: []
 		};
 
 		this.workout.exercises.push(exercise);
@@ -297,14 +288,25 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 	}
 
 	deleteSet(exerciseIndex: number, setIndex: number) {
-		this.workout.exercises[exerciseIndex].advanced.sets.splice(setIndex, 1);
+		this.workout.exercises[exerciseIndex].set.splice(setIndex, 1);
 	}
 
 	addSet(exerciseIndex: number) {
-		this.workout.exercises[exerciseIndex].advanced.sets.push({
-			reps: 0,
-			load: 0,
-		});
+		if (this.workout.exercises[exerciseIndex].set.length > 0) {
+			const lastSet: EffectiveSet = this.workout.exercises[exerciseIndex].set[this.workout.exercises[exerciseIndex].set.length - 1];
+
+			this.workout.exercises[exerciseIndex].set.push({
+				reps: lastSet.reps,
+				load: lastSet.load,
+			});
+		}
+
+		else {
+			this.workout.exercises[exerciseIndex].set.push({
+				reps: 8,
+				load: 20,
+			});
+		}
 	}
 
 	setExerciseConfigurationType(exercise: any, type: string) {

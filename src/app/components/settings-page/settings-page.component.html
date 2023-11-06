@@ -21,10 +21,10 @@
 			<div class="d-flex justify-content-center align-items-center mb-4">
 				<button
 					(click)="shareUsername()"
-					class="btn btn-light rounded-5 btn-sm me-2"
+					[ngClass]="{'btn btn-light rounded-5 btn-sm': true, 'me-2': !onModify}"
 					style="border: none"
 				>
-					<i class="bi bi-link-45deg"></i>
+					<i class="bi bi-box-arrow-up"></i>
 				</button>
 				<button
 					*ngIf="!onModify"
@@ -55,13 +55,13 @@
 				/>
 				<label
 					class="form-check-label d-none d-lg-block"
-					for="flexCheckDefault"
+					for="checkbox-profile"
 				>
 					Rendi visibili le tue schede agli altri
 				</label>
 				<label
 					class="form-check-label d-block d-lg-none"
-					for="flexCheckDefault"
+					for="checkbox-profile"
 					style="font-size: small"
 				>
 					Rendi visibili le tue schede agli altri
@@ -71,7 +71,16 @@
 			<div class="mb-3">
 				<button
 					(click)="openExcerciseDialog()"
-					class="btn btn-light w-100 mb-4"
+					class="btn btn-light w-100 mb-4 d-none d-lg-block"
+				>
+					Esercizi custom
+					<i class="ms-2 bi bi-arrows-angle-expand"></i>
+				</button>
+
+				<!--Mobile-->
+				<button
+					(click)="openExcerciseDialog()"
+					class="btn btn-sm btn-light w-100 mb-4 d-block d-lg-none"
 				>
 					Esercizi custom
 					<i class="ms-2 bi bi-arrows-angle-expand"></i>
@@ -95,7 +104,7 @@
 					>
 						<button
 							(click)="saveSettings()"
-							class="me-1 btn save-btn text-light w-100"
+							class="me-1 btn save-btn text-light w-100 d-none d-lg-block"
 							style="background: #6b44d4; border: none;"
 						>
 							Salva
@@ -103,7 +112,23 @@
 						</button>
 						<button
 							(click)="onModify = false"
-							class="ms-1 btn btn-dark"
+							class="ms-1 btn btn-dark d-none d-lg-block"
+						>
+							<i class="bi bi-x"></i>
+						</button>
+
+						<!--Mobile-->
+						<button
+							(click)="saveSettings()"
+							class="me-1 btn btn-sm save-btn text-light w-100 d-block d-lg-none"
+							style="background: #6b44d4; border: none;"
+						>
+							Salva
+							<i class="ms-1 bi bi-check"></i>
+						</button>
+						<button
+							(click)="onModify = false"
+							class="ms-1 btn btn-sm btn-dark d-block d-lg-none"
 						>
 							<i class="bi bi-x"></i>
 						</button>
@@ -111,7 +136,16 @@
 				</div>
 
 				<button
-					class="btn btn-secondary w-100 mb-4"
+					class="btn btn-secondary w-100 mb-4 d-none d-lg-block"
+					(click)="changePassword()"
+				>
+					Cambia password
+					<i class="ms-1 bi bi-lock-fill"></i>
+				</button>
+
+				<!--Mobile-->
+				<button
+					class="btn btn-sm btn-secondary w-100 mb-4 d-block d-lg-none"
 					(click)="changePassword()"
 				>
 					Cambia password
@@ -133,19 +167,21 @@
 						<i class="ms-1 bi bi-trash3-fill"></i>
 					</button>
 				</div>
+
+				<!--Mobile-->
 				<div
 					class="d-flex flex-column justify-content-center align-items-center d-block d-lg-none mb-4"
 				>
 					<button
 						(click)="backToHome()"
-						class="btn btn-dark mb-4 w-100"
+						class="btn btn-sm btn-dark mb-4 w-100"
 					>
 						Torna alla home
 						<i class="ms-1 bi bi-house-fill"></i>
 					</button>
 					<button
 						(click)="deleteAccount()"
-						class="btn btn-danger w-100 mb-4"
+						class="btn btn-sm btn-danger w-100 mb-4"
 					>
 						Elimina Account
 						<i class="ms-1 bi bi-trash3-fill"></i>
