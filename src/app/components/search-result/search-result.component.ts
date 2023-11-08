@@ -13,29 +13,7 @@ export class SearchResultComponent implements OnInit {
 	constructor(private router: Router, private firebase: FirebaseService) {}
 
 	ngOnInit(): void {
-		//this.searchResult = JSON.parse(localStorage.getItem("search-result"));
-		this.searchResult = [
-			{
-				username: "Lorenzo",
-				visibilityPermission: true,
-			},
-			{
-				username: "Mario",
-				visibilityPermission: true,
-			},
-			{
-				username: "Marco",
-				visibilityPermission: true,
-			},
-			{
-				username: "Lorenzo",
-				visibilityPermission: true,
-			},
-			{
-				username: "Mario",
-				visibilityPermission: true,
-			},
-		];
+		this.searchResult = JSON.parse(localStorage.getItem("search-result"));
 	}
 
 	onCancel() {

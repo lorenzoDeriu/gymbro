@@ -35,15 +35,9 @@
 	outline: #7eafda !important;
 }
 
-@media (min-width: 900px) {
-	#main-container {
-		width: 75%;
-	}
-}
-
 @media (max-width: 900px) {
 	#main-container {
-		width: 100%;
+		width: 100% !important;
 	}
 
 	.table {

@@ -16,12 +16,6 @@
 	overflow-x: hidden;
 }
 
-@media (min-width: 900px) {
-	#main-container {
-		width: 75%;
-	}
-}
-
 @media (max-width: 900px) {
 	#main-container {
 		width: 100%;

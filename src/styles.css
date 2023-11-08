@@ -65,3 +65,16 @@ select:-webkit-autofill:focus {
 	-webkit-box-shadow: 0 0 0px 1000px transparent inset;
 	transition: background-color 5000s ease-in-out 0s;
 }
+
+.mdc-snackbar__surface {
+	background-color: #fff !important;
+}
+
+.mdc-snackbar__label {
+	color: #000 !important;
+}
+
+.mdc-snackbar button {
+	background-color: transparent !important;
+	color: #6b44d4 !important;
+}

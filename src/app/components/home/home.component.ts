@@ -5,6 +5,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { FeedbackDialogComponent } from "../feedback-dialog/feedback-dialog.component";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { UserService } from "src/app/services/user.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
 	selector: "app-home",
@@ -20,11 +21,12 @@ export class HomeComponent implements OnInit {
 		private router: Router,
 		private dialog: MatDialog,
 		private firebase: FirebaseService,
-		private userService: UserService
+		private userService: UserService,
+		private snackbar: MatSnackBar
 	) {}
 
 	ngOnInit(): void {
-		this.userService.stopwatchTimeObs.subscribe((time: Date) => {
+/* 		this.userService.stopwatchTimeObs.subscribe((time: Date) => {
 			if (time) {
 				this.intervalID = setInterval(() => {
 					const hours = new Date().getHours() - time.getHours();
@@ -39,7 +41,7 @@ export class HomeComponent implements OnInit {
 				this.trainingTime = undefined;
 				clearInterval(this.intervalID);
 			}
-		});
+		}); */
 	}
 
 	fixDB() {

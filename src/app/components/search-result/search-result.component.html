@@ -2,16 +2,48 @@
 	<div id="main-container" class="p-3">
 		<h1 class="mt-3 mb-4" *ngIf="searchResult.length !== 0">Risultati</h1>
 
-		<img
-			*ngIf="searchResult.length === 0"
-			src="assets/search-not-found.svg"
-			style="width: 60%"
-			alt="Not found"
-		/>
+		<div class="d-none d-lg-block mb-4">
+			<button
+				class="btn back-btn text-light me-2"
+				style="border: none; background-color: #6b44d4"
+				(click)="onCancel()"
+			>
+				<i class="me-1 bi bi-arrow-left"></i>
+				Torna Indietro
+			</button>
+			<button class="btn btn-dark ms-2" routerLink="/home">
+				Torna alla home
+				<i class="ms-1 bi bi-house-fill"></i>
+			</button>
+		</div>
 
-		<h3 class="text-center my-4" *ngIf="searchResult.length === 0">
-			La ricerca non ha prodotto risultati
-		</h3>
+		<div class="d-block d-lg-none mb-4">
+			<button
+				class="btn btn-sm back-btn text-light me-2"
+				style="border: none; background-color: #6b44d4"
+				(click)="onCancel()"
+			>
+				<i class="me-1 bi bi-arrow-left"></i>
+				Indietro
+			</button>
+			<button class="btn btn-sm btn-dark ms-2" routerLink="/home">
+				Home
+				<i class="bi bi-house-fill"></i>
+			</button>
+		</div>
+
+		<div class="d-flex flex-column align-items-center">
+			<img
+				*ngIf="searchResult.length === 0"
+				src="assets/search-not-found.svg"
+				style="width: 50%;"
+				alt="No results found"
+			/>
+
+			<h3 class="text-center mt-4" *ngIf="searchResult.length === 0">
+				La ricerca non ha prodotto risultati
+			</h3>
+		</div>
 
 		<div
 			*ngFor="let user of searchResult; index as i"
@@ -41,36 +73,6 @@
 				style="border: none; width: 40px; height: 40px;"
 			>
 				<i class="bi bi-person-plus-fill"></i>
-			</button>
-		</div>
-
-		<div class="d-none d-lg-block">
-			<button
-				class="btn back-btn text-light me-2"
-				style="border: none; background-color: #6b44d4"
-				(click)="onCancel()"
-			>
-				<i class="me-1 bi bi-arrow-left"></i>
-				Torna Indietro
-			</button>
-			<button class="btn btn-dark ms-2" routerLink="/home">
-				Torna alla home
-				<i class="ms-1 bi bi-house-fill"></i>
-			</button>
-		</div>
-
-		<div class="d-block d-lg-none">
-			<button
-				class="btn back-btn text-light me-2"
-				style="border: none; background-color: #6b44d4"
-				(click)="onCancel()"
-			>
-				<i class="me-1 bi bi-arrow-left"></i>
-				Indietro
-			</button>
-			<button class="btn btn-dark ms-2" routerLink="/home">
-				Home
-				<i class="bi bi-house-fill"></i>
 			</button>
 		</div>
 	</div>

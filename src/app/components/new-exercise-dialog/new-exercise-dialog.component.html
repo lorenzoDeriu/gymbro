@@ -85,8 +85,9 @@
 					[(ngModel)]="exercise.intensity"
 					value="light"
 				/>
-				<label class="btn btn-outline-dark" for="btnradio1">
+				<label [ngClass]="{'btn border': true, 'btn-success': exercise.intensity === 'light'}" for="btnradio1">
 					Leggero
+					<i class="ms-1 bi bi-feather "></i>
 				</label>
 
 				<input
@@ -99,8 +100,9 @@
 					[(ngModel)]="exercise.intensity"
 					value="hard"
 				/>
-				<label class="btn btn-outline-dark" for="btnradio2">
+				<label [ngClass]="{'btn border': true, 'btn-warning': exercise.intensity === 'hard'}" for="btnradio2">
 					Pesante
+					<i class="ms-1 bi bi-exclamation-triangle-fill "></i>
 				</label>
 
 				<input
@@ -112,8 +114,9 @@
 					[(ngModel)]="exercise.intensity"
 					value="failure"
 				/>
-				<label class="btn btn-outline-dark" for="btnradio3">
+				<label [ngClass]="{'btn border': true, 'btn-danger': exercise.intensity === 'failure'}" for="btnradio3">
 					Cedimento
+					<i class="ms-1 bi bi-fire "></i>
 				</label>
 			</div>
 
@@ -125,12 +128,12 @@
 					[(ngModel)]="exercise.rest.minutes"
 					[ngModelOptions]="{ standalone: true }"
 				>
-					<option value="0">00</option>
-					<option value="1">01</option>
-					<option value="2">02</option>
-					<option value="3">03</option>
-					<option value="4">04</option>
-					<option value="5">05</option>
+					<option value="00">00</option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
 				</select>
 				<span class="input-group-text">:</span>
 				<select
@@ -139,7 +142,7 @@
 					[(ngModel)]="exercise.rest.seconds"
 					[ngModelOptions]="{ standalone: true }"
 				>
-					<option value="0">00</option>
+					<option value="00">00</option>
 					<option value="15">15</option>
 					<option value="30">30</option>
 					<option value="45">45</option>
@@ -259,12 +262,12 @@
 					[(ngModel)]="exercise.rest.minutes"
 					[ngModelOptions]="{ standalone: true }"
 				>
-					<option value="0">00</option>
-					<option value="1">01</option>
-					<option value="2">02</option>
-					<option value="3">03</option>
-					<option value="4">04</option>
-					<option value="5">05</option>
+					<option value="00">00</option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
 				</select>
 				<span class="input-group-text">:</span>
 				<select
@@ -273,7 +276,7 @@
 					[(ngModel)]="exercise.rest.seconds"
 					[ngModelOptions]="{ standalone: true }"
 				>
-					<option value="0">00</option>
+					<option value="00">00</option>
 					<option value="15">15</option>
 					<option value="30">30</option>
 					<option value="45">45</option>

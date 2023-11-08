@@ -187,10 +187,10 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 				message: "Sei sicuro di voler annullare l'allenamento?",
 				args: [],
 				confirm: () => {
-					this.userService.setStopwatchTime(undefined);
 					localStorage.removeItem("workout");
 					this.router.navigate(["/home"]);
 
+					/* this.userService.setStopwatchTime(undefined); */
 				},
 			},
 		});

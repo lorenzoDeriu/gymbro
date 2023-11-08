@@ -31,7 +31,7 @@ export class NewWorkoutDialogComponent {
 		this.closeDialog();
 
 		// Set the stopwatch time to now
-		this.userService.setStopwatchTime(new Date());
+		/* this.userService.setStopwatchTime(new Date()); */
 	}
 
 	closeDialog() {

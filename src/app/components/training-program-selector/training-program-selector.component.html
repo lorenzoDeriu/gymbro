@@ -1,6 +1,6 @@
 <div id="wrapper" *ngIf="!loading">
-	<div id="main-container" class="p-3">
-		<h1 class="text-center mt-3">
+	<div id="main-container" [ngClass]="{'p-3': true, 'w-75': trainingPrograms.length !== 0}">
+		<h1 class="text-center my-4">
 			{{  trainingPrograms.length > 0 ? 'Scegli una scheda di allenamento' : 'Non ci sono schede di allenamento' }}
 		</h1>
 
@@ -13,6 +13,13 @@
 			Torna alla home
 			<i class="ms-1 bi bi-house-fill"></i>
 		</button>
+
+		<img
+			*ngIf="trainingPrograms.length === 0"
+			src="assets/no-old-workouts.svg"
+			alt="No workouts found"
+			style="width: 50%;"
+		>
 
 		<div
 			*ngFor="let program of trainingPrograms; index as programIndex"

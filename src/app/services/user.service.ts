@@ -13,14 +13,15 @@ export class UserService {
 	public trainingProgram: TrainingProgram[] = [];
 	public workoutSelected: Workout;
 
-	private stopwatchTime: BehaviorSubject<Date | undefined> = new BehaviorSubject<Date | undefined>(undefined);
-	public stopwatchTimeObs = this.stopwatchTime.asObservable();
+	/* private stopwatchTime: BehaviorSubject<Date | undefined> = new BehaviorSubject<Date | undefined>(localStorage.getItem('startTime')!! ? new Date(localStorage.getItem('startTime')) : undefined);
+	public stopwatchTimeObs = this.stopwatchTime.asObservable(); */
 
 	constructor(private firebase: FirebaseService) {}
 
-	public setStopwatchTime(time: Date | undefined) {
+/* 	public setStopwatchTime(time: Date | undefined) {
 		this.stopwatchTime.next(time);
-	}
+		localStorage.setItem('startTime', String(time));
+	} */
 
 	private workoutSortingFunction(a: Workout, b: Workout) {
 		let [day, month, year] = String(a.date).split("/");

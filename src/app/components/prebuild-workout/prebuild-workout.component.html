@@ -26,6 +26,8 @@
 						type="text"
 						class="border-0 border-bottom py-1"
 						style="background-color: transparent"
+						[(ngModel)]="workout.name"
+						[ngModelOptions]="{ standalone: true }"
 					/>
 				</div>
 
@@ -128,10 +130,9 @@
 			>
 				<div class="card card-body p-1">
 					<div
-						class="d-flex flex-column justify-content-center align-items-center overflow-hidden"
-						style="max-height: 60svh; max-width: 95vw"
+						class="d-flex flex-column justify-content-center align-items-center"
 					>
-						<div class="overflow-auto p-3 w-100">
+						<div class="p-3 w-100">
 							<form class="d-none d-lg-flex flex-column align-items-center">
 								<div class="input-group flex-nowrap mb-3">
 									<span class="input-group-text">Esercizio</span>
@@ -224,7 +225,7 @@
 										[(ngModel)]="exercise.intensity"
 										value="light"
 									/>
-									<label [ngClass]="{'btn border-secondary': true, 'btn-success': exercise.intensity === 'light'}" for="btnradio1">
+									<label [ngClass]="{'btn border': true, 'btn-success': exercise.intensity === 'light'}" for="btnradio1">
 										Leggero
 										<i class="ms-1 bi bi-feather "></i>
 									</label>
@@ -239,7 +240,7 @@
 										[(ngModel)]="exercise.intensity"
 										value="hard"
 									/>
-									<label [ngClass]="{'btn border-secondary': true, 'btn-warning': exercise.intensity === 'hard'}" for="btnradio2">
+									<label [ngClass]="{'btn border': true, 'btn-warning': exercise.intensity === 'hard'}" for="btnradio2">
 										Pesante
 										<i class="ms-1 bi bi-exclamation-triangle-fill "></i>
 									</label>
@@ -253,7 +254,7 @@
 										[(ngModel)]="exercise.intensity"
 										value="failure"
 									/>
-									<label [ngClass]="{'btn border-secondary': true, 'btn-danger': exercise.intensity === 'failure'}" for="btnradio3">
+									<label [ngClass]="{'btn border': true, 'btn-danger': exercise.intensity === 'failure'}" for="btnradio3">
 										Cedimento
 										<i class="ms-1 bi bi-fire "></i>
 									</label>
@@ -267,12 +268,12 @@
 										[(ngModel)]="exercise.rest.minutes"
 										[ngModelOptions]="{ standalone: true }"
 									>
-										<option value="0">00</option>
-										<option value="1">01</option>
-										<option value="2">02</option>
-										<option value="3">03</option>
-										<option value="4">04</option>
-										<option value="5">05</option>
+										<option value="00">00</option>
+										<option value="01">01</option>
+										<option value="02">02</option>
+										<option value="03">03</option>
+										<option value="04">04</option>
+										<option value="05">05</option>
 									</select>
 									<span class="input-group-text">:</span>
 									<select
@@ -281,7 +282,7 @@
 										[(ngModel)]="exercise.rest.seconds"
 										[ngModelOptions]="{ standalone: true }"
 									>
-										<option value="0">00</option>
+										<option value="00">00</option>
 										<option value="15">15</option>
 										<option value="30">30</option>
 										<option value="45">45</option>
@@ -462,12 +463,12 @@
 										[(ngModel)]="exercise.rest.minutes"
 										[ngModelOptions]="{ standalone: true }"
 									>
-										<option value="0">00</option>
-										<option value="1">01</option>
-										<option value="2">02</option>
-										<option value="3">03</option>
-										<option value="4">04</option>
-										<option value="5">05</option>
+										<option value="00">00</option>
+										<option value="01">01</option>
+										<option value="02">02</option>
+										<option value="03">03</option>
+										<option value="04">04</option>
+										<option value="05">05</option>
 									</select>
 									<span class="input-group-text">:</span>
 									<select
@@ -476,7 +477,7 @@
 										[(ngModel)]="exercise.rest.seconds"
 										[ngModelOptions]="{ standalone: true }"
 									>
-										<option value="0">00</option>
+										<option value="00">00</option>
 										<option value="15">15</option>
 										<option value="30">30</option>
 										<option value="45">45</option>

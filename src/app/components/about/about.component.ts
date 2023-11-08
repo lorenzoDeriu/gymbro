@@ -12,4 +12,11 @@ export class AboutComponent {
 	backToHome() {
 		this.router.navigate(["/home"]);
 	}
+
+	isMobileHorizontal() {
+		return (
+			window.innerHeight < 500 &&
+			window.innerWidth > window.innerHeight
+		);
+	}
 }

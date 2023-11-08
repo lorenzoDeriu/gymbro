@@ -22,10 +22,10 @@ export class AppComponent {
 			.subscribe(evt => {
 				snackbar
 					.open(
-						"Nuova versione disponibile per GymBro.",
+						"Nuova versione disponibile!",
 						"Aggiorna",
 						{
-							duration: 5000,
+							duration: 10000
 						}
 					)
 					.afterDismissed()

@@ -1,14 +1,38 @@
-#about-container {
-	margin: 0 auto;
-	width: 80%;
-	padding: 20px;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
+#wrapper {
+	width: 100vw;
+	height: calc(100svh - 70px);
+	transform: translateY(70px);
+	overflow-x: hidden;
+	overscroll-behavior-y: contain;
+	scroll-snap-type: y mandatory;
 }
 
-.title {
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	font-size: 150%;
+section {
+	width: 100vw;
+	height: calc(100svh - 70px);
+	transform: translateY(70px);
+	scroll-snap-align: start;
+}
+
+.feature-card {
+	width: calc(70%/2);
+	height: 200px;
+	margin: 0 .5em;
+	box-shadow: 0 5px 2px rgba(0, 0, 0, 0.325);
+}
+
+.feature-card-mobile {
+	width: 60%;
+	height: 160px;
+	box-shadow: 0 5px 2px rgba(0, 0, 0, 0.325);
+}
+
+.avatar {
+	height: calc(80%/2);
+}
+
+@media (max-width: 400px) {
+	.feature-card-mobile {
+		font-size: 14px;
+	}
 }

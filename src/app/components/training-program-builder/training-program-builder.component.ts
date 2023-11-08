@@ -13,7 +13,7 @@ import { Session } from "src/app/Models/TrainingProgram.model";
 })
 export class TrainingProgramBuilderComponent implements OnInit {
 	trainingProgram: any = {
-		name: "",
+		name: "Nuovo allenamento",
 		session: [
 			{
 				name: "Nuova sessione",
