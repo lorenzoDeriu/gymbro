@@ -51,6 +51,7 @@ import {
 } from "../Models/Exercise.model";
 import { Workout } from "../Models/Workout.model";
 import { Feedback } from "../Models/Feedback.model";
+import { duration } from "moment";
 
 @Injectable({
 	providedIn: "root",
@@ -115,7 +116,8 @@ export class FirebaseService {
 
 			newWorkout = {
 				name: workouts["name"],
-				date: workouts["date"],
+				date: this.getDate(workouts["date"]),
+				trainingTime: 0,
 				exercises: [],
 			};
 
@@ -144,6 +146,11 @@ export class FirebaseService {
 		});
 
 		return normalizedWorkout;
+	}
+
+	private getDate(date: string): Date {
+		const [day, month, year] = date.split("/").map(Number);
+		return new Date(year, month - 1, day);
 	}
 
 	private normalizeTrainingPrograms(
