@@ -19,6 +19,7 @@ import { AdminComponent } from "./components/admin/admin.component";
 import { AboutComponent } from "./components/about/about.component";
 import { SettingsPageComponent } from "./components/settings-page/settings-page.component";
 import { WelcomePageComponent } from "./components/welcome-page/welcome-page.component";
+import { AdminGuard } from "./services/admin.guard";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "home", pathMatch: "full" },
@@ -51,7 +52,11 @@ const routes: Routes = [
 			{ path: "settings", component: SettingsPageComponent },
 		],
 	},
-	{ path: "admin", component: AdminComponent },
+	{
+		path: "admin",
+		component: AdminComponent,
+		canActivate: [AdminGuard]
+	},
 	{ path: "**", component: PageNotFoundComponent },
 ];
 

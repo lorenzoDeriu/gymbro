@@ -74,6 +74,7 @@ import { ErrorProviderDialogComponent } from "./components/error-provider-dialog
 import { NewWorkoutDialogComponent } from "./components/new-workout-dialog/new-workout-dialog.component";
 import { CustomExcerciseDialogComponent } from "./components/custom-excercise-dialog/custom-excercise-dialog.component";
 import { ShareDialogComponent } from "./components/share-dialog/share-dialog.component";
+import { AdminDialogComponent } from './components/admin-dialog/admin-dialog.component';
 
 @NgModule({
 	declarations: [
@@ -112,6 +113,7 @@ import { ShareDialogComponent } from "./components/share-dialog/share-dialog.com
 		NewWorkoutDialogComponent,
 		CustomExcerciseDialogComponent,
 		ShareDialogComponent,
+  AdminDialogComponent,
 	],
 	imports: [
 		BrowserModule,
