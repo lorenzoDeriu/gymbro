@@ -32,7 +32,7 @@ export class AboutComponent {
 	disableInAppInstallPrompt() {
 		this.installPrompt = null;
 		this.installButton.setAttribute("hidden", "");
-	  }
+	}
 
 	backToHome() {
 		this.router.navigate(["/home"]);

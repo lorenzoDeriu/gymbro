@@ -8,12 +8,15 @@ input:focus {
 	box-shadow: none;
 }
 
-.add-btn:hover {
+.purple-btn {
+	border: none;
+	background-color: #6b44d4;
+}
+
+.purple-btn:hover {
 	background-color: #785ebe !important;
 }
 
-.add-btn:active {
+.purple-btn:active {
 	background-color: #957dd6 !important;
-	border: #957dd6 !important;
-	outline: #957dd6 !important;
 }

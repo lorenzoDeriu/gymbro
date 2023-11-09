@@ -24,7 +24,7 @@
 							index as i
 						"
 					>
-						{{ i === 0 ? "" : "|" }} {{ set.reps }}@{{ set.load }}kg
+						{{ i === 0 ? "" : "|" }} {{ set.reps + '@' }}{{ set.load }}kg
 					</ng-container>
 				</ng-container>
 
@@ -34,7 +34,7 @@
 						item.exercise.configurationType === 'basic'
 					"
 				>
-					{{ item.exercise.series }}x{{ item.exercise.reps }}@{{
+					{{ item.exercise.series }}x{{ item.exercise.reps + '@' }}{{
 						item.exercise.load
 					}}kg
 				</ng-container>

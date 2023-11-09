@@ -1,9 +1,12 @@
-.timer-btn:hover {
+.blue-btn {
+	border: none;
+	background-color: #4089c9;
+}
+
+.blue-btn:hover {
 	background-color: #659fd2 !important;
 }
 
-.timer-btn:active {
+.blue-btn:active {
 	background-color: #7eafda !important;
-	border: #7eafda !important;
-	outline: #7eafda !important;
 }

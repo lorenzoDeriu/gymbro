@@ -8,7 +8,7 @@
 			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="70" />
 		</a>
 
-		<button *ngIf="trainingTime" (click)="toContinueWorkout()" class="timer-btn text-light btn rounded-5 d-flex justify-content-between" style="width: 115px; border: none; background-color: #4089c9;">
+		<button *ngIf="trainingTime" (click)="toContinueWorkout()" class="blue-btn text-light btn rounded-5 d-flex justify-content-between" style="width: 115px; border: none; background-color: #4089c9;">
 			<i class="bi bi-stopwatch me-2"></i>
 			<p class="text-start m-0 w-100">{{ trainingTime | date: 'HH:mm:ss' }}</p>
 		</button>
@@ -62,6 +62,16 @@
 					>
 						Impostazioni
 						<i class="ms-2 bi bi-gear-wide-connected"></i>
+					</a>
+				</li>
+				<li class="text-end mb-1" *ngIf="isAdmin">
+					<a
+						class="dropdown-item"
+						(click)="onAdmin()"
+						style="cursor: pointer"
+					>
+						Admin
+						<i class="ms-2 bi bi-shield-lock-fill"></i>
 					</a>
 				</li>
 				<li class="text-end">

@@ -19,20 +19,22 @@ input:focus {
 #checkbox-profile {
 	outline: none;
 	box-shadow: none;
-	accent-color: #6b44d4 !important;
 	cursor: pointer;
 	border-radius: 50%;
 	padding: 1px;
 }
 
-.save-btn:hover {
+.purple-btn {
+	border: none;
+	background-color: #6b44d4;
+}
+
+.purple-btn:hover {
 	background-color: #785ebe !important;
 }
 
-.save-btn:active {
+.purple-btn:active {
 	background-color: #957dd6 !important;
-	border: #957dd6 !important;
-	outline: #957dd6 !important;
 }
 
 @media (max-width: 450px) {

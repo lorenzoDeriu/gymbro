@@ -30,24 +30,30 @@ input:focus {
 	cursor: pointer;
 }
 
-.complete-btn:hover {
-	background-color: #659fd2 !important;
+.purple-btn {
+	border: none;
+	background-color: #6b44d4;
 }
 
-.complete-btn:active {
-	background-color: #7eafda !important;
-	border: #7eafda !important;
-	outline: #7eafda !important;
-}
-
-.save-btn:hover, .history-btn:hover {
+.purple-btn:hover {
 	background-color: #785ebe !important;
 }
 
-.save-btn:active, .history-btn:active {
+.purple-btn:active {
 	background-color: #957dd6 !important;
-	border: #957dd6 !important;
-	outline: #957dd6 !important;
+}
+
+.blue-btn {
+	border: none;
+	background-color: #4089c9;
+}
+
+.blue-btn:hover {
+	background-color: #659fd2 !important;
+}
+
+.blue-btn:active {
+	background-color: #7eafda !important;
 }
 
 @media (min-width: 900px) {
@@ -61,104 +67,3 @@ input:focus {
 		width: 100%;
 	}
 }
-
-/* #workout-container {
-	display: flex;
-	flex-direction: column;
-	width: 50%;
-	margin: auto;
-}
-
-#title-container span {
-	display: flex;
-	justify-content: center;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-}
-
-form {
-	display: flex;
-	flex-direction: column;
-}
-
-form button {
-	margin-top: 2%;
-}
-
-#input-container {
-	display: flex;
-	justify-content: space-around;
-}
-
-#buttons-container {
-	display: flex;
-	flex-direction: column;
-	width: 200px;
-	margin: auto;
-}
-
-#buttons-container button {
-	margin-bottom: 5px;
-	margin-top: 5px;
-}
-
-#datepicker-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin: auto;
-}
-
-.custom-span {
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-	width: 100px;
-	display: flex;
-	justify-content: center;
-	font-size: 0.9em;
-}
-
-.custom-alert {
-	color: rgb(69, 69, 188);
-	background-color: rgb(69, 69, 188, 0.2);
-	border-color: rgb(69, 69, 188);
-	height: 40px;
-	display: flex;
-	align-items: center;
-}
-
-.custom-select {
-	box-shadow: none;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	display: flex;
-	justify-content: flex-start;
-}
-
-.custom-button {
-	color: rgb(69, 69, 188) !important;
-	background-color: #fff !important;
-	border-color: rgb(69, 69, 188) !important;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-}
-
-.custom-button:hover {
-	color: #fff !important;
-	background-color: rgb(69, 69, 188) !important;
-	border-color: rgb(69, 69, 188) !important;
-	text-decoration: none;
-}
-
-@media (max-width: 780px) {
-	#workout-container {
-		width: 95%;
-	}
-
-	#input-container {
-		flex-direction: column;
-	}
-}
- */

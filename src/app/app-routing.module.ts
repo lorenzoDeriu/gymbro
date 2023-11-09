@@ -33,7 +33,7 @@ const routes: Routes = [
 			{ path: "dashboard", component: DashboardComponent },
 			{ path: "new-workout-choice", component: NewWorkoutComponent },
 			{ path: "old-workouts", component: OldWorkoutsComponent },
-			{ path: "progress", component: YourProgressComponent },
+			/* { path: "progress", component: YourProgressComponent }, */
 			{
 				path: "training-program-selector",
 				component: TrainingProgramSelectorComponent,

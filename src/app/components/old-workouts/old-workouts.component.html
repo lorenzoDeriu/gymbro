@@ -1,4 +1,4 @@
-<div id="wrapper">
+<div id="wrapper" *ngIf="!loading">
 	<div id="main-container" class="p-3">
 		<h1 class="text-center mt-3 mb-4">{{ !workouts || workouts.length === 0 ? 'Non ci sono allenamenti, creane uno nuovo!' : 'I tuoi vecchi allenamenti'}}</h1>
 

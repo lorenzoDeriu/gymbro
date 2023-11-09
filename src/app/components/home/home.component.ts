@@ -15,6 +15,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class HomeComponent implements OnInit {
 	trainingTime: Date | undefined = undefined;
 	intervalID: any;
+	isAdmin: boolean = false;
 
 	constructor(
 		private authservice: AuthService,
@@ -26,6 +27,9 @@ export class HomeComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
+		this.firebase.userIsAdmin().then((isAdmin) => {
+			this.isAdmin = isAdmin;
+		});
 /* 		this.userService.stopwatchTimeObs.subscribe((time: Date) => {
 			if (time) {
 				this.intervalID = setInterval(() => {
@@ -72,6 +76,10 @@ export class HomeComponent implements OnInit {
 
 	onSettings() {
 		this.router.navigate(["/home/settings"]);
+	}
+
+	onAdmin() {
+		this.router.navigate(["/admin"]);
 	}
 
 	goToHome() {

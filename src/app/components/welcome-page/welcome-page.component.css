@@ -42,26 +42,6 @@ input:focus {
 	outline: none;
 }
 
-.login-btn:hover {
-	background-color: #785ebe !important;
-}
-
-.login-btn:active {
-	background-color: #957dd6 !important;
-	border: #957dd6 !important;
-	outline: #957dd6 !important;
-}
-
-.mobile-access-btn:hover {
-	background-color: #659fd2 !important;
-}
-
-.mobile-access-btn:active {
-	background-color: #7eafda !important;
-	border: #7eafda !important;
-	outline: #7eafda !important;
-}
-
 .tip {
 	background: rgba(255, 255, 255, 0.25);
 	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -69,4 +49,30 @@ input:focus {
 	-webkit-backdrop-filter: blur(5px);
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.purple-btn {
+	border: none;
+	background-color: #6b44d4;
+}
+
+.purple-btn:hover {
+	background-color: #785ebe !important;
+}
+
+.purple-btn:active {
+	background-color: #957dd6 !important;
+}
+
+.blue-btn {
+	border: none;
+	background-color: #4089c9;
+}
+
+.blue-btn:hover {
+	background-color: #659fd2 !important;
+}
+
+.blue-btn:active {
+	background-color: #7eafda !important;
 }

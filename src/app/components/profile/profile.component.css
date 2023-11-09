@@ -15,14 +15,17 @@
 	overflow: auto;
 }
 
-.back-btn:hover {
+.purple-btn {
+	border: none;
+	background-color: #6b44d4;
+}
+
+.purple-btn:hover {
 	background-color: #785ebe !important;
 }
 
-.back-btn:active {
+.purple-btn:active {
 	background-color: #957dd6 !important;
-	border: #957dd6 !important;
-	outline: #957dd6 !important;
 }
 
 @media (min-width: 900px) {
