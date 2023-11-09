@@ -44,6 +44,16 @@
 	background-color: #7eafda !important;
 }
 
+#install {
+	display: none;
+}
+
+@media (display-mode: browser) {
+	#install {
+		display: block;
+	}
+}
+
 /* Mobile */
 
 .intro-div-sm {

@@ -7,7 +7,11 @@
 		<div class="intro-div">
 			<h1 class="text-light display-1 text-center">Benvenuti su GymBro!</h1>
 			<h2 class="text-center" style="color: rgb(194, 194, 194);">L'app che ti permette di tracciare i tuoi progressi in palestra</h2>
-			<button hidden id="install" (click)="installApp()" class="btn blue-btn text-light mt-3" style="border: none; background-color: #4089c9;">
+			<button hidden id="install" (click)="installApp()" class="btn blue-btn text-light mt-3 d-lg-block d-none">
+				Installa
+				<i class="ms-1 bi bi-download"></i>
+			</button>
+			<button hidden id="install" (click)="installApp()" class="btn btn-sm blue-btn text-light mt-3 d-block d-lg-none">
 				Installa
 				<i class="ms-1 bi bi-download"></i>
 			</button>
@@ -194,6 +198,10 @@
 
 	<!-- Mobile -->
 	<div id="main-container" class="d-block d-lg-none">
+		<div class="pull-to-refresh" style="z-index: 100000;">
+			<div class="spinner-border"></div>
+		</div>
+
 		<!-- About GYMBRO -->
 		<div class="intro-div-sm px-3">
 			<h1 class="text-light text-center">Benvenuti su GymBro!</h1>
