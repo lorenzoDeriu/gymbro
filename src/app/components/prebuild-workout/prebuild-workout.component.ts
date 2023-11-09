@@ -19,6 +19,7 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 		name: '',
 		date: '',
 		exercises: [],
+		trainingTime: 0
 	};
 	public workoutIndex: number;
 	public restTime: any[] = [];
@@ -54,6 +55,7 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 					name: "Nuovo Allenamento",
 					date: this.adaptDate(new Date()),
 					exercises: [],
+					trainingTime: 0
 				};
 			}
 		} else {
@@ -146,7 +148,7 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 
 		localStorage.removeItem("workout");
 
-		if (localStorage.getItem("workoutToEdit") != null) {
+		if (localStorage.getItem("workoutToEdit") !== null) {
 			this.userService.updateWorkout(this.workout, this.workoutIndex);
 			localStorage.removeItem("workoutToEdit");
 		} else {

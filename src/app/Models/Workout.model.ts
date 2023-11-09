@@ -2,7 +2,7 @@ import { EffectiveExercise } from "./Exercise.model";
 
 export type Workout = {
 	name: string;
-	date: Date;
+	date: string;
 	trainingTime: number;
 	exercises: EffectiveExercise[];
 };

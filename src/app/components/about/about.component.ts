@@ -7,16 +7,34 @@ import { Router } from "@angular/router";
 	styleUrls: ["./about.component.css"],
 })
 export class AboutComponent {
+	installButton: HTMLElement = (document.getElementById("install") as HTMLButtonElement);
+	installPrompt: any;
+
 	constructor(private router: Router) {}
+
+	ngOnInit(): void {
+		window.addEventListener("beforeinstallprompt", (event) => {
+			event.preventDefault();
+			this.installPrompt = event;
+			this.installButton.removeAttribute("hidden");
+		});
+	}
+
+	async installApp() {
+		if (!this.installPrompt) {
+			return;
+		}
+		const result = await this.installPrompt.prompt();
+		console.log(`Install prompt was: ${result.outcome}`);
+		this.disableInAppInstallPrompt();
+	}
+
+	disableInAppInstallPrompt() {
+		this.installPrompt = null;
+		this.installButton.setAttribute("hidden", "");
+	  }
 
 	backToHome() {
 		this.router.navigate(["/home"]);
-	}
-
-	isMobileHorizontal() {
-		return (
-			window.innerHeight < 500 &&
-			window.innerWidth > window.innerHeight
-		);
 	}
 }

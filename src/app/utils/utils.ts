@@ -1,4 +1,5 @@
 import { endOfWeek } from "date-fns";
+import { Workout } from "../Models/Workout.model";
 
 export class Utils {
 	getSessionExerciseFor(
@@ -67,16 +68,20 @@ export class Utils {
 		return weights.slice(Math.max(weights.length - 20, 0));
 	}
 
-	sortByDate(workouts: any) {
-		return workouts.sort((a: any, b: any) => {
-			let [day, month, year] = String(a.date).split("/");
-			const dateA = +new Date(+year, +month - 1, +day);
+	sortByDate(workouts: Workout[]) {
+		if (workouts) {
+			return workouts.sort((a: Workout, b: Workout) => {
+				let [day, month, year] = String(a.date).split("/");
+				const dateA = +new Date(+year, +month - 1, +day);
 
-			[day, month, year] = String(b.date).split("/");
-			const dateB = +new Date(+year, +month - 1, +day);
+				[day, month, year] = String(b.date).split("/");
+				const dateB = +new Date(+year, +month - 1, +day);
 
-			return dateB - dateA;
-		});
+				return dateB - dateA;
+			});
+		}
+
+		return [];
 	}
 
 	getDatesFor(exerciseName: string, workouts: any) {

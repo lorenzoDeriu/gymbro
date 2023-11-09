@@ -38,15 +38,18 @@ export class OldWorkoutsComponent implements OnInit {
 	};
 
 	async getWorkouts() {
-		this.workouts = (await this.firebase.getWorkouts()).sort(
-			(a: any, b: any) => {
-				let [day, month, year] = String(a.date).split("/");
-				const dateA = +new Date(+year, +month - 1, +day);
-				[day, month, year] = String(b.date).split("/");
-				const dateB = +new Date(+year, +month - 1, +day);
-				return dateB - dateA;
-			}
-		);
+		this.workouts = await this.firebase.getWorkouts();
+		if (this.workouts) {
+			this.workouts = (this.workouts).sort(
+				(a: Workout, b: Workout) => {
+					let [day, month, year] = String(a.date).split("/");
+					const dateA = +new Date(+year, +month - 1, +day);
+					[day, month, year] = String(b.date).split("/");
+					const dateB = +new Date(+year, +month - 1, +day);
+					return dateB - dateA;
+				}
+			);
+		}
 	}
 
 	backToHomeButton() {

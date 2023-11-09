@@ -1,6 +1,6 @@
 <div id="wrapper">
 	<div id="main-container" class="p-3">
-		<h1 class="text-center mt-3 mb-4">{{ workouts.length === 0 ? 'Non ci sono allenamenti, creane uno nuovo!' : 'I tuoi vecchi allenamenti'}}</h1>
+		<h1 class="text-center mt-3 mb-4">{{ !workouts || workouts.length === 0 ? 'Non ci sono allenamenti, creane uno nuovo!' : 'I tuoi vecchi allenamenti'}}</h1>
 
 		<button class="btn btn-dark ms-2 d-none d-lg-block mb-4" routerLink="/home">
 			Torna alla home
@@ -13,7 +13,7 @@
 		</button>
 
 		<img
-			*ngIf="workouts.length === 0"
+			*ngIf="!workouts || workouts.length === 0"
 			src="assets/no-old-workouts.svg"
 			alt="No workouts found"
 			style="width: 50%;"

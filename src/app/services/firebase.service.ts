@@ -116,7 +116,7 @@ export class FirebaseService {
 
 			newWorkout = {
 				name: workouts["name"],
-				date: this.getDate(workouts["date"]),
+				date: workouts['date']/* this.getDate(workouts["date"]) */,
 				trainingTime: 0,
 				exercises: [],
 			};
