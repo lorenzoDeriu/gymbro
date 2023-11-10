@@ -41,10 +41,30 @@
 			alt="Profile pic"
 		/>
 
-		<div class="d-flex justify-content-center align-items-center mb-4">
+		<div class="d-flex justify-content-center align-items-center">
 			<p class="mb-0" *ngIf="username">
 				{{ username }}
 			</p>
+		</div>
+
+		<div class="mb-4">
+			<a
+				*ngIf="isPlaylistUrlValid()"
+				[href]="playlistUrl"
+				target="_blank"
+				class="btn btn-light rounded-5 btn-sm"
+				style="border: none"
+			>
+				<i class="bi bi-spotify"></i>
+			</a>
+			<button
+				*ngIf="!isPlaylistUrlValid()"
+				disabled
+				class="btn btn-light rounded-5 btn-sm"
+				style="border: none"
+			>
+				<i class="bi bi-spotify"></i>
+			</button>
 		</div>
 
 		<div

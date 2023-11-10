@@ -2,7 +2,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
-import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
@@ -17,10 +16,9 @@ import { ShareDialogComponent } from "../share-dialog/share-dialog.component";
 export class SettingsPageComponent implements OnInit {
 	public customExercises: any[] = [];
 	public visibility: boolean;
-
+	public playlistUrl: string;
 	private originalUsername: string;
 	public username: string;
-
 	public loading: boolean = false;
 	public onModify: boolean = false;
 
@@ -38,27 +36,7 @@ export class SettingsPageComponent implements OnInit {
 
 		let user: any = await this.firebase.getUserData(uid);
 
-		//this.customExercises = user.customExercises == undefined ? [] : user.customExercises;
-		this.customExercises = [
-			"Hyperextension",
-			"Panca piana",
-			"Curl DB",
-			"Hyperextension",
-			"Panca piana",
-			"Curl DB",
-			"Hyperextension",
-			"Panca piana",
-			"Curl DB",
-			"Hyperextension",
-			"Panca piana",
-			"Curl DB",
-			"Hyperextension",
-			"Panca piana",
-			"Curl DB",
-			"Hyperextension",
-			"Panca piana",
-			"Curl DB",
-		];
+		this.customExercises = user.customExercises == undefined ? [] : user.customExercises;
 		this.visibility = user.visibility;
 		this.username = user.username || "Mxo";
 		this.originalUsername = user.username;
@@ -66,10 +44,18 @@ export class SettingsPageComponent implements OnInit {
 		this.loading = false;
 	}
 
+	isPlaylistUrlValid() {
+		return (
+			this.playlistUrl &&
+			this.playlistUrl !== '' &&
+			this.playlistUrl.includes('https://open.spotify.com/playlist/')
+		)
+	}
+
 	openExcerciseDialog() {
 		this.dialog.open(CustomExcerciseDialogComponent, {
 			data: {
-				excercises: this.customExercises,
+				exercises: this.customExercises,
 			},
 			disableClose: false,
 		});
@@ -111,15 +97,17 @@ export class SettingsPageComponent implements OnInit {
 		this.onModify = false;
 
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
-		if (this.username != "" && this.username != this.originalUsername) {
+		if (this.username !== "" && this.username !== this.originalUsername) {
 			this.firebase.updateUsername(this.username);
 		}
+
+		// Update playlist url
+		// this.firebase.updatePlaylistUrl(this.playlistUrl);
 
 		this.firebase.updateVisibility(this.visibility);
 		this.firebase.updateCustomExercises(this.customExercises);
 
 		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
-		this.router.navigate(["/home"]);
 	}
 
 	backToHome() {

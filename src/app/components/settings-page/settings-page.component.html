@@ -19,13 +19,44 @@
 			<p *ngIf="username">{{ username }}</p>
 
 			<div class="d-flex justify-content-center align-items-center mb-4">
+				<!-- Spotify -->
+				<a
+					*ngIf="isPlaylistUrlValid()"
+					[href]="playlistUrl"
+					target="_blank"
+					class="btn btn-light rounded-5 btn-sm me-2"
+					style="border: none"
+				>
+					<i class="bi bi-spotify"></i>
+				</a>
 				<button
+					*ngIf="!isPlaylistUrlValid()"
+					disabled
+					class="btn btn-light rounded-5 btn-sm me-2"
+					style="border: none"
+				>
+					<i class="bi bi-spotify"></i>
+				</button>
+
+				<!-- Share -->
+				<button
+					*ngIf="username"
 					(click)="shareUsername()"
-					[ngClass]="{'btn btn-light rounded-5 btn-sm': true, 'me-2': !onModify}"
+					[ngClass]="{'btn btn-light rounded-5 btn-sm ms-2': true, 'me-2': !onModify}"
 					style="border: none"
 				>
 					<i class="bi bi-box-arrow-up"></i>
 				</button>
+				<button
+					*ngIf="!username"
+					disabled
+					[ngClass]="{'btn btn-light rounded-5 btn-sm ms-2': true, 'me-2': !onModify}"
+					style="border: none"
+				>
+					<i class="bi bi-box-arrow-up"></i>
+				</button>
+
+				<!-- Edit -->
 				<button
 					*ngIf="!onModify"
 					(click)="onModify = true"
@@ -68,7 +99,7 @@
 				</label>
 			</div>
 
-			<div class="mb-3">
+			<div class="mb-3 w-100">
 				<button
 					(click)="openExcerciseDialog()"
 					class="btn btn-light w-100 mb-4 d-none d-lg-block"
@@ -88,16 +119,47 @@
 
 				<div
 					*ngIf="onModify"
-					class="d-flex align-items-center w-100 mb-2 input-container"
+					class="w-100 mb-2"
 				>
-					<div class="d-flex flex-column mb-4 me-3">
-						<p class="mb-0">Username</p>
-						<input
-							[(ngModel)]="username"
-							type="text"
-							class="border-0 border-bottom py-1"
-							style="background-color: transparent"
-						/>
+					<div class="w-100 d-none d-lg-block">
+						<div class="d-flex flex-column mb-4">
+							<p class="mb-0">Username</p>
+							<input
+								[(ngModel)]="username"
+								type="text"
+								class="border-0 border-bottom py-1"
+								style="background-color: transparent"
+							/>
+						</div>
+						<div class="d-flex flex-column mb-4">
+							<p class="mb-0">URL Playlist Spotify</p>
+							<input
+								[(ngModel)]="playlistUrl"
+								type="text"
+								class="border-0 border-bottom py-1"
+								style="background-color: transparent"
+							/>
+						</div>
+					</div>
+					<div class="w-100 d-block d-lg-none">
+						<div class="d-flex flex-column mb-4">
+							<small class="mb-0">Username</small>
+							<input
+								[(ngModel)]="username"
+								type="text"
+								class="border-0 border-bottom"
+								style="background-color: transparent; font-size: small;"
+							/>
+						</div>
+						<div class="d-flex flex-column mb-4">
+							<small class="mb-0">URL Playlist Spotify</small>
+							<input
+								[(ngModel)]="playlistUrl"
+								type="text"
+								class="border-0 border-bottom"
+								style="background-color: transparent; font-size: small;"
+							/>
+						</div>
 					</div>
 					<div
 						class="d-flex justify-content-center align-items-center w-100 mb-4"

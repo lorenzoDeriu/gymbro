@@ -20,7 +20,7 @@ input:focus {
 }
 
 .user:hover {
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.135);
 }
 
 .purple-btn {

@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	/* public username: string;
 	public trainingPrograms: any[]; */
 	username: string = "Mario";
+	public playlistUrl: string;
 	trainingPrograms: TrainingProgram[] = [
 		{
 			name: "Scheda 1",
@@ -77,11 +78,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 			];
 			localStorage.removeItem("profile");
 
-			/* this.trainingPrograms =
-				await this.firebase.getTrainingProgramsFromUser(uid);
-			this.username = await this.firebase.getUsername(uid); */
+			/* this.trainingPrograms = await this.firebase.getTrainingProgramsFromUser(uid);
+			this.username = await this.firebase.getUsername(uid);
+			this.playlistUrl = await this.fireabse.getPlaylistUrl(uid) */
 
-			if (this.trainingPrograms == undefined) this.trainingPrograms = [];
+			if (this.trainingPrograms === undefined) this.trainingPrograms = [];
 		} catch {
 			this.trainingPrograms = JSON.parse(
 				localStorage.getItem("profileInfo")
@@ -108,6 +109,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
 	onCancel() {
 		this.router.navigate(["/home/friends"]);
+	}
+
+	isPlaylistUrlValid() {
+		return (
+			this.playlistUrl &&
+			this.playlistUrl !== '' &&
+			this.playlistUrl.includes('https://open.spotify.com/playlist/')
+		)
 	}
 
 	focusCollapse(type: "program" | "session", index: number) {

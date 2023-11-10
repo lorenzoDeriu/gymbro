@@ -14,7 +14,7 @@ import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dia
 export class CustomExcerciseDialogComponent {
 	constructor(
 		public dialogRef: MatDialogRef<CustomExcerciseDialogComponent>,
-		@Inject(MAT_DIALOG_DATA) public data: { excercises: string[] },
+		@Inject(MAT_DIALOG_DATA) public data: { exercises: string[] },
 		private dialog: MatDialog
 	) {}
 
@@ -24,7 +24,7 @@ export class CustomExcerciseDialogComponent {
 				title: "Elimina esericizio",
 				message:
 					"Sei sicuro di voler eliminare questo esercizio? Questa azione è irreversibile.",
-				args: [index, this.data.excercises],
+				args: [index, this.data.exercises],
 				confirm: async (index: number, customExercises: any) => {
 					customExercises.splice(index, 1);
 				},

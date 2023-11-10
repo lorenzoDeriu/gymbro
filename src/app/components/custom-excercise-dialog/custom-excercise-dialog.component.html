@@ -5,8 +5,10 @@
 	<h1 class="text-center">Esercizi custom</h1>
 
 	<div class="overflow-auto w-100" style="height: 90%">
+		<p *ngIf="data.exercises.length === 0" class="text-center">Non hai esercizi custom</p>
+
 		<div
-			*ngFor="let excercise of data.excercises; index as i"
+			*ngFor="let excercise of data.exercises; index as i"
 			class="d-flex justify-content-between align-items-center mb-3"
 		>
 			<p class="mb-0">{{ excercise }}</p>
