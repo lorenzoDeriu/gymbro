@@ -63,6 +63,29 @@
 					>
 				</div>
 
+				<!-- Spotify -->
+				<a
+					[href]="playlistUrl"
+					target="_blank"
+					*ngIf="playlistUrl"
+					class="btn d-none d-lg-block w-100 mb-4 text-light"
+					style="background-color: #1ed760;"
+				>
+					<i class="me-1 bi bi-spotify"></i>
+					Spotify
+				</a>
+
+				<a
+					[href]="playlistUrl"
+					target="_blank"
+					*ngIf="playlistUrl"
+					class="btn btn-sm d-block d-lg-none w-100 mb-3 text-light"
+					style="background-color: #1ed760;"
+				>
+					<i class="me-1 bi bi-spotify"></i>
+					Spotify
+				</a>
+
 				<div class="align-items-center d-none d-lg-flex">
 					<button
 						class="btn btn-dark w-100 me-2"

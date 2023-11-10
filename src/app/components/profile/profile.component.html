@@ -82,14 +82,14 @@
 			>
 				Schede di allenamento
 			</h5>
-			<h3
+			<h5
 				*ngIf="trainingPrograms.length === 0"
 				class="text-center text-secondary mb-4"
 			>
 				{{
 					username + " non ha ancora creato una scheda di allenamento"
 				}}
-			</h3>
+			</h5>
 
 			<div
 				*ngFor="let program of trainingPrograms; index as programIndex"

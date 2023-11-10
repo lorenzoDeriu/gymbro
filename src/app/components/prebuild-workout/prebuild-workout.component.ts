@@ -24,6 +24,7 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 	public workoutIndex: number;
 	public restTime: any[] = [];
 	public availableExercise: string[] = [];
+	playlistUrl: string = 'https://open.spotify.com/playlist/1UZYRbGVhV7IzRRglwhC0z?si=f8c9627bc88a497f';
 
 	constructor(
 		private userService: UserService,

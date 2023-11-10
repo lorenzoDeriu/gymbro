@@ -19,30 +19,11 @@
 			<p *ngIf="username">{{ username }}</p>
 
 			<div class="d-flex justify-content-center align-items-center mb-4">
-				<!-- Spotify -->
-				<a
-					*ngIf="isPlaylistUrlValid()"
-					[href]="playlistUrl"
-					target="_blank"
-					class="btn btn-light rounded-5 btn-sm me-2"
-					style="border: none"
-				>
-					<i class="bi bi-spotify"></i>
-				</a>
-				<button
-					*ngIf="!isPlaylistUrlValid()"
-					disabled
-					class="btn btn-light rounded-5 btn-sm me-2"
-					style="border: none"
-				>
-					<i class="bi bi-spotify"></i>
-				</button>
-
 				<!-- Share -->
 				<button
 					*ngIf="username"
 					(click)="shareUsername()"
-					[ngClass]="{'btn btn-light rounded-5 btn-sm ms-2': true, 'me-2': !onModify}"
+					[ngClass]="{'btn btn-light rounded-5 btn-sm': true, 'me-2': !onModify}"
 					style="border: none"
 				>
 					<i class="bi bi-box-arrow-up"></i>
@@ -50,7 +31,7 @@
 				<button
 					*ngIf="!username"
 					disabled
-					[ngClass]="{'btn btn-light rounded-5 btn-sm ms-2': true, 'me-2': !onModify}"
+					[ngClass]="{'btn btn-light rounded-5 btn-sm': true, 'me-2': !onModify}"
 					style="border: none"
 				>
 					<i class="bi bi-box-arrow-up"></i>

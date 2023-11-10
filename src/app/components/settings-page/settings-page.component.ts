@@ -38,7 +38,8 @@ export class SettingsPageComponent implements OnInit {
 
 		this.customExercises = user.customExercises == undefined ? [] : user.customExercises;
 		this.visibility = user.visibility;
-		this.username = user.username || "Mxo";
+		this.username = user.username;
+		this.playlistUrl = user.playlistUrl;
 		this.originalUsername = user.username;
 
 		this.loading = false;
@@ -49,6 +50,15 @@ export class SettingsPageComponent implements OnInit {
 			this.playlistUrl &&
 			this.playlistUrl !== '' &&
 			this.playlistUrl.includes('https://open.spotify.com/playlist/')
+		)
+	}
+
+
+	isUsernameValid() {
+		return (
+			this.username &&
+			this.username !== "" &&
+			this.username !== this.originalUsername
 		)
 	}
 
@@ -94,19 +104,21 @@ export class SettingsPageComponent implements OnInit {
 	}
 
 	saveSettings() {
-		this.onModify = false;
-
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
-		if (this.username !== "" && this.username !== this.originalUsername) {
+
+		if (this.isUsernameValid()) {
 			this.firebase.updateUsername(this.username);
 		}
 
 		// Update playlist url
-		// this.firebase.updatePlaylistUrl(this.playlistUrl);
+		if (this.isPlaylistUrlValid()) {
+		//	this.firebase.updatePlaylistUrl(this.playlistUrl);
+		}
 
 		this.firebase.updateVisibility(this.visibility);
 		this.firebase.updateCustomExercises(this.customExercises);
 
+		this.onModify = false;
 		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
 	}
 

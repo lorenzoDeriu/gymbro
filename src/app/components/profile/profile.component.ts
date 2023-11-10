@@ -73,16 +73,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		this.loading = true;
 
 		try {
-			let uid: string = JSON.parse(localStorage.getItem("profile"))[
+			let uid: string = JSON.parse(localStorage.getItem("user"))[
 				"uid"
 			];
-			localStorage.removeItem("profile");
 
-			/* this.trainingPrograms = await this.firebase.getTrainingProgramsFromUser(uid);
-			this.username = await this.firebase.getUsername(uid);
-			this.playlistUrl = await this.fireabse.getPlaylistUrl(uid) */
+			let user: any = await this.firebase.getUserData(uid);
 
-			if (this.trainingPrograms === undefined) this.trainingPrograms = [];
+			this.trainingPrograms = await this.firebase.getTrainingProgramsFromUser(uid);
+			this.username = user.username;
+			this.playlistUrl = user.playlistUrl;
+
+			if (!this.trainingPrograms) this.trainingPrograms = [];
 		} catch {
 			this.trainingPrograms = JSON.parse(
 				localStorage.getItem("profileInfo")
