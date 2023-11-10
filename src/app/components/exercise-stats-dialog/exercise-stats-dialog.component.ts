@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from "@angular/core";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { Workout } from "src/app/Models/Workout.model";
 import { FirebaseService } from "src/app/services/firebase.service";
 
 import { Utils } from "src/app/utils/utils";
@@ -10,7 +11,7 @@ import { Utils } from "src/app/utils/utils";
 	styleUrls: ["./exercise-stats-dialog.component.css"],
 })
 export class ExerciseStatsDialogComponent implements OnInit {
-	private workouts: any[];
+	private workouts: Workout[];
 	public stats: any[] = [];
 
 	public loading: boolean;
@@ -19,7 +20,8 @@ export class ExerciseStatsDialogComponent implements OnInit {
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) private data: any,
-		private firebase: FirebaseService
+		private firebase: FirebaseService,
+		private dialogRef: MatDialogRef<ExerciseStatsDialogComponent>
 	) {}
 
 	exerciseName() {
@@ -44,5 +46,9 @@ export class ExerciseStatsDialogComponent implements OnInit {
 		this.stats.reverse();
 
 		this.loading = false;
+	}
+
+	closeDialog() {
+		this.dialogRef.close();
 	}
 }

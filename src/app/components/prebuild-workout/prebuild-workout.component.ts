@@ -135,9 +135,10 @@ export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 
 	showOldStats(exerciseIndex: number) {
 		this.dialog.open(ExerciseStatsDialogComponent, {
-			width: "300px",
-			height: "300px",
-			data: { exerciseName: this.workout.exercises[exerciseIndex].name },
+			data: {
+				exerciseName: this.workout.exercises[exerciseIndex].name
+			},
+			disableClose: false
 		});
 	}
 

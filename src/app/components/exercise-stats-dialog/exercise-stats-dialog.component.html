@@ -1,11 +1,55 @@
-<div>
+<div
+	class="d-flex flex-column justify-content-center align-items-center p-3"
+	style="max-width: 500px"
+>
+	<h1 class="text-center w-100">Storico</h1>
+	<h5 class="fst-italic text-center w-100">
+		{{ exerciseName() }}
+		<img src="assets/dumbbell.png" width="30" class="ms-2" alt="dumbbell">
+	</h5>
+
+	<p class="text-center w-100" *ngIf="stats.length === 0 && !loading">Non ci sono dati per questo esercizio</p>
+
+	<div class="d-flex justify-content-center mb-3" *ngIf="loading">
+		<div class="spinner-border" role="status">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+	</div>
+
+	<div *ngFor="let stat of stats" class="w-100">
+		<div class="mb-2">
+			<p class="mb-0 fw-bold">
+				<i class="me-1 bi bi-calendar-event"></i>
+				{{ stat.date.split("/")[0] + "/" + stat.date.split("/")[1] + "/" + stat.date.split("/")[2] }}
+			</p>
+
+			<small *ngFor="let set of stat.exercise.sets">
+				{{ set.reps + '@' }}{{ set.load }}Kg
+			</small>
+
+			<div
+				*ngIf="stat.exercise.note !== '' && stat.exercise.note"
+			>
+				<p class="text-secondary fst-italic" style="font-size: 0.7em;">
+					<i class="me-1 bi bi-sticky"></i>
+					"{{ stat.exercise.note }}"
+				</p>
+			</div>
+
+			<mat-divider class="mb-1"></mat-divider>
+		</div>
+	</div>
+
+	<button (click)="closeDialog()" class="btn btn-dark w-100">Chiudi</button>
+</div>
+
+<!-- <div>
 	<h1>
 		<span>
 			Storico
 			<i style="font-size: 0.6em">{{ exerciseName() }}</i>
 		</span>
 	</h1>
-	<!-- <mat-divider class="mb-2"></mat-divider> -->
 
 	<ng-container *ngIf="this.stats.length == 0 && !this.loading">
 		<p>Non ci sono dati per questo esercizio</p>
@@ -52,3 +96,4 @@
 		</ng-container>
 	</ng-container>
 </div>
+ -->
