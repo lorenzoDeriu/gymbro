@@ -1,12 +1,12 @@
 <div
 	class="d-flex flex-column jusitfy-content-center align-items-center p-3"
-	style="width: fit-content"
+	style="max-width: 500px"
 >
-	<h2 class="mb-3 text-center">
+	<h1 class="mb-3 text-center">
 		{{ workoutExists() ? "Continua allenamento" : "Crea allenamento" }}
-	</h2>
+	</h1>
 	<div
-		class="d-flex jusitfy-content-around align-items-center w-100 h-100 mb-3"
+		class="jusitfy-content-center align-items-center w-100 mb-3 d-none d-lg-flex"
 	>
 		<button
 			(click)="navigate('/home/prebuild-workout')"
@@ -14,17 +14,40 @@
 		>
 			<p class="mb-0">
 				{{ workoutExists() ? "Continua" : "Crea" }}
+				<i *ngIf="workoutExists()" class="ms-1 bi bi-play-fill"></i>
+				<i *ngIf="!workoutExists()" class="ms-1 bi bi-plus"></i>
 			</p>
-			<i *ngIf="workoutExists()" class="ms-1 bi bi-play-fill"></i>
-			<i *ngIf="!workoutExists()" class="ms-1 bi bi-plus"></i>
 		</button>
 		<button
 			(click)="navigate('/home/training-program-selector')"
 			class="ms-1 btn w-100 text-light purple-btn"
 		>
-			<p class="mb-0">Scheda</p>
-			<i class="ms-1 bi bi-clipboard2-pulse"></i>
+			<p class="mb-0">
+				Scheda
+				<i class="ms-1 bi bi-clipboard2-pulse"></i>
+			</p>
 		</button>
 	</div>
-	<button class="btn btn-dark w-100" (click)="closeDialog()">Annulla</button>
+
+	<button
+		(click)="navigate('/home/prebuild-workout')"
+		class="btn w-100 text-light d-flex jusitfy-content-center align-items-center purple-btn btn-sm d-lg-none mb-2"
+	>
+		<p class="mb-0 text-center w-100">
+			{{ workoutExists() ? "Continua" : "Crea" }}
+			<i *ngIf="workoutExists()" class="ms-1 bi bi-play-fill"></i>
+			<i *ngIf="!workoutExists()" class="ms-1 bi bi-plus"></i>
+		</p>
+	</button>
+
+	<button
+		(click)="navigate('/home/training-program-selector')"
+		class="btn w-100 text-light purple-btn btn-sm d-block d-lg-none mb-2"
+	>
+		Scheda
+		<i class="ms-1 bi bi-clipboard2-pulse"></i>
+	</button>
+
+	<button class="btn btn-dark w-100 d-none d-lg-block" (click)="closeDialog()">Annulla</button>
+	<button class="btn btn-dark w-100 btn-sm d-block d-lg-none" (click)="closeDialog()">Annulla</button>
 </div>

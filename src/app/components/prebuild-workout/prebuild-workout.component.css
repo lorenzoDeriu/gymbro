@@ -67,3 +67,9 @@ input:focus {
 		width: 100%;
 	}
 }
+
+@media (max-width: 400px) {
+	.collapse-container {
+		padding: 5px !important;
+	}
+}

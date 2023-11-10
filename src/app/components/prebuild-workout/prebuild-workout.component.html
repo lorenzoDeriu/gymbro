@@ -117,7 +117,7 @@
 			>
 				<p class="mb-0">
 					{{
-						exercise.name != "" ? exercise.name : "Nuovo Esercizio"
+						exercise.name !== "" ? exercise.name : "Nuovo Esercizio"
 					}}
 				</p>
 			</a>
@@ -130,7 +130,7 @@
 					<div
 						class="d-flex flex-column justify-content-center align-items-center"
 					>
-						<div class="p-3 w-100">
+						<div class="p-3 w-100 collapse-container">
 							<form class="d-none d-lg-flex flex-column align-items-center">
 								<div class="input-group flex-nowrap mb-3">
 									<span class="input-group-text">Esercizio</span>
@@ -142,6 +142,7 @@
 										[(ngModel)]="exercise.name"
 										[ngModelOptions]="{ standalone: true }"
 									>
+										<option [value]="exercise.name">{{ exercise.name }}</option>
 										<option *ngFor="let exercise of availableExercise" [value]="exercise">
 											{{ exercise }}
 										</option>
@@ -158,23 +159,61 @@
 								</div>
 
 								<div
+									*ngIf="exercise.set.length !== 0"
+									class="d-flex align-items-center w-100"
+								>
+									<div class="input-group flex-nowrap me-2">
+										<input
+										type="number"
+										class="form-control w-100 border-0"
+										placeholder="Reps"
+										style="pointer-events: none;"
+										/>
+										<input
+											type="number"
+											class="form-control w-100 border-0"
+											placeholder="Carico"
+											style="pointer-events: none;"
+										/>
+									</div>
+
+									<div class="d-flex align-items-center opacity-0">
+										<button
+											class="btn btn-sm blue-btn text-light me-1 rounded-5 py-1 px-2"
+											disabled
+											style="pointer-events: none;"
+										>
+											<i class="bi bi-check"></i>
+										</button>
+
+										<button
+											class="btn btn-sm btn-danger rounded-5 py-1 px-2"
+											disabled
+											style="pointer-events: none;"
+										>
+											<i class="bi bi-trash3"></i>
+										</button>
+									</div>
+								</div>
+
+								<div
 									*ngFor="let set of exercise.set; index as setIndex"
 									class="d-flex align-items-center w-100 mb-3"
 								>
 									<div class="input-group flex-nowrap me-2">
-										<span class="input-group-text rounded-start-5">{{ setIndex + 1 }}</span>
-										<span class="input-group-text">Reps</span>
 										<input
-											type="number"
-											class="form-control rounded-end-5 me-2"
-											[(ngModel)]="exercise.set[setIndex].reps"
-											[min]="0"
-											[ngModelOptions]="{ standalone: true }"
+										type="number"
+										class="form-control rounded-start-5"
+										[(ngModel)]="exercise.set[setIndex].reps"
+										[min]="0"
+										[ngModelOptions]="{ standalone: true }"
 										/>
-										<span class="input-group-text rounded-start-5">Carico</span>
+										<span class="input-group-text rounded-end-5 me-2">
+											{{ 6 + '-' + 8 }}
+										</span>
 										<input
 											type="number"
-											class="form-control"
+											class="form-control rounded-start-5"
 											[(ngModel)]="exercise.set[setIndex].load"
 											[min]="0"
 											[ngModelOptions]="{ standalone: true }"
@@ -184,7 +223,8 @@
 
 									<div class="d-flex align-items-center">
 										<button
-											class="btn blue-btn text-light me-2 rounded-5 py-1 px-2"
+											class="btn blue-btn text-light me-1 rounded-5 py-1 px-2"
+											style="background-color: #4089c9;"
 										>
 											<i class="bi bi-check"></i>
 										</button>
@@ -346,18 +386,17 @@
 								>
 									<div class="input-group input-group-sm flex-nowrap me-2">
 										<input
-											type="number"
-											class="form-control rounded-5 border-0 me-2"
-											placeholder="Reps"
-											style="pointer-events: none;"
+										type="number"
+										class="form-control w-100 border-0"
+										placeholder="Reps"
+										style="pointer-events: none;"
 										/>
 										<input
 											type="number"
-											class="form-control rounded-start-5 border-0"
+											class="form-control w-100 border-0"
 											placeholder="Carico"
 											style="pointer-events: none;"
 										/>
-										<span class="opacity-0 input-group-text rounded-end-5">Kg</span>
 									</div>
 
 									<div class="d-flex align-items-center opacity-0">
@@ -385,22 +424,23 @@
 								>
 									<div class="input-group input-group-sm flex-nowrap me-2">
 										<input
-											type="number"
-											class="form-control rounded-5 me-2"
-											placeholder="Reps"
-											[(ngModel)]="exercise.set[setIndex].reps"
-											[min]="0"
-											[ngModelOptions]="{ standalone: true }"
+										type="number"
+										class="form-control rounded-start-5"
+										[(ngModel)]="exercise.set[setIndex].reps"
+										[min]="0"
+										[ngModelOptions]="{ standalone: true }"
 										/>
+										<span class="input-group-text rounded-end-5 me-2" style="font-size: smaller;">
+											{{ 6 + '-' + 8 }}
+										</span>
 										<input
 											type="number"
 											class="form-control rounded-start-5"
-											placeholder="Carico"
 											[(ngModel)]="exercise.set[setIndex].load"
 											[min]="0"
 											[ngModelOptions]="{ standalone: true }"
 										/>
-										<span class="input-group-text rounded-end-5">Kg</span>
+										<span class="input-group-text rounded-end-5" style="font-size: smaller;">Kg</span>
 									</div>
 
 									<div class="d-flex align-items-center">

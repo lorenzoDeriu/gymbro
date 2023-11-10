@@ -17,8 +17,8 @@ import { EffectiveExercise, EffectiveSet } from "src/app/Models/Exercise.model";
 export class PrebuildWorkoutComponent implements OnInit, OnDestroy {
 	public workout: Workout = {
 		name: '',
-		date: '',
-		exercises: [],
+		date: '', // deve essere in formato dd/mm/yyyy Date
+		exercises: [], // deve essere un array di oggetti Exercise non EffectiveExercise
 		trainingTime: 0
 	};
 	public workoutIndex: number;
