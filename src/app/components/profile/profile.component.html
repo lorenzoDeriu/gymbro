@@ -1,4 +1,19 @@
-<div id="wrapper" *ngIf="!loading">
+<div
+	*ngIf="loading"
+	class="d-flex justify-content-center align-items-center opacity-50 position-absolute"
+	style="
+		width: 100vw;
+		height: 100svh;
+		z-index: 10000;
+		background-color: black;
+	"
+>
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">Loading...</span>
+	</div>
+</div>
+
+<div id="wrapper">
 	<div id="main-container" class="p-3">
 		<div class="d-none d-lg-block mt-3">
 			<button class="btn purple-btn text-light me-2" (click)="onCancel()">
