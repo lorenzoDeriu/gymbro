@@ -13,7 +13,8 @@
 	</div>
 </div>
 
-<div id="wrapper">
+<!-- TODO: Remove !loading and check if object is already loaded -->
+<div id="wrapper" *ngIf="!loading">
 	<div id="main-container" class="p-3">
 		<div class="d-none d-lg-block mt-3">
 			<button class="btn purple-btn text-light me-2" (click)="onCancel()">
