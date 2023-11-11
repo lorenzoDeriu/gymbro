@@ -1,4 +1,19 @@
-<div id="wrapper" *ngIf="!loading">
+<div
+	*ngIf="loading"
+	class="d-flex justify-content-center align-items-center opacity-50 position-absolute"
+	style="
+		width: 100vw;
+		height: 100svh;
+		z-index: 10000;
+		background-color: black;
+	"
+>
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">Loading...</span>
+	</div>
+</div>
+
+<div id="wrapper">
 	<div id="main-container" [ngClass]="{'p-3': true, 'w-75': trainingPrograms.length !== 0}">
 		<h1 class="text-center my-4">
 			{{  trainingPrograms.length > 0 ? 'Scegli una scheda di allenamento' : 'Non ci sono schede di allenamento' }}
