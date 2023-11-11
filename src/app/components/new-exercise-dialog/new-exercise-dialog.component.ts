@@ -6,7 +6,7 @@ import {
 	MatDialogRef,
 } from "@angular/material/dialog";
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
-import { TrainingProgramExercises } from "src/app/Models/Exercise.model";
+import { Set, TrainingProgramExercises } from "src/app/Models/Exercise.model";
 
 @Component({
 	selector: "app-new-exercise-dialog",
@@ -57,7 +57,22 @@ export class NewExerciseDialogComponent {
 	}
 
 	addSet() {
-		this.exercise.set.push({ minimumReps: 6, maximumReps: 8 });
+		if (this.exercise.set.length > 0) {
+			const lastSet: Set =
+				this.exercise.set[
+					this.exercise.set.length - 1
+				];
+
+			this.exercise.set.push({
+				minimumReps: lastSet.minimumReps,
+				maximumReps: lastSet.maximumReps,
+			});
+		} else {
+			this.exercise.set.push({
+				minimumReps: 8,
+				maximumReps: 20,
+			});
+		}
 	}
 
 	removeSet(index: number) {
