@@ -12,8 +12,8 @@ import { Observable } from "rxjs";
 
 export interface Progress {
 	/* access to the complete must refer to the following logic:
-	*	-> completed[exerciseIndex][setIndex]: boolean
-	*/
+	 *	-> completed[exerciseIndex][setIndex]: boolean
+	 */
 	completed: boolean[][];
 }
 
@@ -26,7 +26,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public availableExercise: string[] = [];
 	public workout: Workout;
 
-	public workoutProgress: Progress =  {completed: []};
+	public workoutProgress: Progress = { completed: [] };
 	public playlistUrl: string;
 	public date: string = this.fromDateToString(new Date());
 
@@ -52,7 +52,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.isLoading = false;
 
 		localStorage.setItem("workout", JSON.stringify(this.workout));
-		localStorage.setItem("workoutProgress", JSON.stringify(this.workoutProgress));
+		localStorage.setItem(
+			"workoutProgress",
+			JSON.stringify(this.workoutProgress)
+		);
 	}
 
 	private initWorkoutProgress() {
@@ -203,7 +206,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	private fromDateToString(date: Date) {
 		console.log(date);
-		console.log(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
+		console.log(
+			`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+		);
 
 		return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 	}
