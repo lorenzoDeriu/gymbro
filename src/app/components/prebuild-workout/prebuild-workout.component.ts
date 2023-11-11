@@ -30,7 +30,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public playlistUrl: string;
 	public date: string = this.fromDateToString(new Date());
 
-	public isLoading: boolean = false;
+	public loading: boolean = false;
 
 	constructor(
 		private userService: UserService,
@@ -40,7 +40,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
-		this.isLoading = true;
+		this.loading = true;
 
 		this.availableExercise = await this.firebase.getExercise();
 		this.playlistUrl = this.userService.getPlaylistURL();
@@ -49,7 +49,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.date = this.fromDateToString(this.workout.date);
 		this.initWorkoutProgress();
 
-		this.isLoading = false;
+		this.loading = false;
 
 		localStorage.setItem("workout", JSON.stringify(this.workout));
 		localStorage.setItem(
@@ -205,11 +205,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	private fromDateToString(date: Date) {
-		console.log(date);
-		console.log(
-			`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
-		);
-
-		return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+		console.log(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`)
+		return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 	}
 }
