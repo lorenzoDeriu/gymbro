@@ -3,7 +3,9 @@
 	style="max-height: 60svh; max-width: 95vw"
 >
 	<div class="overflow-auto p-3">
-		<h1 class="text-center">{{ editMode ? 'Modifica esercizio' : 'Aggiungi esercizio' }}</h1>
+		<h1 class="text-center">
+			{{ editMode ? "Modifica esercizio" : "Aggiungi esercizio" }}
+		</h1>
 
 		<form class="d-none d-lg-flex flex-column align-items-center">
 			<div class="input-group flex-nowrap mb-3">
@@ -61,10 +63,7 @@
 				</button>
 			</div>
 
-			<button
-				class="btn btn-dark w-100 mb-3"
-				(click)="addSet()"
-			>
+			<button class="btn btn-dark w-100 mb-3" (click)="addSet()">
 				Aggiungi serie
 				<i class="ms-1 bi bi-plus"></i>
 			</button>
@@ -85,9 +84,15 @@
 					[(ngModel)]="exercise.intensity"
 					value="light"
 				/>
-				<label [ngClass]="{'btn border': true, 'btn-success': exercise.intensity === 'light'}" for="btnradio1">
+				<label
+					[ngClass]="{
+						'btn border': true,
+						'btn-success': exercise.intensity === 'light'
+					}"
+					for="btnradio1"
+				>
 					Leggero
-					<i class="ms-1 bi bi-feather "></i>
+					<i class="ms-1 bi bi-feather"></i>
 				</label>
 
 				<input
@@ -100,9 +105,15 @@
 					[(ngModel)]="exercise.intensity"
 					value="hard"
 				/>
-				<label [ngClass]="{'btn border': true, 'btn-warning': exercise.intensity === 'hard'}" for="btnradio2">
+				<label
+					[ngClass]="{
+						'btn border': true,
+						'btn-warning': exercise.intensity === 'hard'
+					}"
+					for="btnradio2"
+				>
 					Pesante
-					<i class="ms-1 bi bi-exclamation-triangle-fill "></i>
+					<i class="ms-1 bi bi-exclamation-triangle-fill"></i>
 				</label>
 
 				<input
@@ -114,9 +125,15 @@
 					[(ngModel)]="exercise.intensity"
 					value="failure"
 				/>
-				<label [ngClass]="{'btn border': true, 'btn-danger': exercise.intensity === 'failure'}" for="btnradio3">
+				<label
+					[ngClass]="{
+						'btn border': true,
+						'btn-danger': exercise.intensity === 'failure'
+					}"
+					for="btnradio3"
+				>
 					Cedimento
-					<i class="ms-1 bi bi-fire "></i>
+					<i class="ms-1 bi bi-fire"></i>
 				</label>
 			</div>
 
@@ -165,7 +182,7 @@
 					[disabled]="!savable()"
 					(click)="save()"
 				>
-					{{ editMode ? 'Modifica' : 'Aggiungi' }}
+					{{ editMode ? "Modifica" : "Aggiungi" }}
 				</button>
 				<button class="btn btn-dark w-100 ms-2" (click)="closeDialog()">
 					Annulla
@@ -229,10 +246,7 @@
 				</button>
 			</div>
 
-			<button
-				class="btn btn-sm btn-dark w-100 mb-3"
-				(click)="addSet()"
-			>
+			<button class="btn btn-sm btn-dark w-100 mb-3" (click)="addSet()">
 				Aggiungi serie
 				<i class="ms-1 bi bi-plus"></i>
 			</button>
@@ -298,7 +312,7 @@
 					[disabled]="!savable()"
 					(click)="save()"
 				>
-					{{ editMode ? 'Modifica' : 'Aggiungi' }}
+					{{ editMode ? "Modifica" : "Aggiungi" }}
 				</button>
 				<button
 					class="btn btn-sm btn-dark w-100 ms-1"

@@ -27,95 +27,93 @@ export class YourProgressComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
-		this.loading = true;
-		this.workouts = await this.firebase.getWorkouts();
-
-		this.createWorkoutCounterChart();
-
-		this.createChart("benchPressChart", "Bench Press");
-		this.createChart("deadliftChart", "Deadlift");
-		this.createChart("squatChart", "Squat");
-		this.loading = false;
+		// this.loading = true;
+		// this.workouts = await this.firebase.getWorkouts();
+		// this.createWorkoutCounterChart();
+		// this.createChart("benchPressChart", "Bench Press");
+		// this.createChart("deadliftChart", "Deadlift");
+		// this.createChart("squatChart", "Squat");
+		// this.loading = false;
 	}
 
-	createWorkoutCounterChart() {
-		this.workoutCounterChart = new Chart("workoutCounterChart", {
-			type: "bar",
-			data: {
-				labels: ["1", "2", "3", "4", "5", "6", "7", "8"],
-				datasets: [
-					{
-						label: "Number of Workouts per week",
-						data: this.utils.pastWeekWourkoutCounter(this.workouts),
-						backgroundColor: "#4545BC",
-						barThickness: 40,
-						borderRadius: 50,
-					},
-				],
-			},
-			options: {
-				aspectRatio: 2.5,
-				plugins: {
-					tooltip: { enabled: false },
-				},
-				hover: { mode: null },
-				scales: {
-					y: {
-						ticks: {
-							stepSize: 1,
-						},
-					},
-				},
-			},
-		});
-	}
+	// createWorkoutCounterChart() {
+	// 	this.workoutCounterChart = new Chart("workoutCounterChart", {
+	// 		type: "bar",
+	// 		data: {
+	// 			labels: ["1", "2", "3", "4", "5", "6", "7", "8"],
+	// 			datasets: [
+	// 				{
+	// 					label: "Number of Workouts per week",
+	// 					data: this.utils.pastWeekWourkoutCounter(this.workouts),
+	// 					backgroundColor: "#4545BC",
+	// 					barThickness: 40,
+	// 					borderRadius: 50,
+	// 				},
+	// 			],
+	// 		},
+	// 		options: {
+	// 			aspectRatio: 2.5,
+	// 			plugins: {
+	// 				tooltip: { enabled: false },
+	// 			},
+	// 			hover: { mode: null },
+	// 			scales: {
+	// 				y: {
+	// 					ticks: {
+	// 						stepSize: 1,
+	// 					},
+	// 				},
+	// 			},
+	// 		},
+	// 	});
+	// }
 
-	createChart(chartID: string, exerciseName: string) {
-		let dates = this.utils.getDatesFor(exerciseName, this.workouts);
+	// createChart(chartID: string, exerciseName: string) {
+	// 	let dates = this.utils.getDatesFor(exerciseName, this.workouts);
 
-		return new Chart(chartID, {
-			type: "line",
-			data: {
-				labels: dates,
-				datasets: [
-					{
-						label: "Progressione del peso: " + exerciseName,
-						data: this.utils.getWeightsFor(
-							exerciseName,
-							dates,
-							this.workouts
-						),
-						backgroundColor: "#4545BC",
-						tension: 0.3,
-						borderColor: "#4545BC",
-					},
-				],
-			},
-			options: {
-				aspectRatio: 2.5,
-				plugins: {
-					tooltip: { enabled: false },
-				},
-				hover: { mode: null },
-				scales: {
-					y: {
-						ticks: {
-							stepSize: 5,
-						},
-					},
-				},
-			},
-		});
-	}
+	// 	return new Chart(chartID, {
+	// 		type: "line",
+	// 		data: {
+	// 			labels: dates,
+	// 			datasets: [
+	// 				{
+	// 					label: "Progressione del peso: " + exerciseName,
+	// 					data: this.utils.getWeightsFor(
+	// 						exerciseName,
+	// 						dates,
+	// 						this.workouts
+	// 					),
+	// 					backgroundColor: "#4545BC",
+	// 					tension: 0.3,
+	// 					borderColor: "#4545BC",
+	// 				},
+	// 			],
+	// 		},
+	// 		options: {
+	// 			aspectRatio: 2.5,
+	// 			plugins: {
+	// 				tooltip: { enabled: false },
+	// 			},
+	// 			hover: { mode: null },
+	// 			scales: {
+	// 				y: {
+	// 					ticks: {
+	// 						stepSize: 5,
+	// 					},
+	// 				},
+	// 			},
+	// 		},
+	// 	});
+	// }
 
-	showStats() {
-		this.dialog.open(ExerciseStatsComponent, {
-			width: "100%",
-			height: "85%",
-		});
-	}
+	// showStats() {
+	// 	this.dialog.open(ExerciseStatsComponent, {
+	// 		width: "100%",
+	// 		height: "85%",
+	// 	});
+	// }
 
-	goToHome() {
-		this.router.navigate(["/home"]);
-	}
+	// goToHome() {
+	// 	this.router.navigate(["/home"]);
+	// }
 }

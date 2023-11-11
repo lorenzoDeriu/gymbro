@@ -21,13 +21,9 @@ export class AppComponent {
 			)
 			.subscribe(evt => {
 				snackbar
-					.open(
-						"Nuova versione disponibile!",
-						"Aggiorna",
-						{
-							duration: 10000
-						}
-					)
+					.open("Nuova versione disponibile!", "Aggiorna", {
+						duration: 10000,
+					})
 					.afterDismissed()
 					.subscribe(() => {
 						document.location.reload();

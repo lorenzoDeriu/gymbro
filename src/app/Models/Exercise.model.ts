@@ -12,7 +12,9 @@ export interface TrainingProgramExercises extends Exercise {
 }
 
 export interface EffectiveExercise extends Exercise {
+	template?: Set[];
 	set: EffectiveSet[];
+	groupId?: string;
 }
 
 export type RestTime = {

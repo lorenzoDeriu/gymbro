@@ -7,15 +7,19 @@ import { Router } from "@angular/router";
 	styleUrls: ["./about.component.css"],
 })
 export class AboutComponent {
-	installButton: HTMLElement | undefined = (document.getElementById("install") as HTMLButtonElement);
+	installButton: HTMLElement | undefined = document.getElementById(
+		"install"
+	) as HTMLButtonElement;
 	installPrompt: any;
 
 	constructor(private router: Router) {}
 
 	ngOnInit(): void {
-		this.installButton = (document.getElementById("install") as HTMLButtonElement);
+		this.installButton = document.getElementById(
+			"install"
+		) as HTMLButtonElement;
 
-		window.addEventListener("beforeinstallprompt", (event) => {
+		window.addEventListener("beforeinstallprompt", event => {
 			event.preventDefault();
 			this.installPrompt = event;
 			this.installButton.removeAttribute("hidden");

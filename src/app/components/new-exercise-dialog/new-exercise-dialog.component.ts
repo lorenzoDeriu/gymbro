@@ -16,19 +16,19 @@ import { TrainingProgramExercises } from "src/app/Models/Exercise.model";
 export class NewExerciseDialogComponent {
 	public options: string[] = [];
 	public exercise: TrainingProgramExercises = {
-		name: '',
-		intensity: 'hard',
+		name: "",
+		intensity: "hard",
 		rest: {
-			minutes: '02',
-			seconds: '00'
+			minutes: "02",
+			seconds: "00",
 		},
-		note: '',
+		note: "",
 		set: [
 			{
 				minimumReps: 6,
 				maximumReps: 8,
-			}
-		]
+			},
+		],
 	};
 
 	public editMode = false;
@@ -49,10 +49,7 @@ export class NewExerciseDialogComponent {
 	}
 
 	async getExercises() {
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
-		this.options = (await this.firebase.getExercise(uid)).sort(
-			(a: string, b: string) => a.localeCompare(b)
-		);
+		this.options = await this.firebase.getExercise();
 	}
 
 	closeDialog() {
@@ -82,8 +79,14 @@ export class NewExerciseDialogComponent {
 		return (
 			this.exercise.name !== "" &&
 			this.exercise.set.length > 0 &&
-			this.exercise.set.every((set) => set.minimumReps > 0 && set.maximumReps > 0) &&
-			this.exercise.set.every((set) => set.minimumReps < set.maximumReps && set.maximumReps > set.minimumReps)
+			this.exercise.set.every(
+				set => set.minimumReps > 0 && set.maximumReps > 0
+			) &&
+			this.exercise.set.every(
+				set =>
+					set.minimumReps < set.maximumReps &&
+					set.maximumReps > set.minimumReps
+			)
 		);
 	}
 }

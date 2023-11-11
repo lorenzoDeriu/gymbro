@@ -45,7 +45,6 @@ import { TrainingProgramBuilderComponent } from "./components/training-program-b
 import { PrebuildWorkoutComponent } from "./components/prebuild-workout/prebuild-workout.component";
 import { MatDividerModule } from "@angular/material/divider";
 import { PasswordRecoverDialogComponent } from "./components/password-recover-dialog/password-recover-dialog.component";
-import { ExercisePickerDialogComponent } from "./components/exercise-picker-dialog/exercise-picker-dialog.component";
 import { FriendsComponent } from "./components/friends/friends.component";
 import { SearchResultComponent } from "./components/search-result/search-result.component";
 import { MatCardModule } from "@angular/material/card";
@@ -74,7 +73,7 @@ import { ErrorProviderDialogComponent } from "./components/error-provider-dialog
 import { NewWorkoutDialogComponent } from "./components/new-workout-dialog/new-workout-dialog.component";
 import { CustomExcerciseDialogComponent } from "./components/custom-excercise-dialog/custom-excercise-dialog.component";
 import { ShareDialogComponent } from "./components/share-dialog/share-dialog.component";
-import { AdminDialogComponent } from './components/admin-dialog/admin-dialog.component';
+import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
 
 @NgModule({
 	declarations: [
@@ -92,7 +91,6 @@ import { AdminDialogComponent } from './components/admin-dialog/admin-dialog.com
 		TrainingProgramBuilderComponent,
 		PrebuildWorkoutComponent,
 		PasswordRecoverDialogComponent,
-		ExercisePickerDialogComponent,
 		FriendsComponent,
 		SearchResultComponent,
 		ProfileComponent,
@@ -113,7 +111,7 @@ import { AdminDialogComponent } from './components/admin-dialog/admin-dialog.com
 		NewWorkoutDialogComponent,
 		CustomExcerciseDialogComponent,
 		ShareDialogComponent,
-  AdminDialogComponent,
+		AdminDialogComponent,
 	],
 	imports: [
 		BrowserModule,

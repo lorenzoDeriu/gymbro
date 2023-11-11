@@ -26,7 +26,7 @@
 }
 
 .feature-card {
-	width: calc(90%/3);
+	width: calc(90% / 3);
 	height: 200px;
 	margin: 0 1em 0 1em;
 }
@@ -70,6 +70,5 @@
 }
 
 .feature-card-mobile {
-	box-shadow: 0 8px 10px rgba(0, 0, 0, .2);
+	box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
 }
-

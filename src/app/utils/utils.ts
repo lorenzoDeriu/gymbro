@@ -1,18 +1,24 @@
 import { endOfWeek } from "date-fns";
 import { Workout } from "../Models/Workout.model";
+import { EffectiveExercise } from "../Models/Exercise.model";
+
+export interface ExerciseLog {
+	exercise: EffectiveExercise;
+	date: Date;
+}
 
 export class Utils {
 	getSessionExerciseFor(
 		exerciseName: string,
-		workoutsDate: string[],
-		workouts: any
+		workoutsDate: Date[],
+		workouts: Workout[]
 	): any[] {
 		const sortedWorkouts = this.sortByDate(workouts);
-		const sessionExercises: any[] = [];
+		const sessionExercises: ExerciseLog[] = [];
 
 		for (const date of new Set(workoutsDate)) {
 			const matchingWorkouts = sortedWorkouts.filter(
-				(workout: any) => workout.date === date
+				workout => workout.date === date
 			);
 
 			for (const matchingWorkout of matchingWorkouts) {
@@ -71,13 +77,7 @@ export class Utils {
 	sortByDate(workouts: Workout[]) {
 		if (workouts) {
 			return workouts.sort((a: Workout, b: Workout) => {
-				let [day, month, year] = String(a.date).split("/");
-				const dateA = +new Date(+year, +month - 1, +day);
-
-				[day, month, year] = String(b.date).split("/");
-				const dateB = +new Date(+year, +month - 1, +day);
-
-				return dateB - dateA;
+				return b.date.getTime() - a.date.getTime();
 			});
 		}
 
@@ -86,7 +86,7 @@ export class Utils {
 
 	getDatesFor(exerciseName: string, workouts: any) {
 		let sortedWorkout = this.sortByDate(workouts);
-		let dates: string[] = [];
+		let dates: Date[] = [];
 
 		for (let workout of sortedWorkout) {
 			for (let exercise of workout.exercises) {
@@ -122,28 +122,28 @@ export class Utils {
 		return weeks;
 	}
 
-	pastWeekWourkoutCounter(workouts: any[]) {
-		let sortedWorkouts = this.sortByDate(workouts);
+	// pastWeekWourkoutCounter(workouts: Workout[]) {
+	// 	let sortedWorkouts = this.sortByDate(workouts);
 
-		let workoutsDate: any[] = [];
-		for (let workout of sortedWorkouts) {
-			workoutsDate.push(
-				this.toDate(workout.date).toLocaleString().split(",")[0]
-			);
-		}
-		workoutsDate.reverse();
+	// 	let workoutsDate: any[] = [];
+	// 	for (let workout of sortedWorkouts) {
+	// 		workoutsDate.push(
+	// 			this.toDate(workout.date).toLocaleString().split(",")[0]
+	// 		);
+	// 	}
+	// 	workoutsDate.reverse();
 
-		let weeks = this.createWeeksArray();
-		let counter = new Array(8).fill(0);
+	// 	let weeks = this.createWeeksArray();
+	// 	let counter = new Array(8).fill(0);
 
-		for (let date of workoutsDate)
-			for (let i = 0; i < weeks.length; i++)
-				if (weeks[i].includes(date)) counter[i]++;
+	// 	for (let date of workoutsDate)
+	// 		for (let i = 0; i < weeks.length; i++)
+	// 			if (weeks[i].includes(date)) counter[i]++;
 
-		counter.reverse();
+	// 	counter.reverse();
 
-		return counter;
-	}
+	// 	return counter;
+	// }
 
 	private toDate(d: string): Date {
 		let [day, month, year] = String(d).split("/");

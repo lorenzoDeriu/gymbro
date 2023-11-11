@@ -15,14 +15,26 @@
 
 <div id="wrapper">
 	<div id="main-container" class="p-3">
-		<h1 class="text-center mt-3 mb-4">{{ !workouts || workouts.length === 0 ? 'Non ci sono allenamenti, creane uno nuovo!' : 'I tuoi vecchi allenamenti'}}</h1>
+		<h1 class="text-center mt-3 mb-4">
+			{{
+				!workouts || workouts.length === 0
+					? "Non ci sono allenamenti, creane uno nuovo!"
+					: "I tuoi vecchi allenamenti"
+			}}
+		</h1>
 
-		<button class="btn btn-dark ms-2 d-none d-lg-block mb-4" routerLink="/home">
+		<button
+			class="btn btn-dark ms-2 d-none d-lg-block mb-4"
+			routerLink="/home"
+		>
 			Torna alla home
 			<i class="ms-1 bi bi-house-fill"></i>
 		</button>
 
-		<button class="btn btn-sm btn-dark ms-2 d-block d-lg-none mb-4" routerLink="/home">
+		<button
+			class="btn btn-sm btn-dark ms-2 d-block d-lg-none mb-4"
+			routerLink="/home"
+		>
 			Torna alla home
 			<i class="bi bi-house-fill"></i>
 		</button>
@@ -31,13 +43,12 @@
 			*ngIf="!workouts || workouts.length === 0"
 			src="assets/no-old-workouts.svg"
 			alt="No workouts found"
-			style="width: 50%;"
-		>
+			style="width: 50%"
+		/>
 
 		<!-- TODO: Show all old workouts with pagination -->
 	</div>
 </div>
-
 
 <!-- <mat-progress-bar
 	*ngIf="this.loading"

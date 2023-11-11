@@ -27,10 +27,10 @@ export class HomeComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.firebase.userIsAdmin().then((isAdmin) => {
+		this.firebase.userIsAdmin().then(isAdmin => {
 			this.isAdmin = isAdmin;
 		});
-/* 		this.userService.stopwatchTimeObs.subscribe((time: Date) => {
+		/* 		this.userService.stopwatchTimeObs.subscribe((time: Date) => {
 			if (time) {
 				this.intervalID = setInterval(() => {
 					const hours = new Date().getHours() - time.getHours();

@@ -116,7 +116,7 @@ export class FirebaseService {
 
 			newWorkout = {
 				name: workouts["name"],
-				date: workouts['date']/* this.getDate(workouts["date"]) */,
+				date: workouts["date"] /* this.getDate(workouts["date"]) */,
 				trainingTime: 0,
 				exercises: [],
 			};
@@ -305,7 +305,11 @@ export class FirebaseService {
 		return documentSnapshot.exists();
 	}
 
-	public async getUserData(uid: string) {
+	public async getUserData(uid?: string) {
+		if (uid === undefined) {
+			uid = JSON.parse(localStorage.getItem("user")).uid;
+		}
+
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -315,7 +319,7 @@ export class FirebaseService {
 			return null;
 		}
 
-		return documentSnapshot.data();
+		return documentSnapshot.data() as User;
 	}
 
 	public async loginEmailPsw(email: string, password: string) {
@@ -334,7 +338,9 @@ export class FirebaseService {
 		signOut(this.auth).catch(e => console.log(e));
 	}
 
-	public async getExercise(uid: string) {
+	public async getExercise() {
+		let uid = JSON.parse(localStorage.getItem("user")).uid;
+
 		let exercise: string[] = [];
 
 		let documentReference = doc(this.db, "exercise", "exercises");
@@ -362,14 +368,19 @@ export class FirebaseService {
 
 		exercise = exercise.concat(userExercise);
 
-		return exercise;
+		return exercise.sort();
 	}
 
 	public addUser(body: User, uid: string) {
-		setDoc(doc(this.db, "users", uid), body as WithFieldValue<DocumentData>).catch(e => console.log(e));
+		setDoc(
+			doc(this.db, "users", uid),
+			body as WithFieldValue<DocumentData>
+		).catch(e => console.log(e));
 	}
 
-	public async saveWorkout(body: Workout, uid: string) {
+	public async saveWorkout(body: Workout) {
+		let uid = JSON.parse(localStorage.getItem("user")).uid;
+
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -430,7 +441,10 @@ export class FirebaseService {
 		}
 	}
 
-	public async editTrainingProgram(trainingProgram: TrainingProgram, index: number) {
+	public async editTrainingProgram(
+		trainingProgram: TrainingProgram,
+		index: number
+	) {
 		let uid: string = JSON.parse(localStorage.getItem("user"))["uid"];
 
 		const documentReference = doc(this.db, "users", uid);
@@ -580,7 +594,7 @@ export class FirebaseService {
 					)
 			  );
 
-		let result: {uid: string, username: string}[] = [];
+		let result: { uid: string; username: string }[] = [];
 
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
@@ -618,7 +632,6 @@ export class FirebaseService {
 			followed.push(uidToFollow);
 			await updateDoc(documentReference, { follow: followed });
 		}
-
 	}
 
 	public async getFollowed() {
@@ -637,7 +650,11 @@ export class FirebaseService {
 
 		let follow = data.follow;
 
-		let result: {uid: string, username: string, visibilityPermission: boolean}[] = [];
+		let result: {
+			uid: string;
+			username: string;
+			visibilityPermission: boolean;
+		}[] = [];
 
 		follow.forEach(async (followedUID: string) => {
 			let documentReference = doc(this.db, "users", followedUID);
@@ -652,7 +669,8 @@ export class FirebaseService {
 			let userObj = {
 				uid: followedUID,
 				username: (documentSnapshot.data() as User).username,
-				visibilityPermission: (documentSnapshot.data() as User).visibility
+				visibilityPermission: (documentSnapshot.data() as User)
+					.visibility,
 			};
 
 			result.push(userObj);

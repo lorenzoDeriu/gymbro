@@ -1,17 +1,30 @@
 <!-- Desktop -->
 <div id="wrapper">
-
 	<!-- Desktop -->
-	<div id="main-container"  class="d-none d-lg-block">
+	<div id="main-container" class="d-none d-lg-block">
 		<!-- About GYMBRO -->
 		<div class="intro-div">
-			<h1 class="text-light display-1 text-center">Benvenuti su GymBro!</h1>
-			<h2 class="text-center" style="color: rgb(194, 194, 194);">L'app che ti permette di tracciare i tuoi progressi in palestra</h2>
-			<button hidden id="install" (click)="installApp()" class="btn blue-btn text-light mt-3 d-lg-block d-none">
+			<h1 class="text-light display-1 text-center">
+				Benvenuti su GymBro!
+			</h1>
+			<h2 class="text-center" style="color: rgb(194, 194, 194)">
+				L'app che ti permette di tracciare i tuoi progressi in palestra
+			</h2>
+			<button
+				hidden
+				id="install"
+				(click)="installApp()"
+				class="btn blue-btn text-light mt-3 d-lg-block d-none"
+			>
 				Installa
 				<i class="ms-1 bi bi-download"></i>
 			</button>
-			<button hidden id="install" (click)="installApp()" class="btn btn-sm blue-btn text-light mt-3 d-block d-lg-none">
+			<button
+				hidden
+				id="install"
+				(click)="installApp()"
+				class="btn btn-sm blue-btn text-light mt-3 d-block d-lg-none"
+			>
 				Installa
 				<i class="ms-1 bi bi-download"></i>
 			</button>
@@ -22,29 +35,44 @@
 			<h1 class="display-1 text-center mb-3">Cosa offre?</h1>
 
 			<!-- First row -->
-			<div class="d-flex justify-content-center align-items-center mt-5 w-100">
-				<div class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center">
-					<p class="mb-0 text-center">Crea workout, da zero o grazie a una scheda salvata sul tuo profilo</p>
+			<div
+				class="d-flex justify-content-center align-items-center mt-5 w-100"
+			>
+				<div
+					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+				>
+					<p class="mb-0 text-center">
+						Crea workout, da zero o grazie a una scheda salvata sul
+						tuo profilo
+					</p>
 					<img
 						class="position-absolute top-0 start-50 translate-middle"
 						style="background-color: #fff"
 						width="60"
 						src="assets/dumbbell.png"
 						alt="Dumbbell"
-					>
+					/>
 				</div>
-				<div class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center">
-					<p class="mb-0 text-center">Visualizza lo storico dei tuoi workout</p>
+				<div
+					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+				>
+					<p class="mb-0 text-center">
+						Visualizza lo storico dei tuoi workout
+					</p>
 					<img
 						class="position-absolute top-0 start-50 translate-middle"
 						style="background-color: #fff"
 						width="60"
 						src="assets/history.png"
 						alt="Dumbbell"
-					>
+					/>
 				</div>
-				<div class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center">
-					<p class="mb-0 text-center">Segui i tuoi progessi nella sezione "I tuoi progressi"</p>
+				<div
+					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+				>
+					<p class="mb-0 text-center">
+						Segui i tuoi progessi nella sezione "I tuoi progressi"
+					</p>
 					<i
 						class="bi bi-graph-up position-absolute top-0 start-50 translate-middle"
 						style="font-size: 60px; background-color: #fff"
@@ -52,23 +80,39 @@
 				</div>
 			</div>
 			<!-- Second row -->
-			<div class="d-flex flex-wrap justify-content-center align-items-center mt-5 w-100">
-				<div class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center">
-					<p class="mb-0 text-center">Gestisci le tue schede di allenamento rapidamente</p>
+			<div
+				class="d-flex flex-wrap justify-content-center align-items-center mt-5 w-100"
+			>
+				<div
+					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+				>
+					<p class="mb-0 text-center">
+						Gestisci le tue schede di allenamento rapidamente
+					</p>
 					<i
 						class="bi bi-journals position-absolute top-0 start-50 translate-middle"
 						style="font-size: 60px; background-color: #fff"
 					></i>
 				</div>
-				<div class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center">
-					<p class="mb-0 text-center">Segui altri GymBro e visualizza le loro schede di allenamento</p>
+				<div
+					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+				>
+					<p class="mb-0 text-center">
+						Segui altri GymBro e visualizza le loro schede di
+						allenamento
+					</p>
 					<i
 						class="bi bi-people position-absolute top-0 start-50 translate-middle"
 						style="font-size: 60px; background-color: #fff"
 					></i>
 				</div>
-				<div class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center">
-					<p class="mb-0 text-center">Cronometra la durata dei tuoi allenamenti e tieni traccia del recupero tra una serie e l'altra</p>
+				<div
+					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+				>
+					<p class="mb-0 text-center">
+						Cronometra la durata dei tuoi allenamenti e tieni
+						traccia del recupero tra una serie e l'altra
+					</p>
 					<i
 						class="bi bi-stopwatch position-absolute top-0 start-50 translate-middle"
 						style="font-size: 60px; background-color: #fff"
@@ -81,34 +125,43 @@
 		<div class="w-100 mb-5 d-flex flex-column align-items-center">
 			<h1 class="text-center display-1 mb-3">Perché usare GymBro?</h1>
 
-			<div class="w-50 d-flex flex-column justify-content-center align-items-start">
+			<div
+				class="w-50 d-flex flex-column justify-content-center align-items-start"
+			>
 				<p class="d-flex align-items-center">
 					<i class="bi display-3 bi-check text-success"></i>
 					<span class="ms-3">
-						<span class="fw-bold">Facile da usare</span>. L'interfaccia è semplice e intuitiva, per permetterti di concentrarti solo sul tuo allenamento, che tu sia un esperto o meno
+						<span class="fw-bold">Facile da usare</span>
+						. L'interfaccia è semplice e intuitiva, per permetterti
+						di concentrarti solo sul tuo allenamento, che tu sia un
+						esperto o meno
 					</span>
 				</p>
 				<p class="d-flex align-items-center">
 					<i class="bi display-3 bi-check text-success"></i>
 					<span class="ms-3">
-						<span class="fw-bold">Compatibile</span> con tutti i dispositivi, Android, iOS e PC
+						<span class="fw-bold">Compatibile</span>
+						con tutti i dispositivi, Android, iOS e PC
 					</span>
 				</p>
 				<p class="d-flex align-items-center">
 					<i class="bi display-3 bi-check text-success"></i>
 					<span class="ms-3">
-						<span class="fw-bold">Installabile</span> direttamente sul tuo dispositivo, per un'esperienza più fluida e veloce
+						<span class="fw-bold">Installabile</span>
+						direttamente sul tuo dispositivo, per un'esperienza più
+						fluida e veloce
 					</span>
 				</p>
 				<p class="d-flex align-items-center">
 					<i class="bi display-3 bi-check text-success"></i>
 					<span class="ms-3">
-						<span class="fw-bold">Gratuita</span> e piena di funzionalità, per permetterti di allenarti al meglio
+						<span class="fw-bold">Gratuita</span>
+						e piena di funzionalità, per permetterti di allenarti al
+						meglio
 					</span>
 				</p>
 			</div>
 		</div>
-
 
 		<!-- About us -->
 		<div class="d-flex flex-column align-items-center">
@@ -120,15 +173,24 @@
 						src="assets/lorenzo.jpeg"
 						width="20%"
 						alt="Photo"
-						style="border-radius: 50%;"
-					>
+						style="border-radius: 50%"
+					/>
 
 					<div class="mt-3 d-flex flex-column align-items-center">
 						<h1 class="text-center w-100">Lorenzo Deriu</h1>
-						<p class="text-center w-75">Ho concepito l'applicazione, sviluppando una solida architettura e implementando le funzionalità fondamentali, principalmente concentrando il proprio sforzo sul Back-End.</p>
-						<p class="text-center text-secondary w-100">Software Engineer</p>
+						<p class="text-center w-75">
+							Ho concepito l'applicazione, sviluppando una solida
+							architettura e implementando le funzionalità
+							fondamentali, principalmente concentrando il proprio
+							sforzo sul Back-End.
+						</p>
+						<p class="text-center text-secondary w-100">
+							Software Engineer
+						</p>
 
-						<div class="d-flex justify-content-center align-items-center">
+						<div
+							class="d-flex justify-content-center align-items-center"
+						>
 							<a
 								class="link-dark me-3"
 								href="https://github.com/lorenzoDeriu"
@@ -152,15 +214,24 @@
 						src="assets/mario-square.jpg"
 						width="20%"
 						alt="Photo"
-						style="border-radius: 50%;"
-					>
+						style="border-radius: 50%"
+					/>
 
 					<div class="mt-3 d-flex flex-column align-items-center">
 						<h1 class="text-centerw-100">Mario Di Modica</h1>
-						<p class="text-center w-75">Ha rivisitato interamente il design dell'applicazione e ha contributo all'implementazione di nuove funzionalità sofisticate, con un focus principale sul Front-End.</p>
-						<p class="text-center text-secondary w-100">Cybersecurity student</p>
+						<p class="text-center w-75">
+							Ha rivisitato interamente il design
+							dell'applicazione e ha contributo
+							all'implementazione di nuove funzionalità
+							sofisticate, con un focus principale sul Front-End.
+						</p>
+						<p class="text-center text-secondary w-100">
+							Cybersecurity student
+						</p>
 
-						<div class="d-flex justify-content-center align-items-center">
+						<div
+							class="d-flex justify-content-center align-items-center"
+						>
 							<a
 								class="link-dark me-3"
 								href="https://mxo01.github.io/Personal-Website/"
@@ -201,8 +272,16 @@
 		<!-- About GYMBRO -->
 		<div class="intro-div-sm px-3">
 			<h1 class="text-light text-center">Benvenuti su GymBro!</h1>
-			<small class="text-center" style="color: rgb(194, 194, 194);">L'app che ti permette di tracciare i tuoi progressi in palestra</small>
-			<button hidden id="install" (click)="installApp()" class="btn btn-sm download-btn text-light mt-3" style="border: none; background-color: #4089c9;">
+			<small class="text-center" style="color: rgb(194, 194, 194)">
+				L'app che ti permette di tracciare i tuoi progressi in palestra
+			</small>
+			<button
+				hidden
+				id="install"
+				(click)="installApp()"
+				class="btn btn-sm download-btn text-light mt-3"
+				style="border: none; background-color: #4089c9"
+			>
 				Installa
 				<i class="ms-1 bi bi-download"></i>
 			</button>
@@ -213,52 +292,85 @@
 			<h1 class="display-5 text-center mb-5">Cosa offre?</h1>
 
 			<div class="w-75">
-				<div class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center" style="height: 180px;">
-					<small class="mb-0 text-center">Crea workout, da zero o grazie a una scheda salvata sul tuo profilo</small>
+				<div
+					class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					style="height: 180px"
+				>
+					<small class="mb-0 text-center">
+						Crea workout, da zero o grazie a una scheda salvata sul
+						tuo profilo
+					</small>
 					<img
 						class="position-absolute top-0 start-50 translate-middle"
-						style="background-color: #fff;"
+						style="background-color: #fff"
 						width="45"
 						src="assets/dumbbell.png"
 						alt="Dumbbell"
-					>
+					/>
 				</div>
-				<div class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center" style="height: 180px;">
-					<small class="mb-0 text-center">Visualizza lo storico dei tuoi workout</small>
+				<div
+					class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					style="height: 180px"
+				>
+					<small class="mb-0 text-center">
+						Visualizza lo storico dei tuoi workout
+					</small>
 					<img
 						class="position-absolute top-0 start-50 translate-middle"
-						style="background-color: #fff;"
+						style="background-color: #fff"
 						width="45"
 						src="assets/history.png"
 						alt="Dumbbell"
-					>
+					/>
 				</div>
-				<div class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center" style="height: 180px;">
-					<small class="mb-0 text-center">Segui i tuoi progessi nella sezione "I tuoi progressi"</small>
+				<div
+					class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					style="height: 180px"
+				>
+					<small class="mb-0 text-center">
+						Segui i tuoi progessi nella sezione "I tuoi progressi"
+					</small>
 					<i
 						class="bi bi-graph-up position-absolute top-0 start-50 translate-middle"
-						style="font-size: 45px; background-color: #fff;"
+						style="font-size: 45px; background-color: #fff"
 					></i>
 				</div>
-				<div class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center" style="height: 180px;">
-					<small class="mb-0 text-center">Gestisci le tue schede di allenamento rapidamente</small>
+				<div
+					class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					style="height: 180px"
+				>
+					<small class="mb-0 text-center">
+						Gestisci le tue schede di allenamento rapidamente
+					</small>
 					<i
 						class="bi bi-journals position-absolute top-0 start-50 translate-middle"
-						style="font-size: 45px; background-color: #fff;"
+						style="font-size: 45px; background-color: #fff"
 					></i>
 				</div>
-				<div class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center" style="height: 180px;">
-					<small class="mb-0 text-center">Segui altri GymBro e visualizza le loro schede di allenamento</small>
+				<div
+					class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					style="height: 180px"
+				>
+					<small class="mb-0 text-center">
+						Segui altri GymBro e visualizza le loro schede di
+						allenamento
+					</small>
 					<i
 						class="bi bi-people position-absolute top-0 start-50 translate-middle"
-						style="font-size: 45px; background-color: #fff;"
+						style="font-size: 45px; background-color: #fff"
 					></i>
 				</div>
-				<div class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center" style="height: 180px;">
-					<small class="mb-0 text-center">Cronometra la durata dei tuoi allenamenti e tieni traccia del recupero tra una serie e l'altra</small>
+				<div
+					class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					style="height: 180px"
+				>
+					<small class="mb-0 text-center">
+						Cronometra la durata dei tuoi allenamenti e tieni
+						traccia del recupero tra una serie e l'altra
+					</small>
 					<i
 						class="bi bi-stopwatch position-absolute top-0 start-50 translate-middle"
-						style="font-size: 45px; background-color: #fff;"
+						style="font-size: 45px; background-color: #fff"
 					></i>
 				</div>
 			</div>
@@ -268,29 +380,35 @@
 		<div class="w-100 mb-3 px-3 d-flex flex-column align-items-center">
 			<h1 class="text-center display-5 mb-5">Perché usare GymBro?</h1>
 
-			<div class="w-100 d-flex flex-column justify-content-center align-items-start">
+			<div
+				class="w-100 d-flex flex-column justify-content-center align-items-start"
+			>
 				<p class="d-flex align-items-center">
 					<i class="bi display-3 bi-check text-success"></i>
 					<span class="ms-3">
-						<span class="fw-bold">Facile da usare</span>. L'interfaccia è semplice e intuitiva
+						<span class="fw-bold">Facile da usare</span>
+						. L'interfaccia è semplice e intuitiva
 					</span>
 				</p>
 				<p class="d-flex align-items-center">
 					<i class="bi display-3 bi-check text-success"></i>
 					<span class="ms-3">
-						<span class="fw-bold">Compatibile</span> con tutti i dispositivi, Android, iOS e PC
+						<span class="fw-bold">Compatibile</span>
+						con tutti i dispositivi, Android, iOS e PC
 					</span>
 				</p>
 				<p class="d-flex align-items-center">
 					<i class="bi display-3 bi-check text-success"></i>
 					<span class="ms-3">
-						<span class="fw-bold">Installabile</span> direttamente sul tuo dispositivo
+						<span class="fw-bold">Installabile</span>
+						direttamente sul tuo dispositivo
 					</span>
 				</p>
 				<p class="d-flex align-items-center">
 					<i class="bi display-3 bi-check text-success"></i>
 					<span class="ms-3">
-						<span class="fw-bold">Gratuita</span> e piena di funzionalità
+						<span class="fw-bold">Gratuita</span>
+						e piena di funzionalità
 					</span>
 				</p>
 			</div>
@@ -305,15 +423,24 @@
 					src="assets/lorenzo.jpeg"
 					width="40%"
 					alt="Photo"
-					style="border-radius: 50%;"
-				>
+					style="border-radius: 50%"
+				/>
 
 				<div class="mt-3 d-flex flex-column align-items-center px-3">
 					<h5 class="text-center w-100 fw-bold">Lorenzo Deriu</h5>
-					<small class="text-center w-100">Ho concepito l'applicazione, sviluppando una solida architettura e implementando le funzionalità fondamentali, principalmente concentrando il proprio sforzo sul Back-End.</small>
-					<small class="text-center text-secondary w-100">Software Engineer</small>
+					<small class="text-center w-100">
+						Ho concepito l'applicazione, sviluppando una solida
+						architettura e implementando le funzionalità
+						fondamentali, principalmente concentrando il proprio
+						sforzo sul Back-End.
+					</small>
+					<small class="text-center text-secondary w-100">
+						Software Engineer
+					</small>
 
-					<div class="d-flex justify-content-center align-items-center mt-3">
+					<div
+						class="d-flex justify-content-center align-items-center mt-3"
+					>
 						<a
 							class="link-dark me-3"
 							href="https://github.com/lorenzoDeriu"
@@ -337,15 +464,23 @@
 					src="assets/mario-square.jpg"
 					width="40%"
 					alt="Photo"
-					style="border-radius: 50%;"
-				>
+					style="border-radius: 50%"
+				/>
 
 				<div class="mt-3 d-flex flex-column align-items-center px-3">
 					<h5 class="text-center w-100 fw-bold">Mario Di Modica</h5>
-					<small class="text-center w-100">Ha rivisitato interamente il design dell'applicazione e ha contributo all'implementazione di nuove funzionalità sofisticate, con un focus principale sul Front-End.</small>
-					<small class="text-center text-secondary w-100">Cybersecurity student</small>
+					<small class="text-center w-100">
+						Ha rivisitato interamente il design dell'applicazione e
+						ha contributo all'implementazione di nuove funzionalità
+						sofisticate, con un focus principale sul Front-End.
+					</small>
+					<small class="text-center text-secondary w-100">
+						Cybersecurity student
+					</small>
 
-					<div class="d-flex justify-content-center align-items-center mt-3">
+					<div
+						class="d-flex justify-content-center align-items-center mt-3"
+					>
 						<a
 							class="link-dark me-3"
 							href="https://mxo01.github.io/Personal-Website/"
@@ -380,4 +515,3 @@
 		</div>
 	</div>
 </div>
-

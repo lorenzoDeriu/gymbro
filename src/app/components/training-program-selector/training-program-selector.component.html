@@ -16,15 +16,25 @@
 <div id="wrapper">
 	<div id="main-container" [ngClass]="{'p-3': true, 'w-75': trainingPrograms.length !== 0}">
 		<h1 class="text-center my-4">
-			{{  trainingPrograms.length > 0 ? 'Scegli una scheda di allenamento' : 'Non ci sono schede di allenamento' }}
+			{{
+				trainingPrograms.length > 0
+					? "Scegli una scheda di allenamento"
+					: "Non ci sono schede di allenamento"
+			}}
 		</h1>
 
-		<button class="btn btn-dark ms-2 mb-3 d-none d-lg-block" routerLink="/home/dashboard">
+		<button
+			class="btn btn-dark ms-2 mb-3 d-none d-lg-block"
+			routerLink="/home/dashboard"
+		>
 			Torna alla home
 			<i class="ms-1 bi bi-house-fill"></i>
 		</button>
 
-		<button class="btn btn-sm btn-dark ms-2 mb-3 d-block d-lg-none" routerLink="/home/dashboard">
+		<button
+			class="btn btn-sm btn-dark ms-2 mb-3 d-block d-lg-none"
+			routerLink="/home/dashboard"
+		>
 			Torna alla home
 			<i class="ms-1 bi bi-house-fill"></i>
 		</button>
@@ -33,8 +43,8 @@
 			*ngIf="trainingPrograms.length === 0"
 			src="assets/no-old-workouts.svg"
 			alt="No workouts found"
-			style="width: 50%;"
-		>
+			style="width: 50%"
+		/>
 
 		<div
 			*ngFor="let program of trainingPrograms; index as programIndex"
@@ -69,9 +79,7 @@
 						class="w-100 mb-2"
 					>
 						<a
-							[href]="
-								'#session' + programIndex + sessionIndex
-							"
+							[href]="'#session' + programIndex + sessionIndex"
 							class="btn btn-light w-100 mb-1 border collapser sessions-collapser d-flex justify-content-between align-items-center mobile-btn"
 							data-bs-toggle="collapse"
 							role="button"
@@ -83,9 +91,7 @@
 								{{ session.name }}
 							</p>
 							<p class="mb-0">
-								{{
-									"Esercizi: " + session.exercises.length
-								}}
+								{{ "Esercizi: " + session.exercises.length }}
 							</p>
 						</a>
 
@@ -131,15 +137,18 @@
 											</th>
 
 											<td>
-												<div
-													class="d-flex flex-column"
-												>
-													<div *ngFor="let set of exercise.set; index as setIndex">
+												<div class="d-flex flex-column">
+													<div
+														*ngFor="
+															let set of exercise.set;
+															index as setIndex
+														"
+													>
 														{{
-															'1 x ' +
-															set.minimumReps +
-															' - ' +
-															set.maximumReps
+															"1 x " +
+																set.minimumReps +
+																" - " +
+																set.maximumReps
 														}}
 													</div>
 												</div>
@@ -147,27 +156,79 @@
 
 											<td>
 												<!--Desktop-->
-												<p *ngIf="exercise.intensity === 'light'" class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'light'
+													"
+													class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+													style="width: fit-content"
+												>
 													Leggero
-													<i class="ms-1 bi bi-feather"></i>
+													<i
+														class="ms-1 bi bi-feather"
+													></i>
 												</p>
-												<p *ngIf="exercise.intensity === 'hard'" class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'hard'
+													"
+													class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+													style="width: fit-content"
+												>
 													Pesante
-													<i class="ms-1 bi bi-exclamation-triangle-fill"></i>
+													<i
+														class="ms-1 bi bi-exclamation-triangle-fill"
+													></i>
 												</p>
-												<p *ngIf="exercise.intensity === 'failure'" class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'failure'
+													"
+													class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+													style="width: fit-content"
+												>
 													Cedimento
-													<i class="ms-1 bi bi-fire"></i>
+													<i
+														class="ms-1 bi bi-fire"
+													></i>
 												</p>
 
 												<!--Mobile-->
-												<p *ngIf="exercise.intensity === 'light'" class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
-													<i class="bi bi-feather"></i>
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'light'
+													"
+													class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+													style="width: fit-content"
+												>
+													<i
+														class="bi bi-feather"
+													></i>
 												</p>
-												<p *ngIf="exercise.intensity === 'hard'" class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
-													<i class="bi bi-exclamation-triangle-fill"></i>
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'hard'
+													"
+													class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+													style="width: fit-content"
+												>
+													<i
+														class="bi bi-exclamation-triangle-fill"
+													></i>
 												</p>
-												<p *ngIf="exercise.intensity === 'failure'" class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'failure'
+													"
+													class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+													style="width: fit-content"
+												>
 													<i class="bi bi-fire"></i>
 												</p>
 											</td>
@@ -176,10 +237,12 @@
 								</table>
 								<button
 									class="btn btn-dark d-none d-lg-block"
-									(click)="selectWorkout(
-										programIndex,
-										sessionIndex
-									)"
+									(click)="
+										selectWorkout(
+											programIndex,
+											sessionIndex
+										)
+									"
 								>
 									Seleziona
 									<i class="ms-1 bi bi-check2-circle"></i>
@@ -187,10 +250,12 @@
 
 								<button
 									class="btn btn-sm btn-dark d-block d-lg-none"
-									(click)="selectWorkout(
-										programIndex,
-										sessionIndex
-									)"
+									(click)="
+										selectWorkout(
+											programIndex,
+											sessionIndex
+										)
+									"
 								>
 									Seleziona
 									<i class="ms-1 bi bi-check2-circle"></i>

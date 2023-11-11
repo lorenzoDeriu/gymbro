@@ -3,10 +3,7 @@
 		<h1 class="mt-3 mb-4" *ngIf="searchResult.length !== 0">Risultati</h1>
 
 		<div class="d-none d-lg-block mb-4">
-			<button
-				class="btn purple-btn text-light me-2"
-				(click)="onCancel()"
-			>
+			<button class="btn purple-btn text-light me-2" (click)="onCancel()">
 				<i class="me-1 bi bi-arrow-left"></i>
 				Torna Indietro
 			</button>
@@ -34,7 +31,7 @@
 			<img
 				*ngIf="searchResult.length === 0"
 				src="assets/search-not-found.svg"
-				style="width: 50%;"
+				style="width: 50%"
 				alt="No results found"
 			/>
 
@@ -50,7 +47,7 @@
 			<div
 				class="border rounded-5 py-1 px-2 d-flex justify-content-between align-items-center mb-3 me-1 w-100 user"
 				(click)="viewProfile(i)"
-				style="cursor: pointer;"
+				style="cursor: pointer"
 			>
 				<div
 					class="avatar d-flex justify-content-between align-items-center"
@@ -68,7 +65,7 @@
 			<button
 				class="btn btn-sm border rounded-5 mb-3 ms-1 px-2 user"
 				(click)="onFollow(i)"
-				style="border: none; width: 40px; height: 40px;"
+				style="border: none; width: 40px; height: 40px"
 			>
 				<i class="bi bi-person-plus-fill"></i>
 			</button>

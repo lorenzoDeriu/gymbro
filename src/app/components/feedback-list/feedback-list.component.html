@@ -24,7 +24,9 @@
 		*ngFor="let feedback of getFeedbacks(); index as i"
 		class="d-flex align-items-center mb-3 w-100"
 	>
-		<div class="border px-4 py-4 rounded-5 me-3 w-100 text-truncate d-none d-lg-block">
+		<div
+			class="border px-4 py-4 rounded-5 me-3 w-100 text-truncate d-none d-lg-block"
+		>
 			<h3>
 				<i class="me-1 bi bi-calendar-event"></i>
 				{{ feedback["date"] }}
@@ -32,7 +34,9 @@
 			<p class="mb-0 text-truncate">{{ feedback["content"] }}</p>
 		</div>
 
-		<div class="border px-3 py-3 rounded-5 me-2 w-100 text-truncate d-block d-lg-none">
+		<div
+			class="border px-3 py-3 rounded-5 me-2 w-100 text-truncate d-block d-lg-none"
+		>
 			<h5>
 				<i class="me-1 bi bi-calendar-event"></i>
 				{{ feedback["date"] }}
@@ -55,7 +59,10 @@
 			<button class="btn btn-sm btn-dark w-100 mb-2">
 				<i class="bi bi-eye-fill"></i>
 			</button>
-			<button class="btn btn-sm btn-danger w-100" (click)="removeFeedback(i)">
+			<button
+				class="btn btn-sm btn-danger w-100"
+				(click)="removeFeedback(i)"
+			>
 				<i class="bi bi-trash3"></i>
 			</button>
 		</div>
