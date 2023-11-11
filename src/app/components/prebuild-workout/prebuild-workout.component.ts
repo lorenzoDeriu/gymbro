@@ -200,12 +200,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	private fromStringToDate(date: string) {
-		let [day, month, year] = date.split("/");
+		let [day, month, year] = date.split("-");
 		return new Date(+year, +month - 1, +day);
 	}
 
 	private fromDateToString(date: Date) {
-		console.log(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`)
 		return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 	}
 }
