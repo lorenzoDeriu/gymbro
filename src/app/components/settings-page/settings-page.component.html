@@ -23,7 +23,10 @@
 				<button
 					*ngIf="username"
 					(click)="shareUsername()"
-					[ngClass]="{'btn btn-light rounded-5 btn-sm': true, 'me-2': !onModify}"
+					[ngClass]="{
+						'btn btn-light rounded-5 btn-sm': true,
+						'me-2': !onModify
+					}"
 					style="border: none"
 				>
 					<i class="bi bi-box-arrow-up"></i>
@@ -31,7 +34,10 @@
 				<button
 					*ngIf="!username"
 					disabled
-					[ngClass]="{'btn btn-light rounded-5 btn-sm': true, 'me-2': !onModify}"
+					[ngClass]="{
+						'btn btn-light rounded-5 btn-sm': true,
+						'me-2': !onModify
+					}"
 					style="border: none"
 				>
 					<i class="bi bi-box-arrow-up"></i>
@@ -98,10 +104,7 @@
 					<i class="ms-2 bi bi-arrows-angle-expand"></i>
 				</button>
 
-				<div
-					*ngIf="onModify"
-					class="w-100 mb-2"
-				>
+				<div *ngIf="onModify" class="w-100 mb-2">
 					<div class="w-100 d-none d-lg-block">
 						<div class="d-flex flex-column mb-4">
 							<p class="mb-0">Username</p>
@@ -129,7 +132,10 @@
 								[(ngModel)]="username"
 								type="text"
 								class="border-0 border-bottom"
-								style="background-color: transparent; font-size: small;"
+								style="
+									background-color: transparent;
+									font-size: small;
+								"
 							/>
 						</div>
 						<div class="d-flex flex-column mb-4">
@@ -138,7 +144,10 @@
 								[(ngModel)]="playlistUrl"
 								type="text"
 								class="border-0 border-bottom"
-								style="background-color: transparent; font-size: small;"
+								style="
+									background-color: transparent;
+									font-size: small;
+								"
 							/>
 						</div>
 					</div>

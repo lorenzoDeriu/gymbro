@@ -28,13 +28,12 @@ export class FeedbackListComponent implements OnInit {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina feedback",
-				message:
-					"Sei sicuro di voler eliminare questo feedback?",
+				message: "Sei sicuro di voler eliminare questo feedback?",
 				args: [index],
-				confirm: async (
-					index: number,
-				) => {
-					await this.firebase.removeFeedback(this.feedbacks[index].id);
+				confirm: async (index: number) => {
+					await this.firebase.removeFeedback(
+						this.feedbacks[index].id
+					);
 					this.ngOnInit();
 				},
 			},

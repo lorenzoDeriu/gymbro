@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 						{
 							name: "Panca piana",
 							intensity: "failure",
-							rest: { minutes: '01', seconds: '30' },
+							rest: { minutes: "01", seconds: "30" },
 							note: "Muori",
 							set: [
 								{ minimumReps: 10, maximumReps: 12 },
@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 						{
 							name: "LAT Machine",
 							intensity: "light",
-							rest: { minutes: '01', seconds: '15' },
+							rest: { minutes: "01", seconds: "15" },
 							note: "Respira",
 							set: [
 								{ minimumReps: 10, maximumReps: 12 },
@@ -47,17 +47,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
 						{
 							name: "Curl DB",
 							intensity: "hard",
-							rest: { minutes: '02', seconds: '30' },
+							rest: { minutes: "02", seconds: "30" },
 							note: "Respira",
 							set: [
 								{ minimumReps: 10, maximumReps: 12 },
 								{ minimumReps: 8, maximumReps: 10 },
 							],
 						},
-					]
-				}
-			]
-		}
+					],
+				},
+			],
+		},
 	];
 
 	public loading: boolean;
@@ -73,13 +73,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		this.loading = true;
 
 		try {
-			let uid: string = JSON.parse(localStorage.getItem("user"))[
-				"uid"
-			];
-
+			let uid: string = JSON.parse(localStorage.getItem("user"))["uid"];
 			let user: any = await this.firebase.getUserData(uid);
 
-			this.trainingPrograms = await this.firebase.getTrainingProgramsFromUser(uid);
+			this.trainingPrograms =
+				await this.firebase.getTrainingProgramsFromUser(uid);
 			this.username = user.username;
 			this.playlistUrl = user.playlistUrl;
 
@@ -115,21 +113,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	isPlaylistUrlValid() {
 		return (
 			this.playlistUrl &&
-			this.playlistUrl !== '' &&
-			this.playlistUrl.includes('https://open.spotify.com/playlist/')
-		)
+			this.playlistUrl !== "" &&
+			this.playlistUrl.includes("https://open.spotify.com/playlist/")
+		);
 	}
 
 	focusCollapse(type: "program" | "session", index: number) {
 		if (type === "program") {
-			const collapsers: NodeListOf<Element> = document.querySelectorAll('.collapser');
-			const collapses: NodeListOf<Element> = document.querySelectorAll('.collapse-body');
+			const collapsers: NodeListOf<Element> =
+				document.querySelectorAll(".collapser");
+			const collapses: NodeListOf<Element> =
+				document.querySelectorAll(".collapse-body");
 
 			for (let i = 0; i < collapsers.length; i++) {
 				if (i !== index) {
-					collapsers[i].classList.remove('collapsed');
-					collapsers[i].setAttribute('aria-expanded', 'false');
-					collapses[i].classList.remove('show');
+					collapsers[i].classList.remove("collapsed");
+					collapsers[i].setAttribute("aria-expanded", "false");
+					collapses[i].classList.remove("show");
 				}
 			}
 		}

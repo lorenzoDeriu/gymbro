@@ -17,9 +17,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		session: [
 			{
 				name: "Nuova sessione",
-				exercises: []
-			}
-		]
+				exercises: [],
+			},
+		],
 	};
 
 	private editMode = false;
@@ -34,10 +34,12 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
-		if (this.route.snapshot.paramMap.get('id')) {
+		if (this.route.snapshot.paramMap.get("id")) {
 			this.loading = true;
-			this.index = parseInt(this.route.snapshot.paramMap.get('id'));
-			this.trainingProgram = (await this.firebase.getTrainingPrograms())[this.index];
+			this.index = parseInt(this.route.snapshot.paramMap.get("id"));
+			this.trainingProgram = (await this.firebase.getTrainingPrograms())[
+				this.index
+			];
 			this.editMode = true;
 			this.loading = false;
 		}
@@ -78,12 +80,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina sessione",
-				message:
-					"Sei sicuro di voler eliminare questa sessione?",
+				message: "Sei sicuro di voler eliminare questa sessione?",
 				args: [index],
-				confirm: async (
-					index: number,
-				) => {
+				confirm: async (index: number) => {
 					this.deleteSession(index);
 				},
 			},
@@ -94,13 +93,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina esercizio",
-				message:
-					"Sei sicuro di voler eliminare questo esercizio?",
+				message: "Sei sicuro di voler eliminare questo esercizio?",
 				args: [session, index],
-				confirm: async (
-					session: Session,
-					index: number,
-				) => {
+				confirm: async (session: Session, index: number) => {
 					this.deleteExercise(session, index);
 				},
 			},

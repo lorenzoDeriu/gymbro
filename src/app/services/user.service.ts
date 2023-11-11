@@ -4,24 +4,64 @@ import { TrainingProgram } from "../Models/TrainingProgram.model";
 import { Workout } from "../Models/Workout.model";
 import { FirebaseService } from "./firebase.service";
 import { Injectable } from "@angular/core";
+import { User } from "../Models/User.model";
 
 @Injectable({
 	providedIn: "root",
 })
 export class UserService {
-	public exercises: Exercise[] = [];
+	private user: User;
+	private workout: Workout;
+
+	// old
 	public trainingProgram: TrainingProgram[] = [];
 	public workoutSelected: Workout;
 
 	/* private stopwatchTime: BehaviorSubject<Date | undefined> = new BehaviorSubject<Date | undefined>(localStorage.getItem('startTime')!! ? new Date(localStorage.getItem('startTime')) : undefined);
 	public stopwatchTimeObs = this.stopwatchTime.asObservable(); */
-
-	constructor(private firebase: FirebaseService) {}
-
-/* 	public setStopwatchTime(time: Date | undefined) {
+	/* 	public setStopwatchTime(time: Date | undefined) {
 		this.stopwatchTime.next(time);
 		localStorage.setItem('startTime', String(time));
 	} */
+
+	constructor(private firebase: FirebaseService) {
+		this.firebase.getUserData().then(user => {
+			this.user = user;
+		});
+
+		this.workout = {
+			name: "Nuovo Allenamento",
+			date: new Date(Date.now()),
+			exercises: [],
+			trainingTime: 0,
+		};
+	}
+
+	public getWorkout() {
+		return this.workout;
+	}
+
+	public async updateWorkout(workout: Workout) {
+		this.workout = workout;
+	}
+
+	public saveWorkout() {
+		this.firebase.saveWorkout(this.workout);
+		this.cancelWorkout();
+	}
+
+	public cancelWorkout() {
+		this.workout = {
+			name: "Nuovo Allenamento",
+			date: new Date(),
+			exercises: [],
+			trainingTime: 0,
+		};
+	}
+
+	public getPlaylistURL() {
+		return this.user?.playlistUrl ?? "";
+	}
 
 	private workoutSortingFunction(a: Workout, b: Workout) {
 		let [day, month, year] = String(a.date).split("/");
@@ -34,18 +74,10 @@ export class UserService {
 
 	public updateWorkouts(workouts: Workout[]) {
 		this.firebase.updateWorkouts(
-			workouts.sort(this.workoutSortingFunction),
+			workouts.sort(this.workoutSortingFunction)
 		);
 
 		return this.firebase.getWorkouts();
-	}
-
-	public async updateWorkout(workout: Workout, index: number) {
-		let workouts = (await this.firebase.getWorkouts()).sort(this.workoutSortingFunction);
-
-		workouts[index] = workout;
-
-		this.firebase.updateWorkouts(workouts);
 	}
 
 	public removeSessionFromTrianingProgram(index: number) {

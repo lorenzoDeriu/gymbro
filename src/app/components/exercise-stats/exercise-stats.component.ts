@@ -2,6 +2,7 @@ import { FirebaseService } from "src/app/services/firebase.service";
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Chart } from "chart.js";
+import { Workout } from "src/app/Models/Workout.model";
 
 @Component({
 	selector: "app-exercise-stats",
@@ -9,20 +10,15 @@ import { Chart } from "chart.js";
 	styleUrls: ["./exercise-stats.component.css"],
 })
 export class ExerciseStatsComponent implements OnInit {
-	private workouts: any[];
+	private workouts: Workout[];
 	private chart: any;
 
 	public options: string[];
 
-	constructor(
-		private firebase: FirebaseService
-	) {}
+	constructor(private firebase: FirebaseService) {}
 
 	async ngOnInit() {
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
-		this.options = (await this.firebase.getExercise(uid)).sort(
-			(a: string, b: string) => a.localeCompare(b)
-		);
+		this.options = await this.firebase.getExercise();
 	}
 
 	async showStas(form: NgForm) {

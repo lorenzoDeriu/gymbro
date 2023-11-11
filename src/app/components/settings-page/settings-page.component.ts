@@ -36,7 +36,8 @@ export class SettingsPageComponent implements OnInit {
 
 		let user: any = await this.firebase.getUserData(uid);
 
-		this.customExercises = user.customExercises == undefined ? [] : user.customExercises;
+		this.customExercises =
+			user.customExercises == undefined ? [] : user.customExercises;
 		this.visibility = user.visibility;
 		this.username = user.username;
 		this.playlistUrl = user.playlistUrl;
@@ -48,18 +49,17 @@ export class SettingsPageComponent implements OnInit {
 	isPlaylistUrlValid() {
 		return (
 			this.playlistUrl &&
-			this.playlistUrl !== '' &&
-			this.playlistUrl.includes('https://open.spotify.com/playlist/')
-		)
+			this.playlistUrl !== "" &&
+			this.playlistUrl.includes("https://open.spotify.com/playlist/")
+		);
 	}
-
 
 	isUsernameValid() {
 		return (
 			this.username &&
 			this.username !== "" &&
 			this.username !== this.originalUsername
-		)
+		);
 	}
 
 	openExcerciseDialog() {
@@ -112,7 +112,7 @@ export class SettingsPageComponent implements OnInit {
 
 		// Update playlist url
 		if (this.isPlaylistUrlValid()) {
-		//	this.firebase.updatePlaylistUrl(this.playlistUrl);
+			//	this.firebase.updatePlaylistUrl(this.playlistUrl);
 		}
 
 		this.firebase.updateVisibility(this.visibility);

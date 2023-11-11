@@ -1,9 +1,14 @@
 <div id="wrapper" *ngIf="!loading">
-	<div id="main-container" [ngClass]="{'p-3': true, 'w-75': trainingPrograms.length !== 0}">
-		<h1
-			class="mt-3 mb-4 text-center"
-		>
-			{{ trainingPrograms.length !== 0 ? 'Le tue schede di allenamento' : 'Non ci sono schede, creane una nuova!' }}
+	<div
+		id="main-container"
+		[ngClass]="{ 'p-3': true, 'w-75': trainingPrograms.length !== 0 }"
+	>
+		<h1 class="mt-3 mb-4 text-center">
+			{{
+				trainingPrograms.length !== 0
+					? "Le tue schede di allenamento"
+					: "Non ci sono schede, creane una nuova!"
+			}}
 		</h1>
 
 		<div class="d-none d-lg-flex justify-content-center mb-4">
@@ -28,7 +33,10 @@
 				Nuova
 				<i class="ms-1 bi bi-plus"></i>
 			</button>
-			<button class="btn btn-sm btn-dark ms-2" (click)="backToHomeButton()">
+			<button
+				class="btn btn-sm btn-dark ms-2"
+				(click)="backToHomeButton()"
+			>
 				Home
 				<i class="bi bi-house-fill"></i>
 			</button>
@@ -37,9 +45,9 @@
 		<img
 			*ngIf="trainingPrograms.length === 0"
 			src="assets/new-program.svg"
-			style="width: 50%;"
+			style="width: 50%"
 			alt="New Program"
-		>
+		/>
 
 		<div
 			*ngFor="let program of trainingPrograms; index as programIndex"
@@ -141,50 +149,107 @@
 											</th>
 
 											<td>
-												<div
-													class="d-flex flex-column"
-												>
-													<div *ngFor="let set of exercise.set; index as setIndex">
+												<div class="d-flex flex-column">
+													<div
+														*ngFor="
+															let set of exercise.set;
+															index as setIndex
+														"
+													>
 														{{
-															'1 x ' +
-															set.minimumReps +
-															' - ' +
-															set.maximumReps
+															"1 x " +
+																set.minimumReps +
+																" - " +
+																set.maximumReps
 														}}
 													</div>
 												</div>
 											</td>
 											<td>
 												<!--Desktop-->
-												<p *ngIf="exercise.intensity === 'light'" class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'light'
+													"
+													class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+													style="width: fit-content"
+												>
 													Leggero
-													<i class="ms-1 bi bi-feather"></i>
+													<i
+														class="ms-1 bi bi-feather"
+													></i>
 												</p>
-												<p *ngIf="exercise.intensity === 'hard'" class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'hard'
+													"
+													class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+													style="width: fit-content"
+												>
 													Pesante
-													<i class="ms-1 bi bi-exclamation-triangle-fill"></i>
+													<i
+														class="ms-1 bi bi-exclamation-triangle-fill"
+													></i>
 												</p>
-												<p *ngIf="exercise.intensity === 'failure'" class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'failure'
+													"
+													class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+													style="width: fit-content"
+												>
 													Cedimento
-													<i class="ms-1 bi bi-fire"></i>
+													<i
+														class="ms-1 bi bi-fire"
+													></i>
 												</p>
 
 												<!--Mobile-->
-												<p *ngIf="exercise.intensity === 'light'" class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
-													<i class="bi bi-feather"></i>
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'light'
+													"
+													class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+													style="width: fit-content"
+												>
+													<i
+														class="bi bi-feather"
+													></i>
 												</p>
-												<p *ngIf="exercise.intensity === 'hard'" class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
-													<i class="bi bi-exclamation-triangle-fill"></i>
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'hard'
+													"
+													class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+													style="width: fit-content"
+												>
+													<i
+														class="bi bi-exclamation-triangle-fill"
+													></i>
 												</p>
-												<p *ngIf="exercise.intensity === 'failure'" class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
+												<p
+													*ngIf="
+														exercise.intensity ===
+														'failure'
+													"
+													class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+													style="width: fit-content"
+												>
 													<i class="bi bi-fire"></i>
 												</p>
 											</td>
 
 											<td>
 												{{
-													exercise.rest.minutes + ':' + exercise.rest.seconds
-												 }}
+													exercise.rest.minutes +
+														":" +
+														exercise.rest.seconds
+												}}
 											</td>
 											<td></td>
 										</tr>

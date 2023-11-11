@@ -88,7 +88,7 @@
 
 						<button
 							class="btn btn-sm btn-danger"
-							style="height: fit-content; width: fit-content;"
+							style="height: fit-content; width: fit-content"
 							(click)="deleteSessionDialog(sessionIndex)"
 						>
 							<i class="bi bi-trash3"></i>
@@ -115,8 +115,7 @@
 								<th>
 									<i
 										*ngIf="
-											exercise.note &&
-											exercise.note != ''
+											exercise.note && exercise.note != ''
 										"
 										style="cursor: pointer"
 										class="me-1 bi bi-info-circle-fill"
@@ -125,15 +124,18 @@
 								</th>
 
 								<td>
-									<div
-										class="d-flex flex-column"
-									>
-										<div *ngFor="let set of exercise.set; index as setIndex">
+									<div class="d-flex flex-column">
+										<div
+											*ngFor="
+												let set of exercise.set;
+												index as setIndex
+											"
+										>
 											{{
-												'1 x ' +
-												set.minimumReps +
-												' - ' +
-												set.maximumReps
+												"1 x " +
+													set.minimumReps +
+													" - " +
+													set.maximumReps
 											}}
 										</div>
 									</div>
@@ -141,57 +143,101 @@
 
 								<td>
 									<!--Desktop-->
-									<p *ngIf="exercise.intensity === 'light'" class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
+									<p
+										*ngIf="exercise.intensity === 'light'"
+										class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
 										Leggero
 										<i class="ms-1 bi bi-feather"></i>
 									</p>
-									<p *ngIf="exercise.intensity === 'hard'" class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
+									<p
+										*ngIf="exercise.intensity === 'hard'"
+										class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
 										Pesante
-										<i class="ms-1 bi bi-exclamation-triangle-fill"></i>
+										<i
+											class="ms-1 bi bi-exclamation-triangle-fill"
+										></i>
 									</p>
-									<p *ngIf="exercise.intensity === 'failure'" class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5" style="width: fit-content;">
+									<p
+										*ngIf="exercise.intensity === 'failure'"
+										class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
 										Cedimento
 										<i class="ms-1 bi bi-fire"></i>
 									</p>
 
 									<!--Mobile-->
-									<p *ngIf="exercise.intensity === 'light'" class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
+									<p
+										*ngIf="exercise.intensity === 'light'"
+										class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
 										<i class="bi bi-feather"></i>
 									</p>
-									<p *ngIf="exercise.intensity === 'hard'" class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
-										<i class="bi bi-exclamation-triangle-fill"></i>
+									<p
+										*ngIf="exercise.intensity === 'hard'"
+										class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										<i
+											class="bi bi-exclamation-triangle-fill"
+										></i>
 									</p>
-									<p *ngIf="exercise.intensity === 'failure'" class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5" style="width: fit-content;">
+									<p
+										*ngIf="exercise.intensity === 'failure'"
+										class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
 										<i class="bi bi-fire"></i>
 									</p>
 								</td>
 
 								<td>
 									{{
-										exercise.rest.minutes + ':' + exercise.rest.seconds
-									 }}
+										exercise.rest.minutes +
+											":" +
+											exercise.rest.seconds
+									}}
 								</td>
 
 								<td>
-									<div class="dropdown" style="width: 10px;">
-										<button class="btn" style="border: none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-											<i
-												class="bi bi-three-dots"
-											></i>
+									<div class="dropdown" style="width: 10px">
+										<button
+											class="btn"
+											style="border: none"
+											type="button"
+											data-bs-toggle="dropdown"
+											aria-expanded="false"
+										>
+											<i class="bi bi-three-dots"></i>
 										</button>
 										<ul class="dropdown-menu">
-											<li style="cursor: pointer;">
+											<li style="cursor: pointer">
 												<a
 													class="dropdown-item"
-													(click)="editExercise(session, exerciseIndex)"
+													(click)="
+														editExercise(
+															session,
+															exerciseIndex
+														)
+													"
 												>
 													Modifica
 												</a>
 											</li>
-											<li style="cursor: pointer;">
+											<li style="cursor: pointer">
 												<a
 													class="dropdown-item text-danger"
-													(click)="deleteExerciseDialog(session, exerciseIndex)"
+													(click)="
+														deleteExerciseDialog(
+															session,
+															exerciseIndex
+														)
+													"
 												>
 													Elimina
 												</a>

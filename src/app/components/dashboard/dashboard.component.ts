@@ -11,7 +11,12 @@ import { Router } from "@angular/router";
 	styleUrls: ["./dashboard.component.css"],
 })
 export class DashboardComponent implements OnInit {
-	constructor(private authService: AuthService, private dialog: MatDialog, private snackbar: MatSnackBar, private router: Router) {}
+	constructor(
+		private authService: AuthService,
+		private dialog: MatDialog,
+		private snackbar: MatSnackBar,
+		private router: Router
+	) {}
 
 	ngOnInit() {
 		this.authService.isAuthenticated(); // rimuovere e sostituire con GUARD
