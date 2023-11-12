@@ -49,7 +49,6 @@ export class SettingsPageComponent implements OnInit {
 	isPlaylistUrlValid() {
 		return (
 			this.playlistUrl &&
-			this.playlistUrl !== "" &&
 			this.playlistUrl.includes("https://open.spotify.com/playlist/")
 		);
 	}
@@ -104,13 +103,11 @@ export class SettingsPageComponent implements OnInit {
 	}
 
 	saveSettings() {
-		let uid = JSON.parse(localStorage.getItem("user")).uid;
-
 		if (this.isUsernameValid()) {
 			this.firebase.updateUsername(this.username);
 		}
 
-		// Update playlist url
+		// TODO:@LORE Update playlist url
 		if (this.isPlaylistUrlValid()) {
 			//	this.firebase.updatePlaylistUrl(this.playlistUrl);
 		}

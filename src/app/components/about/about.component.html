@@ -13,17 +13,8 @@
 			<button
 				hidden
 				id="install"
-				(click)="installApp()"
-				class="btn blue-btn text-light mt-3 d-lg-block d-none"
-			>
-				Installa
-				<i class="ms-1 bi bi-download"></i>
-			</button>
-			<button
-				hidden
-				id="install"
-				(click)="installApp()"
-				class="btn btn-sm blue-btn text-light mt-3 d-block d-lg-none"
+				(click)="installApp('desktop')"
+				class="btn blue-btn text-light mt-3"
 			>
 				Installa
 				<i class="ms-1 bi bi-download"></i>
@@ -277,8 +268,8 @@
 			</small>
 			<button
 				hidden
-				id="install"
-				(click)="installApp()"
+				id="installMobile"
+				(click)="installApp('mobile')"
 				class="btn btn-sm download-btn text-light mt-3"
 				style="border: none; background-color: #4089c9"
 			>

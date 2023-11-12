@@ -13,7 +13,8 @@
 	</div>
 </div>
 
-<div id="wrapper">
+<!-- TODO: Remove !loading and check if object is already loaded -->
+<div id="wrapper" *ngIf="!loading">
 	<div id="main-container" class="p-3">
 		<h1 class="my-3 text-center">Nuova scheda di allenamento</h1>
 

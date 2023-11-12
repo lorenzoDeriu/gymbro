@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	onAbout() {
-		this.router.navigate(["/home/about"]);
+		window.location.href = "/home/about";
 	}
 
 	onSettings() {

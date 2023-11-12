@@ -55,7 +55,6 @@
 					[ngModelOptions]="{ standalone: true }"
 				/>
 				<button
-					*ngIf="exercise.set.length > 1"
 					class="btn btn-danger"
 					(click)="removeSet(i)"
 				>
@@ -238,7 +237,6 @@
 					[ngModelOptions]="{ standalone: true }"
 				/>
 				<button
-					*ngIf="exercise.set.length > 1"
 					class="btn btn-danger"
 					(click)="removeSet(i)"
 				>
