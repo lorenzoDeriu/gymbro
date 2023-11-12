@@ -31,7 +31,9 @@ export class TrainingProgramSelectorComponent implements OnInit {
 
 	public selectWorkout(programIndex: number, sessionIndex: number) {
 		this.userService.setWorkoutSelected(
-			this.fromSessionToWorkout(this.trainingPrograms[programIndex].session[sessionIndex])
+			this.fromSessionToWorkout(
+				this.trainingPrograms[programIndex].session[sessionIndex]
+			)
 		);
 		this.router.navigate(["/home/prebuild-workout"]);
 	}
@@ -41,21 +43,19 @@ export class TrainingProgramSelectorComponent implements OnInit {
 			...session,
 			date: new Date(),
 			trainingTime: 0,
-			exercises: session.exercises.map((exercise) => (
-				{
-					name: exercise.name,
-					intensity: exercise.intensity,
-					rest: exercise.rest,
-					note: exercise.note,
-					groupId: exercise.groupId,
-					template: exercise.set,
-					set: exercise.set.map((set) => ({
-						reps: set.minimumReps,
-						load: 0,
-					}))
-				}
-			))
-		}
+			exercises: session.exercises.map(exercise => ({
+				name: exercise.name,
+				intensity: exercise.intensity,
+				rest: exercise.rest,
+				note: exercise.note,
+				groupId: exercise.groupId,
+				template: exercise.set,
+				set: exercise.set.map(set => ({
+					reps: set.minimumReps,
+					load: 0,
+				})),
+			})),
+		};
 
 		return workout;
 	}

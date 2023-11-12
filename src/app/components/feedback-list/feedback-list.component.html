@@ -15,9 +15,7 @@
 
 <!-- TODO: Remove !loading and check if object is already loaded -->
 <div class="w-100" *ngIf="!loading">
-	<div
-		*ngIf="getFeedbacks().length == 0"
-	>
+	<div *ngIf="getFeedbacks().length == 0">
 		<h2 class="text-center my-3">Non ci sono feedback...</h2>
 	</div>
 
