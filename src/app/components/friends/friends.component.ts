@@ -2,11 +2,17 @@ import { NgForm } from "@angular/forms";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { UserService } from "src/app/services/user.service";
 
 export interface FollowedUserInfo {
 	uid: string;
 	username: string;
 	visibilityPermission: boolean;
+}
+
+export interface SearchResult {
+	uid: string;
+	username: string;
 }
 
 @Component({
@@ -24,7 +30,7 @@ export class FriendsComponent implements OnInit {
 	public followed: FollowedUserInfo[];
 
 
-	constructor(private firebase: FirebaseService, private router: Router) {}
+	constructor(private firebase: FirebaseService, private router: Router, private userService: UserService) {}
 
 	async ngOnInit() {
 		this.loading = true;
@@ -46,7 +52,7 @@ export class FriendsComponent implements OnInit {
 		this.username = await this.firebase.getUsername();
 	}
 
-	hasFollow() {
+	public hasFollow() {
 		return this._hasFollow;
 	}
 
@@ -57,8 +63,7 @@ export class FriendsComponent implements OnInit {
 			username
 		);
 
-		localStorage.setItem("search-result", JSON.stringify(matchingUsername));
-
+		this.userService.setSearchResult(matchingUsername);
 		this.router.navigate(["/home/search-result"]);
 	}
 

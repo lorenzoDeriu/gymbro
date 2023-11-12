@@ -3,6 +3,7 @@ import { Workout } from "../Models/Workout.model";
 import { FirebaseService } from "./firebase.service";
 import { Injectable } from "@angular/core";
 import { User } from "../Models/User.model";
+import { SearchResult } from "../components/friends/friends.component";
 
 @Injectable({
 	providedIn: "root",
@@ -11,6 +12,9 @@ export class UserService {
 	private user: User;
 	private workout: Workout;
 	private trainingProgram: TrainingProgram;
+
+	private searchResult: SearchResult[];
+	private uidProfile: string;
 
 	/* private stopwatchTime: BehaviorSubject<Date | undefined> = new BehaviorSubject<Date | undefined>(localStorage.getItem('startTime')!! ? new Date(localStorage.getItem('startTime')) : undefined);
 	public stopwatchTimeObs = this.stopwatchTime.asObservable(); */
@@ -126,5 +130,21 @@ export class UserService {
 		}
 
 		this.firebase.addTrainingProgram(this.trainingProgram);
+	}
+
+	public setSearchResult(searchResult: SearchResult[]) {
+		this.searchResult = searchResult;
+	}
+
+	public getSearchResult() {
+		return this.searchResult ?? [];
+	}
+
+	public setUidProfile(uidProfile: string) {
+		this.uidProfile = uidProfile;
+	}
+
+	public getUidProfile() {
+		return this.uidProfile;
 	}
 }
