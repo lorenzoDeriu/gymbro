@@ -63,7 +63,6 @@ export class UserService {
 	public async saveWorkout() {
 		await this.firebase.saveWorkout(this.workout);
 		this.cancelWorkout();
-		localStorage.removeItem("workout");
 	}
 
 	public cancelWorkout() {
@@ -73,6 +72,7 @@ export class UserService {
 			exercises: [],
 			trainingTime: 0,
 		};
+		localStorage.removeItem("workout");
 	}
 
 	public getPlaylistURL() {
