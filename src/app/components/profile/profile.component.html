@@ -204,15 +204,12 @@
 													>
 														<div
 															*ngFor="
-																let set of exercise.set;
+																let set of formatSets(exercise.set);
 																index as setIndex
 															"
 														>
 															{{
-																"1 x " +
-																	set.minimumReps +
-																	" - " +
-																	set.maximumReps
+																set
 															}}
 														</div>
 													</div>
