@@ -542,7 +542,11 @@ export class FirebaseService {
 		}
 	}
 
-	public async getUsername(uid: string) {
+	public async getUsername(uid?: string) {
+		if (uid === undefined) {
+			uid = JSON.parse(localStorage.getItem("user")).uid;
+		}
+
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -707,7 +711,9 @@ export class FirebaseService {
 		return result;
 	}
 
-	public async unfollow(uid: string, uidToUnfollow: string) {
+	public async unfollow(uidToUnfollow: string) {
+		const uid = JSON.parse(localStorage.getItem("user")).uid;
+
 		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
