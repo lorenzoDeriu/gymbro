@@ -51,8 +51,8 @@ export class UserService {
 		this.workout = workout;
 	}
 
-	public saveWorkout() {
-		this.firebase.saveWorkout(this.workout);
+	public async saveWorkout() {
+		await this.firebase.saveWorkout(this.workout);
 		this.cancelWorkout();
 	}
 

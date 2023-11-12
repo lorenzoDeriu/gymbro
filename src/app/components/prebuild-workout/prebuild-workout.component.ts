@@ -83,6 +83,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.userService.updateWorkout(this.workout);
 
 		this.userService.saveWorkout();
+
 		localStorage.removeItem("workout");
 		localStorage.removeItem("workoutProgress");
 
