@@ -4,7 +4,7 @@ import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NewExerciseDialogComponent } from "../new-exercise-dialog/new-exercise-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dialog/safety-action-confirm-dialog.component";
-import { Session } from "src/app/Models/TrainingProgram.model";
+import { Session, TrainingProgram } from "src/app/Models/TrainingProgram.model";
 
 @Component({
 	selector: "app-training-program-builder",
@@ -12,15 +12,7 @@ import { Session } from "src/app/Models/TrainingProgram.model";
 	styleUrls: ["./training-program-builder.component.css"],
 })
 export class TrainingProgramBuilderComponent implements OnInit {
-	trainingProgram: any = {
-		name: "Nuovo allenamento",
-		session: [
-			{
-				name: "Nuova sessione",
-				exercises: [],
-			},
-		],
-	};
+	public trainingProgram: TrainingProgram;
 
 	private editMode = false;
 	public loading = false;
@@ -45,15 +37,15 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		}
 	}
 
-	onCancel() {
+	public onCancel() {
 		this.router.navigate(["/home/training-programs"]);
 	}
 
-	onNewSessionBuild() {
+	public onNewSessionBuild() {
 		this.router.navigate(["/home/session-builder"]);
 	}
 
-	addExercise(session: any) {
+	public addExercise(session: Session) {
 		this.dialog
 			.open(NewExerciseDialogComponent, {
 				disableClose: false,

@@ -31,7 +31,7 @@ export class UserService {
 
 		this.workout = {
 			name: "Nuovo Allenamento",
-			date: new Date(Date.now()),
+			date: Date.now(),
 			exercises: [],
 			trainingTime: 0,
 		};
@@ -59,7 +59,7 @@ export class UserService {
 	public cancelWorkout() {
 		this.workout = {
 			name: "Nuovo Allenamento",
-			date: new Date(),
+			date: Date.now(),
 			exercises: [],
 			trainingTime: 0,
 		};
@@ -102,10 +102,7 @@ export class UserService {
 	}
 
 	public setWorkoutSelected(workout: Workout) {
-		this.workoutSelected = workout;
+		this.workout = workout;
 	}
 
-	public getWorkoutSelected(): Workout {
-		return this.workoutSelected;
-	}
 }

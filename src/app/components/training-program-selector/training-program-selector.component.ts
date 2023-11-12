@@ -41,7 +41,7 @@ export class TrainingProgramSelectorComponent implements OnInit {
 	private fromSessionToWorkout(session: Session): Workout {
 		const workout: Workout = {
 			...session,
-			date: new Date(),
+			date: Date.now(),
 			trainingTime: 0,
 			exercises: session.exercises.map(exercise => ({
 				name: exercise.name,

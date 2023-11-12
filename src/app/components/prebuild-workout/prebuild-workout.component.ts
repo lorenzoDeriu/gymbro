@@ -28,7 +28,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	public workoutProgress: Progress = { completed: [] };
 	public playlistUrl: string;
-	public date: string = this.fromDateToString(new Date());
+	public date: string = this.fromTimestampToString(Date.now());
 
 	public loading: boolean = false;
 
@@ -46,7 +46,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.playlistUrl = this.userService.getPlaylistURL();
 
 		this.workout = this.userService.getWorkout();
-		this.date = this.fromDateToString(this.workout.date);
+		this.date = this.fromTimestampToString(this.workout.date);
 		this.initWorkoutProgress();
 
 		this.loading = false;
@@ -79,7 +79,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	public saveWorkout() {
-		this.workout.date = this.fromStringToDate(this.date);
+		this.workout.date = this.fromStringToTimestamp(this.date);
 		this.userService.updateWorkout(this.workout);
 
 		this.userService.saveWorkout();
@@ -203,12 +203,13 @@ export class PrebuildWorkoutComponent implements OnInit {
 		});
 	}
 
-	private fromStringToDate(date: string) {
+	private fromStringToTimestamp(date: string): number {
 		let [day, month, year] = date.split("-");
-		return new Date(+year, +month - 1, +day);
+		return new Date(+year, +month - 1, +day).getDate();
 	}
 
-	private fromDateToString(date: Date) {
-		return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+	private fromTimestampToString(date: number): string {
+		const d = new Date(date);
+		return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 	}
 }
