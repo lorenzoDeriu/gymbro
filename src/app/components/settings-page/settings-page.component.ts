@@ -7,6 +7,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { CustomExcerciseDialogComponent } from "../custom-excercise-dialog/custom-excercise-dialog.component";
 import { ShareDialogComponent } from "../share-dialog/share-dialog.component";
+import { User } from "src/app/Models/User.model";
 
 @Component({
 	selector: "app-settings-page",
@@ -34,7 +35,7 @@ export class SettingsPageComponent implements OnInit {
 		this.loading = true;
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
-		let user: any = await this.firebase.getUserData(uid);
+		let user: User = await this.firebase.getUserData(uid);
 
 		this.customExercises =
 			user.customExercises == undefined ? [] : user.customExercises;

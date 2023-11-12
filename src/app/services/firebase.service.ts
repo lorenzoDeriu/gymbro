@@ -304,8 +304,8 @@ export class FirebaseService {
 			documentReference
 		);
 
-		if(documentSnapshot.exists()) return {exists: true, err:"uid already exists"};
-		if (username === undefined) return {exists: false, err:""};
+		if(documentSnapshot.exists()) return {exists: true, err: "uid already exists"};
+		if (!username || username === "") return {exists: false, err: ""};
 
 		const collectionReference = collection(this.db, "users");
 		const querySnapshot = navigator.onLine
@@ -319,11 +319,10 @@ export class FirebaseService {
 					query(
 						collectionReference,
 						where("username", "==", username),
-						where("uid", "==", uid)
 					)
 			  );
 
-		if (querySnapshot.size != 0) {
+		if (querySnapshot.size !== 0) {
 			return {exists: true, err:"username already exists"};
 		}
 

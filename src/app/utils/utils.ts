@@ -4,26 +4,27 @@ import { EffectiveExercise } from "../Models/Exercise.model";
 
 export interface ExerciseLog {
 	exercise: EffectiveExercise;
-	date: Date;
+	date: number;
 }
 
 export class Utils {
-	getSessionExerciseFor(
+
+	public getSessionExerciseFor(
 		exerciseName: string,
 		workoutsDate: Date[],
 		workouts: Workout[]
-	): any[] {
+	): ExerciseLog[] {
 		const sortedWorkouts = this.sortByDate(workouts);
 		const sessionExercises: ExerciseLog[] = [];
 
 		for (const date of new Set(workoutsDate)) {
 			const matchingWorkouts = sortedWorkouts.filter(
-				workout => workout.date === date
+				workout => new Date(workout.date) === date
 			);
 
 			for (const matchingWorkout of matchingWorkouts) {
 				const matchingExercises = matchingWorkout.exercises.filter(
-					(exercise: any) => exercise.name === exerciseName
+					(exercise) => exercise.name === exerciseName
 				);
 
 				for (const matchingExercise of matchingExercises) {
@@ -77,21 +78,21 @@ export class Utils {
 	sortByDate(workouts: Workout[]) {
 		if (workouts) {
 			return workouts.sort((a: Workout, b: Workout) => {
-				return b.date.getTime() - a.date.getTime();
+				return b.date - a.date;
 			});
 		}
 
 		return [];
 	}
 
-	getDatesFor(exerciseName: string, workouts: any) {
+	getDatesFor(exerciseName: string, workouts: Workout[]) {
 		let sortedWorkout = this.sortByDate(workouts);
 		let dates: Date[] = [];
 
 		for (let workout of sortedWorkout) {
 			for (let exercise of workout.exercises) {
 				if (exercise.name == exerciseName) {
-					dates.push(workout.date);
+					dates.push(new Date(workout.date));
 				}
 			}
 		}

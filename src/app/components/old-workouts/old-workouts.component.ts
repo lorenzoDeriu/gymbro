@@ -35,6 +35,10 @@ export class OldWorkoutsComponent implements OnInit {
 			.map((x, i) => i);
 	};
 
+	public getDateFromTimestamp(timestamp: number) {
+		return new Date(timestamp);
+	}
+
 	async getWorkouts() {
 		this.workouts = await this.firebase.getWorkouts();
 

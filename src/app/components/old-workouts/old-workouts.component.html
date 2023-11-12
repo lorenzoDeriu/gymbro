@@ -74,7 +74,7 @@
 					style="pointer-events: none"
 					class="text-center mb-0"
 				>
-					{{ workout.date.toDate() | date: 'dd/MM/yyyy'}}
+					{{ getDateFromTimestamp(workout.date) | date: 'dd/MM/yyyy'}} <!-- TODO: @LORE Date doesn't work -->
 				</p>
 			</a>
 
