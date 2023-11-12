@@ -435,7 +435,7 @@ export class FirebaseService {
 			workouts = data.workout;
 		}
 
-		return workouts;
+		return workouts.sort((a: Workout, b: Workout) => b.date - a.date);
 	}
 
 	public updateWorkouts(workout: Workout[]) {
