@@ -15,7 +15,10 @@
 
 <!-- TODO: Remove !loading and check if object is already loaded -->
 <div id="wrapper" *ngIf="!loading">
-	<div id="main-container" [ngClass]="{'p-3': true, 'w-75': workouts.length !== 0}">
+	<div
+		id="main-container"
+		[ngClass]="{ 'p-3': true, 'w-75': workouts.length !== 0 }"
+	>
 		<h1 class="text-center mt-3 mb-4">
 			{{
 				!workouts || workouts.length === 0
@@ -49,10 +52,7 @@
 
 		<!-- TODO: Show all old workouts with pagination -->
 		<div
-			*ngFor="
-				let workout of workouts;
-				index as workoutIndex
-			"
+			*ngFor="let workout of workouts; index as workoutIndex"
 			class="w-100 mb-2"
 		>
 			<a
@@ -70,11 +70,10 @@
 				>
 					{{ workout.name }}
 				</p>
-				<p
-					style="pointer-events: none"
-					class="text-center mb-0"
-				>
-					{{ getDateFromTimestamp(workout.date) | date: 'dd/MM/yyyy'}} <!-- TODO: @LORE Date doesn't work -->
+				<p style="pointer-events: none" class="text-center mb-0">
+					{{
+						getDateFromTimestamp(workout.date) | date : "dd/MM/yyyy"
+					}}
 				</p>
 			</a>
 
@@ -83,9 +82,7 @@
 				[id]="'session' + workoutIndex"
 			>
 				<div class="card card-body p-1">
-					<table
-						class="table table-sm table-striped table-hover"
-					>
+					<table class="table table-sm table-striped table-hover">
 						<thead>
 							<tr>
 								<th scope="col">Esercizio</th>
@@ -104,8 +101,7 @@
 								<th>
 									<i
 										*ngIf="
-											exercise.note &&
-											exercise.note != ''
+											exercise.note && exercise.note != ''
 										"
 										(click)="
 											showNotes(
@@ -139,23 +135,15 @@
 								<td>
 									<!--Desktop-->
 									<p
-										*ngIf="
-											exercise.intensity ===
-											'light'
-										"
+										*ngIf="exercise.intensity === 'light'"
 										class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
 										style="width: fit-content"
 									>
 										Leggero
-										<i
-											class="ms-1 bi bi-feather"
-										></i>
+										<i class="ms-1 bi bi-feather"></i>
 									</p>
 									<p
-										*ngIf="
-											exercise.intensity ===
-											'hard'
-										"
+										*ngIf="exercise.intensity === 'hard'"
 										class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
 										style="width: fit-content"
 									>
@@ -165,37 +153,24 @@
 										></i>
 									</p>
 									<p
-										*ngIf="
-											exercise.intensity ===
-											'failure'
-										"
+										*ngIf="exercise.intensity === 'failure'"
 										class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
 										style="width: fit-content"
 									>
 										Cedimento
-										<i
-											class="ms-1 bi bi-fire"
-										></i>
+										<i class="ms-1 bi bi-fire"></i>
 									</p>
 
 									<!--Mobile-->
 									<p
-										*ngIf="
-											exercise.intensity ===
-											'light'
-										"
+										*ngIf="exercise.intensity === 'light'"
 										class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
 										style="width: fit-content"
 									>
-										<i
-											class="bi bi-feather"
-										></i>
+										<i class="bi bi-feather"></i>
 									</p>
 									<p
-										*ngIf="
-											exercise.intensity ===
-											'hard'
-										"
+										*ngIf="exercise.intensity === 'hard'"
 										class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
 										style="width: fit-content"
 									>
@@ -204,10 +179,7 @@
 										></i>
 									</p>
 									<p
-										*ngIf="
-											exercise.intensity ===
-											'failure'
-										"
+										*ngIf="exercise.intensity === 'failure'"
 										class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
 										style="width: fit-content"
 									>

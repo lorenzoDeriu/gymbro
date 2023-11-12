@@ -25,35 +25,15 @@ export class OldWorkoutsComponent implements OnInit {
 
 	async ngOnInit() {
 		this.loading = true;
-		await this.getWorkouts();
+		await this.firebase.getWorkouts();
 		this.loading = false;
 	}
-
-	public array = (n: number) => {
-		return Array(n)
-			.fill(0, 0, n)
-			.map((x, i) => i);
-	};
 
 	public getDateFromTimestamp(timestamp: number) {
 		return new Date(timestamp);
 	}
 
-	async getWorkouts() {
-		this.workouts = await this.firebase.getWorkouts();
-
-		if (this.workouts) {
-			this.workouts = this.workouts.sort((a: Workout, b: Workout) => {
-				let [day, month, year] = String(a.date).split("/");
-				const dateA = +new Date(+year, +month - 1, +day);
-				[day, month, year] = String(b.date).split("/");
-				const dateB = +new Date(+year, +month - 1, +day);
-				return dateB - dateA;
-			});
-		}
-	}
-
-	focusCollapse(type: "program" | "session", index: number) {
+	public focusCollapse(type: "program" | "session", index: number) {
 		if (type === "program") {
 			const collapsers: NodeListOf<Element> =
 				document.querySelectorAll(".collapser");
@@ -70,15 +50,15 @@ export class OldWorkoutsComponent implements OnInit {
 		}
 	}
 
-	backToHomeButton() {
+	public backToHomeButton() {
 		this.router.navigate(["/home/dashboard"]);
 	}
 
-	createWorkoutButton() {
+	public createWorkoutButton() {
 		this.router.navigate(["/home/new-workout-choice"]);
 	}
 
-	deleteWorkout(index: number) {
+	public deleteWorkout(index: number) {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina allenamento",
@@ -96,22 +76,17 @@ export class OldWorkoutsComponent implements OnInit {
 		});
 	}
 
-	editWorkout(index: number) {
+	public editWorkout(index: number) {
 		this.router.navigate(["/home/prebuild-workout"]);
-
-		localStorage.setItem(
-			"workoutToEdit",
-			JSON.stringify({ index: index, workout: this.workouts[index] })
-		);
+		this.userService.setWorkout(this.workouts[index]);
 	}
 
-	showNotes(workoutIndex: number, exerciseIndex: number) {
+	public showNotes(workoutIndex: number, exerciseIndex: number) {
 		this.dialog.open(NotesDialogComponent, {
 			width: "300px",
 			data: {
-				notes: this.workouts[workoutIndex]["exercises"][exerciseIndex][
-					"note"
-				],
+				notes: this.workouts[workoutIndex].exercises[exerciseIndex]
+					.note,
 			},
 		});
 	}
