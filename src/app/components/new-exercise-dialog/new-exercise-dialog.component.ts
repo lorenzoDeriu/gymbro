@@ -25,8 +25,8 @@ export class NewExerciseDialogComponent {
 		note: "",
 		set: [
 			{
-				minimumReps: 6,
-				maximumReps: 8,
+				minimumReps: 8,
+				maximumReps: 10,
 			},
 		],
 	};
@@ -68,7 +68,7 @@ export class NewExerciseDialogComponent {
 		} else {
 			this.exercise.set.push({
 				minimumReps: 8,
-				maximumReps: 20,
+				maximumReps: 10,
 			});
 		}
 	}
