@@ -1,5 +1,3 @@
-import { BehaviorSubject } from "rxjs";
-import { Exercise } from "../Models/Exercise.model";
 import { TrainingProgram } from "../Models/TrainingProgram.model";
 import { Workout } from "../Models/Workout.model";
 import { FirebaseService } from "./firebase.service";
@@ -12,10 +10,7 @@ import { User } from "../Models/User.model";
 export class UserService {
 	private user: User;
 	private workout: Workout;
-
-	// old
 	public trainingProgram: TrainingProgram[] = [];
-	public workoutSelected: Workout;
 
 	/* private stopwatchTime: BehaviorSubject<Date | undefined> = new BehaviorSubject<Date | undefined>(localStorage.getItem('startTime')!! ? new Date(localStorage.getItem('startTime')) : undefined);
 	public stopwatchTimeObs = this.stopwatchTime.asObservable(); */
@@ -102,10 +97,6 @@ export class UserService {
 	}
 
 	public setWorkoutSelected(workout: Workout) {
-		this.workoutSelected = workout;
-	}
-
-	public getWorkoutSelected(): Workout {
-		return this.workoutSelected;
+		this.workout = workout;
 	}
 }

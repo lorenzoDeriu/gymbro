@@ -74,7 +74,7 @@
 					style="pointer-events: none"
 					class="text-center mb-0"
 				>
-					{{ workout.date }}
+					{{ workout.date.toDate() | date: 'dd/MM/yyyy'}}
 				</p>
 			</a>
 
