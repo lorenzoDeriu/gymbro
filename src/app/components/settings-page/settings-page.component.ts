@@ -15,7 +15,7 @@ import { User } from "src/app/Models/User.model";
 	styleUrls: ["./settings-page.component.css"],
 })
 export class SettingsPageComponent implements OnInit {
-	public customExercises: any[] = [];
+	public customExercises: string[] = [];
 	public visibility: boolean;
 	public playlistUrl: string;
 	private originalUsername: string;
@@ -33,9 +33,8 @@ export class SettingsPageComponent implements OnInit {
 
 	async ngOnInit() {
 		this.loading = true;
-		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
-		let user: User = await this.firebase.getUserData(uid);
+		let user: User = await this.firebase.getUserData();
 
 		this.customExercises =
 			user.customExercises == undefined ? [] : user.customExercises;
@@ -47,14 +46,14 @@ export class SettingsPageComponent implements OnInit {
 		this.loading = false;
 	}
 
-	isPlaylistUrlValid() {
+	private isPlaylistUrlValid() {
 		return (
 			this.playlistUrl &&
 			this.playlistUrl.includes("https://open.spotify.com/playlist/")
 		);
 	}
 
-	isUsernameValid() {
+	private isUsernameValid() {
 		return (
 			this.username &&
 			this.username !== "" &&
@@ -62,7 +61,7 @@ export class SettingsPageComponent implements OnInit {
 		);
 	}
 
-	openExcerciseDialog() {
+	public openExcerciseDialog() {
 		this.dialog.open(CustomExcerciseDialogComponent, {
 			data: {
 				exercises: this.customExercises,
@@ -71,7 +70,7 @@ export class SettingsPageComponent implements OnInit {
 		});
 	}
 
-	shareUsername() {
+	public shareUsername() {
 		this.dialog.open(ShareDialogComponent, {
 			data: {
 				username: this.username,
@@ -80,7 +79,7 @@ export class SettingsPageComponent implements OnInit {
 		});
 	}
 
-	changePassword() {
+	public changePassword() {
 		this.firebase.changePassword();
 		this.snackBar.open(
 			"Ti abbiamo inviato una mail per cambiare la password",
@@ -89,7 +88,7 @@ export class SettingsPageComponent implements OnInit {
 		);
 	}
 
-	deleteAccount() {
+	public deleteAccount() {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina account",
@@ -103,14 +102,13 @@ export class SettingsPageComponent implements OnInit {
 		});
 	}
 
-	saveSettings() {
+	public saveSettings() {
 		if (this.isUsernameValid()) {
 			this.firebase.updateUsername(this.username);
 		}
 
-		// TODO:@LORE Update playlist url
 		if (this.isPlaylistUrlValid()) {
-			//	this.firebase.updatePlaylistUrl(this.playlistUrl);
+			this.firebase.updatePlaylistUrl(this.playlistUrl);
 		}
 
 		this.firebase.updateVisibility(this.visibility);
@@ -120,7 +118,7 @@ export class SettingsPageComponent implements OnInit {
 		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
 	}
 
-	backToHome() {
+	public backToHome() {
 		this.router.navigate(["/home"]);
 	}
 }

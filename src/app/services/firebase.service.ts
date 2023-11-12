@@ -849,4 +849,10 @@ export class FirebaseService {
 		let documentReference = doc(this.db, "users", uid);
 		updateDoc(documentReference, { customExercises: customExercises });
 	}
+
+	public updatePlaylistUrl(playlistUrl: string) {
+		let uid = JSON.parse(localStorage.getItem("user")).uid;
+		let documentReference = doc(this.db, "users", uid);
+		updateDoc(documentReference, { playlistUrl: playlistUrl });
+	}
 }
