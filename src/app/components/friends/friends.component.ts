@@ -9,54 +9,31 @@ import { Router } from "@angular/router";
 	styleUrls: ["./friends.component.css"],
 })
 export class FriendsComponent implements OnInit {
+	public loading: boolean;
 	public username: string;
 	public uid: string;
 	public friends: string;
 	private _hasFollow: boolean;
 	private userData: any;
-	public loading: boolean;
-
 	public followed: any[];
 
 	constructor(private firebase: FirebaseService, private router: Router) {}
 
 	async ngOnInit() {
+		this.loading = true;
+
 		this.uid = JSON.parse(localStorage.getItem("user"))["uid"];
 
-		this.loading = true;
 		this.userData = await this.firebase.getUserData(this.uid);
 
 		this.username = this.userData["username"];
 
-		/* 		this._hasFollow =
+		this._hasFollow =
 			this.userData["follow"] != undefined
 				? this.userData.follow.length > 0
 				: false;
-		this.followed = await this.firebase.getFollowed(this.uid); */
 
-		this._hasFollow = true;
-		this.followed = [
-			{
-				username: "Lorenzo",
-				visibilityPermission: true,
-			},
-			{
-				username: "Mario",
-				visibilityPermission: true,
-			},
-			{
-				username: "Marco",
-				visibilityPermission: true,
-			},
-			{
-				username: "Lorenzo",
-				visibilityPermission: true,
-			},
-			{
-				username: "Mario",
-				visibilityPermission: true,
-			},
-		];
+		this.followed = await this.firebase.getFollowed();
 
 		this.loading = false;
 	}

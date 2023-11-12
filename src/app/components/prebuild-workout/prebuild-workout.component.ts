@@ -8,7 +8,6 @@ import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { Workout } from "src/app/Models/Workout.model";
 import { EffectiveSet } from "src/app/Models/Exercise.model";
-import { Observable } from "rxjs";
 
 export interface Progress {
 	/* access to the complete must refer to the following logic:
@@ -95,6 +94,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.workoutProgress.completed[exerciseIndex][setIndex] =
 			!this.workoutProgress.completed[exerciseIndex][setIndex];
+		
 		this.userService.updateWorkout(this.workout);
 	}
 

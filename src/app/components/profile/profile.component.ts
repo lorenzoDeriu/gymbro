@@ -12,54 +12,9 @@ import { TrainingProgram } from "src/app/Models/TrainingProgram.model";
 	styleUrls: ["./profile.component.css"],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-	/* public username: string;
-	public trainingPrograms: any[]; */
-	username: string = "Mario";
+	public username: string;
+	public trainingPrograms: TrainingProgram[];
 	public playlistUrl: string;
-	trainingPrograms: TrainingProgram[] = [
-		{
-			name: "Scheda 1",
-			session: [
-				{
-					name: "Sessione 1",
-					exercises: [
-						{
-							name: "Panca piana",
-							intensity: "failure",
-							rest: { minutes: "01", seconds: "30" },
-							note: "Muori",
-							set: [
-								{ minimumReps: 10, maximumReps: 12 },
-								{ minimumReps: 10, maximumReps: 12 },
-								{ minimumReps: 8, maximumReps: 10 },
-							],
-						},
-						{
-							name: "LAT Machine",
-							intensity: "light",
-							rest: { minutes: "01", seconds: "15" },
-							note: "Respira",
-							set: [
-								{ minimumReps: 10, maximumReps: 12 },
-								{ minimumReps: 10, maximumReps: 12 },
-							],
-						},
-						{
-							name: "Curl DB",
-							intensity: "hard",
-							rest: { minutes: "02", seconds: "30" },
-							note: "Respira",
-							set: [
-								{ minimumReps: 10, maximumReps: 12 },
-								{ minimumReps: 8, maximumReps: 10 },
-							],
-						},
-					],
-				},
-			],
-		},
-	];
-
 	public loading: boolean;
 
 	constructor(
