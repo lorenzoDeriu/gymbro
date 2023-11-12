@@ -14,3 +14,41 @@
 	align-items: center;
 	overflow: auto;
 }
+
+.blue-btn {
+	border: none;
+	background-color: #4089c9;
+}
+
+.blue-btn:hover {
+	background-color: #659fd2 !important;
+}
+
+.blue-btn:active {
+	background-color: #7eafda !important;
+}
+
+@media (max-width: 900px) {
+	#main-container {
+		width: 100% !important;
+	}
+
+	.table {
+		font-size: 10px;
+		white-space: nowrap;
+	}
+
+	.mobile-btn {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 300px) {
+	.table {
+		font-size: 8px;
+	}
+
+	.mobile-btn {
+		font-size: 10px;
+	}
+}

@@ -13,9 +13,7 @@ import { Workout } from "src/app/Models/Workout.model";
 	styleUrls: ["./old-workouts.component.css"],
 })
 export class OldWorkoutsComponent implements OnInit {
-	public workouts: any[] = [];
-	displayedColumns: string[] = ["name", "series-reps", "load", "rpe"];
-
+	public workouts: Workout[] = [];
 	public loading: boolean;
 
 	constructor(
@@ -39,6 +37,7 @@ export class OldWorkoutsComponent implements OnInit {
 
 	async getWorkouts() {
 		this.workouts = await this.firebase.getWorkouts();
+
 		if (this.workouts) {
 			this.workouts = this.workouts.sort((a: Workout, b: Workout) => {
 				let [day, month, year] = String(a.date).split("/");
@@ -47,6 +46,23 @@ export class OldWorkoutsComponent implements OnInit {
 				const dateB = +new Date(+year, +month - 1, +day);
 				return dateB - dateA;
 			});
+		}
+	}
+
+	focusCollapse(type: "program" | "session", index: number) {
+		if (type === "program") {
+			const collapsers: NodeListOf<Element> =
+				document.querySelectorAll(".collapser");
+			const collapses: NodeListOf<Element> =
+				document.querySelectorAll(".collapse-body");
+
+			for (let i = 0; i < collapsers.length; i++) {
+				if (i !== index) {
+					collapsers[i].classList.remove("collapsed");
+					collapsers[i].setAttribute("aria-expanded", "false");
+					collapses[i].classList.remove("show");
+				}
+			}
 		}
 	}
 
