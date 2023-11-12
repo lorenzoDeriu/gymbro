@@ -1,5 +1,3 @@
-import { BehaviorSubject } from "rxjs";
-import { Exercise } from "../Models/Exercise.model";
 import { TrainingProgram } from "../Models/TrainingProgram.model";
 import { Workout } from "../Models/Workout.model";
 import { FirebaseService } from "./firebase.service";

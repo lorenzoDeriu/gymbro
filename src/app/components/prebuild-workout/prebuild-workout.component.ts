@@ -94,7 +94,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.workoutProgress.completed[exerciseIndex][setIndex] =
 			!this.workoutProgress.completed[exerciseIndex][setIndex];
-		
+
 		this.userService.updateWorkout(this.workout);
 	}
 
@@ -150,6 +150,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	public deleteSet(exerciseIndex: number, setIndex: number) {
+		this.toggleCompleted(exerciseIndex, setIndex);
+		
 		this.workout.exercises[exerciseIndex].set.splice(setIndex, 1);
 		this.userService.updateWorkout(this.workout);
 
