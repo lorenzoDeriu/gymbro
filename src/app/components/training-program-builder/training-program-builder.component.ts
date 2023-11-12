@@ -5,6 +5,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { NewExerciseDialogComponent } from "../new-exercise-dialog/new-exercise-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { Session, TrainingProgram } from "src/app/Models/TrainingProgram.model";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
 	selector: "app-training-program-builder",
@@ -22,27 +23,26 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private firebase: FirebaseService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private userService: UserService
 	) {}
 
 	async ngOnInit() {
 		if (this.route.snapshot.paramMap.get("id")) {
 			this.loading = true;
+
 			this.index = parseInt(this.route.snapshot.paramMap.get("id"));
+
 			this.trainingProgram = (await this.firebase.getTrainingPrograms())[
 				this.index
 			];
+			this.userService.setTrainingProgram(this.trainingProgram);
+
 			this.editMode = true;
 			this.loading = false;
+		} else {
+			this.trainingProgram = this.userService.getTrainingProgram();
 		}
-	}
-
-	public onCancel() {
-		this.router.navigate(["/home/training-programs"]);
-	}
-
-	public onNewSessionBuild() {
-		this.router.navigate(["/home/session-builder"]);
 	}
 
 	public addExercise(session: Session) {
@@ -54,11 +54,12 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			.subscribe(exercise => {
 				if (exercise && exercise.name !== "") {
 					session.exercises.push(exercise);
+					this.userService.updateTrainingProgram(this.trainingProgram);
 				}
 			});
 	}
 
-	addSession() {
+	public addSession() {
 		this.trainingProgram = {
 			...this.trainingProgram,
 			session: [
@@ -66,9 +67,10 @@ export class TrainingProgramBuilderComponent implements OnInit {
 				{ name: "Nuova sessione", exercises: [] },
 			],
 		};
+		this.userService.updateTrainingProgram(this.trainingProgram);
 	}
 
-	deleteSessionDialog(index: number) {
+	public deleteSessionDialog(index: number) {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina sessione",
@@ -76,12 +78,13 @@ export class TrainingProgramBuilderComponent implements OnInit {
 				args: [index],
 				confirm: async (index: number) => {
 					this.deleteSession(index);
+					this.userService.updateTrainingProgram(this.trainingProgram);
 				},
 			},
 		});
 	}
 
-	deleteExerciseDialog(session: Session, index: number) {
+	public deleteExerciseDialog(session: Session, index: number) {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina esercizio",
@@ -89,20 +92,23 @@ export class TrainingProgramBuilderComponent implements OnInit {
 				args: [session, index],
 				confirm: async (session: Session, index: number) => {
 					this.deleteExercise(session, index);
+					this.userService.updateTrainingProgram(this.trainingProgram);
 				},
 			},
 		});
 	}
 
-	deleteSession(index: number) {
+	private deleteSession(index: number) {
 		this.trainingProgram.session.splice(index, 1);
+		this.userService.updateTrainingProgram(this.trainingProgram);
 	}
 
-	deleteExercise(session: any, exerciseIndex: number) {
+	private deleteExercise(session: Session, exerciseIndex: number) {
 		session.exercises.splice(exerciseIndex, 1);
+		this.userService.updateTrainingProgram(this.trainingProgram);
 	}
 
-	editExercise(session: any, exerciseIndex: number) {
+	public editExercise(session: Session, exerciseIndex: number) {
 		this.dialog
 			.open(NewExerciseDialogComponent, {
 				data: session.exercises[exerciseIndex],
@@ -111,20 +117,13 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			.subscribe(exercise => {
 				if (exercise && exercise.name !== "") {
 					session.exercises[exerciseIndex] = exercise;
+					this.userService.updateTrainingProgram(this.trainingProgram);
 				}
 			});
 	}
 
-	async saveTrainingProgram() {
-		if (this.editMode) {
-			await this.firebase.editTrainingProgram(
-				this.trainingProgram,
-				this.index
-			);
-			this.router.navigate(["/home/training-programs"]);
-		} else {
-			await this.firebase.addTrainingProgram(this.trainingProgram);
-			this.router.navigate(["/home/training-programs"]);
-		}
+	public saveTrainingProgram() {
+		this.userService.saveTrainingProgram(this.editMode, this.index);
+		this.router.navigate(["/home/training-programs"]);
 	}
 }

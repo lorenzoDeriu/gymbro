@@ -449,7 +449,7 @@ export class FirebaseService {
 	}
 
 	public async addTrainingProgram(trainingProgram: TrainingProgram) {
-		let uid: string = JSON.parse(localStorage.getItem("user"))["uid"];
+		let uid: string = JSON.parse(localStorage.getItem("user")).uid;
 
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
@@ -470,7 +470,7 @@ export class FirebaseService {
 		trainingProgram: TrainingProgram,
 		index: number
 	) {
-		let uid: string = JSON.parse(localStorage.getItem("user"))["uid"];
+		let uid: string = JSON.parse(localStorage.getItem("user")).uid;
 
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
@@ -489,7 +489,7 @@ export class FirebaseService {
 	}
 
 	public async getTrainingPrograms() {
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
+		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(

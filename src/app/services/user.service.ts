@@ -12,10 +12,7 @@ import { User } from "../Models/User.model";
 export class UserService {
 	private user: User;
 	private workout: Workout;
-
-	// old
-	public trainingProgram: TrainingProgram[] = [];
-	public workoutSelected: Workout;
+	private trainingProgram: TrainingProgram;
 
 	/* private stopwatchTime: BehaviorSubject<Date | undefined> = new BehaviorSubject<Date | undefined>(localStorage.getItem('startTime')!! ? new Date(localStorage.getItem('startTime')) : undefined);
 	public stopwatchTimeObs = this.stopwatchTime.asObservable(); */
@@ -35,11 +32,22 @@ export class UserService {
 			exercises: [],
 			trainingTime: 0,
 		};
+
+		this.trainingProgram = {
+			name: "Nuovo Programma",
+			session: [],
+		};
+
+		this.checkForBackup();
 	}
 
 	checkForBackup() {
-		if (localStorage.getItem("workout") != null) {
-			this.workout = JSON.parse(localStorage.getItem("workout")!!);
+		if (localStorage.getItem("workout") !== null) {
+			this.workout = JSON.parse(localStorage.getItem("workout"));
+		}
+
+		if (localStorage.getItem("trainingProgram") !== null) {
+			this.trainingProgram = JSON.parse(localStorage.getItem("trainingProgram"));
 		}
 	}
 
@@ -70,12 +78,7 @@ export class UserService {
 	}
 
 	private workoutSortingFunction(a: Workout, b: Workout) {
-		let [day, month, year] = String(a.date).split("/");
-		const dateA = +new Date(+year, +month - 1, +day);
-		[day, month, year] = String(b.date).split("/");
-		const dateB = +new Date(+year, +month - 1, +day);
-
-		return dateB - dateA;
+		return a.date - b.date;
 	}
 
 	public updateWorkouts(workouts: Workout[]) {
@@ -86,11 +89,7 @@ export class UserService {
 		return this.firebase.getWorkouts();
 	}
 
-	public removeSessionFromTrianingProgram(index: number) {
-		this.trainingProgram.splice(index, 1);
-	}
-
-	public async getTrainingProgram() {
+	public getTrainingProgram() {
 		return this.trainingProgram;
 	}
 
@@ -101,8 +100,25 @@ export class UserService {
 		await this.firebase.updateTrainingPrograms(trainingPrograms);
 	}
 
-	public setWorkoutSelected(workout: Workout) {
+	public setWorkout(workout: Workout) {
 		this.workout = workout;
 	}
 
+	public setTrainingProgram(trainingProgram: TrainingProgram) {
+		this.trainingProgram = trainingProgram;
+	}
+
+	public updateTrainingProgram(trainingProgram: TrainingProgram) {
+		this.trainingProgram = trainingProgram;
+		localStorage.setItem("trainingProgram", JSON.stringify(trainingProgram));
+	}
+
+	public saveTrainingProgram(edit: boolean, index?: number) {
+		if (edit) {
+			this.firebase.editTrainingProgram(this.trainingProgram, index);
+			return;
+		}
+
+		this.firebase.addTrainingProgram(this.trainingProgram);
+	}
 }

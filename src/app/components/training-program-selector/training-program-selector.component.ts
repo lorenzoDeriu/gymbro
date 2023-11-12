@@ -30,7 +30,7 @@ export class TrainingProgramSelectorComponent implements OnInit {
 	}
 
 	public selectWorkout(programIndex: number, sessionIndex: number) {
-		this.userService.setWorkoutSelected(
+		this.userService.setWorkout(
 			this.fromSessionToWorkout(
 				this.trainingPrograms[programIndex].session[sessionIndex]
 			)
@@ -89,9 +89,9 @@ export class TrainingProgramSelectorComponent implements OnInit {
 		this.dialog.open(NotesDialogComponent, {
 			width: "300px",
 			data: {
-				notes: this.trainingPrograms[trainingProgramIndex]["session"][
+				notes: this.trainingPrograms[trainingProgramIndex].session[
 					sessionIndex
-				]["exercises"][exerciseIndex]["note"],
+				].exercises[exerciseIndex].note,
 			},
 		});
 	}
