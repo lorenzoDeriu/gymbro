@@ -6,6 +6,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { TrainingProgram } from "src/app/Models/TrainingProgram.model";
+import { formatSets } from "src/app/utils/utils";
+import { Set } from "src/app/Models/Exercise.model";
 
 @Component({
 	selector: "app-training-programs",
@@ -44,6 +46,10 @@ export class TrainingProgramsComponent implements OnInit {
 				}
 			}
 		}
+	}
+
+	formatSets(sets: Set[]) {
+		return formatSets(sets);
 	}
 
 	backToHomeButton() {
