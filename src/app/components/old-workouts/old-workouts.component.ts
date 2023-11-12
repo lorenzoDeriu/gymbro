@@ -85,7 +85,8 @@ export class OldWorkoutsComponent implements OnInit {
 		this.dialog.open(NotesDialogComponent, {
 			width: "300px",
 			data: {
-				notes: this.workouts[workoutIndex].exercises[exerciseIndex].note,
+				notes: this.workouts[workoutIndex].exercises[exerciseIndex]
+					.note,
 			},
 		});
 	}

@@ -54,7 +54,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			.subscribe(exercise => {
 				if (exercise && exercise.name !== "") {
 					session.exercises.push(exercise);
-					this.userService.updateTrainingProgram(this.trainingProgram);
+					this.userService.updateTrainingProgram(
+						this.trainingProgram
+					);
 				}
 			});
 	}
@@ -78,7 +80,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 				args: [index],
 				confirm: async (index: number) => {
 					this.deleteSession(index);
-					this.userService.updateTrainingProgram(this.trainingProgram);
+					this.userService.updateTrainingProgram(
+						this.trainingProgram
+					);
 				},
 			},
 		});
@@ -92,7 +96,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 				args: [session, index],
 				confirm: async (session: Session, index: number) => {
 					this.deleteExercise(session, index);
-					this.userService.updateTrainingProgram(this.trainingProgram);
+					this.userService.updateTrainingProgram(
+						this.trainingProgram
+					);
 				},
 			},
 		});
@@ -117,7 +123,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			.subscribe(exercise => {
 				if (exercise && exercise.name !== "") {
 					session.exercises[exerciseIndex] = exercise;
-					this.userService.updateTrainingProgram(this.trainingProgram);
+					this.userService.updateTrainingProgram(
+						this.trainingProgram
+					);
 				}
 			});
 	}

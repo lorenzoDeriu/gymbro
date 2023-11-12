@@ -8,7 +8,6 @@ export interface ExerciseLog {
 }
 
 export class Utils {
-
 	public getSessionExerciseFor(
 		exerciseName: string,
 		workoutsDate: Date[],
@@ -24,7 +23,7 @@ export class Utils {
 
 			for (const matchingWorkout of matchingWorkouts) {
 				const matchingExercises = matchingWorkout.exercises.filter(
-					(exercise) => exercise.name === exerciseName
+					exercise => exercise.name === exerciseName
 				);
 
 				for (const matchingExercise of matchingExercises) {

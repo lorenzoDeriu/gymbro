@@ -295,7 +295,10 @@ export class FirebaseService {
 		return await signInWithPopup(this.auth, this.xProvider);
 	}
 
-	public async existInfoOf(uid: string, username?: string): Promise<{
+	public async existInfoOf(
+		uid: string,
+		username?: string
+	): Promise<{
 		exists: boolean;
 		err: string;
 	}> {
@@ -304,8 +307,9 @@ export class FirebaseService {
 			documentReference
 		);
 
-		if(documentSnapshot.exists()) return {exists: true, err: "uid already exists"};
-		if (!username || username === "") return {exists: false, err: ""};
+		if (documentSnapshot.exists())
+			return { exists: true, err: "uid already exists" };
+		if (!username || username === "") return { exists: false, err: "" };
 
 		const collectionReference = collection(this.db, "users");
 		const querySnapshot = navigator.onLine
@@ -318,15 +322,15 @@ export class FirebaseService {
 			: await getDocsFromCache(
 					query(
 						collectionReference,
-						where("username", "==", username),
+						where("username", "==", username)
 					)
 			  );
 
 		if (querySnapshot.size !== 0) {
-			return {exists: true, err:"username already exists"};
+			return { exists: true, err: "username already exists" };
 		}
 
-		return {exists: false, err:""};
+		return { exists: false, err: "" };
 	}
 
 	public async getUserData(uid?: string) {

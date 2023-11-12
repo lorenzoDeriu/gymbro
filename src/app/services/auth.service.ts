@@ -35,7 +35,7 @@ export class AuthService {
 			refreshToken: credential.user.refreshToken,
 		});
 
-		if (!((await this.firebase.existInfoOf(credential.user.uid)).exists)) {
+		if (!(await this.firebase.existInfoOf(credential.user.uid)).exists) {
 			this.createNewUserInfo(username);
 		}
 	}

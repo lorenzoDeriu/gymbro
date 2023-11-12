@@ -260,7 +260,11 @@
 								>
 									<div class="input-group flex-nowrap me-2">
 										<input
-											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+											[disabled]="
+												workoutProgress.completed[
+													exerciseIndex
+												][setIndex]
+											"
 											type="number"
 											class="form-control rounded-start-5"
 											[(ngModel)]="
@@ -277,7 +281,11 @@
 											{{ 6 + "-" + 8 }}
 										</span>
 										<input
-											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+											[disabled]="
+												workoutProgress.completed[
+													exerciseIndex
+												][setIndex]
+											"
 											type="number"
 											class="form-control rounded-start-5"
 											[(ngModel)]="
@@ -297,17 +305,35 @@
 
 									<div class="d-flex align-items-center">
 										<button
-											*ngIf="!workoutProgress.completed[exerciseIndex][setIndex]"
+											*ngIf="
+												!workoutProgress.completed[
+													exerciseIndex
+												][setIndex]
+											"
 											class="btn blue-btn text-light me-1 rounded-5 py-1 px-2"
-											(click)="toggleCompleted(exerciseIndex, setIndex)"
+											(click)="
+												toggleCompleted(
+													exerciseIndex,
+													setIndex
+												)
+											"
 										>
 											<i class="bi bi-check"></i>
 										</button>
 
 										<button
-											*ngIf="workoutProgress.completed[exerciseIndex][setIndex]"
+											*ngIf="
+												workoutProgress.completed[
+													exerciseIndex
+												][setIndex]
+											"
 											class="btn btn-dark text-light me-1 rounded-5 py-1 px-2"
-											(click)="toggleCompleted(exerciseIndex, setIndex)"
+											(click)="
+												toggleCompleted(
+													exerciseIndex,
+													setIndex
+												)
+											"
 										>
 											<i class="bi bi-pencil-square"></i>
 										</button>
@@ -561,7 +587,11 @@
 										class="input-group input-group-sm flex-nowrap me-2"
 									>
 										<input
-											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+											[disabled]="
+												workoutProgress.completed[
+													exerciseIndex
+												][setIndex]
+											"
 											type="number"
 											class="form-control rounded-start-5"
 											[(ngModel)]="
@@ -579,7 +609,11 @@
 											{{ 6 + "-" + 8 }}
 										</span>
 										<input
-											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+											[disabled]="
+												workoutProgress.completed[
+													exerciseIndex
+												][setIndex]
+											"
 											type="number"
 											class="form-control rounded-start-5"
 											[(ngModel)]="
@@ -600,17 +634,35 @@
 
 									<div class="d-flex align-items-center">
 										<button
-											*ngIf="!workoutProgress.completed[exerciseIndex][setIndex]"
+											*ngIf="
+												!workoutProgress.completed[
+													exerciseIndex
+												][setIndex]
+											"
 											class="btn btn-sm blue-btn text-light me-1 rounded-5 py-1 px-2"
-											(click)="toggleCompleted(exerciseIndex, setIndex)"
+											(click)="
+												toggleCompleted(
+													exerciseIndex,
+													setIndex
+												)
+											"
 										>
 											<i class="bi bi-check"></i>
 										</button>
 
 										<button
-											*ngIf="workoutProgress.completed[exerciseIndex][setIndex]"
+											*ngIf="
+												workoutProgress.completed[
+													exerciseIndex
+												][setIndex]
+											"
 											class="btn btn-sm btn-dark text-light me-1 rounded-5 py-1 px-2"
-											(click)="toggleCompleted(exerciseIndex, setIndex)"
+											(click)="
+												toggleCompleted(
+													exerciseIndex,
+													setIndex
+												)
+											"
 										>
 											<i class="bi bi-pencil-square"></i>
 										</button>

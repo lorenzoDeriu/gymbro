@@ -45,7 +45,9 @@ export class UserService {
 		}
 
 		if (localStorage.getItem("trainingProgram") !== null) {
-			this.trainingProgram = JSON.parse(localStorage.getItem("trainingProgram"));
+			this.trainingProgram = JSON.parse(
+				localStorage.getItem("trainingProgram")
+			);
 		}
 	}
 
@@ -110,7 +112,10 @@ export class UserService {
 
 	public updateTrainingProgram(trainingProgram: TrainingProgram) {
 		this.trainingProgram = trainingProgram;
-		localStorage.setItem("trainingProgram", JSON.stringify(trainingProgram));
+		localStorage.setItem(
+			"trainingProgram",
+			JSON.stringify(trainingProgram)
+		);
 	}
 
 	public saveTrainingProgram(edit: boolean, index?: number) {
