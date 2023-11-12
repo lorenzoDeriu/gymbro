@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { FirebaseService } from "src/app/services/firebase.service";
+import { UserService } from "src/app/services/user.service";
+import { SearchResult } from "../friends/friends.component";
 
 @Component({
 	selector: "app-search-result",
@@ -8,29 +10,27 @@ import { FirebaseService } from "src/app/services/firebase.service";
 	styleUrls: ["./search-result.component.css"],
 })
 export class SearchResultComponent implements OnInit {
-	public searchResult: any;
+	public searchResult: SearchResult[];
 
-	constructor(private router: Router, private firebase: FirebaseService) {}
+	constructor(private router: Router, private firebase: FirebaseService, private userService: UserService) {}
 
 	ngOnInit(): void {
-		this.searchResult = JSON.parse(localStorage.getItem("search-result"));
+		this.searchResult = this.userService.getSearchResult();
 	}
 
-	onCancel() {
+	public onCancel() {
 		this.router.navigate(["/home/friends"]);
 	}
 
-	async onFollow(index: number) {
+	public async onFollow(index: number) {
 		await this.firebase.addFollow(this.searchResult[index].uid);
 
 		this.router.navigate(["/home/friends"]);
 	}
 
-	viewProfile(index: number) {
-		localStorage.setItem(
-			"profile",
-			JSON.stringify({ uid: this.searchResult[index].uid })
-		);
+	public viewProfile(index: number) {
+		this.userService.setUidProfile(this.searchResult[index].uid);
+
 		this.router.navigate(["/home/profile"]);
 	}
 }

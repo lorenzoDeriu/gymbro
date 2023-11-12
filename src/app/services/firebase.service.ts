@@ -52,6 +52,7 @@ import {
 import { Workout } from "../Models/Workout.model";
 import { Feedback } from "../Models/Feedback.model";
 import { duration } from "moment";
+import { SearchResult } from "../components/friends/friends.component";
 
 @Injectable({
 	providedIn: "root",
@@ -606,7 +607,7 @@ export class FirebaseService {
 		return hasFollow;
 	}
 
-	public async getMatchingUsername(username: string) {
+	public async getMatchingUsername(username: string): Promise<SearchResult[]> {
 		let collectionReference = collection(this.db, "users");
 		let querySnapshot = navigator.onLine
 			? await getDocs(
@@ -626,7 +627,7 @@ export class FirebaseService {
 					)
 			  );
 
-		let result: { uid: string; username: string }[] = [];
+		let result: SearchResult[] = [];
 
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
