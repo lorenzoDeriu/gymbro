@@ -37,6 +37,12 @@ export class UserService {
 		};
 	}
 
+	checkForBackup() {
+		if (localStorage.getItem("workout") != null) {
+			this.workout = JSON.parse(localStorage.getItem("workout")!!);
+		}
+	}
+
 	public getWorkout() {
 		return this.workout;
 	}
@@ -45,8 +51,8 @@ export class UserService {
 		this.workout = workout;
 	}
 
-	public saveWorkout() {
-		this.firebase.saveWorkout(this.workout);
+	public async saveWorkout() {
+		await this.firebase.saveWorkout(this.workout);
 		this.cancelWorkout();
 	}
 

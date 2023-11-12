@@ -36,25 +36,23 @@ export class AboutComponent {
 		});
 	}
 
-	async installApp(device: 'desktop' | 'mobile') {
-		if (device === 'desktop') {
+	async installApp(device: "desktop" | "mobile") {
+		if (device === "desktop") {
 			if (!this.installPrompt) {
 				return;
 			}
 
 			const result = await this.installPrompt.prompt();
 			this.disableInAppInstallPrompt();
-			if (result.outcome === 'dismissed') window.location.reload();
-		}
-
-		else {
+			if (result.outcome === "dismissed") window.location.reload();
+		} else {
 			if (!this.installPromptMobile) {
 				return;
 			}
 
 			const result = await this.installPromptMobile.prompt();
 			this.disableInAppInstallPrompt();
-			if (result.outcome === 'dismissed') window.location.reload();
+			if (result.outcome === "dismissed") window.location.reload();
 		}
 	}
 

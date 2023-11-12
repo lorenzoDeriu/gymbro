@@ -59,9 +59,7 @@ export class NewExerciseDialogComponent {
 	addSet() {
 		if (this.exercise.set.length > 0) {
 			const lastSet: Set =
-				this.exercise.set[
-					this.exercise.set.length - 1
-				];
+				this.exercise.set[this.exercise.set.length - 1];
 
 			this.exercise.set.push({
 				minimumReps: lastSet.minimumReps,

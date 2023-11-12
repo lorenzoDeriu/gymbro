@@ -15,11 +15,16 @@
 
 <!-- TODO: Remove !loading and check if object is already loaded -->
 <div id="wrapper" *ngIf="!loading">
-	<div id="main-container" [ngClass]="{'p-3': true, 'w-75': trainingPrograms.length !== 0}">
-		<h1
-			class="mt-3 mb-4 text-center"
-		>
-			{{ trainingPrograms.length !== 0 ? 'Le tue schede di allenamento' : 'Non ci sono schede, creane una nuova!' }}
+	<div
+		id="main-container"
+		[ngClass]="{ 'p-3': true, 'w-75': trainingPrograms.length !== 0 }"
+	>
+		<h1 class="mt-3 mb-4 text-center">
+			{{
+				trainingPrograms.length !== 0
+					? "Le tue schede di allenamento"
+					: "Non ci sono schede, creane una nuova!"
+			}}
 		</h1>
 
 		<div class="d-none d-lg-flex justify-content-center mb-4">

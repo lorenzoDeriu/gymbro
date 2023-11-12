@@ -284,7 +284,6 @@ export class FirebaseService {
 	}
 
 	public async accessWithGoogle() {
-		console.log(this.auth);
 		return await signInWithPopup(this.auth, this.googleProvider);
 	}
 
@@ -296,13 +295,39 @@ export class FirebaseService {
 		return await signInWithPopup(this.auth, this.xProvider);
 	}
 
-	public async existInfoOf(uid: string) {
+	public async existInfoOf(uid: string, username?: string): Promise<{
+		exists: boolean;
+		err: string;
+	}> {
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
-		return documentSnapshot.exists();
+		if(documentSnapshot.exists()) return {exists: true, err:"uid already exists"};
+		if (username === undefined) return {exists: false, err:""};
+
+		const collectionReference = collection(this.db, "users");
+		const querySnapshot = navigator.onLine
+			? await getDocs(
+					query(
+						collectionReference,
+						where("username", "==", username)
+					)
+			  )
+			: await getDocsFromCache(
+					query(
+						collectionReference,
+						where("username", "==", username),
+						where("uid", "==", uid)
+					)
+			  );
+
+		if (querySnapshot.size != 0) {
+			return {exists: true, err:"username already exists"};
+		}
+
+		return {exists: false, err:""};
 	}
 
 	public async getUserData(uid?: string) {
@@ -388,11 +413,11 @@ export class FirebaseService {
 
 		if (documentSnapshot.exists()) {
 			let data = documentSnapshot.data() as User;
-			let workout: Workout[] = data.workout;
+			let workouts: Workout[] = data.workout;
 
-			workout.push(body);
+			workouts.push(body);
 
-			updateDoc(documentReference, { workout: workout });
+			updateDoc(documentReference, { workout: workouts });
 		}
 	}
 

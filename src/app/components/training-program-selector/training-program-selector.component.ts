@@ -4,6 +4,8 @@ import { Component, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import { Session, TrainingProgram } from "src/app/Models/TrainingProgram.model";
+import { Workout } from "src/app/Models/Workout.model";
 
 @Component({
 	selector: "app-training-program-selector",
@@ -12,14 +14,7 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class TrainingProgramSelectorComponent implements OnInit {
 	public loading: boolean;
-
-	public trainingPrograms: any[];
-	public displayedColumns: string[] = [
-		"Esercizio",
-		"Serie x Ripetizioni",
-		"Recupero",
-		"RPE",
-	];
+	public trainingPrograms: TrainingProgram[];
 
 	constructor(
 		private userService: UserService,
@@ -36,16 +31,40 @@ export class TrainingProgramSelectorComponent implements OnInit {
 
 	public selectWorkout(programIndex: number, sessionIndex: number) {
 		this.userService.setWorkoutSelected(
-			this.trainingPrograms[programIndex].session[sessionIndex]
+			this.fromSessionToWorkout(
+				this.trainingPrograms[programIndex].session[sessionIndex]
+			)
 		);
 		this.router.navigate(["/home/prebuild-workout"]);
 	}
 
-	cancel() {
+	private fromSessionToWorkout(session: Session): Workout {
+		const workout: Workout = {
+			...session,
+			date: new Date(),
+			trainingTime: 0,
+			exercises: session.exercises.map(exercise => ({
+				name: exercise.name,
+				intensity: exercise.intensity,
+				rest: exercise.rest,
+				note: exercise.note,
+				groupId: exercise.groupId,
+				template: exercise.set,
+				set: exercise.set.map(set => ({
+					reps: set.minimumReps,
+					load: 0,
+				})),
+			})),
+		};
+
+		return workout;
+	}
+
+	public cancel() {
 		this.router.navigate(["/home"]);
 	}
 
-	focusCollapse(type: "program" | "session", index: number) {
+	public focusCollapse(type: "program" | "session", index: number) {
 		if (type === "program") {
 			const collapsers: NodeListOf<Element> =
 				document.querySelectorAll(".collapser");
@@ -62,7 +81,7 @@ export class TrainingProgramSelectorComponent implements OnInit {
 		}
 	}
 
-	showNotes(
+	public showNotes(
 		trainingProgramIndex: number,
 		sessionIndex: number,
 		exerciseIndex: number

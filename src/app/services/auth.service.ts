@@ -108,6 +108,7 @@ export class AuthService {
 			follow: [],
 			customExercises: [],
 			admin: false,
+			playlistUrl: "",
 		};
 
 		this.firebase.addUser(userObj, uid);
