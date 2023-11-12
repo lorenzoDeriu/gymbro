@@ -50,7 +50,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.loading = false;
 
-		localStorage.setItem("workout", JSON.stringify(this.workout));
 		localStorage.setItem(
 			"workoutProgress",
 			JSON.stringify(this.workoutProgress)
@@ -83,7 +82,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.userService.saveWorkout();
 
-		localStorage.removeItem("workout");
 		localStorage.removeItem("workoutProgress");
 
 		this.router.navigate(["/home"]);
@@ -124,7 +122,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 					this.userService.cancelWorkout();
 					this.router.navigate(["/home"]);
 
-					localStorage.removeItem("workout");
 					localStorage.removeItem("workoutProgress");
 					/* this.userService.setStopwatchTime(undefined); */
 				},
@@ -151,7 +148,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	public deleteSet(exerciseIndex: number, setIndex: number) {
 		this.toggleCompleted(exerciseIndex, setIndex);
-		
+
 		this.workout.exercises[exerciseIndex].set.splice(setIndex, 1);
 		this.userService.updateWorkout(this.workout);
 

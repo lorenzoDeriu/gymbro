@@ -50,6 +50,7 @@ export class UserService {
 	}
 
 	public getWorkout() {
+		localStorage.setItem("workout", JSON.stringify(this.workout));
 		return this.workout;
 	}
 
@@ -60,6 +61,7 @@ export class UserService {
 	public async saveWorkout() {
 		await this.firebase.saveWorkout(this.workout);
 		this.cancelWorkout();
+		localStorage.removeItem("workout");
 	}
 
 	public cancelWorkout() {
@@ -112,6 +114,7 @@ export class UserService {
 	}
 
 	public saveTrainingProgram(edit: boolean, index?: number) {
+		localStorage.removeItem("trainingProgram");
 		if (edit) {
 			this.firebase.editTrainingProgram(this.trainingProgram, index);
 			return;
