@@ -135,20 +135,20 @@ export const formatSets = (sets: Set[]): string[] => {
 	const setCountMap: Map<string, number> = new Map();
 
 	for (const set of sets) {
-	  const key = `${set.minimumReps}-${set.maximumReps}`;
+		const key = `${set.minimumReps}-${set.maximumReps}`;
 
-	  setCountMap.set(key, (setCountMap.get(key) || 0) + 1);
+		setCountMap.set(key, (setCountMap.get(key) || 0) + 1);
 	}
 
 	setCountMap.forEach((count, key) => {
-	  const [minReps, maxReps] = key.split('-').map(Number);
+		const [minReps, maxReps] = key.split("-").map(Number);
 
-	  if (minReps === maxReps) {
-		formattedSets.push(`${count}x${minReps}`);
-	  } else {
-		formattedSets.push(`${count}x${minReps}-${maxReps}`);
-	  }
+		if (minReps === maxReps) {
+			formattedSets.push(`${count}x${minReps}`);
+		} else {
+			formattedSets.push(`${count}x${minReps}-${maxReps}`);
+		}
 	});
 
 	return formattedSets;
-  }
+};
