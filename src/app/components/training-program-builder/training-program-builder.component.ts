@@ -12,7 +12,10 @@ import { Session, TrainingProgram } from "src/app/Models/TrainingProgram.model";
 	styleUrls: ["./training-program-builder.component.css"],
 })
 export class TrainingProgramBuilderComponent implements OnInit {
-	public trainingProgram: TrainingProgram;
+	public trainingProgram: TrainingProgram = {
+		name: "",
+		session: [],
+	};
 
 	private editMode = false;
 	public loading = false;
@@ -26,15 +29,24 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
+		this.loading = true;
+
 		if (this.route.snapshot.paramMap.get("id")) {
-			this.loading = true;
 			this.index = parseInt(this.route.snapshot.paramMap.get("id"));
 			this.trainingProgram = (await this.firebase.getTrainingPrograms())[
 				this.index
 			];
 			this.editMode = true;
-			this.loading = false;
 		}
+
+		this.loading = false;
+	}
+
+	public savable() {
+		return (
+			this.trainingProgram.name !== "" &&
+			this.trainingProgram.session.length > 0
+		)
 	}
 
 	public onCancel() {

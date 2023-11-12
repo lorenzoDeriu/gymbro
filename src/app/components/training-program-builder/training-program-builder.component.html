@@ -47,6 +47,7 @@
 			</div>
 
 			<button
+				[disabled]="!savable()"
 				type="submit"
 				class="btn text-light purple-btn ms-2 d-none d-lg-flex"
 				(click)="saveTrainingProgram()"
@@ -55,6 +56,7 @@
 				<i class="ms-1 bi bi-check"></i>
 			</button>
 			<button
+				[disabled]="!savable()"
 				type="submit"
 				class="btn purple-btn btn-sm text-light ms-2 d-flex d-lg-none"
 				(click)="saveTrainingProgram()"

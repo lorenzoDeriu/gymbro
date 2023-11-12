@@ -253,15 +253,16 @@
 
 								<div
 									*ngFor="
-										let set of exercise.set;
+										let set of exercise.template;
 										index as setIndex
 									"
 									class="d-flex align-items-center w-100 mb-3"
 								>
 									<div class="input-group flex-nowrap me-2">
 										<input
+											(input)="filterRepsInput($event)"
 											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
-											type="number"
+											type="text"
 											class="form-control rounded-start-5"
 											[(ngModel)]="
 												exercise.set[setIndex].reps
@@ -274,11 +275,21 @@
 										<span
 											class="input-group-text rounded-end-5 me-2"
 										>
-											{{ 6 + "-" + 8 }}
+											{{
+												exercise.template[setIndex].minimumReps ===
+												exercise.template[setIndex].maximumReps
+												? exercise.template[setIndex].minimumReps
+												: (
+													exercise.template[setIndex].minimumReps +
+													"-" +
+													exercise.template[setIndex].maximumReps
+												)
+											}}
 										</span>
 										<input
+											(input)="filterLoadInput($event)"
 											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
-											type="number"
+											type="text"
 											class="form-control rounded-start-5"
 											[(ngModel)]="
 												exercise.set[setIndex].load
@@ -297,6 +308,7 @@
 
 									<div class="d-flex align-items-center">
 										<button
+											[disabled]="!isSetValid(exerciseIndex, setIndex)"
 											*ngIf="!workoutProgress.completed[exerciseIndex][setIndex]"
 											class="btn blue-btn text-light me-1 rounded-5 py-1 px-2"
 											(click)="toggleCompleted(exerciseIndex, setIndex)"
@@ -561,8 +573,9 @@
 										class="input-group input-group-sm flex-nowrap me-2"
 									>
 										<input
+											(input)="filterRepsInput($event)"
 											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
-											type="number"
+											type="text"
 											class="form-control rounded-start-5"
 											[(ngModel)]="
 												exercise.set[setIndex].reps
@@ -579,8 +592,9 @@
 											{{ 6 + "-" + 8 }}
 										</span>
 										<input
+											(input)="filterLoadInput($event)"
 											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
-											type="number"
+											type="text"
 											class="form-control rounded-start-5"
 											[(ngModel)]="
 												exercise.set[setIndex].load

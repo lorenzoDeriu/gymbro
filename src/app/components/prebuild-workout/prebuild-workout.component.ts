@@ -24,11 +24,9 @@ export interface Progress {
 export class PrebuildWorkoutComponent implements OnInit {
 	public availableExercise: string[] = [];
 	public workout: Workout;
-
 	public workoutProgress: Progress = { completed: [] };
 	public playlistUrl: string;
 	public date: string = this.fromTimestampToString(Date.now());
-
 	public loading: boolean = false;
 
 	constructor(
@@ -87,6 +85,41 @@ export class PrebuildWorkoutComponent implements OnInit {
 		localStorage.removeItem("workoutProgress");
 
 		this.router.navigate(["/home"]);
+	}
+
+	public filterRepsInput(e: Event) {
+		const event = e.target as HTMLInputElement;
+		const inputValue = event.value;
+
+		if (!('0123456789').includes(inputValue[inputValue.length - 1])) {
+			event.value = inputValue.slice(0, inputValue.length - 1);
+		}
+
+		if (inputValue.startsWith("0")) {
+			event.value = inputValue.slice(1);
+		}
+	}
+
+	public filterLoadInput(e: Event) {
+		const event = e.target as HTMLInputElement;
+		const inputValue = event.value;
+
+		if (!('0123456789').includes(inputValue[inputValue.length - 1])) {
+			event.value = inputValue.slice(0, inputValue.length - 1);
+		}
+
+		if (inputValue.length > 1 && inputValue.startsWith("0")) {
+			event.value = inputValue.slice(1);
+		}
+	}
+
+	public isSetValid(exerciseIndex: number, setIndex: number) {
+		return (
+			this.workout.exercises[exerciseIndex].set[setIndex].reps !== null &&
+			this.workout.exercises[exerciseIndex].set[setIndex].reps > 0 &&
+			this.workout.exercises[exerciseIndex].set[setIndex].load !== null &&
+			this.workout.exercises[exerciseIndex].set[setIndex].load >= 0
+		)
 	}
 
 	public toggleCompleted(exerciseIndex: number, setIndex: number) {
@@ -151,7 +184,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	public deleteSet(exerciseIndex: number, setIndex: number) {
 		this.toggleCompleted(exerciseIndex, setIndex);
-		
+
 		this.workout.exercises[exerciseIndex].set.splice(setIndex, 1);
 		this.userService.updateWorkout(this.workout);
 

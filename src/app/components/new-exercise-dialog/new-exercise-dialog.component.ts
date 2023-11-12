@@ -97,8 +97,7 @@ export class NewExerciseDialogComponent {
 			) &&
 			this.exercise.set.every(
 				set =>
-					set.minimumReps < set.maximumReps &&
-					set.maximumReps > set.minimumReps
+					set.minimumReps <= set.maximumReps
 			)
 		);
 	}
