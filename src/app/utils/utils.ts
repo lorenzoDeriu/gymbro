@@ -1,6 +1,6 @@
 import { endOfWeek } from "date-fns";
 import { Workout } from "../Models/Workout.model";
-import { EffectiveExercise } from "../Models/Exercise.model";
+import { EffectiveExercise, Set } from "../Models/Exercise.model";
 
 export interface ExerciseLog {
 	exercise: EffectiveExercise;
@@ -122,29 +122,6 @@ export class Utils {
 		return weeks;
 	}
 
-	// pastWeekWourkoutCounter(workouts: Workout[]) {
-	// 	let sortedWorkouts = this.sortByDate(workouts);
-
-	// 	let workoutsDate: any[] = [];
-	// 	for (let workout of sortedWorkouts) {
-	// 		workoutsDate.push(
-	// 			this.toDate(workout.date).toLocaleString().split(",")[0]
-	// 		);
-	// 	}
-	// 	workoutsDate.reverse();
-
-	// 	let weeks = this.createWeeksArray();
-	// 	let counter = new Array(8).fill(0);
-
-	// 	for (let date of workoutsDate)
-	// 		for (let i = 0; i < weeks.length; i++)
-	// 			if (weeks[i].includes(date)) counter[i]++;
-
-	// 	counter.reverse();
-
-	// 	return counter;
-	// }
-
 	private toDate(d: string): Date {
 		let [day, month, year] = String(d).split("/");
 		const date = new Date(+year, +month - 1, +day);
@@ -152,3 +129,26 @@ export class Utils {
 		return date;
 	}
 }
+
+export const formatSets = (sets: Set[]): string[] => {
+	const formattedSets: string[] = [];
+	const setCountMap: Map<string, number> = new Map();
+
+	for (const set of sets) {
+	  const key = `${set.minimumReps}-${set.maximumReps}`;
+
+	  setCountMap.set(key, (setCountMap.get(key) || 0) + 1);
+	}
+
+	setCountMap.forEach((count, key) => {
+	  const [minReps, maxReps] = key.split('-').map(Number);
+
+	  if (minReps === maxReps) {
+		formattedSets.push(`${count}x${minReps}`);
+	  } else {
+		formattedSets.push(`${count}x${minReps}-${maxReps}`);
+	  }
+	});
+
+	return formattedSets;
+  }
