@@ -6,6 +6,8 @@ import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { Session, TrainingProgram } from "src/app/Models/TrainingProgram.model";
 import { Workout } from "src/app/Models/Workout.model";
+import { Set } from "src/app/Models/Exercise.model";
+import { formatSets } from "src/app/utils/utils";
 
 @Component({
 	selector: "app-training-program-selector",
@@ -36,6 +38,10 @@ export class TrainingProgramSelectorComponent implements OnInit {
 			)
 		);
 		this.router.navigate(["/home/prebuild-workout"]);
+	}
+
+	formatSets(sets: Set[]) {
+		return formatSets(sets);
 	}
 
 	private fromSessionToWorkout(session: Session): Workout {

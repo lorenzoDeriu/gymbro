@@ -6,6 +6,8 @@ import { NewExerciseDialogComponent } from "../new-exercise-dialog/new-exercise-
 import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { Session, TrainingProgram } from "src/app/Models/TrainingProgram.model";
 import { UserService } from "src/app/services/user.service";
+import { formatSets } from "src/app/utils/utils";
+import { Set } from "src/app/Models/Exercise.model";
 
 @Component({
 	selector: "app-training-program-builder",
@@ -49,6 +51,10 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		}
 
 		this.loading = false;
+	}
+
+	formatSets(sets: Set[]) {
+		return formatSets(sets);
 	}
 
 	public savable() {

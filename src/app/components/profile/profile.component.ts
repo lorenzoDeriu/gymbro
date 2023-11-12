@@ -5,6 +5,8 @@ import { FirebaseService } from "src/app/services/firebase.service";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { Router } from "@angular/router";
 import { TrainingProgram } from "src/app/Models/TrainingProgram.model";
+import { formatSets } from "src/app/utils/utils";
+import { Set } from "src/app/Models/Exercise.model";
 
 @Component({
 	selector: "app-profile",
@@ -59,6 +61,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		localStorage.removeItem("profileInfo");
+	}
+
+	formatSets(sets: Set[]) {
+		return formatSets(sets);
 	}
 
 	onCancel() {
