@@ -37,6 +37,12 @@ export class UserService {
 		};
 	}
 
+	checkForBackup() {
+		if (localStorage.getItem("workout") != null) {
+			this.workout = JSON.parse(localStorage.getItem("workout")!!);
+		}
+	}
+
 	public getWorkout() {
 		return this.workout;
 	}
