@@ -258,57 +258,61 @@
 									"
 									class="d-flex align-items-center w-100 mb-3"
 								>
-									<div class="input-group flex-nowrap me-2">
-										<input
-											(input)="filterRepsInput($event)"
-											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
-											type="text"
-											[ngClass]="{'form-control': true, 'rounded-start-5': exercise.template && setIndex < (exercise.template.length), 'rounded-5 me-2': !exercise.template || (exercise.template && !(setIndex < (exercise.template.length)))}"
-											[(ngModel)]="
-												exercise.set[setIndex].reps
-											"
-											[min]="0"
-											[ngModelOptions]="{
-												standalone: true
-											}"
-										/>
-										<span
-											*ngIf="exercise.template && (setIndex < exercise.template.length)"
-											class="input-group-text rounded-end-5 me-2"
-										>
-											{{
-												(
-													exercise.template[setIndex].minimumReps ===
-													exercise.template[setIndex].maximumReps
-													?
-														exercise.template[setIndex].minimumReps
-													:
-														(
-															exercise.template[setIndex].minimumReps +
-															"-" +
-															exercise.template[setIndex].maximumReps
-														)
-												)
-											}}
-										</span>
-										<input
-											(input)="filterLoadInput($event)"
-											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
-											type="text"
-											class="form-control rounded-start-5"
-											[(ngModel)]="
-												exercise.set[setIndex].load
-											"
-											[min]="0"
-											[ngModelOptions]="{
-												standalone: true
-											}"
-										/>
-										<span
-											class="input-group-text rounded-end-5"
-										>
-											Kg
-										</span>
+									<div class="input-group flex-nowrap me-2 w-100">
+										<div class="input-group flex-nowrap d-flex align-items-center w-50">
+											<input
+												(input)="filterRepsInput($event)"
+												[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+												type="text"
+												[ngClass]="{'form-control': true, 'rounded-start-5': exercise.template && setIndex < (exercise.template.length), 'rounded-5 me-2': !exercise.template || (exercise.template && !(setIndex < (exercise.template.length)))}"
+												[(ngModel)]="
+													exercise.set[setIndex].reps
+												"
+												[min]="0"
+												[ngModelOptions]="{
+													standalone: true
+												}"
+											/>
+											<span
+												*ngIf="exercise.template && (setIndex < exercise.template.length)"
+												class="input-group-text rounded-end-5 me-2"
+											>
+												{{
+													(
+														exercise.template[setIndex].minimumReps ===
+														exercise.template[setIndex].maximumReps
+														?
+															exercise.template[setIndex].minimumReps
+														:
+															(
+																exercise.template[setIndex].minimumReps +
+																"-" +
+																exercise.template[setIndex].maximumReps
+															)
+													)
+												}}
+											</span>
+										</div>
+										<div class="input-group flex-nowrap d-flex align-items-center w-50">
+											<input
+												(input)="filterLoadInput($event)"
+												[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+												type="text"
+												class="form-control rounded-start-5"
+												[(ngModel)]="
+													exercise.set[setIndex].load
+												"
+												[min]="0"
+												[ngModelOptions]="{
+													standalone: true
+												}"
+											/>
+											<span
+												class="input-group-text rounded-end-5"
+											>
+												Kg
+											</span>
+										</div>
 									</div>
 
 									<div class="d-flex align-items-center">
@@ -591,58 +595,60 @@
 									<div
 										class="input-group input-group-sm flex-nowrap me-2"
 									>
-										<input
-											(input)="filterRepsInput($event)"
-											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
-											type="text"
-											[ngClass]="{'form-control': true,  'rounded-start-5': exercise.template && (setIndex < exercise.template.length), 'rounded-5 me-2': !exercise.template || (exercise.template && !(setIndex < (exercise.template.length)))}"
-											[(ngModel)]="
-												exercise.set[setIndex].reps
-											"
-											[min]="0"
-											[ngModelOptions]="{
-												standalone: true
-											}"
-										/>
-										<span
-											*ngIf="exercise.template && (setIndex < exercise.template.length)"
-											class="input-group-text rounded-end-5 me-2"
-											style="font-size: smaller"
-										>
-											{{
-												(
-													exercise.template[setIndex].minimumReps ===
-													exercise.template[setIndex].maximumReps
-													?
-														exercise.template[setIndex].minimumReps
-													:
-														(
-															exercise.template[setIndex].minimumReps +
-															"-" +
-															exercise.template[setIndex].maximumReps
-														)
-												)
-											}}
-										</span>
-										<input
-											(input)="filterLoadInput($event)"
-											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
-											type="text"
-											class="form-control rounded-start-5"
-											[(ngModel)]="
-												exercise.set[setIndex].load
-											"
-											[min]="0"
-											[ngModelOptions]="{
-												standalone: true
-											}"
-										/>
-										<span
-											class="input-group-text rounded-end-5"
-											style="font-size: smaller"
-										>
-											Kg
-										</span>
+										<div class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50">
+											<input
+												(input)="filterRepsInput($event)"
+												[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+												type="text"
+												[ngClass]="{'form-control': true,  'rounded-start-5': exercise.template && (setIndex < exercise.template.length), 'rounded-5 me-2': !exercise.template || (exercise.template && !(setIndex < (exercise.template.length)))}"
+												[(ngModel)]="
+													exercise.set[setIndex].reps
+												"
+												[min]="0"
+												[ngModelOptions]="{
+													standalone: true
+												}"
+											/>
+											<span
+												*ngIf="exercise.template && (setIndex < exercise.template.length)"
+												class="input-group-text rounded-end-5 me-2"
+											>
+												{{
+													(
+														exercise.template[setIndex].minimumReps ===
+														exercise.template[setIndex].maximumReps
+														?
+															exercise.template[setIndex].minimumReps
+														:
+															(
+																exercise.template[setIndex].minimumReps +
+																"-" +
+																exercise.template[setIndex].maximumReps
+															)
+													)
+												}}
+											</span>
+										</div>
+										<div class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50">
+											<input
+												(input)="filterLoadInput($event)"
+												[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+												type="text"
+												class="form-control rounded-start-5"
+												[(ngModel)]="
+													exercise.set[setIndex].load
+												"
+												[min]="0"
+												[ngModelOptions]="{
+													standalone: true
+												}"
+											/>
+											<span
+												class="input-group-text rounded-end-5"
+											>
+												Kg
+											</span>
+										</div>
 									</div>
 
 									<div class="d-flex align-items-center">
