@@ -22,30 +22,12 @@ export class HomeComponent implements OnInit {
 		private router: Router,
 		private dialog: MatDialog,
 		private firebase: FirebaseService,
-		private userService: UserService,
-		private snackbar: MatSnackBar
 	) {}
 
 	ngOnInit(): void {
 		this.firebase.userIsAdmin().then(isAdmin => {
 			this.isAdmin = isAdmin;
 		});
-		/* 		this.userService.stopwatchTimeObs.subscribe((time: Date) => {
-			if (time) {
-				this.intervalID = setInterval(() => {
-					const hours = new Date().getHours() - time.getHours();
-					const minutes = new Date().getMinutes() - time.getMinutes();
-					const seconds = new Date().getSeconds() - time.getSeconds();
-
-					this.trainingTime = new Date(0, 0, 0, hours, minutes, seconds);
-				}, 1000);
-			}
-
-			else {
-				this.trainingTime = undefined;
-				clearInterval(this.intervalID);
-			}
-		}); */
 	}
 
 	fixDB() {
