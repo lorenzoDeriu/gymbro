@@ -263,7 +263,7 @@
 											(input)="filterRepsInput($event)"
 											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
 											type="text"
-											[ngClass]="{'form-control': true,  'rounded-start-5': exercise.template[setIndex], 'rounded-5 me-2': !exercise.template[setIndex]}"
+											[ngClass]="{'form-control': true, 'rounded-start-5': exercise.template && setIndex < (exercise.template.length), 'rounded-5 me-2': !exercise.template || (exercise.template && !(setIndex < (exercise.template.length)))}"
 											[(ngModel)]="
 												exercise.set[setIndex].reps
 											"
@@ -273,17 +273,21 @@
 											}"
 										/>
 										<span
-											*ngIf="exercise.template[setIndex]"
+											*ngIf="exercise.template && (setIndex < exercise.template.length)"
 											class="input-group-text rounded-end-5 me-2"
 										>
 											{{
-												exercise.template[setIndex].minimumReps ===
-												exercise.template[setIndex].maximumReps
-												? exercise.template[setIndex].minimumReps
-												: (
-													exercise.template[setIndex].minimumReps +
-													"-" +
+												(
+													exercise.template[setIndex].minimumReps ===
 													exercise.template[setIndex].maximumReps
+													?
+														exercise.template[setIndex].minimumReps
+													:
+														(
+															exercise.template[setIndex].minimumReps +
+															"-" +
+															exercise.template[setIndex].maximumReps
+														)
 												)
 											}}
 										</span>
@@ -591,7 +595,7 @@
 											(input)="filterRepsInput($event)"
 											[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
 											type="text"
-											[ngClass]="{'form-control': true,  'rounded-start-5': exercise.template[setIndex], 'rounded-5 me-2': !exercise.template[setIndex]}"
+											[ngClass]="{'form-control': true,  'rounded-start-5': exercise.template && (setIndex < exercise.template.length), 'rounded-5 me-2': !exercise.template || (exercise.template && !(setIndex < (exercise.template.length)))}"
 											[(ngModel)]="
 												exercise.set[setIndex].reps
 											"
@@ -601,18 +605,22 @@
 											}"
 										/>
 										<span
-											*ngIf="exercise.template[setIndex]"
+											*ngIf="exercise.template && (setIndex < exercise.template.length)"
 											class="input-group-text rounded-end-5 me-2"
 											style="font-size: smaller"
 										>
 											{{
-												exercise.template[setIndex].minimumReps ===
-												exercise.template[setIndex].maximumReps
-												? exercise.template[setIndex].minimumReps
-												: (
-													exercise.template[setIndex].minimumReps +
-													"-" +
+												(
+													exercise.template[setIndex].minimumReps ===
 													exercise.template[setIndex].maximumReps
+													?
+														exercise.template[setIndex].minimumReps
+													:
+														(
+															exercise.template[setIndex].minimumReps +
+															"-" +
+															exercise.template[setIndex].maximumReps
+														)
 												)
 											}}
 										</span>
