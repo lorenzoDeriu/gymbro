@@ -86,7 +86,7 @@
 						<thead>
 							<tr>
 								<th scope="col">Esercizio</th>
-								<th scope="col">Serie</th>
+								<th scope="col">Reps{{'@'}}Carico</th>
 								<th scope="col">Intensità</th>
 								<th scope="col">Recupero</th>
 							</tr>
@@ -124,10 +124,9 @@
 											"
 										>
 											{{
-												"1 x " +
-													set.reps +
-													" - " +
-													set.load
+												set.reps +
+												"@" +
+												set.load + 'Kg'
 											}}
 										</div>
 									</div>
