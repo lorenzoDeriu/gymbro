@@ -25,7 +25,7 @@ export class OldWorkoutsComponent implements OnInit {
 
 	async ngOnInit() {
 		this.loading = true;
-		await this.firebase.getWorkouts();
+		this.workouts = await this.firebase.getWorkouts();
 		this.loading = false;
 	}
 
