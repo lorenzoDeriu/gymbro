@@ -105,6 +105,10 @@
 
 	<!-- Desktop -->
 	<div class="wrapper d-none d-lg-flex">
+		<a href="about-preview" class="position-absolute top-0 end-0 me-3 mt-3 blue-link">
+			About
+			<i class="ms-1 bi bi-question-circle-fill"></i>
+		</a>
 		<div class="left-wrap" style="width: 60%; height: 100svh">
 			<div class="scrollable" style="height: 95%; overflow-x: hidden">
 				<section
@@ -245,8 +249,7 @@
 					</div>
 					<a
 						(click)="forgotPassword()"
-						class="mb-3 text-decoration-none"
-						style="cursor: pointer"
+						class="mb-3 text-decoration-none blue-link"
 					>
 						Password dimenticata?
 					</a>
@@ -301,7 +304,7 @@
 						Non hai un account?
 						<a
 							(click)="switchToRegister()"
-							style="color: #4089c9; cursor: pointer"
+							class="blue-link text-decoration-none"
 						>
 							Registrati
 						</a>
@@ -416,7 +419,7 @@
 						Hai già un account?
 						<a
 							(click)="switchToLogin()"
-							style="color: #4089c9; cursor: pointer"
+							class="blue-link text-decoration-none"
 						>
 							Accedi
 						</a>

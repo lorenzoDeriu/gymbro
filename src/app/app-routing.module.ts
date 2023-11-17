@@ -20,6 +20,7 @@ import { AboutComponent } from "./components/about/about.component";
 import { SettingsPageComponent } from "./components/settings-page/settings-page.component";
 import { WelcomePageComponent } from "./components/welcome-page/welcome-page.component";
 import { AdminGuard } from "./services/admin.guard";
+import { AboutPreviewComponent } from "./components/about-preview/about-preview.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "home", pathMatch: "full" },
@@ -52,6 +53,7 @@ const routes: Routes = [
 			{ path: "settings", component: SettingsPageComponent },
 		],
 	},
+	{ path: "about-preview", component: AboutPreviewComponent },
 	{
 		path: "admin",
 		component: AdminComponent,

@@ -24,6 +24,12 @@ section {
 	scroll-snap-align: start;
 }
 
+.blue-link {
+	color: #4089c9;
+	text-decoration: none;
+	cursor: pointer;
+}
+
 .nav-link {
 	color: rgb(142, 142, 142);
 	cursor: pointer;
