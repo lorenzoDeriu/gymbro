@@ -88,7 +88,7 @@ export class WelcomePageComponent implements OnInit {
 				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 			) &&
 			this.password &&
-			this.password != "" &&
+			this.password !== "" &&
 			this.password.length >= 8
 		);
 	}
@@ -100,11 +100,11 @@ export class WelcomePageComponent implements OnInit {
 				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 			) &&
 			this.passwordRegister &&
-			this.passwordRegister != "" &&
+			this.passwordRegister !== "" &&
 			this.passwordRegister.length >= 8 &&
 			this.passwordRegister === this.confirmPassword &&
 			this.username &&
-			this.username != ""
+			this.username !== ""
 		);
 	}
 
