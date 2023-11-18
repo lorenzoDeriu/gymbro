@@ -1,6 +1,24 @@
-<div id="wrapper">
+<div
+	*ngIf="loading"
+	class="d-flex justify-content-center align-items-center opacity-50 position-absolute"
+	style="
+		width: 100vw;
+		height: 100svh;
+		z-index: 10000;
+		background-color: black;
+	"
+>
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">Loading...</span>
+	</div>
+</div>
+
+<div id="wrapper" *ngIf="!loading">
 	<div id="main-container" class="p-3">
 		<h1 class="mt-3 mb-4" *ngIf="searchResult.length !== 0">Risultati</h1>
+		<h1 class="text-center mt-3 mb-4" *ngIf="searchResult.length === 0">
+			La ricerca non ha prodotto risultati
+		</h1>
 
 		<div class="d-none d-lg-block mb-4">
 			<button class="btn purple-btn text-light me-2" (click)="onCancel()">
@@ -27,18 +45,13 @@
 			</button>
 		</div>
 
-		<div class="d-flex flex-column align-items-center">
-			<img
-				*ngIf="searchResult.length === 0"
-				src="assets/search-not-found.svg"
-				style="width: 50%"
-				alt="No results found"
-			/>
-
-			<h3 class="text-center mt-4" *ngIf="searchResult.length === 0">
-				La ricerca non ha prodotto risultati
-			</h3>
-		</div>
+		<img
+			*ngIf="searchResult.length === 0"
+			src="assets/search-not-found.svg"
+			style="width: 50%"
+			alt="No results found"
+			class="mt-5"
+		/>
 
 		<div
 			*ngFor="let user of searchResult; index as i"
@@ -52,13 +65,11 @@
 				<div
 					class="avatar d-flex justify-content-between align-items-center"
 				>
-					<!-- TODO:MOX visibilityPermission?? sei sicuro?
 					<img
-						*ngIf="user.visibilityPermission"
 						src="assets/profile.png"
 						width="30px"
 						alt="profile-pic"
-					/> -->
+					/>
 					<p class="mb-0 ms-3">{{ user.username }}</p>
 				</div>
 			</div>
