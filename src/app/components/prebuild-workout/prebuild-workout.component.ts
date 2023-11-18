@@ -83,7 +83,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.userService.saveWorkout();
 
 		localStorage.removeItem("workoutProgress");
-
 		this.router.navigate(["/home"]);
 	}
 

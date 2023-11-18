@@ -77,8 +77,11 @@ export class OldWorkoutsComponent implements OnInit {
 	}
 
 	public editWorkout(index: number) {
-		this.router.navigate(["/home/prebuild-workout"]);
 		this.userService.setWorkout(this.workouts[index]);
+		this.userService.setEditMode(true);
+		this.userService.setWorkoutToEditIndex(index);
+
+		this.router.navigate(["/home/prebuild-workout"]);
 	}
 
 	public showNotes(workoutIndex: number, exerciseIndex: number) {
