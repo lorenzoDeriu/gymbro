@@ -16,7 +16,7 @@
 <!-- TODO: Remove !loading and check if object is already loaded -->
 <div *ngIf="!loading" id="wrapper">
 	<div id="main-container" class="p-3">
-		<h1 class="text-center mt-3">Crea allenamento</h1>
+		<h1 class="text-center mt-3">{{ (editMode ? 'Modifica' : 'Crea') + ' allenamento' }}</h1>
 
 		<div class="d-flex flex-column align-items-center">
 			<div class="d-flex justify-content-center align-items-center">
@@ -52,7 +52,7 @@
 				<button
 					type="button"
 					class="btn text-light purple-btn ms-2 d-none d-lg-flex"
-					[disabled]="!savable()"
+					[disabled]="!savable() && !editMode"
 					(click)="saveWorkout()"
 				>
 					Salva
@@ -61,7 +61,7 @@
 				<button
 					type="button"
 					class="btn purple-btn btn-sm text-light ms-2 d-flex d-lg-none"
-					[disabled]="!savable()"
+					[disabled]="!savable() && !editMode"
 					(click)="saveWorkout()"
 				>
 					<i class="bi bi-check"></i>
@@ -85,7 +85,7 @@
 				<a
 					[href]="playlistUrl"
 					target="_blank"
-					*ngIf="playlistUrl"
+					*ngIf="playlistUrl && !editMode"
 					class="btn d-none d-lg-block w-100 mb-4 text-light"
 					style="background-color: #1ed760"
 				>
@@ -96,7 +96,7 @@
 				<a
 					[href]="playlistUrl"
 					target="_blank"
-					*ngIf="playlistUrl"
+					*ngIf="playlistUrl && !editMode"
 					class="btn btn-sm d-block d-lg-none w-100 mb-3 text-light"
 					style="background-color: #1ed760"
 				>
@@ -366,7 +366,7 @@
 											*ngIf="
 												!workoutProgress.completed[
 													exerciseIndex
-												][setIndex]
+												][setIndex] && !editMode
 											"
 											class="btn blue-btn text-light me-1 rounded-5 py-1 px-2"
 											(click)="
@@ -749,7 +749,7 @@
 											*ngIf="
 												!workoutProgress.completed[
 													exerciseIndex
-												][setIndex]
+												][setIndex] && !editMode
 											"
 											class="btn btn-sm blue-btn text-light me-1 rounded-5 py-1 px-2"
 											(click)="

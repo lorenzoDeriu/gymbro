@@ -29,6 +29,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public playlistUrl: string;
 	public date: string = this.fromTimestampToString(Date.now());
 	public loading: boolean = false;
+	public editMode: boolean = false;
 
 	constructor(
 		private userService: UserService,
@@ -39,6 +40,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.editMode = this.userService.getEditMode();
 
 		this.availableExercise = await this.firebase.getExercise();
 		this.playlistUrl = this.userService.getPlaylistURL();
