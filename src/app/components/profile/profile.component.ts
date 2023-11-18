@@ -3,7 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TrainingProgram } from "src/app/Models/TrainingProgram.model";
 import { formatSets } from "src/app/utils/utils";
 import { Set } from "src/app/Models/Exercise.model";
@@ -16,6 +16,7 @@ import { User } from "src/app/Models/User.model";
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 	public username: string;
+	public searchUsername: string;
 	public trainingPrograms: TrainingProgram[];
 	public playlistUrl: string;
 	public loading: boolean;
@@ -24,11 +25,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		private firebase: FirebaseService,
 		private snackBar: MatSnackBar,
 		private dialog: MatDialog,
-		private router: Router
+		private router: Router,
+		private route: ActivatedRoute
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
+
+		if (this.route.snapshot.paramMap.get("username")) {
+			this.searchUsername = this.route.snapshot.paramMap.get("username");
+		}
 
 		try {
 			let uid: string = JSON.parse(localStorage.getItem("user"))?.uid;
@@ -69,7 +75,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	}
 
 	public onCancel() {
-		this.router.navigate(["/home/search-result"]);
+		this.router.navigate(["/home/search-result", { username: this.searchUsername }]);
 	}
 
 	public isPlaylistUrlValid() {
