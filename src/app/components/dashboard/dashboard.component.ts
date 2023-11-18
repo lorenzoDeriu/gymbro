@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { AuthService } from "src/app/services/auth.service";
 import { NewWorkoutDialogComponent } from "../new-workout-dialog/new-workout-dialog.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
 	selector: "app-dashboard",
@@ -11,15 +11,17 @@ import { Router } from "@angular/router";
 	styleUrls: ["./dashboard.component.css"],
 })
 export class DashboardComponent implements OnInit {
+	public editMode: boolean;
+
 	constructor(
-		private authService: AuthService,
+		private userService: UserService,
 		private dialog: MatDialog,
 		private snackbar: MatSnackBar,
 		private router: Router
 	) {}
 
 	ngOnInit() {
-		this.authService.isAuthenticated(); // rimuovere e sostituire con GUARD
+		this.editMode = this.userService.getEditMode();
 	}
 
 	workoutExists() {

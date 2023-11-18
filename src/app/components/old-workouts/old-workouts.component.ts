@@ -6,6 +6,9 @@ import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { Workout } from "src/app/Models/Workout.model";
+import { formatEffectiveSets } from "src/app/utils/utils";
+import { EffectiveSet } from "src/app/Models/Exercise.model";
+
 
 @Component({
 	selector: "app-old-workouts",
@@ -27,6 +30,10 @@ export class OldWorkoutsComponent implements OnInit {
 		this.loading = true;
 		this.workouts = await this.firebase.getWorkouts();
 		this.loading = false;
+	}
+
+	public formatEffectiveSets(sets: EffectiveSet[]): string[] {
+		return formatEffectiveSets(sets);
 	}
 
 	public getDateFromTimestamp(timestamp: number) {
