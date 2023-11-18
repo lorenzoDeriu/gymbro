@@ -60,14 +60,27 @@
 				</div>
 			</section>
 		</div>
+
 		<div
 			class="d-flex justify-content-center align-items-center w-100"
 			style="height: 10%"
 		>
-			<button (click)="access()" class="blue-btn text-light btn btn-sm">
+			<button (click)="access()" class="blue-btn text-light btn btn-sm me-3">
 				Accedi
+				<i class="ms-1 bi bi-box-arrow-in-right"></i>
+			</button>
+
+			<button
+				hidden
+				id="installMobile"
+				(click)="installApp('mobile')"
+				class="purple-btn btn btn-sm text-light"
+			>
+				Installa
+				<i class="ms-1 bi bi-download"></i>
 			</button>
 		</div>
+
 		<ul class="nav justify-content-center" style="height: 5%">
 			<li class="nav-item">
 				<a
@@ -109,7 +122,7 @@
 			<a
 				hidden
 				id="install"
-				(click)="installApp()"
+				(click)="installApp('desktop')"
 				class="blue-link me-3"
 			>
 				Installa

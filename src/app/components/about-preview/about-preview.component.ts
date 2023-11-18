@@ -64,6 +64,6 @@ export class AboutPreviewComponent {
 	}
 
 	backToHome() {
-		this.router.navigate(["/home"]);
+		window.location.href = "/home";
 	}
 }
