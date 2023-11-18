@@ -1,4 +1,3 @@
-
 import { MatDialog } from "@angular/material/dialog";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { Router } from "@angular/router";
@@ -83,7 +82,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.userService.saveWorkout();
 
 		localStorage.removeItem("workoutProgress");
-
 		this.router.navigate(["/home"]);
 	}
 
@@ -91,7 +89,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		const event = e.target as HTMLInputElement;
 		const inputValue = event.value;
 
-		if (!('0123456789').includes(inputValue[inputValue.length - 1])) {
+		if (!"0123456789".includes(inputValue[inputValue.length - 1])) {
 			event.value = inputValue.slice(0, inputValue.length - 1);
 		}
 
@@ -104,7 +102,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		const event = e.target as HTMLInputElement;
 		const inputValue = event.value;
 
-		if (!('0123456789').includes(inputValue[inputValue.length - 1])) {
+		if (!"0123456789".includes(inputValue[inputValue.length - 1])) {
 			event.value = inputValue.slice(0, inputValue.length - 1);
 		}
 
@@ -119,7 +117,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			this.workout.exercises[exerciseIndex].set[setIndex].reps > 0 &&
 			this.workout.exercises[exerciseIndex].set[setIndex].load !== null &&
 			this.workout.exercises[exerciseIndex].set[setIndex].load >= 0
-		)
+		);
 	}
 
 	public toggleCompleted(exerciseIndex: number, setIndex: number) {
@@ -141,7 +139,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			},
 			note: "",
 			set: [],
-			groupId: generateId()
+			groupId: generateId(),
 		});
 
 		this.userService.updateWorkout(this.workout);

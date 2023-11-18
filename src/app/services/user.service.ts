@@ -16,6 +16,9 @@ export class UserService {
 	private searchResult: SearchResult[];
 	private uidProfile: string;
 
+	private editMode: boolean = false;
+	private workoutToEditIndex: number;
+
 	/* private stopwatchTime: BehaviorSubject<Date | undefined> = new BehaviorSubject<Date | undefined>(localStorage.getItem('startTime')!! ? new Date(localStorage.getItem('startTime')) : undefined);
 	public stopwatchTimeObs = this.stopwatchTime.asObservable(); */
 	/* 	public setStopwatchTime(time: Date | undefined) {
@@ -53,6 +56,16 @@ export class UserService {
 				localStorage.getItem("trainingProgram")
 			);
 		}
+
+		if (localStorage.getItem("editMode") !== null) {
+			this.editMode = JSON.parse(localStorage.getItem("editMode"));
+		}
+
+		if (localStorage.getItem("workoutToEditIndex") !== null) {
+			this.workoutToEditIndex = JSON.parse(
+				localStorage.getItem("workoutToEditIndex")
+			);
+		}
 	}
 
 	public getWorkout() {
@@ -62,9 +75,19 @@ export class UserService {
 
 	public async updateWorkout(workout: Workout) {
 		this.workout = workout;
+		localStorage.setItem("workout", JSON.stringify(workout));
 	}
 
 	public async saveWorkout() {
+		if (this.editMode) {
+			await this.firebase.updateWorkout(
+				this.workout,
+				this.workoutToEditIndex
+			);
+			this.setEditMode(false);
+			return;
+		}
+
 		await this.firebase.saveWorkout(this.workout);
 		this.cancelWorkout();
 	}
@@ -146,5 +169,23 @@ export class UserService {
 
 	public getUidProfile() {
 		return this.uidProfile;
+	}
+
+	public setEditMode(editMode: boolean) {
+		this.editMode = editMode;
+		localStorage.setItem("editMode", String(editMode));
+	}
+
+	public getEditMode() {
+		return this.editMode;
+	}
+
+	public setWorkoutToEditIndex(index: number) {
+		this.workoutToEditIndex = index;
+		localStorage.setItem("workoutToEditIndex", String(index));
+	}
+
+	public getWorkoutToEditIndex() {
+		return this.workoutToEditIndex;
 	}
 }

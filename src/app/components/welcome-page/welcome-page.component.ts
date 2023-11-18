@@ -103,7 +103,7 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	access() {
-		window.location.href = "/access"
+		window.location.href = "/access";
 	}
 
 	signUp() {

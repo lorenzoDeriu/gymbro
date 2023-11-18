@@ -51,7 +51,6 @@ import {
 } from "../Models/Exercise.model";
 import { Workout } from "../Models/Workout.model";
 import { Feedback } from "../Models/Feedback.model";
-import { duration } from "moment";
 import { SearchResult } from "../components/friends/friends.component";
 import { generateId } from "../utils/utils";
 
@@ -446,6 +445,24 @@ export class FirebaseService {
 		return workouts.sort((a: Workout, b: Workout) => b.date - a.date);
 	}
 
+	public async updateWorkout(workout: Workout, index: number) {
+		let uid = JSON.parse(localStorage.getItem("user")).uid;
+
+		const documentReference = doc(this.db, "users", uid);
+		const documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
+
+		if (documentSnapshot.exists()) {
+			let data = documentSnapshot.data() as User;
+			let workouts: Workout[] = data.workout;
+
+			workouts[index] = workout;
+
+			updateDoc(documentReference, { workout: workouts });
+		}
+	}
+
 	public updateWorkouts(workout: Workout[]) {
 		const uid: string = JSON.parse(localStorage.getItem("user")).uid;
 		const documentReference = doc(this.db, "users", uid);
@@ -610,7 +627,9 @@ export class FirebaseService {
 		return hasFollow;
 	}
 
-	public async getMatchingUsername(username: string): Promise<SearchResult[]> {
+	public async getMatchingUsername(
+		username: string
+	): Promise<SearchResult[]> {
 		let collectionReference = collection(this.db, "users");
 		let querySnapshot = navigator.onLine
 			? await getDocs(

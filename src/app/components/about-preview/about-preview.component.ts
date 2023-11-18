@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-about-preview',
-  templateUrl: './about-preview.component.html',
-  styleUrls: ['./about-preview.component.css']
+	selector: "app-about-preview",
+	templateUrl: "./about-preview.component.html",
+	styleUrls: ["./about-preview.component.css"],
 })
 export class AboutPreviewComponent {
 	installButton: HTMLElement | undefined = document.getElementById(

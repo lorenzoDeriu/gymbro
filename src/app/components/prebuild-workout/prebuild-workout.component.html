@@ -258,13 +258,39 @@
 									"
 									class="d-flex align-items-center w-100 mb-3"
 								>
-									<div class="input-group flex-nowrap me-2 w-100">
-										<div class="input-group flex-nowrap d-flex align-items-center w-50">
+									<div
+										class="input-group flex-nowrap me-2 w-100"
+									>
+										<div
+											class="input-group flex-nowrap d-flex align-items-center w-50"
+										>
 											<input
-												(input)="filterRepsInput($event)"
-												[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+												(input)="
+													filterRepsInput($event)
+												"
+												[disabled]="
+													workoutProgress.completed[
+														exerciseIndex
+													][setIndex]
+												"
 												type="text"
-												[ngClass]="{'form-control': true, 'rounded-start-5': exercise.template && setIndex < (exercise.template.length), 'rounded-5 me-2': !exercise.template || (exercise.template && !(setIndex < (exercise.template.length)))}"
+												[ngClass]="{
+													'form-control': true,
+													'rounded-start-5':
+														exercise.template &&
+														setIndex <
+															exercise.template
+																.length,
+													'rounded-5 me-2':
+														!exercise.template ||
+														(exercise.template &&
+															!(
+																setIndex <
+																exercise
+																	.template
+																	.length
+															))
+												}"
 												[(ngModel)]="
 													exercise.set[setIndex].reps
 												"
@@ -274,29 +300,43 @@
 												}"
 											/>
 											<span
-												*ngIf="exercise.template && (setIndex < exercise.template.length)"
+												*ngIf="
+													exercise.template &&
+													setIndex <
+														exercise.template.length
+												"
 												class="input-group-text rounded-end-5 me-2"
 											>
 												{{
-													(
-														exercise.template[setIndex].minimumReps ===
-														exercise.template[setIndex].maximumReps
-														?
-															exercise.template[setIndex].minimumReps
-														:
-															(
-																exercise.template[setIndex].minimumReps +
-																"-" +
-																exercise.template[setIndex].maximumReps
-															)
-													)
+													exercise.template[setIndex]
+														.minimumReps ===
+													exercise.template[setIndex]
+														.maximumReps
+														? exercise.template[
+																setIndex
+														  ].minimumReps
+														: exercise.template[
+																setIndex
+														  ].minimumReps +
+														  "-" +
+														  exercise.template[
+																setIndex
+														  ].maximumReps
 												}}
 											</span>
 										</div>
-										<div class="input-group flex-nowrap d-flex align-items-center w-50">
+										<div
+											class="input-group flex-nowrap d-flex align-items-center w-50"
+										>
 											<input
-												(input)="filterLoadInput($event)"
-												[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+												(input)="
+													filterLoadInput($event)
+												"
+												[disabled]="
+													workoutProgress.completed[
+														exerciseIndex
+													][setIndex]
+												"
 												type="text"
 												class="form-control rounded-start-5"
 												[(ngModel)]="
@@ -317,8 +357,17 @@
 
 									<div class="d-flex align-items-center">
 										<button
-											[disabled]="!isSetValid(exerciseIndex, setIndex)"
-											*ngIf="!workoutProgress.completed[exerciseIndex][setIndex]"
+											[disabled]="
+												!isSetValid(
+													exerciseIndex,
+													setIndex
+												)
+											"
+											*ngIf="
+												!workoutProgress.completed[
+													exerciseIndex
+												][setIndex]
+											"
 											class="btn blue-btn text-light me-1 rounded-5 py-1 px-2"
 											(click)="
 												toggleCompleted(
@@ -595,12 +644,36 @@
 									<div
 										class="input-group input-group-sm flex-nowrap me-2"
 									>
-										<div class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50">
+										<div
+											class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50"
+										>
 											<input
-												(input)="filterRepsInput($event)"
-												[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+												(input)="
+													filterRepsInput($event)
+												"
+												[disabled]="
+													workoutProgress.completed[
+														exerciseIndex
+													][setIndex]
+												"
 												type="text"
-												[ngClass]="{'form-control': true,  'rounded-start-5': exercise.template && (setIndex < exercise.template.length), 'rounded-5 me-2': !exercise.template || (exercise.template && !(setIndex < (exercise.template.length)))}"
+												[ngClass]="{
+													'form-control': true,
+													'rounded-start-5':
+														exercise.template &&
+														setIndex <
+															exercise.template
+																.length,
+													'rounded-5 me-2':
+														!exercise.template ||
+														(exercise.template &&
+															!(
+																setIndex <
+																exercise
+																	.template
+																	.length
+															))
+												}"
 												[(ngModel)]="
 													exercise.set[setIndex].reps
 												"
@@ -610,29 +683,43 @@
 												}"
 											/>
 											<span
-												*ngIf="exercise.template && (setIndex < exercise.template.length)"
+												*ngIf="
+													exercise.template &&
+													setIndex <
+														exercise.template.length
+												"
 												class="input-group-text rounded-end-5 me-2"
 											>
 												{{
-													(
-														exercise.template[setIndex].minimumReps ===
-														exercise.template[setIndex].maximumReps
-														?
-															exercise.template[setIndex].minimumReps
-														:
-															(
-																exercise.template[setIndex].minimumReps +
-																"-" +
-																exercise.template[setIndex].maximumReps
-															)
-													)
+													exercise.template[setIndex]
+														.minimumReps ===
+													exercise.template[setIndex]
+														.maximumReps
+														? exercise.template[
+																setIndex
+														  ].minimumReps
+														: exercise.template[
+																setIndex
+														  ].minimumReps +
+														  "-" +
+														  exercise.template[
+																setIndex
+														  ].maximumReps
 												}}
 											</span>
 										</div>
-										<div class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50">
+										<div
+											class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50"
+										>
 											<input
-												(input)="filterLoadInput($event)"
-												[disabled]="workoutProgress.completed[exerciseIndex][setIndex]"
+												(input)="
+													filterLoadInput($event)
+												"
+												[disabled]="
+													workoutProgress.completed[
+														exerciseIndex
+													][setIndex]
+												"
 												type="text"
 												class="form-control rounded-start-5"
 												[(ngModel)]="
@@ -653,7 +740,12 @@
 
 									<div class="d-flex align-items-center">
 										<button
-											[disabled]="!isSetValid(exerciseIndex, setIndex)"
+											[disabled]="
+												!isSetValid(
+													exerciseIndex,
+													setIndex
+												)
+											"
 											*ngIf="
 												!workoutProgress.completed[
 													exerciseIndex
