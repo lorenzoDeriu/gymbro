@@ -3,12 +3,12 @@ export interface Exercise {
 	intensity: IntensityType;
 	rest: RestTime;
 	note: string;
-	groupId?: string;
+	groupId: string;
 }
 
 export type IntensityType = "failure" | "hard" | "light";
 
-export interface TrainingProgramExercises extends Exercise {
+export interface TrainingProgramExercise extends Exercise {
 	set: Set[];
 }
 

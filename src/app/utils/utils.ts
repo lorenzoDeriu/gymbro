@@ -152,3 +152,7 @@ export const formatSets = (sets: Set[]): string[] => {
 
 	return formattedSets;
 };
+
+export const generateId = (): string => {
+	return "group-id-" + Math.random().toString(16).slice(2);
+}

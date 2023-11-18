@@ -43,7 +43,7 @@ export class UserService {
 		this.checkForBackup();
 	}
 
-	checkForBackup() {
+	private checkForBackup() {
 		if (localStorage.getItem("workout") !== null) {
 			this.workout = JSON.parse(localStorage.getItem("workout"));
 		}

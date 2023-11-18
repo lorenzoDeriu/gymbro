@@ -47,12 +47,13 @@ import {
 	EffectiveSet,
 	IntensityType,
 	Set,
-	TrainingProgramExercises,
+	TrainingProgramExercise,
 } from "../Models/Exercise.model";
 import { Workout } from "../Models/Workout.model";
 import { Feedback } from "../Models/Feedback.model";
 import { duration } from "moment";
 import { SearchResult } from "../components/friends/friends.component";
+import { generateId } from "../utils/utils";
 
 @Injectable({
 	providedIn: "root",
@@ -136,6 +137,7 @@ export class FirebaseService {
 						minutes: exerciseObj.rest?.minutes ?? "00",
 						seconds: exerciseObj.rest?.seconds ?? "00",
 					},
+					groupId: generateId(),
 				};
 
 				exercises.push(newExercise);
@@ -178,7 +180,7 @@ export class FirebaseService {
 				};
 
 				sessionObj["exercises"].forEach((exerciseObj: any) => {
-					let newExercise: TrainingProgramExercises;
+					let newExercise: TrainingProgramExercise;
 
 					newExercise = {
 						name: exerciseObj["name"],
@@ -189,6 +191,7 @@ export class FirebaseService {
 							minutes: exerciseObj.rest?.minutes ?? "00",
 							seconds: exerciseObj.rest?.seconds ?? "00",
 						},
+						groupId: generateId(),
 					};
 
 					newSession.exercises.push(newExercise);

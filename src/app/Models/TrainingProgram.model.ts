@@ -1,4 +1,4 @@
-import { TrainingProgramExercises } from "./Exercise.model";
+import { TrainingProgramExercise } from "./Exercise.model";
 
 export type TrainingProgram = {
 	name: string;
@@ -7,5 +7,5 @@ export type TrainingProgram = {
 
 export type Session = {
 	name: string;
-	exercises: TrainingProgramExercises[];
+	exercises: TrainingProgramExercise[];
 };

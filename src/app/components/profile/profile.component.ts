@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		this.loading = true;
 
 		try {
+			console.log(localStorage.getItem("user"));
 			let uid: string = JSON.parse(localStorage.getItem("user"))["uid"];
 			let user: any = await this.firebase.getUserData(uid);
 

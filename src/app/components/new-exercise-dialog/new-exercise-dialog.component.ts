@@ -6,7 +6,8 @@ import {
 	MatDialogRef,
 } from "@angular/material/dialog";
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
-import { Set, TrainingProgramExercises } from "src/app/Models/Exercise.model";
+import { Set, TrainingProgramExercise } from "src/app/Models/Exercise.model";
+import { generateId } from "src/app/utils/utils";
 
 @Component({
 	selector: "app-new-exercise-dialog",
@@ -15,7 +16,7 @@ import { Set, TrainingProgramExercises } from "src/app/Models/Exercise.model";
 })
 export class NewExerciseDialogComponent {
 	public options: string[] = [];
-	public exercise: TrainingProgramExercises = {
+	public exercise: TrainingProgramExercise = {
 		name: "",
 		intensity: "hard",
 		rest: {
@@ -29,6 +30,7 @@ export class NewExerciseDialogComponent {
 				maximumReps: 10,
 			},
 		],
+		groupId: generateId(),
 	};
 
 	public editMode = false;
