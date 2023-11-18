@@ -45,7 +45,7 @@ export class FriendsComponent implements OnInit {
 	}
 
 	public hasUsername() {
-		return this.username != undefined;
+		return this.username !== undefined;
 	}
 
 	async addUsername(form: NgForm) {

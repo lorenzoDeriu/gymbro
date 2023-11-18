@@ -49,6 +49,6 @@ export class SearchResultComponent implements OnInit {
 	public viewProfile(index: number) {
 		this.userService.setUidProfile(this.searchResult[index].uid);
 
-		this.router.navigate(["/home/profile"]);
+		this.router.navigate(["/home/profile", { username: this.searchResult[index].username }]);
 	}
 }
