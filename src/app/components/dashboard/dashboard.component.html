@@ -8,14 +8,12 @@
 			<h3 class="mb-0 fw-bold">
 				{{
 					workoutExists()
-					?
-					(
-						editMode
-						? "Modifica"
-						: "Continua"
-					)
-					: "Crea"
-				}} Allenamento
+						? editMode
+							? "Modifica"
+							: "Continua"
+						: "Crea"
+				}}
+				Allenamento
 			</h3>
 			<img src="assets/dumbbell.png" alt="" />
 		</div>

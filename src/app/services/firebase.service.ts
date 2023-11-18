@@ -51,7 +51,10 @@ import {
 } from "../Models/Exercise.model";
 import { Workout } from "../Models/Workout.model";
 import { Feedback } from "../Models/Feedback.model";
-import { FollowedUserInfo, SearchResult } from "../components/friends/friends.component";
+import {
+	FollowedUserInfo,
+	SearchResult,
+} from "../components/friends/friends.component";
 import { generateId } from "../utils/utils";
 
 @Injectable({
@@ -723,7 +726,7 @@ export class FirebaseService {
 
 				result.push(userObj);
 			}
-		};
+		}
 
 		return result as FollowedUserInfo[];
 	}

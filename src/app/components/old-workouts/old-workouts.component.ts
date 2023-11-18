@@ -9,7 +9,6 @@ import { Workout } from "src/app/Models/Workout.model";
 import { formatEffectiveSets } from "src/app/utils/utils";
 import { EffectiveSet } from "src/app/Models/Exercise.model";
 
-
 @Component({
 	selector: "app-old-workouts",
 	templateUrl: "./old-workouts.component.html",

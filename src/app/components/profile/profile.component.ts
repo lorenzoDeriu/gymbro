@@ -75,7 +75,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	}
 
 	public onCancel() {
-		this.router.navigate(["/home/search-result", { username: this.searchUsername }]);
+		this.router.navigate([
+			"/home/search-result",
+			{ username: this.searchUsername },
+		]);
 	}
 
 	public isPlaylistUrlValid() {
