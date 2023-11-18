@@ -85,14 +85,15 @@ export class UserService {
 				this.workoutToEditIndex
 			);
 			this.setEditMode(false);
+			this.resetWorkout();
 			return;
 		}
 
 		await this.firebase.saveWorkout(this.workout);
-		this.cancelWorkout();
+		this.resetWorkout();
 	}
 
-	public cancelWorkout() {
+	public resetWorkout() {
 		this.workout = {
 			name: "Nuovo Allenamento",
 			date: Date.now(),

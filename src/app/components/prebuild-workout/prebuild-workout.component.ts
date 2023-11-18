@@ -156,7 +156,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 				message: "Sei sicuro di voler annullare l'allenamento?",
 				args: [],
 				confirm: () => {
-					this.userService.cancelWorkout();
+					this.userService.resetWorkout();
 					this.router.navigate(["/home"]);
 
 					localStorage.removeItem("workoutProgress");
