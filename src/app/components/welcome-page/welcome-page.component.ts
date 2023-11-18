@@ -21,6 +21,10 @@ export class WelcomePageComponent implements OnInit {
 	public onLogin: boolean = true;
 	public scrollableContainer: HTMLElement =
 		document.querySelector(".scrollable");
+	private installButton: HTMLElement | undefined = document.getElementById(
+		"install"
+	) as HTMLButtonElement;
+	private installPrompt: any;
 
 	constructor(
 		private authService: AuthService,
@@ -32,6 +36,16 @@ export class WelcomePageComponent implements OnInit {
 		if (this.authService.isAuthenticated()) {
 			this.router.navigate(["/home/dashboard"]);
 		}
+
+		this.installButton = document.getElementById(
+			"install"
+		) as HTMLButtonElement;
+
+		window.addEventListener("beforeinstallprompt", event => {
+			event.preventDefault();
+			this.installPrompt = event;
+			this.installButton.removeAttribute("hidden");
+		});
 	}
 
 	async ngAfterViewInit() {
@@ -61,6 +75,21 @@ export class WelcomePageComponent implements OnInit {
 		this.scrollableContainer.removeEventListener("scroll", () => {});
 	}
 
+	async installApp() {
+		if (!this.installPrompt) {
+			return;
+		}
+
+		const result = await this.installPrompt.prompt();
+		this.disableInAppInstallPrompt();
+		if (result.outcome === "dismissed") window.location.reload();
+	}
+
+	disableInAppInstallPrompt() {
+		this.installPrompt = null;
+		this.installButton.setAttribute("hidden", "");
+	}
+
 	login() {
 		this.authService.signin(this.email, this.password);
 	}
@@ -74,7 +103,7 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	access() {
-		this.router.navigate(["/access"]);
+		window.location.href = "/access"
 	}
 
 	signUp() {

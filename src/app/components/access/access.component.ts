@@ -40,6 +40,10 @@ export class AccessComponent implements OnInit {
 	public hidePwd: boolean = true;
 	public hidePwdConfirm: boolean = true;
 	public onLogin: boolean = true;
+	private installButton: HTMLElement | undefined = document.getElementById(
+		"install"
+	) as HTMLButtonElement;
+	private installPrompt: any;
 
 	constructor(
 		private authService: AuthService,
@@ -51,6 +55,31 @@ export class AccessComponent implements OnInit {
 		if (this.authService.isAuthenticated()) {
 			this.router.navigate(["/home/dashboard"]);
 		}
+
+		this.installButton = document.getElementById(
+			"install"
+		) as HTMLButtonElement;
+
+		window.addEventListener("beforeinstallprompt", event => {
+			event.preventDefault();
+			this.installPrompt = event;
+			this.installButton.removeAttribute("hidden");
+		});
+	}
+
+	async installApp() {
+		if (!this.installPrompt) {
+			return;
+		}
+
+		const result = await this.installPrompt.prompt();
+		this.disableInAppInstallPrompt();
+		if (result.outcome === "dismissed") window.location.reload();
+	}
+
+	disableInAppInstallPrompt() {
+		this.installPrompt = null;
+		this.installButton.setAttribute("hidden", "");
 	}
 
 	login() {

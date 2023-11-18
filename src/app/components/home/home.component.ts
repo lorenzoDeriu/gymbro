@@ -14,7 +14,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class HomeComponent implements OnInit {
 	trainingTime: Date | undefined = undefined;
-	intervalID: any;
 	isAdmin: boolean = false;
 
 	constructor(
