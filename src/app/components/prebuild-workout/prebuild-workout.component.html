@@ -16,7 +16,9 @@
 <!-- TODO: Remove !loading and check if object is already loaded -->
 <div *ngIf="!loading" id="wrapper">
 	<div id="main-container" class="p-3">
-		<h1 class="text-center mt-3">{{ (editMode ? 'Modifica' : 'Crea') + ' allenamento' }}</h1>
+		<h1 class="text-center mt-3">
+			{{ (editMode ? "Modifica" : "Crea") + " allenamento" }}
+		</h1>
 
 		<div class="d-flex flex-column align-items-center">
 			<div class="d-flex justify-content-center align-items-center">

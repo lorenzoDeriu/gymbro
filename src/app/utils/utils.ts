@@ -168,7 +168,7 @@ export const formatEffectiveSets = (sets: EffectiveSet[]): string[] => {
 	});
 
 	return formattedSets;
-}
+};
 
 export const generateId = (): string => {
 	return "group-id-" + Math.random().toString(16).slice(2);

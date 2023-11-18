@@ -13,17 +13,25 @@ export class SearchResultComponent implements OnInit {
 	public searchResult: SearchResult[];
 	public loading: boolean = false;
 
-	constructor(private router: Router, private route: ActivatedRoute, private firebase: FirebaseService, private userService: UserService) {}
+	constructor(
+		private router: Router,
+		private route: ActivatedRoute,
+		private firebase: FirebaseService,
+		private userService: UserService
+	) {}
 
 	async ngOnInit() {
 		this.loading = true;
 		this.searchResult = this.userService.getSearchResult();
 
-		if (this.searchResult.length === 0 && this.route.snapshot.paramMap.get('username')) {
+		if (
+			this.searchResult.length === 0 &&
+			this.route.snapshot.paramMap.get("username")
+		) {
 			this.searchResult = await this.firebase.getMatchingUsername(
-				this.route.snapshot.paramMap.get('username')
+				this.route.snapshot.paramMap.get("username")
 			);
-		};
+		}
 
 		this.loading = false;
 	}
