@@ -23,9 +23,9 @@ export interface SearchResult {
 export class FriendsComponent implements OnInit {
 	// private userData: User;
 	private _hasFollow: boolean;
+	private username: string;
 
 	public loading: boolean;
-	private username: string;
 	public friends: string;
 	public followed: FollowedUserInfo[];
 
@@ -38,14 +38,14 @@ export class FriendsComponent implements OnInit {
 	async ngOnInit() {
 		this.loading = true;
 		this.username = await this.firebase.getUsername();
-
 		this.followed = await this.firebase.getFollowed();
+
 		this._hasFollow = this.followed.length > 0;
 		this.loading = false;
 	}
 
 	public hasUsername() {
-		return this.username != undefined;
+		return this.username !== undefined;
 	}
 
 	async addUsername(form: NgForm) {

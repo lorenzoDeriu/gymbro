@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { TrainingProgram } from "src/app/Models/TrainingProgram.model";
 import { formatSets } from "src/app/utils/utils";
 import { Set } from "src/app/Models/Exercise.model";
+import { User } from "src/app/Models/User.model";
 
 @Component({
 	selector: "app-profile",
@@ -30,8 +31,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		this.loading = true;
 
 		try {
-			let uid: string = JSON.parse(localStorage.getItem("user"))["uid"];
-			let user: any = await this.firebase.getUserData(uid);
+			let uid: string = JSON.parse(localStorage.getItem("user"))?.uid;
+			let user: User = await this.firebase.getUserData(uid);
 
 			this.trainingPrograms =
 				await this.firebase.getTrainingProgramsFromUser(uid);
@@ -63,15 +64,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		localStorage.removeItem("profileInfo");
 	}
 
-	formatSets(sets: Set[]) {
+	public formatSets(sets: Set[]) {
 		return formatSets(sets);
 	}
 
-	onCancel() {
+	public onCancel() {
 		this.router.navigate(["/home/search-result"]);
 	}
 
-	isPlaylistUrlValid() {
+	public isPlaylistUrlValid() {
 		return (
 			this.playlistUrl &&
 			this.playlistUrl !== "" &&
@@ -79,7 +80,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		);
 	}
 
-	focusCollapse(type: "program" | "session", index: number) {
+	public focusCollapse(type: "program" | "session", index: number) {
 		if (type === "program") {
 			const collapsers: NodeListOf<Element> =
 				document.querySelectorAll(".collapser");
@@ -96,14 +97,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	saveWorkout(trainingProgramIndex: number) {
+	public saveTrainingProgram(trainingProgramIndex: number) {
 		this.firebase.addTrainingProgram(
 			this.trainingPrograms[trainingProgramIndex]
 		);
 		this.snackBar.open("Scheda salvata!", "Ok", { duration: 3000 });
 	}
 
-	showNotes(
+	public showNotes(
 		programIndex: number,
 		workoutIndex: number,
 		exerciseIndex: number

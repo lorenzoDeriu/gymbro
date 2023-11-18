@@ -51,7 +51,7 @@ import {
 } from "../Models/Exercise.model";
 import { Workout } from "../Models/Workout.model";
 import { Feedback } from "../Models/Feedback.model";
-import { SearchResult } from "../components/friends/friends.component";
+import { FollowedUserInfo, SearchResult } from "../components/friends/friends.component";
 import { generateId } from "../utils/utils";
 
 @Injectable({
@@ -705,33 +705,27 @@ export class FirebaseService {
 
 		let follow = data.follow;
 
-		let result: {
-			uid: string;
-			username: string;
-			visibilityPermission: boolean;
-		}[] = [];
+		let result: FollowedUserInfo[] = [];
 
-		follow.forEach(async (followedUID: string) => {
+		for (let followedUID of follow) {
 			let documentReference = doc(this.db, "users", followedUID);
 			let documentSnapshot = await this.getDocumentSnapshot(
 				documentReference
 			);
 
-			if (!documentSnapshot.exists()) {
-				return;
+			if (documentSnapshot.exists()) {
+				let userObj: FollowedUserInfo = {
+					uid: followedUID,
+					username: (documentSnapshot.data() as User).username,
+					visibilityPermission: (documentSnapshot.data() as User)
+						.visibility,
+				};
+
+				result.push(userObj);
 			}
+		};
 
-			let userObj = {
-				uid: followedUID,
-				username: (documentSnapshot.data() as User).username,
-				visibilityPermission: (documentSnapshot.data() as User)
-					.visibility,
-			};
-
-			result.push(userObj);
-		});
-
-		return result;
+		return result as FollowedUserInfo[];
 	}
 
 	public async unfollow(uidToUnfollow: string) {

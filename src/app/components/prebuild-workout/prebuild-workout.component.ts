@@ -204,7 +204,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		} else {
 			this.workout.exercises[exerciseIndex].set.push({
 				reps: 8,
-				load: 20,
+				load: 0,
 			});
 		}
 
