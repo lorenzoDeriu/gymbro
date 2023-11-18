@@ -1,6 +1,6 @@
 import { endOfWeek } from "date-fns";
 import { Workout } from "../Models/Workout.model";
-import { EffectiveExercise, Set } from "../Models/Exercise.model";
+import { EffectiveExercise, EffectiveSet, Set } from "../Models/Exercise.model";
 
 export interface ExerciseLog {
 	exercise: EffectiveExercise;
@@ -152,6 +152,23 @@ export const formatSets = (sets: Set[]): string[] => {
 
 	return formattedSets;
 };
+
+export const formatEffectiveSets = (sets: EffectiveSet[]): string[] => {
+	const formattedSets: string[] = [];
+	const setCountMap: Map<string, number> = new Map();
+
+	for (const set of sets) {
+		const key = `${set.reps} @ ${set.load}`;
+
+		setCountMap.set(key, (setCountMap.get(key) || 0) + 1);
+	}
+
+	setCountMap.forEach((count, key) => {
+		formattedSets.push(`${count} x ${key}`);
+	});
+
+	return formattedSets;
+}
 
 export const generateId = (): string => {
 	return "group-id-" + Math.random().toString(16).slice(2);
