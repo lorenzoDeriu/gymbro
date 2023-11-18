@@ -77,6 +77,29 @@ export class PrebuildWorkoutComponent implements OnInit {
 		);
 	}
 
+	public finishWorkout() {
+		if (
+			this.workoutProgress.completed.some(exercise =>
+				exercise.some(setCompleted => !setCompleted)
+			)
+		) {
+			this.dialog.open(SafetyActionConfirmDialogComponent, {
+				data: {
+					title: "Allenamento incompleto",
+					message: "Sei sicuro di voler terminare l'allenamento?",
+					args: [],
+					confirm: () => {
+						this.saveWorkout();
+					},
+				},
+			});
+		}
+
+		else {
+			this.saveWorkout();
+		}
+	}
+
 	public saveWorkout() {
 		this.workout.date = this.fromStringToTimestamp(this.date);
 		this.userService.updateWorkout(this.workout);
@@ -127,6 +150,16 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.workoutProgress.completed[exerciseIndex][setIndex] =
 			!this.workoutProgress.completed[exerciseIndex][setIndex];
+
+		this.userService.updateWorkout(this.workout);
+	}
+
+	public markAllCompleted() {
+		this.workoutProgress.completed.forEach((exercise, exerciseIndex) => {
+			exercise.forEach((_, setIndex) => {
+				this.workoutProgress.completed[exerciseIndex][setIndex] = true;
+			});
+		});
 
 		this.userService.updateWorkout(this.workout);
 	}
