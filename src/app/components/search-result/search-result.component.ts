@@ -12,7 +12,11 @@ import { SearchResult } from "../friends/friends.component";
 export class SearchResultComponent implements OnInit {
 	public searchResult: SearchResult[];
 
-	constructor(private router: Router, private firebase: FirebaseService, private userService: UserService) {}
+	constructor(
+		private router: Router,
+		private firebase: FirebaseService,
+		private userService: UserService
+	) {}
 
 	ngOnInit(): void {
 		this.searchResult = this.userService.getSearchResult();

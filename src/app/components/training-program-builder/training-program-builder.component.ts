@@ -44,9 +44,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			this.userService.setTrainingProgram(this.trainingProgram);
 
 			this.editMode = true;
-		}
-
-		else {
+		} else {
 			this.trainingProgram = this.userService.getTrainingProgram();
 		}
 
@@ -61,7 +59,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		return (
 			this.trainingProgram.name !== "" &&
 			this.trainingProgram.session.length > 0
-		)
+		);
 	}
 
 	public addExercise(session: Session) {

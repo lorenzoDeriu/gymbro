@@ -17,7 +17,7 @@ export class UserService {
 	private uidProfile: string;
 
 	private editMode: boolean = false;
-	private workoutToEditIndex: number
+	private workoutToEditIndex: number;
 
 	/* private stopwatchTime: BehaviorSubject<Date | undefined> = new BehaviorSubject<Date | undefined>(localStorage.getItem('startTime')!! ? new Date(localStorage.getItem('startTime')) : undefined);
 	public stopwatchTimeObs = this.stopwatchTime.asObservable(); */
@@ -62,7 +62,9 @@ export class UserService {
 		}
 
 		if (localStorage.getItem("workoutToEditIndex") !== null) {
-			this.workoutToEditIndex = JSON.parse(localStorage.getItem("workoutToEditIndex"));
+			this.workoutToEditIndex = JSON.parse(
+				localStorage.getItem("workoutToEditIndex")
+			);
 		}
 	}
 
@@ -78,7 +80,10 @@ export class UserService {
 
 	public async saveWorkout() {
 		if (this.editMode) {
-			await this.firebase.updateWorkout(this.workout, this.workoutToEditIndex);
+			await this.firebase.updateWorkout(
+				this.workout,
+				this.workoutToEditIndex
+			);
 			this.setEditMode(false);
 			return;
 		}

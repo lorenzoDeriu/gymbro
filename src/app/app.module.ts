@@ -74,7 +74,7 @@ import { NewWorkoutDialogComponent } from "./components/new-workout-dialog/new-w
 import { CustomExcerciseDialogComponent } from "./components/custom-excercise-dialog/custom-excercise-dialog.component";
 import { ShareDialogComponent } from "./components/share-dialog/share-dialog.component";
 import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
-import { AboutPreviewComponent } from './components/about-preview/about-preview.component';
+import { AboutPreviewComponent } from "./components/about-preview/about-preview.component";
 
 @NgModule({
 	declarations: [
@@ -113,7 +113,7 @@ import { AboutPreviewComponent } from './components/about-preview/about-preview.
 		CustomExcerciseDialogComponent,
 		ShareDialogComponent,
 		AdminDialogComponent,
-  AboutPreviewComponent,
+		AboutPreviewComponent,
 	],
 	imports: [
 		BrowserModule,

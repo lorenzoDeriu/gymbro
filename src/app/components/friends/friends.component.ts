@@ -29,8 +29,11 @@ export class FriendsComponent implements OnInit {
 	public friends: string;
 	public followed: FollowedUserInfo[];
 
-
-	constructor(private firebase: FirebaseService, private router: Router, private userService: UserService) {}
+	constructor(
+		private firebase: FirebaseService,
+		private router: Router,
+		private userService: UserService
+	) {}
 
 	async ngOnInit() {
 		this.loading = true;

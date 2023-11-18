@@ -449,7 +449,9 @@ export class FirebaseService {
 		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
 		const documentReference = doc(this.db, "users", uid);
-		const documentSnapshot = await this.getDocumentSnapshot(documentReference);
+		const documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
 
 		if (documentSnapshot.exists()) {
 			let data = documentSnapshot.data() as User;
@@ -625,7 +627,9 @@ export class FirebaseService {
 		return hasFollow;
 	}
 
-	public async getMatchingUsername(username: string): Promise<SearchResult[]> {
+	public async getMatchingUsername(
+		username: string
+	): Promise<SearchResult[]> {
 		let collectionReference = collection(this.db, "users");
 		let querySnapshot = navigator.onLine
 			? await getDocs(
