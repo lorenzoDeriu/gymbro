@@ -101,6 +101,8 @@ export class UserService {
 			trainingTime: 0,
 		};
 		localStorage.removeItem("workout");
+		localStorage.removeItem("editMode");
+		localStorage.removeItem("workoutToEditIndex");
 	}
 
 	public getPlaylistURL() {
