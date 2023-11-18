@@ -119,12 +119,12 @@
 									<div class="d-flex flex-column">
 										<div
 											*ngFor="
-												let set of exercise.set;
+												let set of formatEffectiveSets(exercise.set);
 												index as setIndex
 											"
 										>
 											{{
-												set.reps + "@" + set.load + "Kg"
+												set
 											}}
 										</div>
 									</div>

@@ -6,7 +6,16 @@
 			(click)="openNewWorkoutDialog()"
 		>
 			<h3 class="mb-0 fw-bold">
-				{{ workoutExists() ? "Continua" : "Crea" }} Allenamento
+				{{
+					workoutExists()
+					?
+					(
+						editMode
+						? "Modifica"
+						: "Continua"
+					)
+					: "Crea"
+				}} Allenamento
 			</h3>
 			<img src="assets/dumbbell.png" alt="" />
 		</div>

@@ -158,7 +158,7 @@ export const formatEffectiveSets = (sets: EffectiveSet[]): string[] => {
 	const setCountMap: Map<string, number> = new Map();
 
 	for (const set of sets) {
-		const key = `${set.reps} @ ${set.load}`;
+		const key = `${set.reps}@${set.load}`;
 
 		setCountMap.set(key, (setCountMap.get(key) || 0) + 1);
 	}
