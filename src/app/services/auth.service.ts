@@ -133,7 +133,7 @@ export class AuthService {
 		this.firebase.signout();
 		this.loggedIn = false;
 		localStorage.removeItem("user");
-		this.router.navigate(["/welcome"]);
+		window.location.href = "/welcome";
 	}
 
 	public async deleteAccount() {

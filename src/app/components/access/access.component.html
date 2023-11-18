@@ -1,12 +1,24 @@
+<div class="position-absolute top-0 end-0 me-3 mt-3">
+	<a
+		hidden
+		id="install"
+		(click)="installApp()"
+		class="blue-link me-3"
+	>
+		Installa
+		<i class="ms-1 bi bi-download"></i>
+	</a>
+	<a href="about-preview" class="blue-link">
+		About
+		<i class="ms-1 bi bi-question-circle-fill"></i>
+	</a>
+</div>
+
 <div
 	*ngIf="onLogin"
 	class="right-wrap d-flex justify-content-center align-items-center"
 	style="width: 100vw; height: 100svh"
 >
-	<a href="about-preview" class="position-absolute top-0 end-0 me-3 mt-3 blue-link">
-		About
-		<i class="ms-1 bi bi-question-circle-fill"></i>
-	</a>
 	<div
 		class="d-flex flex-column justify-content-center align-items-center p-3 h-100 w-100"
 	>
