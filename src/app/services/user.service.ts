@@ -101,6 +101,7 @@ export class UserService {
 			trainingTime: 0,
 		};
 		localStorage.removeItem("workout");
+		this.setEditMode(false);
 		localStorage.removeItem("editMode");
 		localStorage.removeItem("workoutToEditIndex");
 	}
