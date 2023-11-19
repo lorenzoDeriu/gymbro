@@ -16,7 +16,9 @@
 <!-- TODO: Remove !loading and check if object is already loaded -->
 <div id="wrapper" *ngIf="!loading">
 	<div id="main-container" class="p-3">
-		<h1 class="my-3 text-center">Nuova scheda di allenamento</h1>
+		<h1 class="my-3 text-center">
+			{{ editMode ? 'Modifica' : 'Nuova' }} scheda di allenamento
+		</h1>
 
 		<form class="d-flex justify-content-center align-items-center mb-4">
 			<button

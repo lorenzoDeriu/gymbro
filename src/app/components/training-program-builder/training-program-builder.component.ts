@@ -20,7 +20,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		session: [],
 	};
 
-	private editMode = false;
+	public editMode = false;
 	public loading = false;
 	private index: number;
 
