@@ -13,7 +13,7 @@ export class NewWorkoutDialogComponent {
 	) {}
 
 	workoutExists() {
-		return localStorage.getItem("workout") != null;
+		return localStorage.getItem("workout") !== null;
 	}
 
 	allowNavigate() {
@@ -26,9 +26,6 @@ export class NewWorkoutDialogComponent {
 	navigate(path: string) {
 		this.router.navigate([path]);
 		this.closeDialog();
-
-		// Set the stopwatch time to now
-		/* this.userService.setStopwatchTime(new Date()); */
 	}
 
 	closeDialog() {

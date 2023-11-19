@@ -5,7 +5,6 @@ import { MatDialog } from "@angular/material/dialog";
 import { FeedbackDialogComponent } from "../feedback-dialog/feedback-dialog.component";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { UserService } from "src/app/services/user.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
 	selector: "app-home",
@@ -13,20 +12,27 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 	styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-	trainingTime: Date | undefined = undefined;
-	isAdmin: boolean = false;
+	public trainingTime: number;
+	public restTime: number;
+	public inTraining: boolean = false;
+	public inRest: boolean = false;
+	public isAdmin: boolean = false;
+	public playlistUrl: string;
 
 	constructor(
 		private authservice: AuthService,
 		private router: Router,
 		private dialog: MatDialog,
-		private firebase: FirebaseService
+		private firebase: FirebaseService,
+		private userService: UserService,
 	) {}
 
 	ngOnInit(): void {
 		this.firebase.userIsAdmin().then(isAdmin => {
 			this.isAdmin = isAdmin;
 		});
+
+		this.playlistUrl = this.userService.getPlaylistURL();
 	}
 
 	fixDB() {

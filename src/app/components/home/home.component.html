@@ -8,17 +8,75 @@
 			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="70" />
 		</a>
 
-		<button
-			*ngIf="trainingTime"
-			(click)="toContinueWorkout()"
-			class="blue-btn text-light btn rounded-5 d-flex justify-content-between"
-			style="width: 115px; border: none; background-color: #4089c9"
-		>
-			<i class="bi bi-stopwatch me-2"></i>
-			<p class="text-start m-0 w-100">
-				{{ trainingTime | date : "HH:mm:ss" }}
-			</p>
-		</button>
+		<div class="d-flex">
+			<button
+				*ngIf="inTraining"
+				(click)="toContinueWorkout()"
+				class="blue-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between"
+				style="width: 115px; border: none; background-color: #4089c9"
+			>
+				<i class="bi bi-stopwatch me-2"></i>
+				<p class="text-start m-0 w-100">
+					{{ trainingTime | date : "HH:mm:ss" }}
+				</p>
+			</button>
+
+			<button
+				*ngIf="inTraining"
+				(click)="toContinueWorkout()"
+				class="blue-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between"
+				style="width: 90px; border: none; background-color: #4089c9"
+			>
+				<i class="bi bi-stopwatch me-2"></i>
+				<p class="text-start m-0 w-100">
+					{{ trainingTime | date : "HH:mm:ss" }}
+				</p>
+			</button>
+
+			<button
+				*ngIf="inRest"
+				(click)="toContinueWorkout()"
+				class="btn-warning text-light btn rounded-5 d-lg-flex d-none justify-content-between"
+				style="width: 115px;"
+			>
+				<i class="bi bi-hourglass-split me-2"></i>
+				<p class="text-start m-0 w-100">
+					{{ restTime | date : "HH:mm:ss" }}
+				</p>
+			</button>
+
+			<button
+				*ngIf="inRest"
+				(click)="toContinueWorkout()"
+				class="btn-warning btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between"
+				style="width: 90px;"
+			>
+				<i class="bi bi-hourglass-split me-2"></i>
+				<p class="text-start m-0 w-100">
+					{{ restTime | date : "HH:mm:ss" }}
+				</p>
+			</button>
+
+			<a
+				*ngIf="playlistUrl && (inTraining || inRest)"
+				[href]="playlistUrl"
+				target="_blank"
+				class="ms-2 btn d-none d-lg-block rounded-5 text-light"
+				style="background-color: #1ed760"
+			>
+				<i class="bi bi-spotify"></i>
+			</a>
+
+			<a
+				*ngIf="playlistUrl && (inTraining || inRest)"
+				[href]="playlistUrl"
+				target="_blank"
+				class="ms-2 btn btn-sm d-block d-lg-none rounded-5 text-light"
+				style="background-color: #1ed760"
+			>
+				<i class="bi bi-spotify"></i>
+			</a>
+		</div>
 
 		<div class="btn-group">
 			<button

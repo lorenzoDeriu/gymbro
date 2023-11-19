@@ -26,7 +26,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public availableExercise: string[] = [];
 	public workout: Workout;
 	public workoutProgress: Progress = { completed: [] };
-	public playlistUrl: string;
 	public date: string = this.fromTimestampToString(Date.now());
 	public loading: boolean = false;
 	public editMode: boolean = false;
@@ -43,7 +42,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.editMode = this.userService.getEditMode();
 		this.availableExercise = await this.firebase.getExercise();
-		this.playlistUrl = this.userService.getPlaylistURL();
 
 		this.workout = this.userService.getWorkout();
 		this.date = this.fromTimestampToString(this.workout.date);
