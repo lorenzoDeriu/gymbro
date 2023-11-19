@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
@@ -8,13 +8,14 @@ import { TrainingProgram } from "src/app/Models/TrainingProgram.model";
 import { formatSets } from "src/app/utils/utils";
 import { Set } from "src/app/Models/Exercise.model";
 import { User } from "src/app/Models/User.model";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
 	selector: "app-profile",
 	templateUrl: "./profile.component.html",
 	styleUrls: ["./profile.component.css"],
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
 	public username: string;
 	public searchUsername: string;
 	public trainingPrograms: TrainingProgram[];
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private firebase: FirebaseService,
+		private userService: UserService,
 		private snackBar: MatSnackBar,
 		private dialog: MatDialog,
 		private router: Router,
@@ -36,41 +38,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
 			this.searchUsername = this.route.snapshot.paramMap.get("username");
 		}
 
-		try {
-			let uid: string = JSON.parse(localStorage.getItem("profile"))?.uid;
-			let user: User = await this.firebase.getUserData(uid);
+		let friendUid: string = this.userService.getUidProfile();
+		let user: User = await this.firebase.getUserData(friendUid);
+		this.username = user.username;
+		this.playlistUrl = user.playlistUrl;
 
-			console.log(user);
-			console.log(uid);
-
-			this.trainingPrograms =
-				await this.firebase.getTrainingProgramsFromUser(uid);
-			this.username = user.username;
-			this.playlistUrl = user.playlistUrl;
-
-			if (!this.trainingPrograms) this.trainingPrograms = [];
-		} catch {
-			this.trainingPrograms = JSON.parse(
-				localStorage.getItem("profileInfo")
-			)["trainingPrograms"];
-			this.username = JSON.parse(localStorage.getItem("profileInfo"))[
-				"username"
-			];
-		} finally {
-			localStorage.setItem(
-				"profileInfo",
-				JSON.stringify({
-					trainingPrograms: this.trainingPrograms,
-					username: this.username,
-				})
-			);
-		}
+		this.trainingPrograms = await this.firebase.getTrainingProgramsFromUser(friendUid);
 
 		this.loading = false;
-	}
-
-	ngOnDestroy(): void {
-		localStorage.removeItem("profileInfo");
 	}
 
 	public formatSets(sets: Set[]) {

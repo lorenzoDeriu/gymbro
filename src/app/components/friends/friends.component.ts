@@ -81,10 +81,7 @@ export class FriendsComponent implements OnInit {
 	}
 
 	public viewProfile(index: number) {
-		localStorage.setItem(
-			"profile",
-			JSON.stringify({ uid: this.followed[index].uid })
-		);
+		this.userService.setUidProfile(this.followed[index].uid);
 		this.router.navigate(["/home/profile"]);
 	}
 }

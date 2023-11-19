@@ -885,6 +885,7 @@ export class FirebaseService {
 		updateDoc(documentReference, { playlistUrl: playlistUrl });
 	}
 
+	// DO NOT TOUCH THIS!!!
 	public async getUid() {
 		return await new Promise<string>((resolve, _) => {
 			onAuthStateChanged(this.auth, user => {
