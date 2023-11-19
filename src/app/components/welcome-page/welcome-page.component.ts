@@ -128,7 +128,7 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	access() {
-		window.location.href = "/access";
+		this.router.navigate(["/access"]);
 	}
 
 	signUp() {
