@@ -5,7 +5,7 @@ import { FirebaseService } from "./firebase.service";
 import { ErrorLoginDialogComponent } from "../components/error-login-dialog/error-login-dialog.component";
 import { ErrorRegisterDialogComponent } from "../components/error-register-dialog/error-register-dialog.component";
 import { ErrorProviderDialogComponent } from "../components/error-provider-dialog/error-provider-dialog.component";
-import { UserCredential } from "firebase/auth";
+import { Auth, UserCredential, getAuth } from "firebase/auth";
 import { User } from "../Models/User.model";
 
 export type UserData = {
@@ -19,6 +19,8 @@ export type UserData = {
 	providedIn: "root",
 })
 export class AuthService {
+	private auth: Auth = getAuth();
+
 	private loggedIn: boolean = false;
 
 	constructor(
@@ -98,7 +100,7 @@ export class AuthService {
 	}
 
 	public createNewUserInfo(username: string = "") {
-		let uid = JSON.parse(localStorage.getItem("user")).uid;
+		let uid = this.auth.currentUser.uid;
 
 		let userObj: User = {
 			username: username,
@@ -116,13 +118,13 @@ export class AuthService {
 
 	private loginUser(user: UserData) {
 		this.loggedIn = true;
-		localStorage.setItem("user", JSON.stringify(user));
+		// localStorage.setItem("user", JSON.stringify(user));
 
 		this.router.navigate(["/home/dashboard"]);
 	}
 
 	public isAuthenticated() {
-		if (!this.loggedIn && localStorage.getItem("user") != null) {
+		if (!this.loggedIn && this.auth.currentUser !== null) {
 			this.loggedIn = true;
 		}
 

@@ -173,3 +173,12 @@ export const formatEffectiveSets = (sets: EffectiveSet[]): string[] => {
 export const generateId = (): string => {
 	return "group-id-" + Math.random().toString(16).slice(2);
 };
+
+// export const getSessionExerciseFor = (
+// 	exerciseName: string,
+// 	workouts: Workout[],
+// ) {
+// 	const sortedWorkouts = sortByDate(workouts);
+// 	const sessionExercises: ExerciseLog[] = [];
+// };
+
