@@ -9,11 +9,12 @@
 		</a>
 
 		<div class="d-flex">
+			<!-- Stopwatch -->
 			<button
 				*ngIf="inTraining"
 				(click)="toContinueWorkout()"
-				class="blue-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between"
-				style="width: 115px; border: none; background-color: #4089c9"
+				class="purple-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between"
+				style="width: 115px;"
 			>
 				<i class="bi bi-stopwatch me-2"></i>
 				<p class="text-start m-0 w-100">
@@ -24,8 +25,8 @@
 			<button
 				*ngIf="inTraining"
 				(click)="toContinueWorkout()"
-				class="blue-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between"
-				style="width: 90px; border: none; background-color: #4089c9"
+				class="purple-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between"
+				style="width: 90px;"
 			>
 				<i class="bi bi-stopwatch me-2"></i>
 				<p class="text-start m-0 w-100">
@@ -33,10 +34,11 @@
 				</p>
 			</button>
 
+			<!-- Timer -->
 			<button
 				*ngIf="inRest"
 				(click)="toContinueWorkout()"
-				class="btn-warning text-light btn rounded-5 d-lg-flex d-none justify-content-between"
+				class="blue-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between"
 				style="width: 115px;"
 			>
 				<i class="bi bi-hourglass-split me-2"></i>
@@ -48,7 +50,7 @@
 			<button
 				*ngIf="inRest"
 				(click)="toContinueWorkout()"
-				class="btn-warning btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between"
+				class="blue-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between"
 				style="width: 90px;"
 			>
 				<i class="bi bi-hourglass-split me-2"></i>
@@ -57,6 +59,7 @@
 				</p>
 			</button>
 
+			<!-- Spotify -->
 			<a
 				*ngIf="playlistUrl && (inTraining || inRest)"
 				[href]="playlistUrl"

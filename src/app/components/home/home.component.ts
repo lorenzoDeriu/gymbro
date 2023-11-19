@@ -27,11 +27,8 @@ export class HomeComponent implements OnInit {
 		private userService: UserService,
 	) {}
 
-	ngOnInit(): void {
-		this.firebase.userIsAdmin().then(isAdmin => {
-			this.isAdmin = isAdmin;
-		});
-
+	async ngOnInit() {
+		this.isAdmin = await this.firebase.userIsAdmin();
 		this.playlistUrl = this.userService.getPlaylistURL();
 	}
 
