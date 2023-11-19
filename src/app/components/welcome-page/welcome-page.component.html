@@ -65,7 +65,7 @@
 			class="d-flex justify-content-center align-items-center w-100"
 			style="height: 10%"
 		>
-			<button (click)="access()" class="blue-btn text-light btn btn-sm me-3">
+			<button (click)="access()" [ngClass]="{'blue-btn text-light btn btn-sm': true, 'me-3': mobileInstallBtnVisiblity()}">
 				Accedi
 				<i class="ms-1 bi bi-box-arrow-in-right"></i>
 			</button>

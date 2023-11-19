@@ -37,8 +37,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		}
 
 		try {
-			let uid: string = JSON.parse(localStorage.getItem("user"))?.uid;
+			let uid: string = JSON.parse(localStorage.getItem("profile"))?.uid;
 			let user: User = await this.firebase.getUserData(uid);
+
+			console.log(user);
+			console.log(uid)
 
 			this.trainingPrograms =
 				await this.firebase.getTrainingProgramsFromUser(uid);
@@ -75,10 +78,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
 	}
 
 	public onCancel() {
-		this.router.navigate([
-			"/home/search-result",
-			{ username: this.searchUsername },
-		]);
+		if (this.route.snapshot.paramMap.get("username")) {
+			this.router.navigate([
+				"/home/search-result",
+				{ username: this.searchUsername },
+			]);
+		}
+
+		else {
+			this.router.navigate(["/home/friends"]);
+		}
 	}
 
 	public isPlaylistUrlValid() {

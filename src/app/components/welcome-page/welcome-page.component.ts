@@ -26,7 +26,7 @@ export class WelcomePageComponent implements OnInit {
 	) as HTMLButtonElement;
 	private installPrompt: any;
 
-	private installButtonMobile: HTMLElement | undefined = document.getElementById(
+	public installButtonMobile: HTMLElement | undefined = document.getElementById(
 		"installMobile"
 	) as HTMLButtonElement;
 	private installPromptMobile: any;
@@ -83,6 +83,10 @@ export class WelcomePageComponent implements OnInit {
 
 	async ngOnDestroy() {
 		this.scrollableContainer.removeEventListener("scroll", () => {});
+	}
+
+	public mobileInstallBtnVisiblity() {
+		return !this.installButtonMobile.hasAttribute("hidden");
 	}
 
 	async installApp(device: "desktop" | "mobile") {
