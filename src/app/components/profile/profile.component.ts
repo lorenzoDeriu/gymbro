@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 			let user: User = await this.firebase.getUserData(uid);
 
 			console.log(user);
-			console.log(uid)
+			console.log(uid);
 
 			this.trainingPrograms =
 				await this.firebase.getTrainingProgramsFromUser(uid);
@@ -83,9 +83,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 				"/home/search-result",
 				{ username: this.searchUsername },
 			]);
-		}
-
-		else {
+		} else {
 			this.router.navigate(["/home/friends"]);
 		}
 	}

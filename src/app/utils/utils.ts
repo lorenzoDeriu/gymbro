@@ -181,4 +181,3 @@ export const generateId = (): string => {
 // 	const sortedWorkouts = sortByDate(workouts);
 // 	const sessionExercises: ExerciseLog[] = [];
 // };
-

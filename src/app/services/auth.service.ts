@@ -5,7 +5,7 @@ import { FirebaseService } from "./firebase.service";
 import { ErrorLoginDialogComponent } from "../components/error-login-dialog/error-login-dialog.component";
 import { ErrorRegisterDialogComponent } from "../components/error-register-dialog/error-register-dialog.component";
 import { ErrorProviderDialogComponent } from "../components/error-provider-dialog/error-provider-dialog.component";
-import { Auth, UserCredential, getAuth } from "firebase/auth";
+import { UserCredential } from "firebase/auth";
 import { User } from "../Models/User.model";
 
 export type UserData = {
@@ -19,8 +19,6 @@ export type UserData = {
 	providedIn: "root",
 })
 export class AuthService {
-	private auth: Auth = getAuth();
-
 	private loggedIn: boolean = false;
 
 	constructor(
@@ -100,7 +98,7 @@ export class AuthService {
 	}
 
 	public createNewUserInfo(username: string = "") {
-		let uid = this.auth.currentUser.uid;
+		let uid = this.firebase.getUid();
 
 		let userObj: User = {
 			username: username,
@@ -124,7 +122,7 @@ export class AuthService {
 	}
 
 	public isAuthenticated() {
-		if (!this.loggedIn && this.auth.currentUser !== null) {
+		if (!this.loggedIn && this.firebase.getUid() !== null) {
 			this.loggedIn = true;
 		}
 

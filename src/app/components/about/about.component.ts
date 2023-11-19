@@ -12,9 +12,8 @@ export class AboutComponent {
 	) as HTMLButtonElement;
 	private installPrompt: any;
 
-	private installButtonMobile: HTMLElement | undefined = document.getElementById(
-		"installMobile"
-	) as HTMLButtonElement;
+	private installButtonMobile: HTMLElement | undefined =
+		document.getElementById("installMobile") as HTMLButtonElement;
 	private installPromptMobile: any;
 
 	constructor(private router: Router) {}

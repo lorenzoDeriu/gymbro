@@ -93,9 +93,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 					},
 				},
 			});
-		}
-
-		else {
+		} else {
 			this.saveWorkout();
 		}
 	}
