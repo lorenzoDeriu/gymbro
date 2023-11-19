@@ -155,7 +155,7 @@ import { AboutPreviewComponent } from "./components/about-preview/about-preview.
 	providers: [
 		MatNativeDateModule,
 		{ provide: MAT_DATE_LOCALE, useValue: "en-GB" },
-		{ provide: DateAdapter, useClass: CustomDateAdapter },
+		{ provide: DateAdapter, useClass: CustomDateAdapter }, // TODO: @LORE This is DEPRECATED
 	],
 	bootstrap: [AppComponent],
 })

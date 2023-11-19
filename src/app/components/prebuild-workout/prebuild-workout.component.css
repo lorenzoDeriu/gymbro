@@ -66,6 +66,10 @@ input:focus {
 	#main-container {
 		width: 100%;
 	}
+
+	.mobile-btn {
+		font-size: 12px;
+	}
 }
 
 @media (max-width: 400px) {

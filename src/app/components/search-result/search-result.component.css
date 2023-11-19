@@ -19,6 +19,10 @@ input:focus {
 	outline: none;
 }
 
+.user {
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.135);
+}
+
 .user:hover {
 	box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.135);
 }
@@ -34,4 +38,16 @@ input:focus {
 
 .purple-btn:active {
 	background-color: #957dd6 !important;
+}
+
+@media (max-width: 1000px) {
+	#main-container {
+		width: 70%;
+	}
+}
+
+@media (max-width: 600px) {
+	#main-container {
+		width: 100%;
+	}
 }

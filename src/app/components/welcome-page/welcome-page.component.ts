@@ -26,6 +26,11 @@ export class WelcomePageComponent implements OnInit {
 	) as HTMLButtonElement;
 	private installPrompt: any;
 
+	public installButtonMobile: HTMLElement | undefined = document.getElementById(
+		"installMobile"
+	) as HTMLButtonElement;
+	private installPromptMobile: any;
+
 	constructor(
 		private authService: AuthService,
 		private router: Router,
@@ -40,11 +45,16 @@ export class WelcomePageComponent implements OnInit {
 		this.installButton = document.getElementById(
 			"install"
 		) as HTMLButtonElement;
+		this.installButtonMobile = document.getElementById(
+			"installMobile"
+		) as HTMLButtonElement;
 
 		window.addEventListener("beforeinstallprompt", event => {
 			event.preventDefault();
 			this.installPrompt = event;
 			this.installButton.removeAttribute("hidden");
+			this.installPromptMobile = event;
+			this.installButtonMobile.removeAttribute("hidden");
 		});
 	}
 
@@ -75,19 +85,35 @@ export class WelcomePageComponent implements OnInit {
 		this.scrollableContainer.removeEventListener("scroll", () => {});
 	}
 
-	async installApp() {
-		if (!this.installPrompt) {
-			return;
-		}
+	public mobileInstallBtnVisiblity() {
+		return !this.installButtonMobile.hasAttribute("hidden");
+	}
 
-		const result = await this.installPrompt.prompt();
-		this.disableInAppInstallPrompt();
-		if (result.outcome === "dismissed") window.location.reload();
+	async installApp(device: "desktop" | "mobile") {
+		if (device === "desktop") {
+			if (!this.installPrompt) {
+				return;
+			}
+
+			const result = await this.installPrompt.prompt();
+			this.disableInAppInstallPrompt();
+			if (result.outcome === "dismissed") window.location.reload();
+		} else {
+			if (!this.installPromptMobile) {
+				return;
+			}
+
+			const result = await this.installPromptMobile.prompt();
+			this.disableInAppInstallPrompt();
+			if (result.outcome === "dismissed") window.location.reload();
+		}
 	}
 
 	disableInAppInstallPrompt() {
 		this.installPrompt = null;
 		this.installButton.setAttribute("hidden", "");
+		this.installPromptMobile = null;
+		this.installButtonMobile.setAttribute("hidden", "");
 	}
 
 	login() {

@@ -7,15 +7,15 @@ import { Router } from "@angular/router";
 	styleUrls: ["./about.component.css"],
 })
 export class AboutComponent {
-	installButton: HTMLElement | undefined = document.getElementById(
+	private installButton: HTMLElement | undefined = document.getElementById(
 		"install"
 	) as HTMLButtonElement;
-	installPrompt: any;
+	private installPrompt: any;
 
-	installButtonMobile: HTMLElement | undefined = document.getElementById(
+	private installButtonMobile: HTMLElement | undefined = document.getElementById(
 		"installMobile"
 	) as HTMLButtonElement;
-	installPromptMobile: any;
+	private installPromptMobile: any;
 
 	constructor(private router: Router) {}
 

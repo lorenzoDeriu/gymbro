@@ -57,7 +57,7 @@
 					[disabled]="!savable() && !editMode"
 					(click)="saveWorkout()"
 				>
-					Salva
+					Termina
 					<i class="ms-1 bi bi-check"></i>
 				</button>
 				<button
@@ -71,7 +71,19 @@
 			</div>
 
 			<div class="mb-3">
-				<div class="input-group flex-nowrap mb-4">
+				<div class="input-group d-none d-lg-flex mb-4">
+					<span class="input-group-text">Data</span>
+					<input
+						type="date"
+						class="form-control"
+						aria-describedby="addon-wrapping"
+						id="date-picker"
+						[(ngModel)]="date"
+						[ngModelOptions]="{ standalone: true }"
+					/>
+				</div>
+
+				<div class="input-group input-group-sm d-flex d-lg-none mb-4">
 					<span class="input-group-text">Data</span>
 					<input
 						type="date"
@@ -88,7 +100,7 @@
 					[href]="playlistUrl"
 					target="_blank"
 					*ngIf="playlistUrl && !editMode"
-					class="btn d-none d-lg-block w-100 mb-4 text-light"
+					class="btn d-none d-lg-block w-100 text-light"
 					style="background-color: #1ed760"
 				>
 					<i class="me-1 bi bi-spotify"></i>
@@ -99,44 +111,12 @@
 					[href]="playlistUrl"
 					target="_blank"
 					*ngIf="playlistUrl && !editMode"
-					class="btn btn-sm d-block d-lg-none w-100 mb-3 text-light"
+					class="btn btn-sm d-block d-lg-none w-100 text-light"
 					style="background-color: #1ed760"
 				>
 					<i class="me-1 bi bi-spotify"></i>
 					Spotify
 				</a>
-
-				<div class="align-items-center d-none d-lg-flex">
-					<button
-						class="btn btn-dark w-100 me-2"
-						(click)="addExercise()"
-					>
-						Esercizio
-						<i class="bi bi-plus"></i>
-					</button>
-
-					<button class="btn btn-danger w-100" (click)="onCancel()">
-						Annulla
-					</button>
-				</div>
-
-				<!--Mobile-->
-				<div class="flex-column align-items-center d-flex d-lg-none">
-					<button
-						class="btn btn-sm btn-dark w-100 mb-3"
-						(click)="addExercise()"
-					>
-						Aggiungi esercizio
-						<i class="bi bi-plus"></i>
-					</button>
-
-					<button
-						class="btn btn-sm btn-danger w-100"
-						(click)="onCancel()"
-					>
-						Annulla
-					</button>
-				</div>
 			</div>
 		</div>
 
@@ -889,6 +869,40 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<!--Mobile-->
+		<div class="flex-column align-items-center d-none d-lg-flex w-25 mt-1">
+			<button
+				class="btn btn-dark w-100 mb-3"
+				(click)="addExercise()"
+			>
+				Aggiungi esercizio
+				<i class="bi bi-plus"></i>
+			</button>
+
+			<button
+				class="btn btn-danger w-100"
+				(click)="onCancel()"
+			>
+				Annulla
+			</button>
+		</div>
+
+		<div class="flex-column align-items-center d-flex d-lg-none w-100">
+			<button
+				class="btn btn-sm btn-dark w-100 mb-3"
+				(click)="addExercise()"
+			>
+				Aggiungi esercizio
+				<i class="bi bi-plus"></i>
+			</button>
+
+			<button
+				class="btn btn-sm btn-danger w-100"
+				(click)="onCancel()"
+			>
+				Annulla
+			</button>
 		</div>
 	</div>
 </div>
