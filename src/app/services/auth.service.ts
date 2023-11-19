@@ -97,8 +97,8 @@ export class AuthService {
 		}
 	}
 
-	public createNewUserInfo(username: string = "") {
-		let uid = this.firebase.getUid();
+	public async createNewUserInfo(username: string = "") {
+		let uid = await this.firebase.getUid();
 
 		let userObj: User = {
 			username: username,
@@ -116,13 +116,11 @@ export class AuthService {
 
 	private loginUser(user: UserData) {
 		this.loggedIn = true;
-		// localStorage.setItem("user", JSON.stringify(user));
-
 		this.router.navigate(["/home/dashboard"]);
 	}
 
-	public isAuthenticated() {
-		if (!this.loggedIn && this.firebase.getUid() !== null) {
+	public async isAuthenticated() {
+		if (!this.loggedIn && await this.firebase.getUid() !== '') {
 			this.loggedIn = true;
 		}
 
