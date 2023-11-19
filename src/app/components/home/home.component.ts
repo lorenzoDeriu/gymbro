@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
 		private router: Router,
 		private dialog: MatDialog,
 		private firebase: FirebaseService,
-		private userService: UserService,
+		private userService: UserService
 	) {}
 
 	async ngOnInit() {

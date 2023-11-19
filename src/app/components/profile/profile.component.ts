@@ -43,7 +43,9 @@ export class ProfileComponent implements OnInit {
 		this.username = user.username;
 		this.playlistUrl = user.playlistUrl;
 
-		this.trainingPrograms = await this.firebase.getTrainingProgramsFromUser(friendUid);
+		this.trainingPrograms = await this.firebase.getTrainingProgramsFromUser(
+			friendUid
+		);
 
 		this.loading = false;
 	}

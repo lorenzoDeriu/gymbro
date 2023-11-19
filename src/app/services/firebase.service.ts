@@ -64,7 +64,7 @@ import { generateId } from "../utils/utils";
 export class FirebaseService {
 	private app = initializeApp(environment.firebaseConfig);
 	private db = initializeFirestore(this.app, {
-		cacheSizeBytes: CACHE_SIZE_UNLIMITED
+		cacheSizeBytes: CACHE_SIZE_UNLIMITED,
 	});
 
 	private auth: Auth = getAuth();

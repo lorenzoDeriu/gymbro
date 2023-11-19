@@ -120,7 +120,7 @@ export class AuthService {
 	}
 
 	public async isAuthenticated() {
-		if (!this.loggedIn && await this.firebase.getUid() !== '') {
+		if (!this.loggedIn && (await this.firebase.getUid()) !== "") {
 			this.loggedIn = true;
 		}
 
