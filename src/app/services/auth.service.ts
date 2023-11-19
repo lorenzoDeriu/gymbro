@@ -25,8 +25,7 @@ export class AuthService {
 		private firebase: FirebaseService,
 		private router: Router,
 		private dialog: MatDialog
-	) {
-	}
+	) {}
 
 	private async access(credential: UserCredential, username?: string) {
 		this.loginUser({

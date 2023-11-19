@@ -26,9 +26,8 @@ export class WelcomePageComponent implements OnInit {
 	) as HTMLButtonElement;
 	private installPrompt: any;
 
-	public installButtonMobile: HTMLElement | undefined = document.getElementById(
-		"installMobile"
-	) as HTMLButtonElement;
+	public installButtonMobile: HTMLElement | undefined =
+		document.getElementById("installMobile") as HTMLButtonElement;
 	private installPromptMobile: any;
 
 	constructor(

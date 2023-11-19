@@ -79,7 +79,7 @@ export class FirebaseService {
 
 	constructor(private router: Router) {
 		// this.auth.setPersistence(auth.Auth.Persistence.LOCAL)
-		onAuthStateChanged(this.auth, (user) => {
+		onAuthStateChanged(this.auth, user => {
 			if (user) this.uid = user.uid;
 			else this.uid = null;
 		});
