@@ -19,6 +19,16 @@ export class UserService {
 	private editMode: boolean = false;
 	private workoutToEditIndex: number;
 
+	private restMode: boolean = false;
+
+	private workoutStartTime: number = 0;
+	private restStartTime: number = 0;
+	private trainingTime: number = 0;
+	private timeToRest: number = 0;
+	private restTime: number = 0;
+
+	private interval: any;
+
 	/* private stopwatchTime: BehaviorSubject<Date | undefined> = new BehaviorSubject<Date | undefined>(localStorage.getItem('startTime')!! ? new Date(localStorage.getItem('startTime')) : undefined);
 	public stopwatchTimeObs = this.stopwatchTime.asObservable(); */
 	/* 	public setStopwatchTime(time: Date | undefined) {
@@ -46,6 +56,67 @@ export class UserService {
 		this.checkForBackup();
 	}
 
+	/*
+	startChronometer è da chiamare ogni volta che si inizia un nuovo allenamento
+	*/
+	public startChronometer() {
+		this.workoutStartTime = Date.now();
+		localStorage.setItem("workoutStartTime", String(this.workoutStartTime));
+		this.interval = setInterval(() => {
+			this.trainingTime = Date.now() - this.workoutStartTime;
+			this.restTime = this.restStartTime + this.timeToRest - Date.now();
+
+			if (this.restTime <= 0) {
+				this.endRest();
+			}
+		})
+	}
+
+	/*
+	startTimer è da chiamare ogni volta che si finisce una serie
+	e si vuole iniziare il timer per il recupero
+
+	time è il tempo di recupero in millisecondi
+	*/
+	public startTimer(time: number) {
+		this.restMode = true;
+		localStorage.setItem("restMode", String(this.restMode));
+
+		this.restStartTime = Date.now();
+		localStorage.setItem("restStartTime", String(this.restStartTime));
+		this.timeToRest = time;
+	}
+
+	/*
+	getChronometerTime ritorna il tempo passato dall'inizio dell'allenamento
+	espresso in millisecondi
+	*/
+	public getChronometerTime() {
+		if (this.restMode) {
+			return this.restTime;
+		}
+
+		return this.trainingTime;
+	}
+
+	/*
+	endChronometer è da chiamare quando si finisce l'allenamento
+	*/
+	public endChronometer() {
+		clearInterval(this.interval);
+		localStorage.removeItem("workoutStartTime");
+		localStorage.removeItem("restStartTime");
+	}
+
+	/*
+	endRest è da chiamare quando si finisce il recupero
+	la chiamata avviene automaticamente quando il tempo di recupero è finito
+	*/
+	private endRest() {
+		this.restMode = false;
+		localStorage.setItem("restMode", String(this.restMode));
+	}
+
 	private checkForBackup() {
 		if (localStorage.getItem("workout") !== null) {
 			this.workout = JSON.parse(localStorage.getItem("workout"));
@@ -64,6 +135,22 @@ export class UserService {
 		if (localStorage.getItem("workoutToEditIndex") !== null) {
 			this.workoutToEditIndex = JSON.parse(
 				localStorage.getItem("workoutToEditIndex")
+			);
+		}
+
+		if (localStorage.getItem("restMode") !== null) {
+			this.restMode = JSON.parse(localStorage.getItem("restMode"));
+		}
+
+		if (localStorage.getItem("workoutStartTime") !== null) {
+			this.workoutStartTime = JSON.parse(
+				localStorage.getItem("workoutStartTime")
+			);
+		}
+
+		if (localStorage.getItem("restStartTime") !== null) {
+			this.restStartTime = JSON.parse(
+				localStorage.getItem("restStartTime")
 			);
 		}
 	}

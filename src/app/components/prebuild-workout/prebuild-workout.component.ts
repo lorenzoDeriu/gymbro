@@ -8,7 +8,7 @@ import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { Workout } from "src/app/Models/Workout.model";
 import { EffectiveSet } from "src/app/Models/Exercise.model";
-import { generateId } from "src/app/utils/utils";
+import { convertTimediffToTime, generateId } from "src/app/utils/utils";
 
 export interface Progress {
 	/* access to the complete must refer to the following logic:

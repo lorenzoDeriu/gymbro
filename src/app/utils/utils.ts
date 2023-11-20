@@ -1,4 +1,3 @@
-import { endOfWeek } from "date-fns";
 import { Workout } from "../Models/Workout.model";
 import { EffectiveExercise, EffectiveSet, Set } from "../Models/Exercise.model";
 
@@ -185,3 +184,9 @@ export const getSessionExerciseFor = (
 
 	return sessionExercises;
 };
+/*
+convertTimediffToTime converts a time difference in milliseconds to a string in the format HH:MM:SS
+*/
+export const convertTimediffToTime = (timeDiff: number): string => {
+    return new Date(timeDiff).toISOString().slice(11,19)
+}
