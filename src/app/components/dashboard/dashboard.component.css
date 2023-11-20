@@ -86,8 +86,13 @@ img {
 	#old-workout {
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
+	}
+
+	#new-workout h3,
+	#old-workout h3 {
+		margin-bottom: 30px;
 	}
 
 	#training-programs {
