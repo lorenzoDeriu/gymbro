@@ -153,9 +153,10 @@ import { AboutPreviewComponent } from "./components/about-preview/about-preview.
 		NgbModule,
 	],
 	providers: [
+		// TODO: @LORE All these are DEPRECATED
 		MatNativeDateModule,
 		{ provide: MAT_DATE_LOCALE, useValue: "en-GB" },
-		{ provide: DateAdapter, useClass: CustomDateAdapter }, // TODO: @LORE This is DEPRECATED
+		{ provide: DateAdapter, useClass: CustomDateAdapter },
 	],
 	bootstrap: [AppComponent],
 })
