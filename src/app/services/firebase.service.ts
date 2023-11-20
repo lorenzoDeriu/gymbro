@@ -68,7 +68,7 @@ export class FirebaseService {
 	private db = initializeFirestore(this.app, {
 		cacheSizeBytes: CACHE_SIZE_UNLIMITED, // Remove to use new offline persistence
 		// Remove comment to use new offline persistence
-	/*	localCache: persistentLocalCache({
+		/*	localCache: persistentLocalCache({
 			tabManager: persistentMultipleTabManager()
 		}) */
 	});
