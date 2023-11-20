@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { EffectiveSet } from "src/app/Models/Exercise.model";
 import { Workout } from "src/app/Models/Workout.model";
 import { FirebaseService } from "src/app/services/firebase.service";
 
-import { Utils } from "src/app/utils/utils";
+import { formatEffectiveSets, getDatesFor, getSessionExerciseFor } from "src/app/utils/utils";
 
 @Component({
 	selector: "app-exercise-stats-dialog",
@@ -15,8 +16,6 @@ export class ExerciseStatsDialogComponent implements OnInit {
 	public stats: any[] = [];
 
 	public loading: boolean;
-
-	private utils: Utils = new Utils();
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) private data: any,
@@ -32,12 +31,12 @@ export class ExerciseStatsDialogComponent implements OnInit {
 		this.loading = true;
 		this.workouts = await this.firebase.getWorkouts();
 
-		let dates = this.utils.getDatesFor(
+		let dates = getDatesFor(
 			this.data.exerciseName,
 			this.workouts
 		);
 
-		this.stats = this.utils.getSessionExerciseFor(
+		this.stats = getSessionExerciseFor(
 			this.data.exerciseName,
 			dates,
 			this.workouts
@@ -46,6 +45,10 @@ export class ExerciseStatsDialogComponent implements OnInit {
 		this.stats.reverse();
 
 		this.loading = false;
+	}
+
+	formatEffectiveSets(sets: EffectiveSet[]) {
+		return formatEffectiveSets(sets);
 	}
 
 	closeDialog() {

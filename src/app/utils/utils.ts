@@ -8,37 +8,7 @@ export interface ExerciseLog {
 }
 
 export class Utils {
-	public getSessionExerciseFor(
-		exerciseName: string,
-		workoutsDate: Date[],
-		workouts: Workout[]
-	): ExerciseLog[] {
-		const sortedWorkouts = this.sortByDate(workouts);
-		const sessionExercises: ExerciseLog[] = [];
-
-		for (const date of new Set(workoutsDate)) {
-			const matchingWorkouts = sortedWorkouts.filter(
-				workout => new Date(workout.date) === date
-			);
-
-			for (const matchingWorkout of matchingWorkouts) {
-				const matchingExercises = matchingWorkout.exercises.filter(
-					exercise => exercise.name === exerciseName
-				);
-
-				for (const matchingExercise of matchingExercises) {
-					sessionExercises.push({
-						exercise: matchingExercise,
-						date: matchingWorkout.date,
-					});
-				}
-			}
-		}
-
-		return sessionExercises;
-	}
-
-	getWeightsFor(
+/* 	getWeightsFor(
 		exerciseName: string,
 		workoutsDate: string[],
 		workouts: any
@@ -74,31 +44,6 @@ export class Utils {
 		return weights.slice(Math.max(weights.length - 20, 0));
 	}
 
-	sortByDate(workouts: Workout[]) {
-		if (workouts) {
-			return workouts.sort((a: Workout, b: Workout) => {
-				return b.date - a.date;
-			});
-		}
-
-		return [];
-	}
-
-	getDatesFor(exerciseName: string, workouts: Workout[]) {
-		let sortedWorkout = this.sortByDate(workouts);
-		let dates: Date[] = [];
-
-		for (let workout of sortedWorkout) {
-			for (let exercise of workout.exercises) {
-				if (exercise.name == exerciseName) {
-					dates.push(new Date(workout.date));
-				}
-			}
-		}
-
-		return dates.reverse().slice(Math.max(dates.length - 20, 0));
-	}
-
 	createWeeksArray() {
 		let today = new Date();
 		let lastDayOfThisWeek = endOfWeek(today, { weekStartsOn: 1 });
@@ -127,7 +72,7 @@ export class Utils {
 		const date = new Date(+year, +month - 1, +day);
 
 		return date;
-	}
+	} */
 }
 
 export const formatSets = (sets: Set[]): string[] => {
@@ -158,7 +103,7 @@ export const formatEffectiveSets = (sets: EffectiveSet[]): string[] => {
 	const setCountMap: Map<string, number> = new Map();
 
 	for (const set of sets) {
-		const key = `${set.reps}@${set.load}`;
+		const key = `${set.reps}@${set.load}Kg`;
 
 		setCountMap.set(key, (setCountMap.get(key) || 0) + 1);
 	}
@@ -174,10 +119,67 @@ export const generateId = (): string => {
 	return "group-id-" + Math.random().toString(16).slice(2);
 };
 
-// export const getSessionExerciseFor = (
-// 	exerciseName: string,
-// 	workouts: Workout[],
-// ) {
-// 	const sortedWorkouts = sortByDate(workouts);
-// 	const sessionExercises: ExerciseLog[] = [];
-// };
+export const getDatesFor = (exerciseName: string, workouts: Workout[]) => {
+	let sortedWorkout = sortByDate(workouts);
+	let dates: Date[] = [];
+
+	for (let workout of sortedWorkout) {
+		for (let exercise of workout.exercises) {
+			if (exercise.name == exerciseName) {
+				dates.push(new Date(workout.date));
+			}
+		}
+	}
+
+	return dates.reverse().slice(Math.max(dates.length - 20, 0));
+}
+
+export const sortByDate = (workouts: Workout[]) => {
+	if (workouts) {
+		return workouts.sort((a: Workout, b: Workout) => {
+			return b.date - a.date;
+		});
+	}
+
+	return [];
+}
+
+export const getSessionExerciseFor = (
+	exerciseName: string,
+	workoutsDate: Date[],
+	workouts: Workout[]
+): ExerciseLog[] => {
+	const sortedWorkouts = sortByDate(workouts);
+	const sessionExercises: ExerciseLog[] = [];
+
+	// Get unique dates list
+	let workoutsDateSet: Date[] =
+		workoutsDate
+			.map(date => { return date.getTime() }) // Convert to timestamp
+			.filter((date, i, array) => {
+				return array.indexOf(date) === i; // Remove duplicates
+			})
+			.map(time => { return new Date(time); }); // Convert back to date
+
+	for (const date of new Set(workoutsDateSet)) {
+		const matchingWorkouts = sortedWorkouts.filter(
+			workout => new Date(workout.date).getTime() === date.getTime()
+		);
+
+		for (const matchingWorkout of matchingWorkouts) {
+			const matchingExercises = matchingWorkout.exercises.filter(
+				exercise => exercise.name === exerciseName
+			);
+
+			for (const matchingExercise of matchingExercises) {
+				sessionExercises.push({
+					exercise: matchingExercise,
+					date: matchingWorkout.date,
+				});
+			}
+		}
+	}
+
+	return sessionExercises;
+}
+

@@ -23,26 +23,22 @@
 			<p class="mb-0 fw-bold">
 				<i class="me-1 bi bi-calendar-event"></i>
 				{{
-					stat.date.split("/")[0] +
-						"/" +
-						stat.date.split("/")[1] +
-						"/" +
-						stat.date.split("/")[2]
+					stat.date | date: 'dd/MM/yyyy'
 				}}
 			</p>
 
-			<small *ngFor="let set of stat.exercise.sets">
-				{{ set.reps + "@" }}{{ set.load }}Kg
+			<small *ngFor="let set of formatEffectiveSets(stat.exercise.set)">
+				{{ set }}
 			</small>
 
 			<div *ngIf="stat.exercise.note !== '' && stat.exercise.note">
-				<p class="text-secondary fst-italic" style="font-size: 0.7em">
+				<p class="text-secondary fst-italic mb-0" style="font-size: 0.7em">
 					<i class="me-1 bi bi-sticky"></i>
 					"{{ stat.exercise.note }}"
 				</p>
 			</div>
 
-			<mat-divider class="mb-1"></mat-divider>
+			<mat-divider class="my-1"></mat-divider>
 		</div>
 	</div>
 
