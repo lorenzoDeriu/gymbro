@@ -8,7 +8,7 @@ export interface ExerciseLog {
 }
 
 export class Utils {
-/* 	getWeightsFor(
+	/* 	getWeightsFor(
 		exerciseName: string,
 		workoutsDate: string[],
 		workouts: any
@@ -132,7 +132,7 @@ export const getDatesFor = (exerciseName: string, workouts: Workout[]) => {
 	}
 
 	return dates.reverse().slice(Math.max(dates.length - 20, 0));
-}
+};
 
 export const sortByDate = (workouts: Workout[]) => {
 	if (workouts) {
@@ -142,7 +142,7 @@ export const sortByDate = (workouts: Workout[]) => {
 	}
 
 	return [];
-}
+};
 
 export const getSessionExerciseFor = (
 	exerciseName: string,
@@ -153,13 +153,16 @@ export const getSessionExerciseFor = (
 	const sessionExercises: ExerciseLog[] = [];
 
 	// Get unique dates list
-	let workoutsDateSet: Date[] =
-		workoutsDate
-			.map(date => { return date.getTime() }) // Convert to timestamp
-			.filter((date, i, array) => {
-				return array.indexOf(date) === i; // Remove duplicates
-			})
-			.map(time => { return new Date(time); }); // Convert back to date
+	let workoutsDateSet: Date[] = workoutsDate
+		.map(date => {
+			return date.getTime();
+		}) // Convert to timestamp
+		.filter((date, i, array) => {
+			return array.indexOf(date) === i; // Remove duplicates
+		})
+		.map(time => {
+			return new Date(time);
+		}); // Convert back to date
 
 	for (const date of new Set(workoutsDateSet)) {
 		const matchingWorkouts = sortedWorkouts.filter(
@@ -181,5 +184,4 @@ export const getSessionExerciseFor = (
 	}
 
 	return sessionExercises;
-}
-
+};

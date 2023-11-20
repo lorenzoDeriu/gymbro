@@ -4,7 +4,11 @@ import { EffectiveSet } from "src/app/Models/Exercise.model";
 import { Workout } from "src/app/Models/Workout.model";
 import { FirebaseService } from "src/app/services/firebase.service";
 
-import { formatEffectiveSets, getDatesFor, getSessionExerciseFor } from "src/app/utils/utils";
+import {
+	formatEffectiveSets,
+	getDatesFor,
+	getSessionExerciseFor,
+} from "src/app/utils/utils";
 
 @Component({
 	selector: "app-exercise-stats-dialog",
@@ -31,10 +35,7 @@ export class ExerciseStatsDialogComponent implements OnInit {
 		this.loading = true;
 		this.workouts = await this.firebase.getWorkouts();
 
-		let dates = getDatesFor(
-			this.data.exerciseName,
-			this.workouts
-		);
+		let dates = getDatesFor(this.data.exerciseName, this.workouts);
 
 		this.stats = getSessionExerciseFor(
 			this.data.exerciseName,
