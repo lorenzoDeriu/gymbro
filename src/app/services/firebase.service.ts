@@ -24,6 +24,8 @@ import {
 	getDocsFromCache,
 	WithFieldValue,
 	DocumentData,
+	persistentLocalCache,
+	persistentMultipleTabManager,
 } from "firebase/firestore";
 import {
 	getAuth,
@@ -64,7 +66,11 @@ import { generateId } from "../utils/utils";
 export class FirebaseService {
 	private app = initializeApp(environment.firebaseConfig);
 	private db = initializeFirestore(this.app, {
-		cacheSizeBytes: CACHE_SIZE_UNLIMITED,
+		cacheSizeBytes: CACHE_SIZE_UNLIMITED, // Remove to use new offline persistence
+		// Remove comment to use new offline persistence
+	/*	localCache: persistentLocalCache({
+			tabManager: persistentMultipleTabManager()
+		}) */
 	});
 
 	private auth: Auth = getAuth();
@@ -76,6 +82,7 @@ export class FirebaseService {
 	private xProvider = new TwitterAuthProvider();
 
 	constructor(private router: Router) {
+		// Remove to use new offline persistence
 		enableIndexedDbPersistence(this.db, { forceOwnership: true }).catch(e =>
 			console.log(e)
 		);
