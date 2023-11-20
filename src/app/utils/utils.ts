@@ -188,5 +188,5 @@ export const getSessionExerciseFor = (
 convertTimediffToTime converts a time difference in milliseconds to a string in the format HH:MM:SS
 */
 export const convertTimediffToTime = (timeDiff: number): string => {
-    return new Date(timeDiff).toISOString().slice(11,19)
-}
+	return new Date(timeDiff).toISOString().slice(11, 19);
+};

@@ -69,7 +69,7 @@ export class UserService {
 			if (this.restTime <= 0) {
 				this.endRest();
 			}
-		})
+		});
 	}
 
 	/*
