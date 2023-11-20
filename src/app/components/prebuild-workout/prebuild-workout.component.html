@@ -70,8 +70,8 @@
 				</button>
 			</div>
 
-			<div class="mb-3">
-				<div class="input-group d-none d-lg-flex mb-4">
+			<div class="mb-4">
+				<div class="input-group d-none d-lg-flex">
 					<span class="input-group-text">Data</span>
 					<input
 						type="date"
@@ -83,7 +83,7 @@
 					/>
 				</div>
 
-				<div class="input-group input-group-sm d-flex d-lg-none mb-4">
+				<div class="input-group input-group-sm d-flex d-lg-none">
 					<span class="input-group-text">Data</span>
 					<input
 						type="date"
@@ -847,8 +847,8 @@
 				</div>
 			</div>
 		</div>
-		<!--Mobile-->
-		<div class="flex-column align-items-center d-none d-lg-flex w-25 mt-1">
+
+		<div class="flex-column align-items-center d-none d-lg-flex w-25 mt-3">
 			<button class="btn btn-dark w-100 mb-3" (click)="addExercise()">
 				Aggiungi esercizio
 				<i class="bi bi-plus"></i>
@@ -859,7 +859,25 @@
 			</button>
 		</div>
 
-		<div class="flex-column align-items-center d-flex d-lg-none w-100">
+		<!--Mobile-->
+		<div
+			class="flex-column align-items-center d-none d-sm-flex d-lg-none w-50 mt-3"
+		>
+			<button
+				class="btn btn-sm btn-dark w-100 mb-3"
+				(click)="addExercise()"
+			>
+				Aggiungi esercizio
+				<i class="bi bi-plus"></i>
+			</button>
+
+			<button class="btn btn-sm btn-danger w-100" (click)="onCancel()">
+				Annulla
+			</button>
+		</div>
+
+		<!--Mobile-->
+		<div class="flex-column align-items-center d-flex d-sm-none w-100 mt-3">
 			<button
 				class="btn btn-sm btn-dark w-100 mb-3"
 				(click)="addExercise()"
