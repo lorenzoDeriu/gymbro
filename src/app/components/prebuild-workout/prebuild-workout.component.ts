@@ -189,8 +189,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public onCancel() {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
-				title: "Annulla allenamento",
-				message: "Sei sicuro di voler annullare l'allenamento?",
+				title: this.workoutExists() ? "Annulla modifica" : "Annulla allenamento",
+				message: this.workoutExists() ? "Sei sicuro di voler annullare la modifica dell'allenamento?" : "Sei sicuro di voler annullare l'allenamento?",
 				args: [],
 				confirm: () => {
 					this.userService.resetWorkout();
