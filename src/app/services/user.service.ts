@@ -254,7 +254,10 @@ export class UserService {
 	public async saveTrainingProgram(edit: boolean, index?: number) {
 		localStorage.removeItem("trainingProgram");
 		if (edit) {
-			await this.firebase.editTrainingProgram(this.trainingProgram, index);
+			await this.firebase.editTrainingProgram(
+				this.trainingProgram,
+				index
+			);
 			return;
 		}
 
