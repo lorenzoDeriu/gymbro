@@ -54,6 +54,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			this.workoutProgress = JSON.parse(
 				localStorage.getItem("workoutProgress")!!
 			);
+			console.log(this.workoutProgress);
 		}
 
 		if (localStorage.getItem("workoutProgress") === null) {
@@ -74,6 +75,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 				this.workoutProgress.completed[exerciseIndex][setIndex] = false;
 			});
 		});
+
+        localStorage.setItem(
+			"workoutProgress",
+			JSON.stringify(this.workoutProgress)
+		);
 	}
 
 	public workoutExists() {
@@ -88,27 +94,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 				exercise.every(setCompleted => setCompleted)
 			)
 		);
-	}
-
-	public finishWorkout() {
-		if (
-			this.workoutProgress.completed.some(exercise =>
-				exercise.some(setCompleted => !setCompleted)
-			)
-		) {
-			this.dialog.open(SafetyActionConfirmDialogComponent, {
-				data: {
-					title: "Allenamento incompleto",
-					message: "Sei sicuro di voler terminare l'allenamento?",
-					args: [],
-					confirm: () => {
-						this.saveWorkout();
-					},
-				},
-			});
-		} else {
-			this.saveWorkout();
-		}
 	}
 
 	public saveWorkout() {
@@ -179,16 +164,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.userService.updateWorkout(this.workout);
 	}
 
-	public markAllCompleted() {
-		this.workoutProgress.completed.forEach((exercise, exerciseIndex) => {
-			exercise.forEach((_, setIndex) => {
-				this.workoutProgress.completed[exerciseIndex][setIndex] = true;
-			});
-		});
-
-		this.userService.updateWorkout(this.workout);
-	}
-
 	public addExercise() {
 		this.workout.exercises.push({
 			name: "Nuovo Esercizio",
@@ -204,6 +179,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.userService.updateWorkout(this.workout);
 		this.workoutProgress.completed.push([]);
+
+        localStorage.setItem(
+			"workoutProgress",
+			JSON.stringify(this.workoutProgress)
+		);
 	}
 
 	public onCancel() {
@@ -247,6 +227,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.userService.updateWorkout(this.workout);
 
 		this.workoutProgress.completed[exerciseIndex].splice(setIndex, 1);
+
+        localStorage.setItem(
+			"workoutProgress",
+			JSON.stringify(this.workoutProgress)
+		);
 	}
 
 	public addSet(exerciseIndex: number) {
@@ -269,6 +254,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.userService.updateWorkout(this.workout);
 		this.workoutProgress.completed[exerciseIndex].push(false);
+
+		localStorage.setItem(
+			"workoutProgress",
+			JSON.stringify(this.workoutProgress)
+		);
 	}
 
 	public showOldStats(exerciseIndex: number) {
@@ -291,6 +281,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 					this.userService.updateWorkout(this.workout);
 
 					this.workoutProgress.completed.splice(index, 1);
+
+                    localStorage.setItem(
+                        "workoutProgress",
+                        JSON.stringify(this.workoutProgress)
+                    );
 				},
 			},
 		});

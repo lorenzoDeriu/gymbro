@@ -16,8 +16,6 @@ import {
 	addDoc,
 	deleteDoc,
 	initializeFirestore,
-	CACHE_SIZE_UNLIMITED,
-	enableIndexedDbPersistence,
 	getDocFromCache,
 	DocumentReference,
 	getDoc,
@@ -42,7 +40,6 @@ import {
 	UserCredential,
 	onAuthStateChanged,
 } from "firebase/auth";
-import { Router } from "@angular/router";
 import { User } from "../Models/User.model";
 import { Session, TrainingProgram } from "../Models/TrainingProgram.model";
 import {
@@ -66,27 +63,18 @@ import { generateId } from "../utils/utils";
 export class FirebaseService {
 	private app = initializeApp(environment.firebaseConfig);
 	private db = initializeFirestore(this.app, {
-		cacheSizeBytes: CACHE_SIZE_UNLIMITED, // Remove to use new offline persistence
-		// Remove comment to use new offline persistence
-		/*	localCache: persistentLocalCache({
+			localCache: persistentLocalCache({
 			tabManager: persistentMultipleTabManager()
-		}) */
+		})
 	});
 
 	private auth: Auth = getAuth();
-
-	private uid: string = "";
 
 	private googleProvider = new GoogleAuthProvider();
 	private metaProvider = new FacebookAuthProvider();
 	private xProvider = new TwitterAuthProvider();
 
-	constructor(private router: Router) {
-		// Remove to use new offline persistence
-		enableIndexedDbPersistence(this.db, { forceOwnership: true }).catch(e =>
-			console.log(e)
-		);
-	}
+	constructor() {}
 
 	public async fixDB() {
 		console.log("Fixing DB");
