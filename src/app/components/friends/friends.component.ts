@@ -21,7 +21,6 @@ export interface SearchResult {
 	styleUrls: ["./friends.component.css"],
 })
 export class FriendsComponent implements OnInit {
-	// private userData: User;
 	private _hasFollow: boolean;
 	private username: string;
 

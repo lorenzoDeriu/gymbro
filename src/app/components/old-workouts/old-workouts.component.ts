@@ -82,31 +82,30 @@ export class OldWorkoutsComponent implements OnInit {
 		});
 	}
 
-    workoutExists() {
-        return localStorage.getItem("workout") !== null;
-    }
+	workoutExists() {
+		return localStorage.getItem("workout") !== null;
+	}
 
 	public editWorkout(index: number) {
-        if (this.workoutExists()) {
-            this.dialog.open(SafetyActionConfirmDialogComponent, {
-                data: {
-                    title: "Attenzione",
-                    message: "Hai già un allenamento in corso, modificando questo ne perderai i dati. Sei sicuro di voler continuare?",
-                    args: [index],
-                    confirm: async (
-                        index: number
-                    ) => {
-                        this.userService.setWorkout(this.workouts[index]);
-                        this.userService.setEditMode(true);
-                        this.userService.setWorkoutToEditIndex(index);
-                
-                        this.router.navigate(["/home/prebuild-workout"]);
-                    },
-                },
-            });
+		if (this.workoutExists()) {
+			this.dialog.open(SafetyActionConfirmDialogComponent, {
+				data: {
+					title: "Attenzione",
+					message:
+						"Hai già un allenamento in corso, modificando questo ne perderai i dati. Sei sicuro di voler continuare?",
+					args: [index],
+					confirm: async (index: number) => {
+						this.userService.setWorkout(this.workouts[index]);
+						this.userService.setEditMode(true);
+						this.userService.setWorkoutToEditIndex(index);
 
-            return;
-        }
+						this.router.navigate(["/home/prebuild-workout"]);
+					},
+				},
+			});
+
+			return;
+		}
 	}
 
 	public showNotes(workoutIndex: number, exerciseIndex: number) {

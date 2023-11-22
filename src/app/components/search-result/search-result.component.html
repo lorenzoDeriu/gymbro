@@ -55,12 +55,14 @@
 
 		<div
 			*ngFor="let user of searchResult; index as i"
-			class="d-flex justify-content-between align-items-center w-100"
+			class="btn-group rounded-5 d-flex justify-content-between align-items-center user mb-3 w-100"
+			role="group"
+			aria-label="Basic example"
 		>
-			<div
-				class="rounded-5 py-1 px-2 d-flex justify-content-between align-items-center mb-3 me-1 w-100 user"
+			<button
+				class="btn d-flex align-items-center w-100"
 				(click)="viewProfile(i)"
-				style="cursor: pointer"
+				style="border: none"
 			>
 				<div
 					class="avatar d-flex justify-content-between align-items-center"
@@ -72,14 +74,14 @@
 					/>
 					<p class="mb-0 ms-3">{{ user.username }}</p>
 				</div>
-			</div>
+			</button>
 
 			<button
-				class="btn rounded-5 mb-3 ms-1 user d-flex justify-content-center align-items-center"
+				class="btn d-flex justify-content-center align-items-center"
 				(click)="onFollow(i)"
-				style="width: 38px; height: 38px; border: none"
+				style="border: none"
 			>
-				<i class="bi bi-person-plus-fill"></i>
+				<i class="bi bi-person-plus-fill me-1"></i>
 			</button>
 		</div>
 	</div>
