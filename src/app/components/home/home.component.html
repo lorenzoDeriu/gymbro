@@ -1,11 +1,19 @@
 <nav class="navbar fixed-top bg-body-tertiary shadow" style="z-index: 1">
 	<div class="container-fluid">
 		<a
-			class="navbar-brand m-0"
+			class="navbar-brand m-0 d-none d-lg-block"
 			(click)="goToHome()"
 			style="cursor: pointer"
 		>
 			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="70" />
+		</a>
+
+        <a
+			class="navbar-brand m-0 d-block d-lg-none"
+			(click)="goToHome()"
+			style="cursor: pointer"
+		>
+			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="50" />
 		</a>
 
 		<div class="d-flex">
@@ -26,7 +34,7 @@
 				*ngIf="!restMode && !editMode && workoutExists()"
 				(click)="toContinueWorkout()"
 				class="purple-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between align-items-center"
-				style="width: 90px"
+				style="width: 95px"
 			>
 				<i class="bi bi-stopwatch me-2"></i>
 				<p class="text-start m-0 w-100">
@@ -51,7 +59,7 @@
 				*ngIf="restMode && !editMode && workoutExists()"
 				(click)="toContinueWorkout()"
 				class="blue-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between align-items-center"
-				style="width: 90px"
+				style="width: 95px"
 			>
 				<i class="bi bi-hourglass-split me-2"></i>
 				<p class="text-start m-0 w-100">

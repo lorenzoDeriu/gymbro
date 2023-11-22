@@ -147,8 +147,8 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			});
 	}
 
-	public saveTrainingProgram() {
-		this.userService.saveTrainingProgram(this.editMode, this.index);
+	public async saveTrainingProgram() {
+		await this.userService.saveTrainingProgram(this.editMode, this.index);
 		this.router.navigate(["/home/training-programs"]);
 	}
 }

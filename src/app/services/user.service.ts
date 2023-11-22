@@ -113,9 +113,6 @@ export class UserService {
 	la chiamata avviene automaticamente quando il tempo di recupero è finito
 	*/
 	public endRest() {
-		console.log(this.restStartTime);
-		console.log(this.timeToRest);
-		console.log(this.restTime);
 		this.setRestMode(false);
 		localStorage.removeItem("restStartTime");
 		localStorage.removeItem("timeToRest");
@@ -254,14 +251,14 @@ export class UserService {
 		);
 	}
 
-	public saveTrainingProgram(edit: boolean, index?: number) {
+	public async saveTrainingProgram(edit: boolean, index?: number) {
 		localStorage.removeItem("trainingProgram");
 		if (edit) {
-			this.firebase.editTrainingProgram(this.trainingProgram, index);
+			await this.firebase.editTrainingProgram(this.trainingProgram, index);
 			return;
 		}
 
-		this.firebase.addTrainingProgram(this.trainingProgram);
+		await this.firebase.addTrainingProgram(this.trainingProgram);
 	}
 
 	public setSearchResult(searchResult: SearchResult[]) {

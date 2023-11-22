@@ -468,8 +468,10 @@ export class FirebaseService {
 
 		if (documentSnapshot.exists()) {
 			let data = documentSnapshot.data() as User;
+
 			let workouts: Workout[] = data.workout;
 
+			workouts.sort((a: Workout, b: Workout) => b.date - a.date);
 			workouts[index] = workout;
 
 			updateDoc(documentReference, { workout: workouts });
