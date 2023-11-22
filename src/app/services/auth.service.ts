@@ -133,7 +133,6 @@ export class AuthService {
 		this.firebase.signout();
 		this.loggedIn = false;
 		localStorage.removeItem("user");
-		this.userService.endChronometer();
 		window.location.href = "/welcome";
 	}
 

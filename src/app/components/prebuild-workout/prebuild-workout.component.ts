@@ -50,10 +50,18 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.date = this.fromTimestampToString(this.workout.date);
 		this.initWorkoutProgress();
 
-		localStorage.setItem(
-			"workoutProgress",
-			JSON.stringify(this.workoutProgress)
-		);
+		if (localStorage.getItem("workoutProgress") !== null) {
+			this.workoutProgress = JSON.parse(
+				localStorage.getItem("workoutProgress")!!
+			);
+		}
+
+		if (localStorage.getItem("workoutProgress") === null) {
+			localStorage.setItem(
+				"workoutProgress",
+				JSON.stringify(this.workoutProgress)
+			);
+		}
 
 		this.loading = false;
 	}
@@ -66,6 +74,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 				this.workoutProgress.completed[exerciseIndex][setIndex] = false;
 			});
 		});
+	}
+
+	public workoutExists() {
+		return localStorage.getItem("workout") !== null;
 	}
 
 	public savable(): boolean {
@@ -101,9 +113,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	public saveWorkout() {
 		this.workout.date = this.fromStringToTimestamp(this.date);
-		this.userService.updateWorkout(this.workout);
 
+		this.userService.updateWorkout(this.workout);
 		this.userService.saveWorkout();
+		this.userService.endChronometer();
+		this.userService.endRest();
 
 		localStorage.removeItem("workoutProgress");
 		this.router.navigate(["/home"]);
@@ -156,6 +170,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.workoutProgress.completed[exerciseIndex][setIndex] =
 			!this.workoutProgress.completed[exerciseIndex][setIndex];
+
+		localStorage.setItem(
+			"workoutProgress",
+			JSON.stringify(this.workoutProgress)
+		);
 
 		this.userService.updateWorkout(this.workout);
 	}

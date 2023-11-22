@@ -20,16 +20,12 @@ export class UserService {
 	private workoutToEditIndex: number;
 
 	private editMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-		localStorage.getItem("editMode")!!
-			? JSON.parse(localStorage.getItem("editMode"))
-			: false
+		false
 	);
 	public editModeObs = this.editMode.asObservable();
 
 	private restMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-		localStorage.getItem("restMode")!!
-			? JSON.parse(localStorage.getItem("restMode"))
-			: false
+		false
 	);
 	public restModeObs = this.restMode.asObservable();
 
@@ -71,7 +67,7 @@ export class UserService {
 			this.trainingTime = Date.now() - this.workoutStartTime;
 			this.restTime = this.restStartTime + this.timeToRest - Date.now();
 
-			if (this.restTime <= 0) {
+			if (this.restMode.value && this.restTime <= 0) {
 				this.endRest();
 			}
 		});
@@ -88,6 +84,7 @@ export class UserService {
 		this.restStartTime = Date.now();
 		localStorage.setItem("restStartTime", String(this.restStartTime));
 		this.timeToRest = time;
+		localStorage.setItem("timeToRest", String(this.timeToRest));
 	}
 
 	/*
@@ -116,8 +113,12 @@ export class UserService {
 	la chiamata avviene automaticamente quando il tempo di recupero è finito
 	*/
 	public endRest() {
+		console.log(this.restStartTime);
+		console.log(this.timeToRest);
+		console.log(this.restTime);
 		this.setRestMode(false);
 		localStorage.removeItem("restStartTime");
+		localStorage.removeItem("timeToRest");
 	}
 
 	private checkForBackup() {
@@ -149,12 +150,26 @@ export class UserService {
 			this.workoutStartTime = JSON.parse(
 				localStorage.getItem("workoutStartTime")
 			);
+
+			this.interval = setInterval(() => {
+				this.trainingTime = Date.now() - this.workoutStartTime;
+				this.restTime =
+					this.restStartTime + this.timeToRest - Date.now();
+
+				if (this.restMode.value && this.restTime <= 0) {
+					this.endRest();
+				}
+			});
 		}
 
 		if (localStorage.getItem("restStartTime") !== null) {
 			this.restStartTime = JSON.parse(
 				localStorage.getItem("restStartTime")
 			);
+		}
+
+		if (localStorage.getItem("timeToRest") !== null) {
+			this.timeToRest = JSON.parse(localStorage.getItem("timeToRest"));
 		}
 	}
 

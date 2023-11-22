@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
 		});
 
 		this.userService.restModeObs.subscribe(restMode => {
+			console.log("restMode", restMode);
 			this.restMode = restMode;
 		});
 
