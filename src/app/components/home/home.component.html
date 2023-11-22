@@ -11,57 +11,62 @@
 		<div class="d-flex">
 			<!-- Stopwatch -->
 			<button
-				*ngIf="inTraining"
+				*ngIf="!restMode && !editMode && workoutExists()"
 				(click)="toContinueWorkout()"
-				class="purple-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between"
+				class="purple-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between align-items-center"
 				style="width: 115px"
 			>
 				<i class="bi bi-stopwatch me-2"></i>
 				<p class="text-start m-0 w-100">
-					{{ trainingTime | date : "HH:mm:ss" }}
+					{{ getWorkoutTime() }}
 				</p>
 			</button>
 
 			<button
-				*ngIf="inTraining"
+				*ngIf="!restMode && !editMode && workoutExists()"
 				(click)="toContinueWorkout()"
-				class="purple-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between"
+				class="purple-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between align-items-center"
 				style="width: 90px"
 			>
 				<i class="bi bi-stopwatch me-2"></i>
 				<p class="text-start m-0 w-100">
-					{{ trainingTime | date : "HH:mm:ss" }}
+					{{ getWorkoutTime() }}
 				</p>
 			</button>
 
 			<!-- Timer -->
 			<button
-				*ngIf="inRest"
+				*ngIf="restMode && !editMode && workoutExists()"
 				(click)="toContinueWorkout()"
-				class="blue-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between"
+				class="blue-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between align-items-center"
 				style="width: 115px"
 			>
 				<i class="bi bi-hourglass-split me-2"></i>
 				<p class="text-start m-0 w-100">
-					{{ restTime | date : "HH:mm:ss" }}
+					{{ getWorkoutTime() }}
 				</p>
 			</button>
 
 			<button
-				*ngIf="inRest"
+				*ngIf="restMode && !editMode && workoutExists()"
 				(click)="toContinueWorkout()"
-				class="blue-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between"
+				class="blue-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between align-items-center"
 				style="width: 90px"
 			>
 				<i class="bi bi-hourglass-split me-2"></i>
 				<p class="text-start m-0 w-100">
-					{{ restTime | date : "HH:mm:ss" }}
+					{{ getWorkoutTime() }}
 				</p>
 			</button>
 
 			<!-- Spotify -->
 			<a
-				*ngIf="playlistUrl && (inTraining || inRest)"
+				*ngIf="
+					playlistUrl &&
+					!editMode &&
+					workoutExists() &&
+					(!restMode || restMode)
+				"
 				[href]="playlistUrl"
 				target="_blank"
 				class="ms-2 btn d-none d-lg-block rounded-5 text-light"
@@ -71,7 +76,12 @@
 			</a>
 
 			<a
-				*ngIf="playlistUrl && (inTraining || inRest)"
+				*ngIf="
+					playlistUrl &&
+					!editMode &&
+					workoutExists() &&
+					(!restMode || restMode)
+				"
 				[href]="playlistUrl"
 				target="_blank"
 				class="ms-2 btn btn-sm d-block d-lg-none rounded-5 text-light"

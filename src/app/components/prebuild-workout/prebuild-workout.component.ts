@@ -40,7 +40,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 	async ngOnInit() {
 		this.loading = true;
 
-		this.editMode = this.userService.getEditMode();
+		this.userService.editModeObs.subscribe(editMode => {
+			this.editMode = editMode;
+		});
+
 		this.availableExercise = await this.firebase.getExercise();
 
 		this.workout = this.userService.getWorkout();
@@ -142,7 +145,14 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	public toggleCompleted(exerciseIndex: number, setIndex: number) {
-		// TODO: if (!this.workoutProgress.completed[exerciseIndex][setIndex]) startTimer();
+		if (!this.workoutProgress.completed[exerciseIndex][setIndex]) {
+			const { minutes, seconds } =
+				this.workout.exercises[exerciseIndex].rest; // Extract rest time from workout
+
+			const rest: number = (+minutes * 60 + +seconds) * 1000; // Convert rest time to milliseconds
+
+			this.userService.startTimer(rest);
+		}
 
 		this.workoutProgress.completed[exerciseIndex][setIndex] =
 			!this.workoutProgress.completed[exerciseIndex][setIndex];
@@ -185,9 +195,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 				args: [],
 				confirm: () => {
 					this.userService.resetWorkout();
-					this.router.navigate(["/home"]);
-
 					localStorage.removeItem("workoutProgress");
+					this.userService.endChronometer();
+					this.router.navigate(["/home"]);
 				},
 			},
 		});

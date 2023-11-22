@@ -7,6 +7,7 @@ import { ErrorRegisterDialogComponent } from "../components/error-register-dialo
 import { ErrorProviderDialogComponent } from "../components/error-provider-dialog/error-provider-dialog.component";
 import { UserCredential } from "firebase/auth";
 import { User } from "../Models/User.model";
+import { UserService } from "./user.service";
 
 export type UserData = {
 	uid: string;
@@ -23,6 +24,7 @@ export class AuthService {
 
 	constructor(
 		private firebase: FirebaseService,
+		private userService: UserService,
 		private router: Router,
 		private dialog: MatDialog
 	) {}
@@ -131,6 +133,7 @@ export class AuthService {
 		this.firebase.signout();
 		this.loggedIn = false;
 		localStorage.removeItem("user");
+		this.userService.endChronometer();
 		window.location.href = "/welcome";
 	}
 

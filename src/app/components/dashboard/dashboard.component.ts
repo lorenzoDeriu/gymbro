@@ -21,7 +21,9 @@ export class DashboardComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.editMode = this.userService.getEditMode();
+		this.userService.editModeObs.subscribe(editMode => {
+			this.editMode = editMode;
+		});
 	}
 
 	workoutExists() {

@@ -4,6 +4,7 @@ import { FirebaseService } from "./firebase.service";
 import { Injectable } from "@angular/core";
 import { User } from "../Models/User.model";
 import { SearchResult } from "../components/friends/friends.component";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
 	providedIn: "root",
@@ -16,10 +17,21 @@ export class UserService {
 	private searchResult: SearchResult[];
 	private uidProfile: string;
 
-	private editMode: boolean = false;
 	private workoutToEditIndex: number;
 
-	private restMode: boolean = false;
+	private editMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+		localStorage.getItem("editMode")!!
+			? JSON.parse(localStorage.getItem("editMode"))
+			: false
+	);
+	public editModeObs = this.editMode.asObservable();
+
+	private restMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+		localStorage.getItem("restMode")!!
+			? JSON.parse(localStorage.getItem("restMode"))
+			: false
+	);
+	public restModeObs = this.restMode.asObservable();
 
 	private workoutStartTime: number = 0;
 	private restStartTime: number = 0;
@@ -28,13 +40,6 @@ export class UserService {
 	private restTime: number = 0;
 
 	private interval: any;
-
-	/* private stopwatchTime: BehaviorSubject<Date | undefined> = new BehaviorSubject<Date | undefined>(localStorage.getItem('startTime')!! ? new Date(localStorage.getItem('startTime')) : undefined);
-	public stopwatchTimeObs = this.stopwatchTime.asObservable(); */
-	/* 	public setStopwatchTime(time: Date | undefined) {
-		this.stopwatchTime.next(time);
-		localStorage.setItem('startTime', String(time));
-	} */
 
 	constructor(private firebase: FirebaseService) {
 		this.firebase.getUserData().then(user => {
@@ -79,9 +84,10 @@ export class UserService {
 	time è il tempo di recupero in millisecondi
 	*/
 	public startTimer(time: number) {
-		this.restMode = true;
-		localStorage.setItem("restMode", String(this.restMode));
-
+        console.log(
+            time
+        )
+		this.setRestMode(true);
 		this.restStartTime = Date.now();
 		localStorage.setItem("restStartTime", String(this.restStartTime));
 		this.timeToRest = time;
@@ -92,7 +98,7 @@ export class UserService {
 	espresso in millisecondi
 	*/
 	public getChronometerTime() {
-		if (this.restMode) {
+		if (this.restMode.value) {
 			return this.restTime;
 		}
 
@@ -112,9 +118,8 @@ export class UserService {
 	endRest è da chiamare quando si finisce il recupero
 	la chiamata avviene automaticamente quando il tempo di recupero è finito
 	*/
-	private endRest() {
-		this.restMode = false;
-		localStorage.setItem("restMode", String(this.restMode));
+	public endRest() {
+		this.setRestMode(false);
 	}
 
 	private checkForBackup() {
@@ -129,7 +134,7 @@ export class UserService {
 		}
 
 		if (localStorage.getItem("editMode") !== null) {
-			this.editMode = JSON.parse(localStorage.getItem("editMode"));
+			this.setEditMode(JSON.parse(localStorage.getItem("editMode")));
 		}
 
 		if (localStorage.getItem("workoutToEditIndex") !== null) {
@@ -139,7 +144,7 @@ export class UserService {
 		}
 
 		if (localStorage.getItem("restMode") !== null) {
-			this.restMode = JSON.parse(localStorage.getItem("restMode"));
+			this.setRestMode(JSON.parse(localStorage.getItem("restMode")));
 		}
 
 		if (localStorage.getItem("workoutStartTime") !== null) {
@@ -166,7 +171,7 @@ export class UserService {
 	}
 
 	public async saveWorkout() {
-		if (this.editMode) {
+		if (this.editMode.value) {
 			await this.firebase.updateWorkout(
 				this.workout,
 				this.workoutToEditIndex
@@ -263,12 +268,13 @@ export class UserService {
 	}
 
 	public setEditMode(editMode: boolean) {
-		this.editMode = editMode;
+		this.editMode.next(editMode);
 		localStorage.setItem("editMode", String(editMode));
 	}
 
-	public getEditMode() {
-		return this.editMode;
+	public setRestMode(restMode: boolean) {
+		this.restMode.next(restMode);
+		localStorage.setItem("restMode", String(restMode));
 	}
 
 	public setWorkoutToEditIndex(index: number) {

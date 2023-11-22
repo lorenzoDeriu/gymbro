@@ -37,6 +37,7 @@ export class TrainingProgramSelectorComponent implements OnInit {
 				this.trainingPrograms[programIndex].session[sessionIndex]
 			)
 		);
+		this.userService.startChronometer();
 		this.router.navigate(["/home/prebuild-workout"]);
 	}
 

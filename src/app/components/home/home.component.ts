@@ -5,6 +5,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { FeedbackDialogComponent } from "../feedback-dialog/feedback-dialog.component";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { UserService } from "src/app/services/user.service";
+import { convertTimediffToTime } from "src/app/utils/utils";
 
 @Component({
 	selector: "app-home",
@@ -12,11 +13,9 @@ import { UserService } from "src/app/services/user.service";
 	styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-	public trainingTime: number;
-	public restTime: number;
-	public inTraining: boolean = false;
-	public inRest: boolean = false;
+	public restMode: boolean = false;
 	public isAdmin: boolean = false;
+	public editMode: boolean = false;
 	public playlistUrl: string;
 
 	constructor(
@@ -28,8 +27,24 @@ export class HomeComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
+		this.userService.editModeObs.subscribe(editMode => {
+			this.editMode = editMode;
+		});
+
+		this.userService.restModeObs.subscribe(restMode => {
+			this.restMode = restMode;
+		});
+
 		this.isAdmin = await this.firebase.userIsAdmin();
 		this.playlistUrl = this.userService.getPlaylistURL();
+	}
+
+	getWorkoutTime() {
+		return convertTimediffToTime(this.userService.getChronometerTime());
+	}
+
+	workoutExists() {
+		return localStorage.getItem("workout") !== null;
 	}
 
 	fixDB() {
