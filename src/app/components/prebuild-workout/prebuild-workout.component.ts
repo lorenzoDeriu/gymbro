@@ -197,6 +197,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 					this.userService.resetWorkout();
 					localStorage.removeItem("workoutProgress");
 					this.userService.endChronometer();
+					this.userService.endRest();
 					this.router.navigate(["/home"]);
 				},
 			},

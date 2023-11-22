@@ -84,9 +84,6 @@ export class UserService {
 	time è il tempo di recupero in millisecondi
 	*/
 	public startTimer(time: number) {
-        console.log(
-            time
-        )
 		this.setRestMode(true);
 		this.restStartTime = Date.now();
 		localStorage.setItem("restStartTime", String(this.restStartTime));
@@ -120,6 +117,7 @@ export class UserService {
 	*/
 	public endRest() {
 		this.setRestMode(false);
+		localStorage.removeItem("restStartTime");
 	}
 
 	private checkForBackup() {
