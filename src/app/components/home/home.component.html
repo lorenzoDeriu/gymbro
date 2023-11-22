@@ -16,7 +16,7 @@
 			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="50" />
 		</a>
 
-		<div class="d-flex">
+		<div class="d-flex align-items-center">
 			<!-- Stopwatch -->
 			<button
 				*ngIf="!restMode && !editMode && workoutExists()"
@@ -43,29 +43,95 @@
 			</button>
 
 			<!-- Timer -->
-			<button
+			<div
 				*ngIf="restMode && !editMode && workoutExists()"
-				(click)="toContinueWorkout()"
-				class="blue-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between align-items-center"
-				style="width: 115px"
+				class="dropdown-center"
 			>
-				<i class="bi bi-hourglass-split me-2"></i>
-				<p class="text-start m-0 w-100">
-					{{ getWorkoutTime() }}
-				</p>
-			</button>
+				<button
+					class="blue-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between align-items-center"
+					type="button"
+					style="width: 115px"
+					data-bs-toggle="dropdown"
+					aria-expanded="false"
+				>
+					<i class="bi bi-hourglass-split me-2"></i>
+					<p class="text-start m-0 w-100">
+						{{ getWorkoutTime() }}
+					</p>
+				</button>
+				<ul class="dropdown-menu mt-2">
+					<li class="mb-1">
+						<button
+							class="dropdown-item"
+							type="button"
+							(click)="stopTimer()"
+						>
+							<i class="me-1 bi bi-stop-fill"></i>
+							Interrompi
+						</button>
+					</li>
+					<li>
+						<button
+							class="dropdown-item"
+							type="button"
+							(click)="toContinueWorkout()"
+						>
+							<img
+								src="assets/dumbbell-icon.png"
+								class="me-1"
+								width="16"
+								alt=""
+							/>
+							Allenamento
+						</button>
+					</li>
+				</ul>
+			</div>
 
-			<button
+			<div
 				*ngIf="restMode && !editMode && workoutExists()"
-				(click)="toContinueWorkout()"
-				class="blue-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between align-items-center"
-				style="width: 95px"
+				class="dropdown-center"
 			>
-				<i class="bi bi-hourglass-split me-2"></i>
-				<p class="text-start m-0 w-100">
-					{{ getWorkoutTime() }}
-				</p>
-			</button>
+				<button
+					class="blue-btn btn-sm text-light btn rounded-5 d-lg-none d-flex justify-content-between align-items-center"
+					type="button"
+					style="width: 95px"
+					data-bs-toggle="dropdown"
+					aria-expanded="false"
+				>
+					<i class="bi bi-hourglass-split me-2"></i>
+					<p class="text-start m-0 w-100">
+						{{ getWorkoutTime() }}
+					</p>
+				</button>
+				<ul class="dropdown-menu mt-2">
+					<li class="mb-1">
+						<button
+							class="dropdown-item"
+							type="button"
+							(click)="stopTimer()"
+						>
+							<i class="me-1 bi bi-stop-fill"></i>
+							Interrompi
+						</button>
+					</li>
+					<li>
+						<button
+							class="dropdown-item"
+							type="button"
+							(click)="toContinueWorkout()"
+						>
+							<img
+								src="assets/dumbbell-icon.png"
+								class="me-1"
+								width="16"
+								alt=""
+							/>
+							Allenamento
+						</button>
+					</li>
+				</ul>
+			</div>
 
 			<!-- Spotify -->
 			<a
@@ -92,7 +158,7 @@
 				"
 				[href]="playlistUrl"
 				target="_blank"
-				class="ms-2 btn btn-sm d-block d-lg-none rounded-5 text-light"
+				class="ms-1 btn btn-sm d-block d-lg-none rounded-5 text-light"
 				style="background-color: #1ed760"
 			>
 				<i class="bi bi-spotify"></i>

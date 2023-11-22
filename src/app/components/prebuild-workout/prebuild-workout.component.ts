@@ -210,7 +210,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			})
 			.afterClosed()
 			.subscribe(async customExercise => {
-				if (customExercise == undefined || customExercise === "")
+				if (customExercise === undefined || customExercise === "")
 					return;
 
 				this.workout.exercises[exercise].name = customExercise;

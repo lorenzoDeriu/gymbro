@@ -69,6 +69,10 @@ export class HomeComponent implements OnInit {
 		this.router.navigate(["/home/prebuild-workout"]);
 	}
 
+	stopTimer() {
+		this.userService.endRest();
+	}
+
 	onAbout() {
 		window.location.href = "/home/about";
 	}
