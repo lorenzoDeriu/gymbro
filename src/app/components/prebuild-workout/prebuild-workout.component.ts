@@ -54,7 +54,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 			this.workoutProgress = JSON.parse(
 				localStorage.getItem("workoutProgress")!!
 			);
-			console.log(this.workoutProgress);
 		}
 
 		if (localStorage.getItem("workoutProgress") === null) {
@@ -189,10 +188,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public onCancel() {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
-				title: this.workoutExists()
+				title: this.editMode
 					? "Annulla modifica"
 					: "Annulla allenamento",
-				message: this.workoutExists()
+				message: this.editMode
 					? "Sei sicuro di voler annullare la modifica dell'allenamento?"
 					: "Sei sicuro di voler annullare l'allenamento?",
 				args: [],
