@@ -76,7 +76,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			});
 		});
 
-        localStorage.setItem(
+		localStorage.setItem(
 			"workoutProgress",
 			JSON.stringify(this.workoutProgress)
 		);
@@ -180,7 +180,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.userService.updateWorkout(this.workout);
 		this.workoutProgress.completed.push([]);
 
-        localStorage.setItem(
+		localStorage.setItem(
 			"workoutProgress",
 			JSON.stringify(this.workoutProgress)
 		);
@@ -228,7 +228,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.workoutProgress.completed[exerciseIndex].splice(setIndex, 1);
 
-        localStorage.setItem(
+		localStorage.setItem(
 			"workoutProgress",
 			JSON.stringify(this.workoutProgress)
 		);
@@ -282,10 +282,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 					this.workoutProgress.completed.splice(index, 1);
 
-                    localStorage.setItem(
-                        "workoutProgress",
-                        JSON.stringify(this.workoutProgress)
-                    );
+					localStorage.setItem(
+						"workoutProgress",
+						JSON.stringify(this.workoutProgress)
+					);
 				},
 			},
 		});
