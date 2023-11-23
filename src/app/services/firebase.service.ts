@@ -24,6 +24,8 @@ import {
 	DocumentData,
 	persistentLocalCache,
 	persistentMultipleTabManager,
+    CACHE_SIZE_UNLIMITED,
+    enableIndexedDbPersistence,
 } from "firebase/firestore";
 import {
 	getAuth,
@@ -63,9 +65,8 @@ import { generateId } from "../utils/utils";
 export class FirebaseService {
 	private app = initializeApp(environment.firebaseConfig);
 	private db = initializeFirestore(this.app, {
-		localCache: persistentLocalCache({
-			tabManager: persistentMultipleTabManager(),
-		}),
+        cacheSizeBytes: CACHE_SIZE_UNLIMITED,
+		/* localCache: persistentLocalCache() */ // New version of offline persistence that doesn't work
 	});
 
 	private auth: Auth = getAuth();
@@ -74,7 +75,11 @@ export class FirebaseService {
 	private metaProvider = new FacebookAuthProvider();
 	private xProvider = new TwitterAuthProvider();
 
-	constructor() {}
+	constructor() {
+        enableIndexedDbPersistence(this.db, {
+            forceOwnership: true
+        });
+    }
 
 	public async fixDB() {
 		console.log("Fixing DB");
