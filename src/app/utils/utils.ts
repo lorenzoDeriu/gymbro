@@ -6,74 +6,6 @@ export interface ExerciseLog {
 	date: number;
 }
 
-export class Utils {
-	/* 	getWeightsFor(
-		exerciseName: string,
-		workoutsDate: string[],
-		workouts: any
-	): string[] {
-		const sortedWorkouts = new Set(this.sortByDate(workouts));
-		const weights: string[] = [];
-
-		const date = new Set(workoutsDate);
-
-		const max = (arr: any) =>
-			arr.reduce((x: any, y: any) => Math.max(x, y));
-
-		date.forEach((date: string) => {
-			sortedWorkouts.forEach((workout: any) => {
-				if (workout.date === date) {
-					workout.exercises.forEach((exercise: any) => {
-						if (exercise.name === exerciseName) {
-							weights.push(
-								exercise.configurationType === "advanced"
-									? max(
-											exercise.advanced.sets.map(
-												(set: any) => set.load
-											)
-									  )
-									: exercise.load
-							);
-						}
-					});
-				}
-			});
-		});
-
-		return weights.slice(Math.max(weights.length - 20, 0));
-	}
-
-	createWeeksArray() {
-		let today = new Date();
-		let lastDayOfThisWeek = endOfWeek(today, { weekStartsOn: 1 });
-
-		let weeks: any[] = [];
-
-		for (let i = 1; i <= 8; i++) {
-			weeks[i - 1] = [];
-			if (i == 1) weeks.push(lastDayOfThisWeek);
-
-			for (let j = 0; j < 7; j++) {
-				let d = new Date(
-					new Date().setDate(
-						lastDayOfThisWeek.getDate() - (j + 7 * (i - 1))
-					)
-				);
-				weeks[i - 1].push(d.toLocaleDateString());
-			}
-		}
-
-		return weeks;
-	}
-
-	private toDate(d: string): Date {
-		let [day, month, year] = String(d).split("/");
-		const date = new Date(+year, +month - 1, +day);
-
-		return date;
-	} */
-}
-
 export const formatSets = (sets: Set[]): string[] => {
 	const formattedSets: string[] = [];
 	const setCountMap: Map<string, number> = new Map();
@@ -184,9 +116,7 @@ export const getSessionExerciseFor = (
 
 	return sessionExercises;
 };
-/*
-convertTimediffToTime converts a time difference in milliseconds to a string in the format HH:MM:SS
-*/
+
 export const convertTimediffToTime = (timeDiff: number): string => {
 	return new Date(timeDiff).toISOString().slice(11, 19);
 };

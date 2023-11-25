@@ -6,7 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { Workout } from "src/app/Models/Workout.model";
-import { formatEffectiveSets } from "src/app/utils/utils";
+import { formatEffectiveSets, convertTimediffToTime } from "src/app/utils/utils";
 import { EffectiveSet } from "src/app/Models/Exercise.model";
 
 @Component({
@@ -34,6 +34,10 @@ export class OldWorkoutsComponent implements OnInit {
 	public formatEffectiveSets(sets: EffectiveSet[]): string[] {
 		return formatEffectiveSets(sets);
 	}
+
+    public getTimeFromTimestamp(timestamp: number) {
+        return convertTimediffToTime(timestamp);
+    }
 
 	public getDateFromTimestamp(timestamp: number) {
 		return new Date(timestamp);

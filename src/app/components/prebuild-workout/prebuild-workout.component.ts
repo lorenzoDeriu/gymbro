@@ -98,10 +98,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public saveWorkout() {
 		this.workout.date = this.fromStringToTimestamp(this.date);
 
-		this.userService.updateWorkout(this.workout);
-		this.userService.saveWorkout();
 		this.userService.endChronometer();
 		this.userService.endRest();
+		this.userService.updateWorkout(this.workout);
+		this.userService.saveWorkout();
 
 		localStorage.removeItem("workoutProgress");
 		this.router.navigate(["/home"]);

@@ -4,7 +4,6 @@ import { MatDialog } from "@angular/material/dialog";
 import { ExerciseStatsComponent } from "../exercise-stats/exercise-stats.component";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { Router } from "@angular/router";
-import { Utils } from "src/app/utils/utils";
 Chart.register(...registerables);
 
 @Component({
@@ -18,7 +17,7 @@ export class YourProgressComponent implements OnInit {
 	public chart: any;
 	private workouts: any[];
 
-	private utils: Utils = new Utils();
+	//private utils: Utils = new Utils();
 
 	constructor(
 		private dialog: MatDialog,

@@ -57,9 +57,6 @@ export class UserService {
 		this.checkForBackup();
 	}
 
-	/*
-	startChronometer è da chiamare ogni volta che si inizia un nuovo allenamento
-	*/
 	public startChronometer() {
 		this.workoutStartTime = Date.now();
 		localStorage.setItem("workoutStartTime", String(this.workoutStartTime));
@@ -73,12 +70,6 @@ export class UserService {
 		});
 	}
 
-	/*
-	startTimer è da chiamare ogni volta che si finisce una serie
-	e si vuole iniziare il timer per il recupero
-
-	time è il tempo di recupero in millisecondi
-	*/
 	public startTimer(time: number) {
 		this.setRestMode(true);
 		this.restStartTime = Date.now();
@@ -87,10 +78,6 @@ export class UserService {
 		localStorage.setItem("timeToRest", String(this.timeToRest));
 	}
 
-	/*
-	getChronometerTime ritorna il tempo passato dall'inizio dell'allenamento
-	espresso in millisecondi
-	*/
 	public getChronometerTime() {
 		if (this.restMode.value) {
 			return this.restTime;
@@ -99,19 +86,11 @@ export class UserService {
 		return this.trainingTime;
 	}
 
-	/*
-	endChronometer è da chiamare quando si finisce l'allenamento
-	*/
 	public endChronometer() {
 		clearInterval(this.interval);
 		localStorage.removeItem("workoutStartTime");
-		localStorage.removeItem("restStartTime");
 	}
 
-	/*
-	endRest è da chiamare quando si finisce il recupero
-	la chiamata avviene automaticamente quando il tempo di recupero è finito
-	*/
 	public endRest() {
 		this.setRestMode(false);
 		localStorage.removeItem("restStartTime");

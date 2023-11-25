@@ -71,10 +71,9 @@
 					{{ workout.name }}
 				</p>
 				<div>
-					<p *ngIf="workout.trainingTime" style="pointer-events: none" class="text-end mb-0">
+					<p *ngIf="workout.trainingTime || workout.trainingTime !== 0" style="pointer-events: none" class="text-end mb-0">
 						{{
-							getDateFromTimestamp(workout.date)
-								| date : "HH:mm:ss"
+							getTimeFromTimestamp(workout.trainingTime)
 						}}
 						<i class="ms-1 bi bi-stopwatch"></i>
 					</p>
