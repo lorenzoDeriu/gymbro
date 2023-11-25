@@ -1,3 +1,4 @@
+import { Workout } from 'src/app/Models/Workout.model';
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 
@@ -48,7 +49,6 @@ import {
 	Set,
 	TrainingProgramExercise,
 } from "../Models/Exercise.model";
-import { Workout } from "../Models/Workout.model";
 import { Feedback } from "../Models/Feedback.model";
 import {
 	FollowedUserInfo,
@@ -78,28 +78,28 @@ export class FirebaseService {
 		const querySnapshot = await getDocs(collectionReference);
 
 		querySnapshot.forEach((doc: DocumentSnapshot) => {
-			if (doc.id.startsWith("WU") || true) {
+			if (!doc.id.startsWith("WU")) {
 				const data = doc.data();
 
-				console.log(data);
+				console.log("berfore parsing:", doc.id, data);
 
 				let newData: User;
 
-				console.log("parsing ", doc.id, data);
-
 				newData = {
 					username: data["username"] ?? "",
-					customExercises: data["customExercises"] ?? [],
-					follow: data["follow"] ?? [],
 					visibility: data["visibility"] ?? false,
+					admin: data["admin"] ?? false,
+					playlistUrl: "",
+					follow: data["follow"] ?? [],
+					customExercises: data["customExercises"] ?? [],
 					trainingPrograms: this.normalizeTrainingPrograms(
 						data["trainingPrograms"]
 					),
 					workout: this.normalizeWorkout(data["workouts"]),
-					admin: data["admin"] ?? false,
 				};
 
-				console.log("complete parsing", doc.id, data, newData);
+				console.log("complete parsing", doc.id, newData);
+				updateDoc(doc.ref, newData);
 			}
 		});
 		console.log("db fixed");
@@ -113,7 +113,7 @@ export class FirebaseService {
 
 			newWorkout = {
 				name: workouts["name"],
-				date: workouts["date"] /* this.getDate(workouts["date"]) */,
+				date: this.getDate(workouts["date"]).getTime(),
 				trainingTime: 0,
 				exercises: [],
 			};
@@ -126,12 +126,12 @@ export class FirebaseService {
 				newExercise = {
 					name: exerciseObj["name"],
 					set: this.getEffectiveSet(exerciseObj),
-					note: exerciseObj["note"] ?? "",
 					intensity: this.getIntensity(exerciseObj["RPE"]),
 					rest: {
 						minutes: exerciseObj.rest?.minutes ?? "00",
 						seconds: exerciseObj.rest?.seconds ?? "00",
 					},
+					note: exerciseObj["note"] ?? "",
 					groupId: generateId(),
 				};
 
@@ -143,7 +143,9 @@ export class FirebaseService {
 			normalizedWorkout.push(newWorkout);
 		});
 
-		return normalizedWorkout;
+		return normalizedWorkout.sort((a: Workout, b: Workout) => {
+			return b.date - a.date;
+		});
 	}
 
 	private getDate(date: string): Date {
@@ -237,15 +239,15 @@ export class FirebaseService {
 		if ((exercise.configurationType ?? "basic") === "basic") {
 			for (let i = 0; i < exercise["series"]; i++) {
 				set.push({
-					reps: exercise.reps,
-					load: exercise.load,
+					reps: exercise.reps ?? 0,
+					load: exercise.load ?? 0,
 				});
 			}
 		} else if (exercise.configurationType === "advanced") {
 			exercise.advanced?.sets?.forEach((setObj: any) => {
 				set.push({
-					reps: setObj["reps"],
-					load: setObj["load"],
+					reps: setObj["reps"] ?? 0,
+					load: setObj["load"] ?? 0,
 				});
 			});
 		}

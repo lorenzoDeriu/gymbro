@@ -1,3 +1,4 @@
+import { CustomExcerciseDialogComponent } from './../custom-excercise-dialog/custom-excercise-dialog.component';
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -90,7 +91,17 @@ export class ProfileComponent implements OnInit {
 		}
 	}
 
-	public saveTrainingProgram(trainingProgramIndex: number) {
+	public async saveTrainingProgram(trainingProgramIndex: number) {
+		const exercisesAvailable = await this.firebase.getExercise();
+
+		this.trainingPrograms[trainingProgramIndex].session.forEach(session => {
+			session.exercises.forEach(async exercise => {
+				if (!exercisesAvailable.includes(exercise.name)) {
+					await this.firebase.addCustomExercise(exercise.name);
+				}
+			})
+		})
+
 		this.firebase.addTrainingProgram(
 			this.trainingPrograms[trainingProgramIndex]
 		);
