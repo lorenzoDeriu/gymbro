@@ -38,11 +38,14 @@ export class UserService {
 	private interval: any;
 
 	constructor(private firebase: FirebaseService) {
-		this.firebase.getUserData().then(user => {
-			this.user = user;
-		}).catch(() => {
-            this.user = null;
-        });
+		this.firebase
+			.getUserData()
+			.then(user => {
+				this.user = user;
+			})
+			.catch(() => {
+				this.user = null;
+			});
 
 		this.workout = {
 			name: "Nuovo Allenamento",
@@ -151,9 +154,9 @@ export class UserService {
 		}
 	}
 
-    public getTrainingTime() {
-        return this.trainingTime;
-    }
+	public getTrainingTime() {
+		return this.trainingTime;
+	}
 
 	public getWorkout() {
 		localStorage.setItem("workout", JSON.stringify(this.workout));

@@ -1,4 +1,4 @@
-import { Workout } from 'src/app/Models/Workout.model';
+import { Workout } from "src/app/Models/Workout.model";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 

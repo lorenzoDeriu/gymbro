@@ -1,4 +1,4 @@
-import { CustomExcerciseDialogComponent } from './../custom-excercise-dialog/custom-excercise-dialog.component';
+import { CustomExcerciseDialogComponent } from "./../custom-excercise-dialog/custom-excercise-dialog.component";
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -99,8 +99,8 @@ export class ProfileComponent implements OnInit {
 				if (!exercisesAvailable.includes(exercise.name)) {
 					await this.firebase.addCustomExercise(exercise.name);
 				}
-			})
-		})
+			});
+		});
 
 		this.firebase.addTrainingProgram(
 			this.trainingPrograms[trainingProgramIndex]

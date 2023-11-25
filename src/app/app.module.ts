@@ -74,6 +74,7 @@ import { CustomExcerciseDialogComponent } from "./components/custom-excercise-di
 import { ShareDialogComponent } from "./components/share-dialog/share-dialog.component";
 import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
 import { AboutPreviewComponent } from "./components/about-preview/about-preview.component";
+import { WelcomeDialogComponent } from "./components/welcome-dialog/welcome-dialog.component";
 
 @NgModule({
 	declarations: [
@@ -113,6 +114,7 @@ import { AboutPreviewComponent } from "./components/about-preview/about-preview.
 		ShareDialogComponent,
 		AdminDialogComponent,
 		AboutPreviewComponent,
+		WelcomeDialogComponent,
 	],
 	imports: [
 		BrowserModule,

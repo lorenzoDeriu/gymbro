@@ -1,6 +1,6 @@
 <div
 	class="d-flex flex-column justify-content-center align-items-center p-3 overflow-hidden"
-	style="max-width: 500px; max-height: 60svh;"
+	style="max-width: 500px; max-height: 60svh"
 >
 	<h1 class="text-center w-100">Storico</h1>
 	<h5 class="fst-italic text-center w-100">
@@ -18,34 +18,34 @@
 		</div>
 	</div>
 
-    <div class="overflow-auto w-100">
-        <div *ngFor="let stat of stats" class="w-100">
-            <div class="mb-2">
-                <p class="mb-0 fw-bold">
-                    <i class="me-1 bi bi-calendar-event"></i>
-                    {{ stat.date | date : "dd/MM/yyyy" }}
-                </p>
-    
-                <div *ngFor="let set of formatEffectiveSets(stat.exercise.set)">
-                    <small>
-                        {{ set }}
-                    </small>
-                </div>
-    
-                <div *ngIf="stat.exercise.note !== '' && stat.exercise.note">
-                    <p
-                        class="text-secondary fst-italic mb-0"
-                        style="font-size: 0.7em"
-                    >
-                        <i class="me-1 bi bi-sticky"></i>
-                        "{{ stat.exercise.note }}"
-                    </p>
-                </div>
-    
-                <mat-divider class="my-1"></mat-divider>
-            </div>
-        </div>
-    </div>
+	<div class="overflow-auto w-100">
+		<div *ngFor="let stat of stats" class="w-100">
+			<div class="mb-2">
+				<p class="mb-0 fw-bold">
+					<i class="me-1 bi bi-calendar-event"></i>
+					{{ stat.date | date : "dd/MM/yyyy" }}
+				</p>
+
+				<div *ngFor="let set of formatEffectiveSets(stat.exercise.set)">
+					<small>
+						{{ set }}
+					</small>
+				</div>
+
+				<div *ngIf="stat.exercise.note !== '' && stat.exercise.note">
+					<p
+						class="text-secondary fst-italic mb-0"
+						style="font-size: 0.7em"
+					>
+						<i class="me-1 bi bi-sticky"></i>
+						"{{ stat.exercise.note }}"
+					</p>
+				</div>
+
+				<mat-divider class="my-1"></mat-divider>
+			</div>
+		</div>
+	</div>
 
 	<button (click)="closeDialog()" class="btn btn-dark w-100">Chiudi</button>
 </div>

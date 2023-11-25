@@ -1,0 +1,60 @@
+<div
+	class="d-flex flex-column justify-content-center align-items-center p-3 overflow-hidden"
+	style="max-width: 500px; max-height: 60svh"
+>
+	<img
+		class="d-none d-lg-block"
+		src="assets/confetti.png"
+		width="80"
+		alt=""
+	/>
+	<img
+		class="d-block d-lg-none"
+		src="assets/confetti.png"
+		width="50"
+		alt=""
+	/>
+
+	<h4 class="text-center w-100 mt-3 d-none d-lg-block">
+		GymBro è stata aggiornata aggiornata!
+	</h4>
+	<h6 class="text-center w-100 mt-3 d-block d-lg-none">
+		GymBro è stata aggiornata aggiornata!
+	</h6>
+
+	<p class="text-center d-none d-lg-block">
+		Per avere maggiori informazioni
+		<a
+			class="blue-link"
+			href="/about-preview"
+			style="border: none; outline: none"
+		>
+			clicca qui
+		</a>
+	</p>
+
+	<small class="text-center d-block d-lg-none">
+		Per avere maggiori informazioni
+		<a
+			class="blue-link"
+			href="/about-preview"
+			style="border: none; outline: none"
+		>
+			clicca qui
+		</a>
+	</small>
+
+	<button
+		(click)="closeDialog()"
+		class="btn purple-btn text-light d-none d-lg-block"
+	>
+		Inizia ad allenarti
+	</button>
+
+	<button
+		(click)="closeDialog()"
+		class="btn btn-sm purple-btn text-light d-block d-lg-none mt-3"
+	>
+		Inizia ad allenarti
+	</button>
+</div>

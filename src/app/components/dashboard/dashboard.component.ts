@@ -4,6 +4,7 @@ import { NewWorkoutDialogComponent } from "../new-workout-dialog/new-workout-dia
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
+import { WelcomeDialogComponent } from "../welcome-dialog/welcome-dialog.component";
 
 @Component({
 	selector: "app-dashboard",
@@ -21,6 +22,12 @@ export class DashboardComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		if (localStorage.getItem("welcomeDialog") !== "true") {
+			this.dialog.open(WelcomeDialogComponent, {
+				disableClose: false,
+			});
+			localStorage.setItem("welcomeDialog", "true");
+		}
 		this.userService.editModeObs.subscribe(editMode => {
 			this.editMode = editMode;
 		});
