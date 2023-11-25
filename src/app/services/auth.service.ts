@@ -38,9 +38,7 @@ export class AuthService {
 			) {
 				this.createNewUserInfo(username);
 			}
-		}
-
-        else throw "Credential Error";
+		} else throw "Credential Error";
 	}
 
 	public async signup(email: string, password: string, username: string) {

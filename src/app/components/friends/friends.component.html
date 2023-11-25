@@ -131,25 +131,25 @@
 				<button
 					class="btn"
 					(click)="viewProfile(i)"
-					style="border: none; width: 85%;"
+					style="border: none; width: 85%"
 				>
-					<div
-						class="avatar d-flex align-items-center text-truncate"
-					>
+					<div class="avatar d-flex align-items-center text-truncate">
 						<img
 							*ngIf="user.visibilityPermission"
 							src="assets/profile.png"
 							width="30px"
 							alt="profile-pic"
 						/>
-						<p class="mb-0 ms-3 text-truncate">{{ user.username }}</p>
+						<p class="mb-0 ms-3 text-truncate">
+							{{ user.username }}
+						</p>
 					</div>
 				</button>
 
 				<button
 					class="btn"
 					(click)="onUnfollow(i)"
-					style="border: none;"
+					style="border: none"
 				>
 					<i class="bi bi-person-dash-fill"></i>
 				</button>

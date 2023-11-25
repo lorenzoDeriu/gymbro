@@ -48,8 +48,9 @@ export class SettingsPageComponent implements OnInit {
 
 	public isPlaylistUrlValid() {
 		return (
-			this.playlistUrl === "" || (this.playlistUrl &&
-			this.playlistUrl.includes("https://open.spotify.com/"))
+			this.playlistUrl === "" ||
+			(this.playlistUrl &&
+				this.playlistUrl.includes("https://open.spotify.com/"))
 		);
 	}
 

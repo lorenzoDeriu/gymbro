@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
 			});
 			localStorage.setItem("welcomeDialog", "true");
 		}
-        
+
 		this.userService.editModeObs.subscribe(editMode => {
 			this.editMode = editMode;
 		});
