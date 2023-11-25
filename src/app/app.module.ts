@@ -64,7 +64,6 @@ import { ExerciseStatsComponent } from "./components/exercise-stats/exercise-sta
 import { NotesDialogComponent } from "./components/notes-dialog/notes-dialog.component";
 import { ExerciseStatsDialogComponent } from "./components/exercise-stats-dialog/exercise-stats-dialog.component";
 import { WelcomePageComponent } from "./components/welcome-page/welcome-page.component";
-import { CustomDateAdapter } from "./components/prebuild-workout/date-picker-adapter";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SafetyActionConfirmDialogComponent } from "./components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { ErrorLoginDialogComponent } from "./components/error-login-dialog/error-login-dialog.component";
@@ -151,12 +150,6 @@ import { AboutPreviewComponent } from "./components/about-preview/about-preview.
 		MatTooltipModule,
 		MatSlideToggleModule,
 		NgbModule,
-	],
-	providers: [
-		// TODO: @LORE All these are DEPRECATED
-		MatNativeDateModule,
-		{ provide: MAT_DATE_LOCALE, useValue: "en-GB" },
-		{ provide: DateAdapter, useClass: CustomDateAdapter },
 	],
 	bootstrap: [AppComponent],
 })
