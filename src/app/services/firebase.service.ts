@@ -65,8 +65,8 @@ import { generateId } from "../utils/utils";
 export class FirebaseService {
 	private app = initializeApp(environment.firebaseConfig);
 	private db = initializeFirestore(this.app, {
-        cacheSizeBytes: CACHE_SIZE_UNLIMITED,
-		/* localCache: persistentLocalCache() */ // New version of offline persistence that doesn't work
+        // cacheSizeBytes: CACHE_SIZE_UNLIMITED,
+		localCache: persistentLocalCache({}) // New version of offline persistence that doesn't work
 	});
 
 	private auth: Auth = getAuth();
@@ -76,9 +76,10 @@ export class FirebaseService {
 	private xProvider = new TwitterAuthProvider();
 
 	constructor() {
-        enableIndexedDbPersistence(this.db, {
-            forceOwnership: true
-        });
+		// firebase.firestore().enablePersistence()
+        // enableIndexedDbPersistence(this.db, {
+        //     forceOwnership: true
+        // });w
     }
 
 	public async fixDB() {
