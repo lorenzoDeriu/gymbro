@@ -132,7 +132,6 @@ export class AuthService {
 	public logout() {
 		this.firebase.signout();
 		this.loggedIn = false;
-		localStorage.removeItem("user");
 		window.location.href = "/welcome";
 	}
 
