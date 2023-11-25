@@ -149,6 +149,10 @@ export class UserService {
 		}
 	}
 
+    public getTrainingTime() {
+        return this.trainingTime;
+    }
+
 	public getWorkout() {
 		localStorage.setItem("workout", JSON.stringify(this.workout));
 		return this.workout;
@@ -192,7 +196,7 @@ export class UserService {
 	}
 
 	private workoutSortingFunction(a: Workout, b: Workout) {
-		return a.date - b.date;
+		return b.date - a.date;
 	}
 
 	public updateWorkouts(workouts: Workout[]) {

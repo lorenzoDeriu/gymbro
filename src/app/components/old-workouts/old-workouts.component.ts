@@ -55,8 +55,6 @@ export class OldWorkoutsComponent implements OnInit {
 			? seconds.split("")[1]
 			: seconds;
 
-		console.log(hoursFiltered, minutesFiltered, secondsFiltered);
-
 		if (hoursFiltered === "0") {
 			if (minutesFiltered === "0") {
 				return secondsFiltered + "s";
