@@ -97,6 +97,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	public saveWorkout() {
 		this.workout.date = this.fromStringToTimestamp(this.date);
+        this.workout.trainingTime = this.userService.getChronometerTime();
 
 		this.userService.endChronometer();
 		this.userService.endRest();
