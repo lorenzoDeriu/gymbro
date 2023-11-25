@@ -40,7 +40,9 @@ export class UserService {
 	constructor(private firebase: FirebaseService) {
 		this.firebase.getUserData().then(user => {
 			this.user = user;
-		});
+		}).catch(() => {
+            this.user = null;
+        });
 
 		this.workout = {
 			name: "Nuovo Allenamento",
