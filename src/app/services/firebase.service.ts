@@ -279,7 +279,6 @@ export class FirebaseService {
 			sendEmailVerification(this.auth.currentUser);
 			return userCredential;
 		} catch (e) {
-			console.log(e);
 			return null;
 		}
 	}
@@ -531,7 +530,6 @@ export class FirebaseService {
 	}
 
 	public async getTrainingProgramsFromUser(uid: string) {
-        console.log(uid)
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -875,7 +873,6 @@ export class FirebaseService {
 	}
 
 	public async updatePlaylistUrl(playlistUrl: string) {
-		console.log(playlistUrl);
 		let uid = await this.getUid();
 		let documentReference = doc(this.db, "users", uid);
 		await updateDoc(documentReference, { playlistUrl: playlistUrl });

@@ -131,10 +131,6 @@ export class WelcomePageComponent implements OnInit {
 		this.router.navigate(["/access"]);
 	}
 
-	signUp() {
-		this.router.navigate(["/access"]);
-	}
-
 	allowLogin(): boolean {
 		return (
 			this.email &&
