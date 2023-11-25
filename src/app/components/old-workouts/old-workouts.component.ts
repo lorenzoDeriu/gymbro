@@ -6,7 +6,10 @@ import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { Workout } from "src/app/Models/Workout.model";
-import { formatEffectiveSets, convertTimediffToTime } from "src/app/utils/utils";
+import {
+	formatEffectiveSets,
+	convertTimediffToTime,
+} from "src/app/utils/utils";
 import { EffectiveSet } from "src/app/Models/Exercise.model";
 
 @Component({
@@ -35,9 +38,41 @@ export class OldWorkoutsComponent implements OnInit {
 		return formatEffectiveSets(sets);
 	}
 
-    public getTimeFromTimestamp(timestamp: number) {
-        return convertTimediffToTime(timestamp);
-    }
+	public getTimeFromTimestamp(timestamp: number) {
+		const timeFromTimestamp: string = convertTimediffToTime(timestamp);
+		const splittedTimeFromTimestamp: string[] =
+			timeFromTimestamp.split(":");
+		const hours: string = splittedTimeFromTimestamp[0];
+		const minutes: string = splittedTimeFromTimestamp[1];
+		const seconds: string = splittedTimeFromTimestamp[2];
+		const hoursFiltered: string = hours.startsWith("0")
+			? hours.split("")[1]
+			: hours;
+		const minutesFiltered: string = minutes.startsWith("0")
+			? minutes.split("")[1]
+			: minutes;
+		const secondsFiltered: string = seconds.startsWith("0")
+			? seconds.split("")[1]
+			: seconds;
+
+		console.log(hoursFiltered, minutesFiltered, secondsFiltered);
+
+		if (hoursFiltered === "0") {
+			if (minutesFiltered === "0") {
+				return secondsFiltered + "s";
+			}
+			return minutesFiltered + "m " + secondsFiltered + "s";
+		}
+
+		return (
+			hoursFiltered +
+			"h " +
+			minutesFiltered +
+			"m " +
+			secondsFiltered +
+			"s"
+		);
+	}
 
 	public getDateFromTimestamp(timestamp: number) {
 		return new Date(timestamp);
