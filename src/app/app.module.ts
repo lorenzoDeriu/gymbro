@@ -29,7 +29,6 @@ import { OldWorkoutsComponent } from "./components/old-workouts/old-workouts.com
 import { YourProgressComponent } from "./components/your-progress/your-progress.component";
 import { TrainingProgramsComponent } from "./components/training-programs/training-programs.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
-import { NewWorkoutBuilderComponent } from "./components/new-workout-builder/new-workout-builder.component";
 import { TrainingProgramSelectorComponent } from "./components/training-program-selector/training-program-selector.component";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { NewExerciseDialogComponent } from "./components/new-exercise-dialog/new-exercise-dialog.component";
@@ -43,11 +42,9 @@ import { provideFirebaseApp, getApp, initializeApp } from "@angular/fire/app";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { MatTableModule } from "@angular/material/table";
 import { TrainingProgramBuilderComponent } from "./components/training-program-builder/training-program-builder.component";
-import { SessionBuilderComponent } from "./components/session-builder/session-builder.component";
 import { PrebuildWorkoutComponent } from "./components/prebuild-workout/prebuild-workout.component";
 import { MatDividerModule } from "@angular/material/divider";
 import { PasswordRecoverDialogComponent } from "./components/password-recover-dialog/password-recover-dialog.component";
-import { ExercisePickerDialogComponent } from "./components/exercise-picker-dialog/exercise-picker-dialog.component";
 import { FriendsComponent } from "./components/friends/friends.component";
 import { SearchResultComponent } from "./components/search-result/search-result.component";
 import { MatCardModule } from "@angular/material/card";
@@ -67,12 +64,17 @@ import { ExerciseStatsComponent } from "./components/exercise-stats/exercise-sta
 import { NotesDialogComponent } from "./components/notes-dialog/notes-dialog.component";
 import { ExerciseStatsDialogComponent } from "./components/exercise-stats-dialog/exercise-stats-dialog.component";
 import { WelcomePageComponent } from "./components/welcome-page/welcome-page.component";
-import { CustomDateAdapter } from "./components/prebuild-workout/date-picker-adapter";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SafetyActionConfirmDialogComponent } from "./components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { ErrorLoginDialogComponent } from "./components/error-login-dialog/error-login-dialog.component";
 import { ErrorRegisterDialogComponent } from "./components/error-register-dialog/error-register-dialog.component";
 import { ErrorProviderDialogComponent } from "./components/error-provider-dialog/error-provider-dialog.component";
+import { NewWorkoutDialogComponent } from "./components/new-workout-dialog/new-workout-dialog.component";
+import { CustomExcerciseDialogComponent } from "./components/custom-excercise-dialog/custom-excercise-dialog.component";
+import { ShareDialogComponent } from "./components/share-dialog/share-dialog.component";
+import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
+import { AboutPreviewComponent } from "./components/about-preview/about-preview.component";
+import { WelcomeDialogComponent } from "./components/welcome-dialog/welcome-dialog.component";
 
 @NgModule({
 	declarations: [
@@ -85,14 +87,11 @@ import { ErrorProviderDialogComponent } from "./components/error-provider-dialog
 		YourProgressComponent,
 		TrainingProgramsComponent,
 		DashboardComponent,
-		NewWorkoutBuilderComponent,
 		TrainingProgramSelectorComponent,
 		NewExerciseDialogComponent,
 		TrainingProgramBuilderComponent,
-		SessionBuilderComponent,
 		PrebuildWorkoutComponent,
 		PasswordRecoverDialogComponent,
-		ExercisePickerDialogComponent,
 		FriendsComponent,
 		SearchResultComponent,
 		ProfileComponent,
@@ -110,6 +109,12 @@ import { ErrorProviderDialogComponent } from "./components/error-provider-dialog
 		ErrorLoginDialogComponent,
 		ErrorRegisterDialogComponent,
 		ErrorProviderDialogComponent,
+		NewWorkoutDialogComponent,
+		CustomExcerciseDialogComponent,
+		ShareDialogComponent,
+		AdminDialogComponent,
+		AboutPreviewComponent,
+		WelcomeDialogComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -147,11 +152,6 @@ import { ErrorProviderDialogComponent } from "./components/error-provider-dialog
 		MatTooltipModule,
 		MatSlideToggleModule,
 		NgbModule,
-	],
-	providers: [
-		MatNativeDateModule,
-		{ provide: MAT_DATE_LOCALE, useValue: "en-GB" },
-		{ provide: DateAdapter, useClass: CustomDateAdapter },
 	],
 	bootstrap: [AppComponent],
 })

@@ -1,34 +1,29 @@
-#progress-container {
-	width: 60%;
-	margin: auto;
-}
-
-#title {
+#wrapper {
+	width: 100vw;
+	height: calc(100svh - 66px);
+	transform: translateY(66px);
 	display: flex;
 	justify-content: center;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
+	overflow: hidden;
 }
 
-#buttons-container {
+#main-container {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-bottom: 10px;
+	overflow: auto;
 }
 
-#buttons-container button {
-	margin-bottom: 5px;
+.purple-btn {
+	border: none;
+	background-color: #6b44d4;
 }
 
-.graph-container {
-	display: flex;
-	justify-content: center;
+.purple-btn:hover {
+	background-color: #785ebe !important;
 }
 
-@media (max-width: 600px) {
-	#progress-container {
-		width: 95%;
-	}
+.purple-btn:active {
+	background-color: #957dd6 !important;
 }

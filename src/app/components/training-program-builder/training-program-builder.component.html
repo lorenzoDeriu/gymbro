@@ -1,237 +1,309 @@
-<div id="builder-container">
-	<h1><span id="title">Nuova Scheda di Allenamento</span></h1>
-
-	<div
-		class="input-group mb-2"
-		style="
-			color: rgb(69, 69, 188);
-			width: 300px;
-			margin: auto;
-			margin-top: 20px;
-		"
-	>
-		<span
-			class="input-group-text custom-span"
-			id="inputGroup-sizing-default"
-		>
-			Nome
-		</span>
-		<input
-			type="text"
-			class="form-control"
-			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
-			[(ngModel)]="this.trainingProgram.name"
-		/>
+<div
+	*ngIf="loading"
+	class="d-flex justify-content-center align-items-center opacity-50 position-absolute"
+	style="
+		width: 100vw;
+		height: 100svh;
+		z-index: 10000;
+		background-color: black;
+	"
+>
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">Loading...</span>
 	</div>
+</div>
 
-	<mat-accordion style="margin-top: 30px; width: 100%">
-		<mat-expansion-panel
-			hideToggle
+<!-- TODO: Remove !loading and check if object is already loaded -->
+<div id="wrapper" *ngIf="!loading">
+	<div id="main-container" class="p-3">
+		<h1 class="my-3 text-center">
+			{{ editMode ? "Modifica" : "Nuova" }} scheda di allenamento
+		</h1>
+
+		<form class="d-flex justify-content-center align-items-center mb-4">
+			<button
+				type="button"
+				class="btn btn-dark me-2 d-none d-lg-flex"
+				routerLink="/home/training-programs"
+			>
+				<i class="me-1 bi bi-arrow-left"></i>
+				Indietro
+			</button>
+			<button
+				type="button"
+				class="btn btn-sm btn-dark me-2 d-flex d-lg-none"
+				routerLink="/home/training-programs"
+			>
+				<i class="bi bi-arrow-left"></i>
+			</button>
+
+			<div class="d-flex flex-column w-50 mx-2 mb-3 mt-2 input-container">
+				<p class="mb-0 text-center">Nome</p>
+				<input
+					[ngModelOptions]="{ standalone: true }"
+					[(ngModel)]="trainingProgram.name"
+					type="text"
+					class="border-0 border-bottom py-1"
+					style="background-color: transparent"
+				/>
+			</div>
+
+			<button
+				[disabled]="!savable()"
+				type="submit"
+				class="btn text-light purple-btn ms-2 d-none d-lg-flex"
+				(click)="saveTrainingProgram()"
+			>
+				Salva
+				<i class="ms-1 bi bi-check"></i>
+			</button>
+			<button
+				[disabled]="!savable()"
+				type="submit"
+				class="btn purple-btn btn-sm text-light ms-2 d-flex d-lg-none"
+				(click)="saveTrainingProgram()"
+			>
+				<i class="bi bi-check"></i>
+			</button>
+		</form>
+
+		<div
 			*ngFor="
-				let session of this.trainingProgram.session;
+				let session of trainingProgram.session;
 				index as sessionIndex
 			"
-			style="margin-bottom: 5px"
+			class="w-100 mb-2"
 		>
-			<mat-expansion-panel-header>
-				<mat-panel-title>
-					<span id="training-program-day-name">
-						{{ session.name }}
-					</span>
-				</mat-panel-title>
-				<mat-panel-description>
-					<div
-						style="
-							width: 100%;
-							display: flex;
-							flex-direction: row;
-							justify-content: space-between;
-							align-items: center;
-						"
-					>
-						Numero esercizi: {{ session.exercises.length }}
-						<button
-							class="btn btn-outline-danger"
-							style="margin-top: 0; margin-right: -15px"
-							(click)="deleteSession(sessionIndex)"
+			<a
+				[href]="'#session' + sessionIndex"
+				class="btn btn-light w-100 mb-1 border sessions-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				data-bs-toggle="collapse"
+				role="button"
+				aria-expanded="false"
+				aria-controls="collapseExample"
+			>
+				<p class="text-center mb-0 text-truncate me-3">
+					{{ session.name }}
+				</p>
+			</a>
+
+			<div
+				class="collapse w-100 sessions-collapse-body collapse-body"
+				[id]="'session' + sessionIndex"
+			>
+				<div class="card card-body p-1">
+					<div class="d-flex justify-content-between w-100 mb-2 p-2">
+						<div
+							class="d-flex flex-column w-25 input-container session-name"
 						>
-							<i class="bi bi-trash"></i>
+							<p class="mb-0">Nome</p>
+							<input
+								[ngModelOptions]="{ standalone: true }"
+								[(ngModel)]="session.name"
+								type="text"
+								class="border-0 border-bottom py-1"
+								style="background-color: transparent"
+							/>
+						</div>
+
+						<button
+							class="btn btn-sm btn-danger"
+							style="height: fit-content; width: fit-content"
+							(click)="deleteSessionDialog(sessionIndex)"
+						>
+							<i class="bi bi-trash3"></i>
 						</button>
 					</div>
-				</mat-panel-description>
-			</mat-expansion-panel-header>
 
-			<div
-				style="
-					display: flex;
-					flex-direction: row;
-					margin-top: 20px;
-					align-items: center;
-				"
-			>
-				<div
-					class="input-group mb-2"
-					style="
-						color: rgb(69, 69, 188);
-						width: 300px;
-						margin-right: 10px;
-					"
-				>
-					<span
-						class="input-group-text custom-span"
-						id="inputGroup-sizing-default"
+					<table class="table table-sm table-striped table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Esercizio</th>
+								<th scope="col">Serie</th>
+								<th scope="col">Intensità</th>
+								<th scope="col">Riposo</th>
+								<th scope="col">Azioni</th>
+							</tr>
+						</thead>
+						<tbody class="table-group-divider">
+							<tr
+								*ngFor="
+									let exercise of session.exercises;
+									index as exerciseIndex
+								"
+							>
+								<th>
+									<i
+										*ngIf="
+											exercise.note && exercise.note != ''
+										"
+										style="cursor: pointer"
+										class="me-1 bi bi-info-circle-fill"
+									></i>
+									{{ exercise.name }}
+								</th>
+
+								<td>
+									<div class="d-flex flex-column">
+										<div
+											*ngFor="
+												let set of formatSets(
+													exercise.set
+												);
+												index as setIndex
+											"
+										>
+											{{ set }}
+										</div>
+									</div>
+								</td>
+
+								<td>
+									<!--Desktop-->
+									<p
+										*ngIf="exercise.intensity === 'light'"
+										class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										Leggero
+										<i class="ms-1 bi bi-feather"></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'hard'"
+										class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										Pesante
+										<i
+											class="ms-1 bi bi-exclamation-triangle-fill"
+										></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'failure'"
+										class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										Cedimento
+										<i class="ms-1 bi bi-fire"></i>
+									</p>
+
+									<!--Mobile-->
+									<p
+										*ngIf="exercise.intensity === 'light'"
+										class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										<i class="bi bi-feather"></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'hard'"
+										class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										<i
+											class="bi bi-exclamation-triangle-fill"
+										></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'failure'"
+										class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										<i class="bi bi-fire"></i>
+									</p>
+								</td>
+
+								<td>
+									{{
+										exercise.rest.minutes +
+											":" +
+											exercise.rest.seconds
+									}}
+								</td>
+
+								<td>
+									<div class="dropdown" style="width: 10px">
+										<button
+											class="btn"
+											style="border: none"
+											type="button"
+											data-bs-toggle="dropdown"
+											aria-expanded="false"
+										>
+											<i class="bi bi-three-dots"></i>
+										</button>
+										<ul class="dropdown-menu">
+											<li style="cursor: pointer">
+												<a
+													class="dropdown-item"
+													(click)="
+														editExercise(
+															session,
+															exerciseIndex
+														)
+													"
+												>
+													Modifica
+												</a>
+											</li>
+											<li style="cursor: pointer">
+												<a
+													class="dropdown-item text-danger"
+													(click)="
+														deleteExerciseDialog(
+															session,
+															exerciseIndex
+														)
+													"
+												>
+													Elimina
+												</a>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<p
+						*ngIf="session.exercises.length == 0"
+						class="text-center"
 					>
-						Nome
-					</span>
-					<input
-						type="text"
-						class="form-control"
-						style="
-							box-shadow: none;
-							font-family: 'Josefin Sans', sans-serif;
-						"
-						[(ngModel)]="session.name"
-					/>
+						Non ci sono esercizi
+					</p>
+
+					<button
+						class="btn btn-dark text-light d-none d-lg-block"
+						(click)="addExercise(session)"
+					>
+						Aggiungi esercizio
+						<i class="ms-1 bi bi-plus-lg"></i>
+					</button>
+					<button
+						class="btn btn-sm btn-dark text-light d-block d-lg-none"
+						(click)="addExercise(session)"
+					>
+						Aggiungi esercizio
+						<i class="ms-1 bi bi-plus-lg"></i>
+					</button>
 				</div>
 			</div>
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">
-							<span class="table-header">Esercizio</span>
-						</th>
-						<th scope="col">
-							<span class="table-header">Serie-Ripetizioni</span>
-						</th>
-						<th scope="col">
-							<span class="table-header">RPE</span>
-						</th>
-						<th scope="col">
-							<span class="table-header">Riposo</span>
-						</th>
-						<th scope="col">
-							<span class="table-header">Azioni</span>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr
-						*ngFor="
-							let exercise of session.exercises;
-							index as exerciseIndex
-						"
-					>
-						<th scope="row">{{ exercise.name }}</th>
-						<td>
-							<ng-container
-								*ngIf="
-									exercise.configurationType === 'advanced'
-								"
-							>
-								<ng-container
-									*ngFor="
-										let set of exercise.advanced.sets;
-										index as i
-									"
-								>
-									<b>{{ i + 1 + ":" }}</b>
-									{{
-										set.min != set.max
-											? set.min +
-											  " reps - " +
-											  set.max +
-											  " reps"
-											: set.min + " reps"
-									}}
-									<br />
-								</ng-container>
-							</ng-container>
+		</div>
 
-							<ng-container
-								*ngIf="
-									!exercise.configurationType ||
-									exercise.configurationType === 'basic'
-								"
-							>
-								{{ exercise.series }} x
-								{{
-									exercise.range[0] != exercise.range[1]
-										? exercise.range[0] +
-										  "-" +
-										  exercise.range[1]
-										: exercise.range[0]
-								}}
-							</ng-container>
-						</td>
-						<td>{{ exercise.RPE }}</td>
-						<td>
-							{{
-								exercise.rest.minutes +
-									":" +
-									exercise.rest.seconds
-							}}
-						</td>
-						<td>
-							<i
-								class="bi bi-pencil-fill"
-								style="
-									cursor: pointer;
-									font-size: 1.3em;
-									margin-right: 10px;
-								"
-								(click)="editExercise(session, exerciseIndex)"
-							></i>
-							<i
-								style="cursor: pointer; font-size: 1.3em"
-								class="bi bi-trash-fill"
-								(click)="deleteExercise(session, exerciseIndex)"
-							></i>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<span
-				*ngIf="session.exercises.length == 0"
-				style="margin: auto; width: 140px; color: black"
-				class="custom-span"
-			>
-				Non ci sono esercizi
-			</span>
-
-			<div
-				style="
-					display: flex;
-					flex-direction: row;
-					justify-content: center;
-					align-items: center;
-				"
-				class="mb-3 mt-2"
-			>
-				<button
-					class="btn custom-button"
-					(click)="addExercise(session)"
-				>
-					<i class="bi bi-plus-lg"></i>
-					Aggiungi Esercizio
-				</button>
-			</div>
-		</mat-expansion-panel>
-	</mat-accordion>
-
-	<div style="display: flex; flex-direction: row; margin-top: 20px">
 		<button
-			class="btn btn-primary custom-button"
-			style="margin-right: 10px"
+			class="btn text-light blue-btn d-none d-lg-block"
 			(click)="addSession()"
 		>
-			<i class="bi bi-plus-lg"></i>
-			Aggiungi Sessione
+			Aggiungi sessione
+			<i class="ms-1 bi bi-plus-lg"></i>
 		</button>
-
-		<button class="btn custom-button" (click)="this.saveTrainingProgram()">
-			<i class="bi bi-check-circle-fill"></i>
-			Salva
+		<button
+			class="btn btn-sm text-light blue-btn d-block d-lg-none"
+			(click)="addSession()"
+		>
+			Aggiungi sessione
+			<i class="ms-1 bi bi-plus-lg"></i>
 		</button>
 	</div>
 </div>

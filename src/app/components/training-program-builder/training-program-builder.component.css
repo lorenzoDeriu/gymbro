@@ -1,70 +1,82 @@
-#builder-container {
-	width: 60%;
-	margin: auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-button {
-	margin-top: 10px;
-}
-
-.custom-span {
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-	width: 100px;
+#wrapper {
+	width: 100vw;
+	height: calc(100svh - 66px);
+	transform: translateY(66px);
 	display: flex;
 	justify-content: center;
-	font-size: 0.9em;
+	overflow: hidden;
 }
 
-.custom-button-filled {
-	background-color: rgb(69, 69, 188);
-	color: white;
-	border: 0;
-}
-
-.custom-button-filled:hover {
-	background-color: rgb(57, 57, 131);
-}
-
-.custom-button {
-	color: rgb(69, 69, 188) !important;
-	background-color: #fff !important;
-	border-color: rgb(69, 69, 188) !important;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-}
-
-.custom-button:hover {
-	color: #fff !important;
-	background-color: rgb(69, 69, 188) !important;
-	border-color: rgb(69, 69, 188) !important;
-	text-decoration: none;
-}
-
-#title {
+#main-container {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-	margin-top: 20px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
-#add-session-button {
-	margin-bottom: 3em;
+input:focus {
+	outline: none;
+}
+
+.purple-btn {
+	border: none;
+	background-color: #6b44d4;
+}
+
+.purple-btn:hover {
+	background-color: #785ebe !important;
+}
+
+.purple-btn:active {
+	background-color: #957dd6 !important;
+}
+
+.blue-btn {
+	border: none;
+	background-color: #4089c9;
+}
+
+.blue-btn:hover {
+	background-color: #659fd2 !important;
+}
+
+.blue-btn:active {
+	background-color: #7eafda !important;
+}
+
+@media (min-width: 900px) {
+	#main-container {
+		width: 75%;
+	}
 }
 
 @media (max-width: 900px) {
-	#builder-container {
-		width: 95%;
+	#main-container {
+		width: 100%;
 	}
 
-	.mdc-data-table__header-cell::ng-deep {
-		padding: 10px;
+	.table,
+	.session-name {
+		font-size: 10px;
+	}
+
+	.input-container {
+		width: 35% !important;
+	}
+
+	.mobile-btn {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 300px) {
+	.table {
+		font-size: 8px;
+	}
+
+	.mobile-btn {
+		font-size: 10px;
 	}
 }

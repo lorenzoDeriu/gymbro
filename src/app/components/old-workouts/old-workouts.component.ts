@@ -1,4 +1,3 @@
-import { Exercise } from "../../Models/Exercise.model";
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { Component, OnInit } from "@angular/core";
@@ -6,6 +5,12 @@ import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { Workout } from "src/app/Models/Workout.model";
+import {
+	formatEffectiveSets,
+	convertTimediffToTime,
+} from "src/app/utils/utils";
+import { EffectiveSet } from "src/app/Models/Exercise.model";
 
 @Component({
 	selector: "app-old-workouts",
@@ -13,9 +18,7 @@ import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-ac
 	styleUrls: ["./old-workouts.component.css"],
 })
 export class OldWorkoutsComponent implements OnInit {
-	public workouts: any[] = [];
-	displayedColumns: string[] = ["name", "series-reps", "load", "rpe"];
-
+	public workouts: Workout[] = [];
 	public loading: boolean;
 
 	constructor(
@@ -27,37 +30,78 @@ export class OldWorkoutsComponent implements OnInit {
 
 	async ngOnInit() {
 		this.loading = true;
-		await this.getWorkouts();
+		this.workouts = await this.firebase.getWorkouts();
 		this.loading = false;
 	}
 
-	public array = (n: number) => {
-		return Array(n)
-			.fill(0, 0, n)
-			.map((x, i) => i);
-	};
+	public formatEffectiveSets(sets: EffectiveSet[]): string[] {
+		return formatEffectiveSets(sets);
+	}
 
-	async getWorkouts() {
-		this.workouts = (await this.firebase.getWorkouts()).sort(
-			(a: any, b: any) => {
-				let [day, month, year] = String(a.date).split("/");
-				const dateA = +new Date(+year, +month - 1, +day);
-				[day, month, year] = String(b.date).split("/");
-				const dateB = +new Date(+year, +month - 1, +day);
-				return dateB - dateA;
+	public getTimeFromTimestamp(timestamp: number) {
+		const timeFromTimestamp: string = convertTimediffToTime(timestamp);
+		const splittedTimeFromTimestamp: string[] =
+			timeFromTimestamp.split(":");
+		const hours: string = splittedTimeFromTimestamp[0];
+		const minutes: string = splittedTimeFromTimestamp[1];
+		const seconds: string = splittedTimeFromTimestamp[2];
+		const hoursFiltered: string = hours.startsWith("0")
+			? hours.split("")[1]
+			: hours;
+		const minutesFiltered: string = minutes.startsWith("0")
+			? minutes.split("")[1]
+			: minutes;
+		const secondsFiltered: string = seconds.startsWith("0")
+			? seconds.split("")[1]
+			: seconds;
+
+		if (hoursFiltered === "0") {
+			if (minutesFiltered === "0") {
+				return secondsFiltered + "s";
 			}
+			return minutesFiltered + "m " + secondsFiltered + "s";
+		}
+
+		return (
+			hoursFiltered +
+			"h " +
+			minutesFiltered +
+			"m " +
+			secondsFiltered +
+			"s"
 		);
 	}
 
-	backToHomeButton() {
+	public getDateFromTimestamp(timestamp: number) {
+		return new Date(timestamp);
+	}
+
+	public focusCollapse(type: "program" | "session", index: number) {
+		if (type === "program") {
+			const collapsers: NodeListOf<Element> =
+				document.querySelectorAll(".collapser");
+			const collapses: NodeListOf<Element> =
+				document.querySelectorAll(".collapse-body");
+
+			for (let i = 0; i < collapsers.length; i++) {
+				if (i !== index) {
+					collapsers[i].classList.remove("collapsed");
+					collapsers[i].setAttribute("aria-expanded", "false");
+					collapses[i].classList.remove("show");
+				}
+			}
+		}
+	}
+
+	public backToHomeButton() {
 		this.router.navigate(["/home/dashboard"]);
 	}
 
-	createWorkoutButton() {
+	public createWorkoutButton() {
 		this.router.navigate(["/home/new-workout-choice"]);
 	}
 
-	deleteWorkout(index: number) {
+	public deleteWorkout(index: number) {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina allenamento",
@@ -65,8 +109,8 @@ export class OldWorkoutsComponent implements OnInit {
 				args: [index, this.workouts, this.userService],
 				confirm: async (
 					index: number,
-					workouts: any,
-					userService: any
+					workouts: Workout[],
+					userService: UserService
 				) => {
 					workouts.splice(index, 1);
 					await userService.updateWorkouts(workouts);
@@ -75,22 +119,44 @@ export class OldWorkoutsComponent implements OnInit {
 		});
 	}
 
-	editWorkout(index: number) {
-		this.router.navigate(["/home/prebuild-workout"]);
-
-		localStorage.setItem(
-			"workoutToEdit",
-			JSON.stringify({ index: index, workout: this.workouts[index] })
-		);
+	workoutExists() {
+		return localStorage.getItem("workout") !== null;
 	}
 
-	showNotes(workoutIndex: number, exerciseIndex: number) {
+	public editWorkout(index: number) {
+		if (this.workoutExists()) {
+			this.dialog.open(SafetyActionConfirmDialogComponent, {
+				data: {
+					title: "Attenzione",
+					message:
+						"Hai già un allenamento in corso, modificando questo ne perderai i dati. Sei sicuro di voler continuare?",
+					args: [index],
+					confirm: async (index: number) => {
+						this.userService.setWorkout(this.workouts[index]);
+						this.userService.setEditMode(true);
+						this.userService.setWorkoutToEditIndex(index);
+
+						this.router.navigate(["/home/prebuild-workout"]);
+					},
+				},
+			});
+
+			return;
+		}
+
+		this.userService.setWorkout(this.workouts[index]);
+		this.userService.setEditMode(true);
+		this.userService.setWorkoutToEditIndex(index);
+
+		this.router.navigate(["/home/prebuild-workout"]);
+	}
+
+	public showNotes(workoutIndex: number, exerciseIndex: number) {
 		this.dialog.open(NotesDialogComponent, {
 			width: "300px",
 			data: {
-				notes: this.workouts[workoutIndex]["exercises"][exerciseIndex][
-					"note"
-				],
+				notes: this.workouts[workoutIndex].exercises[exerciseIndex]
+					.note,
 			},
 		});
 	}

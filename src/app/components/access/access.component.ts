@@ -1,5 +1,5 @@
 import { PasswordRecoverDialogComponent } from "../password-recover-dialog/password-recover-dialog.component";
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import {
 	FormControl,
 	FormGroupDirective,
@@ -30,7 +30,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 	templateUrl: "./access.component.html",
 	styleUrls: ["./access.component.css"],
 })
-export class AccessComponent implements OnInit {
+export class AccessComponent {
 	public username: string;
 	public emailRegister: string;
 	public passwordRegister: string;
@@ -46,12 +46,6 @@ export class AccessComponent implements OnInit {
 		private router: Router,
 		private dialog: MatDialog
 	) {}
-
-	async ngOnInit() {
-		if (this.authService.isAuthenticated()) {
-			this.router.navigate(["/home/dashboard"]);
-		}
-	}
 
 	login() {
 		this.authService.signin(this.email, this.password);

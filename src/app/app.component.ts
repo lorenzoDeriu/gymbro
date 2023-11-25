@@ -21,13 +21,9 @@ export class AppComponent {
 			)
 			.subscribe(evt => {
 				snackbar
-					.open(
-						"Nuova versione disponibile per GymBro.",
-						"Aggiorna",
-						{
-							duration: 5000,
-						}
-					)
+					.open("Nuova versione disponibile!", "Aggiorna", {
+						duration: 10000,
+					})
 					.afterDismissed()
 					.subscribe(() => {
 						document.location.reload();

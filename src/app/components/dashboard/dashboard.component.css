@@ -1,26 +1,35 @@
+#wrapper {
+	width: 100vw;
+	height: calc(100svh - 66px);
+	transform: translateY(66px);
+	position: relative;
+	overflow: auto;
+}
+
 #main-container {
-	width: 60%;
-	height: 40em;
-	margin: auto;
+	width: 70vw;
+	height: 100%;
 	display: grid;
 	grid-auto-columns: auto;
 	grid-auto-rows: auto;
+	gap: 10px;
 	grid-template-areas:
 		"na"
 		"va"
 		"tp"
 		"ts";
-	margin-top: 1em;
-	gap: 10px;
 }
 
 img {
-	width: 100px;
-	height: 100px;
+	width: 80px;
+	height: 80px;
+	opacity: 0.2;
 }
 
 .home-div {
-	border: 2px solid #ccc;
+	height: 100%;
+	padding: 30px;
+	box-shadow: 0 0 5px rgba(33, 33, 33, 0.2);
 	transition: box-shadow 0.3s;
 	cursor: pointer;
 }
@@ -29,80 +38,24 @@ img {
 	box-shadow: 0 0 15px rgba(33, 33, 33, 0.2);
 }
 
-.home-div h2 {
-	margin-top: 4%;
-	margin-left: 3%;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-	font-size: 150%;
-}
-
 .home-div:nth-child(1) {
 	grid-area: na;
 }
+
 .home-div:nth-child(2) {
 	grid-area: va;
 }
+
 .home-div:nth-child(3) {
 	grid-area: tp;
 }
+
 .home-div:nth-child(4) {
 	grid-area: ts;
 }
 
-img {
-	font-size: 90px;
-	opacity: 0.2;
-	align-self: center;
-	margin-right: 20px;
-}
-
-#new-workout {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-
-#new-workout:hover img {
+.home-div:hover img {
 	animation: increaseOpacity 0.5s forwards;
-}
-
-#old-workout {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-
-#old-workout:hover img {
-	animation: increaseOpacity 0.5s forwards;
-}
-
-#training-programs {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-
-#training-programs:hover img {
-	animation: increaseOpacity 0.5s forwards;
-}
-
-#progress {
-	display: flex;
-	flex-direction: column;
-}
-
-#progress:hover img {
-	animation: increaseOpacity 0.5s forwards;
-}
-
-#progress img {
-	align-self: center;
-}
-
-#progress img {
-	margin-right: 0;
 }
 
 @keyframes increaseOpacity {
@@ -114,8 +67,15 @@ img {
 	}
 }
 
+/* Desktop */
 @media (min-width: 900px) {
 	#main-container {
+		height: 80svh;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		gap: 30px;
 		grid-template-areas:
 			"na na na tp"
 			"na na na tp"
@@ -123,23 +83,72 @@ img {
 			"va va va tp"
 			"ts ts ts ts"
 			"ts ts ts ts";
-
-		margin-top: 5em;
-		gap: 30px;
 	}
-}
 
-@media (max-width: 900px) {
-	#main-container {
-		width: 90%;
+	#new-workout,
+	#old-workout {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#new-workout h3,
+	#old-workout h3 {
+		margin-bottom: 30px;
+	}
+
+	#training-programs {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 
 	#progress {
-		flex-direction: row;
-		justify-content: space-between;
+		display: flex;
+		flex-direction: column-reverse;
+		justify-content: center;
+		align-items: center;
 	}
 
-	#progress img {
-		margin-right: 20px;
+	#progress h3 {
+		margin-top: 30px;
+	}
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+	#wrapper {
+		height: calc(100svh - 65px);
+		transform: translateY(65px);
+	}
+
+	#main-container {
+		padding: 20px;
+		overflow: auto;
+		width: 100%;
+		height: auto;
+		gap: 20px;
+	}
+
+	img {
+		width: 50px;
+		height: 50px;
+		opacity: 0.2;
+	}
+
+	.home-div {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 20px;
+		box-shadow: 0 0 5px rgba(33, 33, 33, 0.2);
+		min-height: 120px;
+		max-height: 180px;
+	}
+
+	h3 {
+		font-size: medium;
+		margin-right: 10px;
 	}
 }

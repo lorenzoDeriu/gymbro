@@ -1,3 +1,4 @@
+import { Workout } from "src/app/Models/Workout.model";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 
@@ -16,12 +17,13 @@ import {
 	addDoc,
 	deleteDoc,
 	initializeFirestore,
-	CACHE_SIZE_UNLIMITED,
-	enableIndexedDbPersistence,
 	getDocFromCache,
 	DocumentReference,
 	getDoc,
 	getDocsFromCache,
+	WithFieldValue,
+	DocumentData,
+	persistentLocalCache,
 } from "firebase/firestore";
 import {
 	getAuth,
@@ -34,16 +36,25 @@ import {
 	Auth,
 	signInWithPopup,
 	FacebookAuthProvider,
-	signInWithRedirect,
 	TwitterAuthProvider,
+	UserCredential,
+	onAuthStateChanged,
 } from "firebase/auth";
-import { Router } from "@angular/router";
-
-export interface user {
-	uid: string;
-	workout: any;
-	trainingPrograms: any;
-}
+import { User } from "../Models/User.model";
+import { Session, TrainingProgram } from "../Models/TrainingProgram.model";
+import {
+	EffectiveExercise,
+	EffectiveSet,
+	IntensityType,
+	Set,
+	TrainingProgramExercise,
+} from "../Models/Exercise.model";
+import { Feedback } from "../Models/Feedback.model";
+import {
+	FollowedUserInfo,
+	SearchResult,
+} from "../components/friends/friends.component";
+import { generateId } from "../utils/utils";
 
 @Injectable({
 	providedIn: "root",
@@ -51,18 +62,197 @@ export interface user {
 export class FirebaseService {
 	private app = initializeApp(environment.firebaseConfig);
 	private db = initializeFirestore(this.app, {
-		cacheSizeBytes: CACHE_SIZE_UNLIMITED,
+		localCache: persistentLocalCache({}),
 	});
 
 	private auth: Auth = getAuth();
+
 	private googleProvider = new GoogleAuthProvider();
 	private metaProvider = new FacebookAuthProvider();
 	private xProvider = new TwitterAuthProvider();
 
-	constructor(private router: Router) {
-		enableIndexedDbPersistence(this.db, { forceOwnership: true }).catch(e =>
-			console.log(e)
-		);
+	public async fixDB() {
+		console.log("Fixing DB");
+
+		const collectionReference = collection(this.db, "users");
+		const querySnapshot = await getDocs(collectionReference);
+
+		querySnapshot.forEach((doc: DocumentSnapshot) => {
+			if (!doc.id.startsWith("WU")) {
+				const data = doc.data();
+
+				console.log("berfore parsing:", doc.id, data);
+
+				let newData: User;
+
+				newData = {
+					username: data["username"] ?? "",
+					visibility: data["visibility"] ?? false,
+					admin: data["admin"] ?? false,
+					playlistUrl: "",
+					follow: data["follow"] ?? [],
+					customExercises: data["customExercises"] ?? [],
+					trainingPrograms: this.normalizeTrainingPrograms(
+						data["trainingPrograms"]
+					),
+					workout: this.normalizeWorkout(data["workouts"]),
+				};
+
+				console.log("complete parsing", doc.id, newData);
+				updateDoc(doc.ref, newData);
+			}
+		});
+		console.log("db fixed");
+	}
+
+	private normalizeWorkout(workouts: any[]): Workout[] {
+		let normalizedWorkout: Workout[] = [];
+
+		workouts.forEach((workouts: any) => {
+			let newWorkout: Workout;
+
+			newWorkout = {
+				name: workouts["name"],
+				date: this.getDate(workouts["date"]).getTime(),
+				trainingTime: 0,
+				exercises: [],
+			};
+
+			let exercises: EffectiveExercise[] = [];
+
+			workouts["exercises"].forEach((exerciseObj: any) => {
+				let newExercise: EffectiveExercise;
+
+				newExercise = {
+					name: exerciseObj["name"],
+					set: this.getEffectiveSet(exerciseObj),
+					intensity: this.getIntensity(exerciseObj["RPE"]),
+					rest: {
+						minutes: exerciseObj.rest?.minutes ?? "00",
+						seconds: exerciseObj.rest?.seconds ?? "00",
+					},
+					note: exerciseObj["note"] ?? "",
+					groupId: generateId(),
+				};
+
+				exercises.push(newExercise);
+			});
+
+			newWorkout.exercises = exercises;
+
+			normalizedWorkout.push(newWorkout);
+		});
+
+		return normalizedWorkout.sort((a: Workout, b: Workout) => {
+			return b.date - a.date;
+		});
+	}
+
+	private getDate(date: string): Date {
+		const [day, month, year] = date.split("/").map(Number);
+		return new Date(year, month - 1, day);
+	}
+
+	private normalizeTrainingPrograms(
+		trainingPrograms: any[]
+	): TrainingProgram[] {
+		let normalizedTraining: TrainingProgram[] = [];
+
+		trainingPrograms.forEach((trainingProgram: any) => {
+			let newNormalizedTraining: TrainingProgram;
+
+			newNormalizedTraining = {
+				name: trainingProgram["name"],
+				session: [],
+			};
+
+			let session: Session[] = [];
+
+			trainingProgram["session"].forEach((sessionObj: any) => {
+				let newSession: Session;
+
+				newSession = {
+					name: sessionObj["name"],
+					exercises: [],
+				};
+
+				sessionObj["exercises"].forEach((exerciseObj: any) => {
+					let newExercise: TrainingProgramExercise;
+
+					newExercise = {
+						name: exerciseObj["name"],
+						set: this.getSet(exerciseObj),
+						note: exerciseObj["note"] ?? "",
+						intensity: this.getIntensity(exerciseObj["RPE"]),
+						rest: {
+							minutes: exerciseObj.rest?.minutes ?? "00",
+							seconds: exerciseObj.rest?.seconds ?? "00",
+						},
+						groupId: generateId(),
+					};
+
+					newSession.exercises.push(newExercise);
+				});
+
+				session.push(newSession);
+			});
+
+			newNormalizedTraining.session = session;
+			normalizedTraining.push(newNormalizedTraining);
+		});
+
+		return normalizedTraining;
+	}
+
+	private getIntensity(rpe: string): IntensityType {
+		if (rpe === "10") return "failure";
+
+		if (rpe === "9" || rpe === "8") return "hard";
+		else return "light";
+	}
+
+	private getSet(exercise: any): Set[] {
+		let set: Set[] = [];
+
+		if ((exercise.configurationType ?? "basic") === "basic") {
+			for (let i = 0; i < exercise["series"]; i++) {
+				set.push({
+					minimumReps: exercise.range[0],
+					maximumReps: exercise.range[1],
+				});
+			}
+		} else if (exercise.configurationType === "advanced") {
+			exercise.advanced?.sets?.forEach((setObj: any) => {
+				set.push({
+					minimumReps: setObj["min"],
+					maximumReps: setObj["max"],
+				});
+			});
+		}
+
+		return set;
+	}
+
+	private getEffectiveSet(exercise: any): EffectiveSet[] {
+		let set: EffectiveSet[] = [];
+
+		if ((exercise.configurationType ?? "basic") === "basic") {
+			for (let i = 0; i < exercise["series"]; i++) {
+				set.push({
+					reps: exercise.reps ?? 0,
+					load: exercise.load ?? 0,
+				});
+			}
+		} else if (exercise.configurationType === "advanced") {
+			exercise.advanced?.sets?.forEach((setObj: any) => {
+				set.push({
+					reps: setObj["reps"] ?? 0,
+					load: setObj["load"] ?? 0,
+				});
+			});
+		}
+
+		return set;
 	}
 
 	public async getDocumentSnapshot(
@@ -79,7 +269,7 @@ export class FirebaseService {
 		return documentSnapshot;
 	}
 
-	async registerNewUser(email: string, password: string) {
+	public async registerNewUser(email: string, password: string) {
 		try {
 			let userCredential = await createUserWithEmailAndPassword(
 				this.auth,
@@ -94,28 +284,61 @@ export class FirebaseService {
 		}
 	}
 
-	async accessWithGoogle() {
+	public async accessWithGoogle() {
 		return await signInWithPopup(this.auth, this.googleProvider);
 	}
 
-	async accessWithMeta() {
+	public async accessWithMeta() {
 		return await signInWithPopup(this.auth, this.metaProvider);
 	}
 
-	async accessWithX() {
+	public async accessWithX() {
 		return await signInWithPopup(this.auth, this.xProvider);
 	}
 
-	public async existInfoOf(uid: string) {
+	public async existInfoOf(
+		uid: string,
+		username?: string
+	): Promise<{
+		exists: boolean;
+		err: string;
+	}> {
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
-		return documentSnapshot.exists();
+		if (documentSnapshot.exists())
+			return { exists: true, err: "uid already exists" };
+		if (!username || username === "") return { exists: false, err: "" };
+
+		const collectionReference = collection(this.db, "users");
+		const querySnapshot = navigator.onLine
+			? await getDocs(
+					query(
+						collectionReference,
+						where("username", "==", username)
+					)
+			  )
+			: await getDocsFromCache(
+					query(
+						collectionReference,
+						where("username", "==", username)
+					)
+			  );
+
+		if (querySnapshot.size !== 0) {
+			return { exists: true, err: "username already exists" };
+		}
+
+		return { exists: false, err: "" };
 	}
 
-	async getUserData(uid: string) {
+	public async getUserData(uid?: string) {
+		if (uid === undefined) {
+			uid = await this.getUid();
+		}
+
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -125,29 +348,28 @@ export class FirebaseService {
 			return null;
 		}
 
-		return documentSnapshot.data();
+		return documentSnapshot.data() as User;
 	}
 
 	public async loginEmailPsw(email: string, password: string) {
-		try {
-			let userCredential = await signInWithEmailAndPassword(
-				this.auth,
-				email,
-				password
-			);
-			if (!this.auth.currentUser.emailVerified) return null;
-			return userCredential;
-		} catch (e) {
-			console.log(e);
-			return null;
-		}
+		let userCredential: UserCredential = await signInWithEmailAndPassword(
+			this.auth,
+			email,
+			password
+		);
+
+		if (!this.auth.currentUser.emailVerified) return null;
+
+		return userCredential;
 	}
 
 	public signout() {
 		signOut(this.auth).catch(e => console.log(e));
 	}
 
-	async getExercise(uid: string) {
+	public async getExercise() {
+		let uid = await this.getUid();
+
 		let exercise: string[] = [];
 
 		let documentReference = doc(this.db, "exercise", "exercises");
@@ -175,31 +397,54 @@ export class FirebaseService {
 
 		exercise = exercise.concat(userExercise);
 
-		return exercise;
+		return exercise.sort();
 	}
 
-	addUser(body: any, uid: string) {
-		setDoc(doc(this.db, "users", uid), body).catch(e => console.log(e));
+	public addUser(body: User, uid: string) {
+		setDoc(
+			doc(this.db, "users", uid),
+			body as WithFieldValue<DocumentData>
+		).catch(e => console.log(e));
 	}
 
-	async saveWorkout(body: any, uid: string) {
+	public async saveWorkout(body: Workout) {
+		let uid = await this.getUid();
+
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
 		if (documentSnapshot.exists()) {
-			let data = documentSnapshot.data();
-			let workouts: any[] = data["workouts"];
+			let data = documentSnapshot.data() as User;
+			let workouts: Workout[] = data.workout;
 
 			workouts.push(body);
 
-			updateDoc(documentReference, { workouts: workouts });
+			updateDoc(documentReference, { workout: workouts });
 		}
 	}
 
-	async getWorkouts() {
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
+	public async getWorkouts() {
+		let uid = await this.getUid();
+
+		const documentReference = doc(this.db, "users", uid);
+		const documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
+
+		let workouts: Workout[] = [];
+
+		if (documentSnapshot.exists()) {
+			let data = documentSnapshot.data() as User;
+			workouts = data.workout;
+		}
+
+		return workouts.sort((a: Workout, b: Workout) => b.date - a.date);
+	}
+
+	public async updateWorkout(workout: Workout, index: number) {
+		let uid = await this.getUid();
 
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
@@ -207,23 +452,28 @@ export class FirebaseService {
 		);
 
 		if (documentSnapshot.exists()) {
-			let data = documentSnapshot.data();
-			return data["workouts"];
-		}
+			let data = documentSnapshot.data() as User;
 
-		return [];
+			let workouts: Workout[] = data.workout;
+
+			workouts.sort((a: Workout, b: Workout) => b.date - a.date);
+			workouts[index] = workout;
+
+			updateDoc(documentReference, { workout: workouts });
+		}
 	}
 
-	updateWorkouts(workouts: any, uid: string) {
+	public async updateWorkouts(workout: Workout[]) {
+		const uid: string = await this.getUid();
 		const documentReference = doc(this.db, "users", uid);
 
-		updateDoc(documentReference, { workouts: workouts }).catch(e =>
+		updateDoc(documentReference, { workout: workout }).catch(e =>
 			console.log(e)
 		);
 	}
 
-	async addTrainingProgram(trainingProgram: any) {
-		let uid: any = JSON.parse(localStorage.getItem("user"))["uid"];
+	public async addTrainingProgram(trainingProgram: TrainingProgram) {
+		let uid: string = await this.getUid();
 
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
@@ -231,17 +481,20 @@ export class FirebaseService {
 		);
 
 		if (documentSnapshot.exists()) {
-			let data = documentSnapshot.data();
-			data["trainingPrograms"].push(trainingProgram);
+			let data = documentSnapshot.data() as User;
+			data.trainingPrograms.push(trainingProgram);
 
 			updateDoc(documentReference, {
-				trainingPrograms: data["trainingPrograms"],
+				trainingPrograms: data.trainingPrograms,
 			}).catch(e => console.log(e));
 		}
 	}
 
-	async editTrainingProgram(trainingProgram: any, index: number) {
-		let uid: any = JSON.parse(localStorage.getItem("user"))["uid"];
+	public async editTrainingProgram(
+		trainingProgram: TrainingProgram,
+		index: number
+	) {
+		let uid: string = await this.getUid();
 
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
@@ -249,45 +502,52 @@ export class FirebaseService {
 		);
 
 		if (documentSnapshot.exists()) {
-			let data = documentSnapshot.data();
-			data["trainingPrograms"][index] = trainingProgram;
+			let data = documentSnapshot.data() as User;
+
+			data.trainingPrograms[index] = trainingProgram;
+
 			updateDoc(documentReference, {
-				trainingPrograms: data["trainingPrograms"],
+				trainingPrograms: data.trainingPrograms,
 			}).catch(e => console.log(e));
 		}
 	}
 
-	async getTrainingPrograms() {
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
+	public async getTrainingPrograms() {
+		let uid = await this.getUid();
 
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
+		let trainingPrograms: TrainingProgram[] = [];
+
 		if (documentSnapshot.exists()) {
-			let data = documentSnapshot.data();
-			return data["trainingPrograms"];
+			let data = documentSnapshot.data() as User;
+			trainingPrograms = data.trainingPrograms;
 		}
 
-		return null;
+		return trainingPrograms;
 	}
 
-	async getTrainingProgramsFromUser(uid: string) {
+	public async getTrainingProgramsFromUser(uid: string) {
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
+		let trainingPrograms: TrainingProgram[] = [];
+
 		if (documentSnapshot.exists()) {
-			let data = documentSnapshot.data();
-			return data["trainingPrograms"];
+			let data = documentSnapshot.data() as User;
+			trainingPrograms = data.trainingPrograms;
 		}
 
-		return null;
+		return trainingPrograms;
 	}
 
-	async updateTrainingPrograms(trainingPrograms: any, uid: string) {
+	public async updateTrainingPrograms(trainingPrograms: TrainingProgram[]) {
+		let uid = await this.getUid();
 		const documentReference = doc(this.db, "users", uid);
 
 		updateDoc(documentReference, {
@@ -295,7 +555,7 @@ export class FirebaseService {
 		}).catch(e => console.log(e));
 	}
 
-	async recoverPassword(email: string) {
+	public async recoverPassword(email: string) {
 		try {
 			await sendPasswordResetEmail(this.auth, email);
 		} catch (HttpErrorResponse) {
@@ -303,21 +563,28 @@ export class FirebaseService {
 		}
 	}
 
-	async getUsername(uid: string) {
+	public async getUsername(uid?: string) {
+		if (uid === undefined) {
+			uid = await this.getUid();
+		}
+
 		const documentReference = doc(this.db, "users", uid);
 		const documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
 		if (documentSnapshot.exists()) {
-			let data: any = documentSnapshot.data();
-			return data["username"] != undefined ? data["username"] : null;
+			let data = documentSnapshot.data() as User;
+
+			return data.username;
 		}
 
 		return null;
 	}
 
-	async updateUsername(uid: string, username: string) {
+	public async updateUsername(username: string) {
+		const uid = await this.getUid();
+
 		const collectionReference = collection(this.db, "users");
 		const querySnapshot = navigator.onLine
 			? await getDocs(
@@ -335,67 +602,34 @@ export class FirebaseService {
 			  );
 
 		if (querySnapshot.size != 0) {
-			alert("L'username è già utilizzato, provane un'altro");
-			return;
+			throw new Error("Username already exists");
 		}
 
 		const documentReference = doc(this.db, "users", uid);
-
 		await updateDoc(documentReference, { username: username });
 	}
 
-	async getFriendsUsernames(uid: string) {
+	public async hasFollow() {
+		const uid = await this.getUid();
+
 		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
-		if (!documentSnapshot.exists()) return [];
+		let hasFollow = false;
 
-		let data = documentSnapshot.data();
-		let friendsUID = data["follow"];
-
-		if (friendsUID == undefined) return [];
-
-		let usernames: string[] = [];
-
-		friendsUID.forEach(async (uid: string) => {
-			let documentReference = doc(this.db, "users", uid);
-			let documentSnapshot = await this.getDocumentSnapshot(
-				documentReference
-			);
-
-			if (documentSnapshot.exists()) {
-				usernames = documentSnapshot.data()["username"];
-			}
-		});
-
-		usernames.sort((a, b) => {
-			if (a < b) return -1;
-			if (a > b) return 1;
-			return 0;
-		});
-
-		return usernames;
-	}
-
-	async hasFollow(uid: string) {
-		let documentReference = doc(this.db, "users", uid);
-		let documentSnapshot = await this.getDocumentSnapshot(
-			documentReference
-		);
-
-		if (
-			!documentSnapshot.exists() ||
-			documentSnapshot.data()["follow"] == undefined
-		) {
-			return false;
+		if (documentSnapshot.exists()) {
+			const data = documentSnapshot.data() as User;
+			hasFollow = data.follow.length > 0;
 		}
 
-		return documentSnapshot.data()["follow"].length > 0;
+		return hasFollow;
 	}
 
-	async getMatchingUsername(username: string) {
+	public async getMatchingUsername(
+		username: string
+	): Promise<SearchResult[]> {
 		let collectionReference = collection(this.db, "users");
 		let querySnapshot = navigator.onLine
 			? await getDocs(
@@ -415,84 +649,88 @@ export class FirebaseService {
 					)
 			  );
 
-		let result: any[] = [];
+		let result: SearchResult[] = [];
 
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
+		let uid = await this.getUid();
 
 		querySnapshot.forEach((document: DocumentSnapshot) => {
 			let user = { uid: "", username: "" };
 
-			user["uid"] = document.id;
-			user["username"] = document.data()["username"];
+			const userData = document.data() as User;
 
-			if (uid != user["uid"]) result.push(user);
+			user.uid = document.id;
+			user.username = userData.username;
+
+			if (uid != user.uid) {
+				result.push(user);
+			}
 		});
 
 		return result;
 	}
 
-	async addFollow(uidToFollow: string) {
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
+	public async addFollow(uidToFollow: string) {
+		let uid = await this.getUid();
 
 		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
-		let followed = documentSnapshot.data()["follow"];
+		if (documentSnapshot.exists()) {
+			const data = documentSnapshot.data() as User;
 
-		if (followed == undefined) followed = [];
-		if (followed.includes(uidToFollow)) return;
+			let followed = data.follow;
 
-		followed.push(uidToFollow);
-		await updateDoc(documentReference, { follow: followed });
+			if (followed.includes(uidToFollow)) return;
+
+			followed.push(uidToFollow);
+			await updateDoc(documentReference, { follow: followed });
+		}
 	}
 
-	async getFollowed(uid: string) {
+	public async getFollowed() {
+		const uid = await this.getUid();
+
 		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
 		);
 
 		if (!documentSnapshot.exists()) {
-			return null;
+			return [];
 		}
 
-		let follow = documentSnapshot.data()["follow"];
+		const data = documentSnapshot.data() as User;
 
-		let result: any[] = [];
+		let follow = data.follow;
 
-		if (follow == undefined) return result;
+		let result: FollowedUserInfo[] = [];
 
-		follow.forEach(async (followedUID: string) => {
+		for (let followedUID of follow) {
 			let documentReference = doc(this.db, "users", followedUID);
 			let documentSnapshot = await this.getDocumentSnapshot(
 				documentReference
 			);
 
-			if (!documentSnapshot.exists()) {
-				return;
+			if (documentSnapshot.exists()) {
+				let userObj: FollowedUserInfo = {
+					uid: followedUID,
+					username: (documentSnapshot.data() as User).username,
+					visibilityPermission: (documentSnapshot.data() as User)
+						.visibility,
+				};
+
+				result.push(userObj);
 			}
+		}
 
-			let userObj = {
-				uid: followedUID,
-				username:
-					documentSnapshot.data()["username"] == undefined
-						? ""
-						: documentSnapshot.data()["username"],
-				visibilityPermission:
-					documentSnapshot.data()["visibility"] == undefined
-						? false
-						: documentSnapshot.data()["visibility"],
-			};
-
-			result.push(userObj);
-		});
-
-		return result;
+		return result as FollowedUserInfo[];
 	}
 
-	async unfollow(uid: string, uidToUnfollow: string) {
+	public async unfollow(uidToUnfollow: string) {
+		const uid = await this.getUid();
+
 		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -502,22 +740,24 @@ export class FirebaseService {
 			return;
 		}
 
-		let followed: string[] = documentSnapshot.data()["follow"];
-		let index = followed.indexOf(uidToUnfollow);
+		const data = documentSnapshot.data() as User;
+
+		const followed: string[] = data.follow;
+		const index = followed.indexOf(uidToUnfollow);
 		followed.splice(index, 1);
 
 		await updateDoc(documentReference, { follow: followed });
 	}
 
-	addFeedback(feedback: string) {
+	public addFeedback(feedback: string) {
 		addDoc(collection(this.db, "feedback"), {
 			content: feedback,
 			date: new Date().toLocaleDateString(),
 		});
 	}
 
-	async userIsAdmin() {
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
+	public async userIsAdmin() {
+		let uid = await this.getUid();
 
 		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
@@ -528,32 +768,31 @@ export class FirebaseService {
 			return false;
 		}
 
-		let data = documentSnapshot.data();
+		let data = documentSnapshot.data() as User;
 
-		if (data["admin"]) {
-			return true;
-		}
-
-		return false;
+		return data.admin ?? false;
 	}
 
-	async getFeedbacks() {
+	public async getFeedbacks() {
 		let feedbackCollection = collection(this.db, "feedback");
 		let docs = navigator.onLine
 			? await getDocs(feedbackCollection)
 			: await getDocsFromCache(feedbackCollection);
 
-		let feedback: any[] = [];
+		let feedback: Feedback[] = [];
 
 		docs.forEach(document => {
+			const data = document.data() as Feedback;
+			const id = document.id;
+
 			feedback.push({
-				content: document.data()["content"],
-				date: document.data()["date"],
-				id: document.id,
+				id: id,
+				content: data.content,
+				date: data.date,
 			});
 		});
 
-		feedback.sort((a: any, b: any) => {
+		feedback.sort((a: Feedback, b: Feedback) => {
 			const dateA = this.convertToDate(a.date);
 			const dateB = this.convertToDate(b.date);
 			return dateB.getTime() - dateA.getTime();
@@ -567,11 +806,11 @@ export class FirebaseService {
 		return new Date(year, month - 1, day);
 	}
 
-	async removeFeedback(id: string) {
+	public async removeFeedback(id: string) {
 		await deleteDoc(doc(this.db, "feedback", id));
 	}
 
-	async addExercise(exercise: string) {
+	public async addExercise(exercise: string) {
 		let documentReference = doc(this.db, "exercise", "exercises");
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -588,7 +827,9 @@ export class FirebaseService {
 		await updateDoc(documentReference, { name: exercises });
 	}
 
-	async addCustomExercise(exercise: string, uid: string) {
+	public async addCustomExercise(exercise: string) {
+		const uid: string = await this.getUid();
+
 		let documentReference = doc(this.db, "users", uid);
 		let documentSnapshot = await this.getDocumentSnapshot(
 			documentReference
@@ -598,24 +839,21 @@ export class FirebaseService {
 			return;
 		}
 
-		let data = documentSnapshot.data();
-		if (data["customExercises"] == undefined) {
-			data["customExercises"] = [];
-		}
+		let data = documentSnapshot.data() as User;
 
-		let exercises: string[] = data["customExercises"];
+		let exercises: string[] = data.customExercises;
 		exercises.push(exercise);
 
 		await updateDoc(documentReference, { customExercises: exercises });
 	}
 
-	changePassword() {
+	public changePassword() {
 		let email = this.auth.currentUser.email;
 		sendPasswordResetEmail(this.auth, email);
 	}
 
-	async deleteUser() {
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
+	public async deleteUser() {
+		let uid = await this.getUid();
 		let documentReference = doc(this.db, "users", uid);
 
 		await deleteDoc(documentReference);
@@ -623,27 +861,35 @@ export class FirebaseService {
 		this.auth.currentUser.delete();
 	}
 
-	updateVisibility(uid: string, visibility: boolean) {
+	public async updateVisibility(visibility: boolean) {
+		let uid = await this.getUid();
 		let documentReference = doc(this.db, "users", uid);
 		updateDoc(documentReference, { visibility: visibility });
 	}
 
-	updateCustomExercises(uid: string, customExercises: string[]) {
+	public async updateCustomExercises(customExercises: string[]) {
+		let uid = await this.getUid();
 		let documentReference = doc(this.db, "users", uid);
 		updateDoc(documentReference, { customExercises: customExercises });
 	}
 
-	// async deleteCustomExercise(uid: string, exercise: string) {
-	// 	let documentReference = doc(this.db, "users", uid);
+	public async updatePlaylistUrl(playlistUrl: string) {
+		console.log(playlistUrl);
+		let uid = await this.getUid();
+		let documentReference = doc(this.db, "users", uid);
+		await updateDoc(documentReference, { playlistUrl: playlistUrl });
+	}
 
-	// 	let documentSnapshot = await this.getDocumentSnapshot(
-	// 		documentReference
-	// 	);
-	// 	let exercises: string[] = documentSnapshot.data()["customExercises"];
-
-	// 	let index = exercises.indexOf(exercise);
-	// 	exercises.splice(index, 1);
-
-	// 	await updateDoc(documentReference, { customExercises: exercises });
-	// }
+	// DO NOT TOUCH THIS!!!
+	public async getUid() {
+		return await new Promise<string>((resolve, _) => {
+			onAuthStateChanged(this.auth, user => {
+				if (user) {
+					resolve(user.uid);
+				} else {
+					resolve("");
+				}
+			});
+		});
+	}
 }

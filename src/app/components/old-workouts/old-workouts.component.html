@@ -1,130 +1,250 @@
-<mat-progress-bar
-	*ngIf="this.loading"
-	mode="indeterminate"
-	color="primary"
-></mat-progress-bar>
-<div id="old-workouts-container">
-	<div id="title-container">
-		<span id="primary-title">I tuoi vecchi allenamenti</span>
-		<span
-			id="secondary-title"
-			*ngIf="this.workouts.length == 0 && !this.loading"
-		>
-			Non ci sono allenamenti, caricane uno nuovo!
-		</span>
-
-		<button
-			class="btn btn-outline-dark"
-			style="margin-top: 10px"
-			(click)="backToHomeButton()"
-		>
-			<i class="bi bi-house-door"></i>
-			Torna alla home
-		</button>
+<div
+	*ngIf="loading"
+	class="d-flex justify-content-center align-items-center opacity-50 position-absolute"
+	style="
+		width: 100vw;
+		height: 100svh;
+		z-index: 10000;
+		background-color: black;
+	"
+>
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">Loading...</span>
 	</div>
+</div>
 
-	<mat-accordion>
-		<mat-expansion-panel
-			hideToggle
-			*ngFor="let workout of this.workouts; index as index"
-		>
-			<mat-expansion-panel-header>
-				<mat-panel-title>{{ workout.name }}</mat-panel-title>
-				<mat-panel-description>
-					{{ workout.date }}
-				</mat-panel-description>
-			</mat-expansion-panel-header>
+<!-- TODO: Remove !loading and check if object is already loaded -->
+<div id="wrapper" *ngIf="!loading">
+	<div
+		id="main-container"
+		[ngClass]="{ 'p-3': true, 'w-75': workouts.length !== 0 }"
+	>
+		<h1 class="text-center mt-3 mb-4">
+			{{
+				!workouts || workouts.length === 0
+					? "Non ci sono allenamenti, creane uno nuovo!"
+					: "I tuoi vecchi allenamenti"
+			}}
+		</h1>
 
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">Esercizio</th>
-						<th scope="col">Reps@Carico</th>
-						<th scope="col">RPE</th>
-						<th scope="col">Note</th>
-					</tr>
-				</thead>
-				<tbody class="table-group-divider">
-					<tr
-						*ngFor="
-							let exercise of workout.exercises;
-							index as exerciseIndex
-						"
-					>
-						<th scope="row">{{ exercise.name }}</th>
-						<td>
-							<ng-container
-								*ngIf="
-									exercise.configurationType &&
-									exercise.configurationType === 'advanced'
-								"
-							>
-								<ng-container
-									*ngFor="let set of exercise.advanced.sets"
-								>
-									- {{ set.reps }}@{{ set.load }}kg
-									<br />
-								</ng-container>
-							</ng-container>
-
-							<ng-container
-								*ngIf="
-									!exercise.configurationType ||
-									exercise.configurationType === 'basic'
-								"
-							>
-								<ng-container
-									*ngFor="let i of array(exercise.series)"
-								>
-									- {{ exercise.reps }}@{{ exercise.load }}kg
-									<br />
-								</ng-container>
-							</ng-container>
-						</td>
-						<td>{{ exercise.RPE }}</td>
-						<td>
-							<i
-								*ngIf="exercise.note && exercise.note != ''"
-								(click)="showNotes(index, exerciseIndex)"
-								style="cursor: pointer"
-								class="bi bi-info-circle-fill"
-							></i>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<div style="display: flex; justify-content: flex-end">
-				<button
-					class="btn btn-outline-secondary"
-					(click)="editWorkout(index)"
-				>
-					<i class="bi bi-pencil"></i>
-				</button>
-
-				<button
-					class="btn btn-outline-danger"
-					style="margin-left: 10px"
-					(click)="deleteWorkout(index)"
-				>
-					<i class="bi bi-trash"></i>
-				</button>
-			</div>
-		</mat-expansion-panel>
-	</mat-accordion>
-
-	<div style="display: flex; justify-content: center; margin-top: 25px">
 		<button
-			class="btn btn-primary"
-			style="
-				font-weight: bold;
-				font-family: 'Josefin Sans', sans-serif;
-				margin-bottom: 25px;
-			"
-			(click)="createWorkoutButton()"
+			class="btn btn-dark ms-2 d-none d-lg-block mb-4"
+			routerLink="/home"
 		>
-			<i class="bi bi-plus-square"></i>
-			Crea un nuovo allenamento
+			Torna alla home
+			<i class="ms-1 bi bi-house-fill"></i>
 		</button>
+
+		<button
+			class="btn btn-sm btn-dark ms-2 d-block d-lg-none mb-4"
+			routerLink="/home"
+		>
+			Torna alla home
+			<i class="bi bi-house-fill"></i>
+		</button>
+
+		<img
+			*ngIf="!workouts || workouts.length === 0"
+			src="assets/no-old-workouts.svg"
+			alt="No workouts found"
+			style="width: 50%"
+		/>
+
+		<!-- TODO: Show all old workouts with pagination -->
+		<div
+			*ngFor="let workout of workouts; index as workoutIndex"
+			class="w-100 mb-2"
+		>
+			<a
+				[href]="'#session' + workoutIndex"
+				class="btn btn-light w-100 mb-1 border session-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				data-bs-toggle="collapse"
+				role="button"
+				aria-expanded="false"
+				aria-controls="collapseExample"
+				(click)="focusCollapse('session', workoutIndex)"
+			>
+				<p
+					style="pointer-events: none"
+					class="text-center text-truncate mb-0"
+				>
+					{{ workout.name }}
+				</p>
+				<div>
+					<p
+						*ngIf="
+							workout.trainingTime || workout.trainingTime !== 0
+						"
+						style="pointer-events: none"
+						class="text-end mb-0"
+					>
+						{{ getTimeFromTimestamp(workout.trainingTime) }}
+						<i class="ms-1 bi bi-stopwatch"></i>
+					</p>
+					<p style="pointer-events: none" class="text-end mb-0">
+						{{
+							getDateFromTimestamp(workout.date)
+								| date : "dd/MM/yyyy"
+						}}
+						<i class="ms-1 bi bi-calendar-event"></i>
+					</p>
+				</div>
+			</a>
+
+			<div
+				class="collapse w-100 workout-collapse-body collapse-body mb-3"
+				[id]="'session' + workoutIndex"
+			>
+				<div class="card card-body p-1">
+					<table class="table table-sm table-striped table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Esercizio</th>
+								<th scope="col">Reps{{ "@" }}Carico</th>
+								<th scope="col">Intensità</th>
+								<th scope="col">Recupero</th>
+							</tr>
+						</thead>
+						<tbody class="table-group-divider">
+							<tr
+								*ngFor="
+									let exercise of workout.exercises;
+									index as exerciseIndex
+								"
+							>
+								<th>
+									<i
+										*ngIf="
+											exercise.note && exercise.note != ''
+										"
+										(click)="
+											showNotes(
+												workoutIndex,
+												exerciseIndex
+											)
+										"
+										style="cursor: pointer"
+										class="me-1 bi bi-info-circle-fill"
+									></i>
+									{{ exercise.name }}
+								</th>
+
+								<td>
+									<div class="d-flex flex-column">
+										<div
+											*ngFor="
+												let set of formatEffectiveSets(
+													exercise.set
+												);
+												index as setIndex
+											"
+										>
+											{{ set }}
+										</div>
+									</div>
+								</td>
+								<td>
+									<!--Desktop-->
+									<p
+										*ngIf="exercise.intensity === 'light'"
+										class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										Leggero
+										<i class="ms-1 bi bi-feather"></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'hard'"
+										class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										Pesante
+										<i
+											class="ms-1 bi bi-exclamation-triangle-fill"
+										></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'failure'"
+										class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										Cedimento
+										<i class="ms-1 bi bi-fire"></i>
+									</p>
+
+									<!--Mobile-->
+									<p
+										*ngIf="exercise.intensity === 'light'"
+										class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										<i class="bi bi-feather"></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'hard'"
+										class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										<i
+											class="bi bi-exclamation-triangle-fill"
+										></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'failure'"
+										class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										<i class="bi bi-fire"></i>
+									</p>
+								</td>
+
+								<td>
+									{{
+										exercise.rest.minutes +
+											":" +
+											exercise.rest.seconds
+									}}
+								</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="d-none d-lg-flex align-items-center w-100">
+						<button
+							class="btn blue-btn w-100 text-light me-1"
+							(click)="editWorkout(workoutIndex)"
+						>
+							Modifica
+							<i class="ms-1 bi bi-pencil-square"></i>
+						</button>
+
+						<button
+							class="btn btn-danger w-100 ms-1"
+							(click)="deleteWorkout(workoutIndex)"
+						>
+							Elimina
+							<i class="ms-1 bi bi-trash3"></i>
+						</button>
+					</div>
+
+					<div class="d-flex d-lg-none align-items-center w-100">
+						<button
+							class="btn btn-sm blue-btn w-100 text-light me-1"
+							(click)="editWorkout(workoutIndex)"
+						>
+							<i class="bi bi-pencil-square"></i>
+						</button>
+
+						<button
+							class="btn btn-sm btn-danger w-100 ms-1"
+							(click)="deleteWorkout(workoutIndex)"
+						>
+							<i class="bi bi-trash3"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

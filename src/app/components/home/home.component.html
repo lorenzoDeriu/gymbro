@@ -1,66 +1,244 @@
-<p>
-	<mat-toolbar>
-		<img
-			width="75"
-			id="logo"
-			src="../../../assets/logo.png"
-			alt=""
-			style="cursor: pointer"
+<nav class="navbar fixed-top bg-body-tertiary shadow" style="z-index: 1">
+	<div class="container-fluid">
+		<a
+			class="navbar-brand m-0 d-none d-lg-block"
 			(click)="goToHome()"
-		/>
-
-		<span class="spacer"></span>
-
-		<button
-			mat-icon-button
-			(click)="onSocial()"
-			#tooltip="matTooltip"
-			matTooltip="Social"
-			aria-label="social"
+			style="cursor: pointer"
 		>
-			<img src="../../../assets/SocialIcon.png" alt="" />
-		</button>
+			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="70" />
+		</a>
 
-		<button
-			mat-icon-button
-			(click)="onFeedback()"
-			#tooltip="matTooltip"
-			matTooltip="Feedback"
-			aria-label="feedback"
+		<a
+			class="navbar-brand m-0 d-block d-lg-none"
+			(click)="goToHome()"
+			style="cursor: pointer"
 		>
-			<img src="../../../assets/FeedbacksIcon.png" alt="" />
-		</button>
+			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="50" />
+		</a>
 
-		<button
-			mat-icon-button
-			(click)="onAbout()"
-			#tooltip="matTooltip"
-			matTooltip="About"
-			aria-label="about"
-		>
-			<img src="../../../assets/AboutIcon.png" alt="" />
-		</button>
+		<div class="d-flex align-items-center">
+			<!-- Stopwatch -->
+			<button
+				*ngIf="!restMode && !editMode && workoutExists()"
+				(click)="toContinueWorkout()"
+				class="purple-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between align-items-center"
+				style="width: 115px"
+			>
+				<i class="bi bi-stopwatch me-2"></i>
+				<p class="text-start m-0 w-100">
+					{{ getWorkoutTime() }}
+				</p>
+			</button>
 
-		<button
-			mat-icon-button
-			(click)="onSettings()"
-			#tooltip="matTooltip"
-			matTooltip="Impostazioni"
-			aria-label="settings"
-		>
-			<img src="../../../assets/SettingsIcon.png" alt="" />
-		</button>
+			<button
+				*ngIf="!restMode && !editMode && workoutExists()"
+				(click)="toContinueWorkout()"
+				class="purple-btn btn-sm text-light btn rounded-5 d-flex d-lg-none justify-content-between align-items-center"
+				style="width: 95px"
+			>
+				<i class="bi bi-stopwatch me-2"></i>
+				<p class="text-start m-0 w-100">
+					{{ getWorkoutTime() }}
+				</p>
+			</button>
 
-		<button
-			mat-icon-button
-			(click)="onLogout()"
-			#tooltip="matTooltip"
-			matTooltip="Logout"
-			aria-label="logout"
-		>
-			<img src="../../../assets/LogoutIcon.png" alt="" />
-		</button>
-	</mat-toolbar>
-</p>
+			<!-- Timer -->
+			<div
+				*ngIf="restMode && !editMode && workoutExists()"
+				class="dropdown-center"
+			>
+				<button
+					class="blue-btn text-light btn rounded-5 d-lg-flex d-none justify-content-between align-items-center"
+					type="button"
+					style="width: 115px"
+					data-bs-toggle="dropdown"
+					aria-expanded="false"
+				>
+					<i class="bi bi-hourglass-split me-2"></i>
+					<p class="text-start m-0 w-100">
+						{{ getWorkoutTime() }}
+					</p>
+				</button>
+				<ul class="dropdown-menu mt-2">
+					<li class="mb-1">
+						<button
+							class="dropdown-item"
+							type="button"
+							(click)="stopTimer()"
+						>
+							<i class="me-1 bi bi-stop-fill"></i>
+							Interrompi
+						</button>
+					</li>
+					<li>
+						<button
+							class="dropdown-item"
+							type="button"
+							(click)="toContinueWorkout()"
+						>
+							<img
+								src="assets/dumbbell-icon.png"
+								class="me-1"
+								width="16"
+								alt=""
+							/>
+							Allenamento
+						</button>
+					</li>
+				</ul>
+			</div>
+
+			<div
+				*ngIf="restMode && !editMode && workoutExists()"
+				class="dropdown-center"
+			>
+				<button
+					class="blue-btn btn-sm text-light btn rounded-5 d-lg-none d-flex justify-content-between align-items-center"
+					type="button"
+					style="width: 95px"
+					data-bs-toggle="dropdown"
+					aria-expanded="false"
+				>
+					<i class="bi bi-hourglass-split me-2"></i>
+					<p class="text-start m-0 w-100">
+						{{ getWorkoutTime() }}
+					</p>
+				</button>
+				<ul class="dropdown-menu mt-2">
+					<li class="mb-1">
+						<button
+							class="dropdown-item"
+							type="button"
+							(click)="stopTimer()"
+						>
+							<i class="me-1 bi bi-stop-fill"></i>
+							Interrompi
+						</button>
+					</li>
+					<li>
+						<button
+							class="dropdown-item"
+							type="button"
+							(click)="toContinueWorkout()"
+						>
+							<img
+								src="assets/dumbbell-icon.png"
+								class="me-1"
+								width="16"
+								alt=""
+							/>
+							Allenamento
+						</button>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Spotify -->
+			<a
+				*ngIf="
+					playlistUrl &&
+					!editMode &&
+					workoutExists() &&
+					(!restMode || restMode)
+				"
+				[href]="playlistUrl"
+				target="_blank"
+				class="ms-2 btn d-none d-lg-block rounded-5 text-light"
+				style="background-color: #1ed760"
+			>
+				<i class="bi bi-spotify"></i>
+			</a>
+
+			<a
+				*ngIf="
+					playlistUrl &&
+					!editMode &&
+					workoutExists() &&
+					(!restMode || restMode)
+				"
+				[href]="playlistUrl"
+				target="_blank"
+				class="ms-1 btn btn-sm d-block d-lg-none rounded-5 text-light"
+				style="background-color: #1ed760"
+			>
+				<i class="bi bi-spotify"></i>
+			</a>
+		</div>
+
+		<div class="btn-group">
+			<button
+				type="button"
+				class="btn"
+				data-bs-toggle="dropdown"
+				aria-expanded="false"
+				style="border: none"
+			>
+				<i class="fs-3 bi bi-list"></i>
+			</button>
+			<ul class="dropdown-menu dropdown-menu-end">
+				<li class="text-end mb-1">
+					<a
+						class="dropdown-item"
+						(click)="onSocial()"
+						style="cursor: pointer"
+					>
+						Gymbros
+						<i class="ms-2 bi bi-people-fill"></i>
+					</a>
+				</li>
+				<li class="text-end mb-1">
+					<a
+						class="dropdown-item"
+						(click)="onFeedback()"
+						style="cursor: pointer"
+					>
+						Feedback
+						<i class="ms-2 bi bi-flag-fill"></i>
+					</a>
+				</li>
+				<li class="text-end mb-1">
+					<a
+						class="dropdown-item"
+						(click)="onAbout()"
+						style="cursor: pointer"
+					>
+						About
+						<i class="ms-2 bi bi-info-circle-fill"></i>
+					</a>
+				</li>
+				<li class="text-end mb-1">
+					<a
+						class="dropdown-item"
+						(click)="onSettings()"
+						style="cursor: pointer"
+					>
+						Impostazioni
+						<i class="ms-2 bi bi-gear-wide-connected"></i>
+					</a>
+				</li>
+				<li class="text-end mb-1" *ngIf="isAdmin">
+					<a
+						class="dropdown-item"
+						(click)="onAdmin()"
+						style="cursor: pointer"
+					>
+						Admin
+						<i class="ms-2 bi bi-shield-lock-fill"></i>
+					</a>
+				</li>
+				<li class="text-end">
+					<a
+						class="dropdown-item"
+						(click)="onLogout()"
+						style="cursor: pointer"
+					>
+						Esci
+						<i class="ms-2 bi bi-box-arrow-right"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
 
 <router-outlet></router-outlet>

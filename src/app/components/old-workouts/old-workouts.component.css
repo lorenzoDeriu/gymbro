@@ -1,57 +1,54 @@
-#old-workouts-container {
-	width: 50%;
-	margin: auto;
+#wrapper {
+	width: 100vw;
+	height: calc(100svh - 66px);
+	transform: translateY(66px);
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
 }
 
-#title-container {
+#main-container {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-	margin-top: 10px;
+	overflow: auto;
 }
 
-#primary-title {
-	font-size: 180%;
+.blue-btn {
+	border: none;
+	background-color: #4089c9;
 }
 
-#secondary-title {
-	margin-top: 10px;
-	font-size: 120%;
+.blue-btn:hover {
+	background-color: #659fd2 !important;
 }
 
-#title-container button {
-	margin: 10px;
+.blue-btn:active {
+	background-color: #7eafda !important;
 }
 
-mat-expansion-panel button {
-	margin-top: 5px;
-}
-
-#exercise-name-cell {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-#exercise-name-cell img {
-	width: 20px;
-	height: 20px;
-}
-
-#exercise-name-cell button {
-	margin-left: 0px;
-	margin-bottom: 8px;
-}
-
-@media (max-width: 750px) {
-	#old-workouts-container {
-		width: 95%;
+@media (max-width: 900px) {
+	#main-container {
+		width: 100% !important;
 	}
 
-	.mdc-data-table__header-cell::ng-deep {
-		padding: 10px;
+	.table {
+		font-size: 10px;
+		white-space: nowrap;
+	}
+
+	.mobile-btn {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 300px) {
+	.table {
+		font-size: 8px;
+	}
+
+	.mobile-btn {
+		font-size: 10px;
 	}
 }

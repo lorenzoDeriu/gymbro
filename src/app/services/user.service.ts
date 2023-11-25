@@ -1,144 +1,300 @@
+import { TrainingProgram } from "../Models/TrainingProgram.model";
+import { Workout } from "../Models/Workout.model";
 import { FirebaseService } from "./firebase.service";
-import { Exercise } from "../Models/Exercise.model";
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
+import { User } from "../Models/User.model";
+import { SearchResult } from "../components/friends/friends.component";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
 	providedIn: "root",
 })
 export class UserService {
-	exercises: any[] = [];
-	trainingProgram: any[] = [];
+	private user: User;
+	private workout: Workout;
+	private trainingProgram: TrainingProgram;
 
-	workoutSelected: any;
+	private searchResult: SearchResult[];
+	private uidProfile: string;
 
-	constructor(private firebase: FirebaseService) {}
+	private workoutToEditIndex: number;
 
-	addExercise(exercise: Exercise) {
-		this.exercises.push({
-			name: exercise.exerciseName,
-			series: exercise.series,
-			reps: exercise.reps,
-			RPE: exercise.RPE,
-			load: exercise.load,
-			restTime: exercise.restTime,
-			note: exercise.note,
-			range: exercise.range,
-		});
+	private editMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+		false
+	);
+	public editModeObs = this.editMode.asObservable();
 
-		localStorage.setItem("exercises", JSON.stringify(this.exercises));
+	private restMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+		false
+	);
+	public restModeObs = this.restMode.asObservable();
+
+	private workoutStartTime: number = 0;
+	private restStartTime: number = 0;
+	private trainingTime: number = 0;
+	private timeToRest: number = 0;
+	private restTime: number = 0;
+
+	private interval: any;
+
+	constructor(private firebase: FirebaseService) {
+		this.firebase
+			.getUserData()
+			.then(user => {
+				this.user = user;
+			})
+			.catch(() => {
+				this.user = null;
+			});
+
+		this.workout = {
+			name: "Nuovo Allenamento",
+			date: Date.now(),
+			exercises: [],
+			trainingTime: 0,
+		};
+
+		this.trainingProgram = {
+			name: "Nuovo Programma",
+			session: [],
+		};
+
+		this.checkForBackup();
 	}
 
-	exercisesReset() {
-		this.exercises = [];
-		localStorage.removeItem("exercises");
+	public setupUser() {
+		this.firebase
+			.getUserData()
+			.then(user => {
+				this.user = user;
+			})
+			.catch(() => {
+				this.user = null;
+			});
 	}
 
-	getExercises() {
-		if (this.exercises.length == 0) {
-			let exercises = JSON.parse(localStorage.getItem("exercises"));
+	public startChronometer() {
+		this.workoutStartTime = Date.now();
+		localStorage.setItem("workoutStartTime", String(this.workoutStartTime));
+		this.interval = setInterval(() => {
+			this.trainingTime = Date.now() - this.workoutStartTime;
+			this.restTime = this.restStartTime + this.timeToRest - Date.now();
 
-			if (exercises != null) {
-				this.exercises = exercises;
+			if (this.restMode.value && this.restTime <= 0) {
+				this.endRest();
 			}
+		});
+	}
+
+	public startTimer(time: number) {
+		this.setRestMode(true);
+		this.restStartTime = Date.now();
+		localStorage.setItem("restStartTime", String(this.restStartTime));
+		this.timeToRest = time;
+		localStorage.setItem("timeToRest", String(this.timeToRest));
+	}
+
+	public getChronometerTime() {
+		if (this.restMode.value) {
+			return this.restTime;
 		}
 
-		return this.exercises;
+		return this.trainingTime;
 	}
 
-	removeElement(index: number) {
-		this._remove(index);
-		localStorage.setItem("exercises", JSON.stringify(this.exercises));
+	public endChronometer() {
+		clearInterval(this.interval);
+		localStorage.removeItem("workoutStartTime");
 	}
 
-	private _remove(element: number) {
-		this.exercises.forEach((_, index) => {
-			if (index == element) this.exercises.splice(index, 1);
-		});
+	public endRest() {
+		this.setRestMode(false);
+		localStorage.removeItem("restStartTime");
+		localStorage.removeItem("timeToRest");
 	}
 
-	public updateWorkouts(workouts: any) {
-		let user = JSON.parse(localStorage.getItem("user"));
+	private checkForBackup() {
+		if (localStorage.getItem("workout") !== null) {
+			this.workout = JSON.parse(localStorage.getItem("workout"));
+		}
+
+		if (localStorage.getItem("trainingProgram") !== null) {
+			this.trainingProgram = JSON.parse(
+				localStorage.getItem("trainingProgram")
+			);
+		}
+
+		if (localStorage.getItem("editMode") !== null) {
+			this.setEditMode(JSON.parse(localStorage.getItem("editMode")));
+		}
+
+		if (localStorage.getItem("workoutToEditIndex") !== null) {
+			this.workoutToEditIndex = JSON.parse(
+				localStorage.getItem("workoutToEditIndex")
+			);
+		}
+
+		if (localStorage.getItem("restMode") !== null) {
+			this.setRestMode(JSON.parse(localStorage.getItem("restMode")));
+		}
+
+		if (localStorage.getItem("workoutStartTime") !== null) {
+			this.workoutStartTime = JSON.parse(
+				localStorage.getItem("workoutStartTime")
+			);
+
+			this.interval = setInterval(() => {
+				this.trainingTime = Date.now() - this.workoutStartTime;
+				this.restTime =
+					this.restStartTime + this.timeToRest - Date.now();
+
+				if (this.restMode.value && this.restTime <= 0) {
+					this.endRest();
+				}
+			});
+		}
+
+		if (localStorage.getItem("restStartTime") !== null) {
+			this.restStartTime = JSON.parse(
+				localStorage.getItem("restStartTime")
+			);
+		}
+
+		if (localStorage.getItem("timeToRest") !== null) {
+			this.timeToRest = JSON.parse(localStorage.getItem("timeToRest"));
+		}
+	}
+
+	public getTrainingTime() {
+		return this.trainingTime;
+	}
+
+	public getWorkout() {
+		localStorage.setItem("workout", JSON.stringify(this.workout));
+		return this.workout;
+	}
+
+	public async updateWorkout(workout: Workout) {
+		this.workout = workout;
+		localStorage.setItem("workout", JSON.stringify(workout));
+	}
+
+	public async saveWorkout() {
+		if (this.editMode.value) {
+			await this.firebase.updateWorkout(
+				this.workout,
+				this.workoutToEditIndex
+			);
+			this.setEditMode(false);
+			this.resetWorkout();
+			return;
+		}
+
+		await this.firebase.saveWorkout(this.workout);
+		this.resetWorkout();
+	}
+
+	public resetWorkout() {
+		this.workout = {
+			name: "Nuovo Allenamento",
+			date: Date.now(),
+			exercises: [],
+			trainingTime: 0,
+		};
+		localStorage.removeItem("workout");
+		this.setEditMode(false);
+		localStorage.removeItem("editMode");
+		localStorage.removeItem("workoutToEditIndex");
+	}
+
+	public getPlaylistURL() {
+		return this.user?.playlistUrl ?? "";
+	}
+
+	private workoutSortingFunction(a: Workout, b: Workout) {
+		return b.date - a.date;
+	}
+
+	public updateWorkouts(workouts: Workout[]) {
 		this.firebase.updateWorkouts(
-			workouts.sort((a: any, b: any) => {
-				let [day, month, year] = String(a.date).split("/");
-				const dateA = +new Date(+year, +month - 1, +day);
-				[day, month, year] = String(b.date).split("/");
-				const dateB = +new Date(+year, +month - 1, +day);
-				return dateB - dateA;
-			}),
-			user.uid
+			workouts.sort(this.workoutSortingFunction)
 		);
 
 		return this.firebase.getWorkouts();
 	}
 
-	public async updateWorkout(workout: any, index: number) {
-		let user = JSON.parse(localStorage.getItem("user"));
-		let workouts = (await this.firebase.getWorkouts()).sort(
-			(a: any, b: any) => {
-				let [day, month, year] = String(a.date).split("/");
-				const dateA = +new Date(+year, +month - 1, +day);
-				[day, month, year] = String(b.date).split("/");
-				const dateB = +new Date(+year, +month - 1, +day);
-				return dateB - dateA;
-			}
-		);
-
-		workouts[index] = workout;
-
-		this.firebase.updateWorkouts(workouts, user.uid);
-	}
-
-	public addSessionToTrainingProgram(session: any) {
-		this.trainingProgram.push(session);
-	}
-
-	public removeSessionFromTrianingProgram(index: number) {
-		this.trainingProgram.splice(index, 1);
-	}
-
-	public async getTrainingProgram() {
+	public getTrainingProgram() {
 		return this.trainingProgram;
 	}
 
 	public async removeTrainingProgram(index: number) {
-		let user: any = JSON.parse(localStorage.getItem("user"));
-
 		let trainingPrograms = await this.firebase.getTrainingPrograms();
 		trainingPrograms.splice(index, 1);
 
-		await this.firebase.updateTrainingPrograms(trainingPrograms, user.uid);
+		await this.firebase.updateTrainingPrograms(trainingPrograms);
 	}
 
-	public setWorkoutSelected(workout: any) {
-		this.workoutSelected = workout;
+	public setWorkout(workout: Workout) {
+		this.workout = workout;
 	}
 
-	public getWorkoutSelected(): any {
-		this.workoutSelected?.exercises?.forEach((exercise: any) => {
-			if (!exercise.configurationType) {
-				exercise.configurationType = "basic";
-			}
+	public setTrainingProgram(trainingProgram: TrainingProgram) {
+		this.trainingProgram = trainingProgram;
+	}
 
-			if (exercise.advanced == undefined) {
-				exercise.advanced = {
-					sets: [],
-				};
-			}
+	public updateTrainingProgram(trainingProgram: TrainingProgram) {
+		this.trainingProgram = trainingProgram;
+		localStorage.setItem(
+			"trainingProgram",
+			JSON.stringify(trainingProgram)
+		);
+	}
 
-			if (exercise.configurationType === "advanced") {
-				exercise.advanced?.sets?.forEach((set: any) => {
-					if (set.load == undefined) {
-						set.load = 0;
-					}
+	public async saveTrainingProgram(edit: boolean, index?: number) {
+		localStorage.removeItem("trainingProgram");
+		if (edit) {
+			await this.firebase.editTrainingProgram(
+				this.trainingProgram,
+				index
+			);
+			return;
+		}
 
-					if (set.reps == undefined) {
-						set.reps = set.min;
-					}
-				});
-			}
-		});
+		await this.firebase.addTrainingProgram(this.trainingProgram);
+	}
 
-		return this.workoutSelected;
+	public setSearchResult(searchResult: SearchResult[]) {
+		this.searchResult = searchResult;
+	}
+
+	public getSearchResult() {
+		return this.searchResult ?? [];
+	}
+
+	public setUidProfile(uidProfile: string) {
+		this.uidProfile = uidProfile;
+	}
+
+	public getUidProfile() {
+		return this.uidProfile;
+	}
+
+	public setEditMode(editMode: boolean) {
+		this.editMode.next(editMode);
+		localStorage.setItem("editMode", String(editMode));
+	}
+
+	public setRestMode(restMode: boolean) {
+		this.restMode.next(restMode);
+		localStorage.setItem("restMode", String(restMode));
+	}
+
+	public setWorkoutToEditIndex(index: number) {
+		this.workoutToEditIndex = index;
+		localStorage.setItem("workoutToEditIndex", String(index));
+	}
+
+	public getWorkoutToEditIndex() {
+		return this.workoutToEditIndex;
 	}
 }

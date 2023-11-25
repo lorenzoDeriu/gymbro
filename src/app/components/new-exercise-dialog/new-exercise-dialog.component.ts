@@ -1,5 +1,3 @@
-import { UserService } from "../../services/user.service";
-import { Exercise } from "../../Models/Exercise.model";
 import { FirebaseService } from "../../services/firebase.service";
 import { Component, Inject } from "@angular/core";
 import {
@@ -8,6 +6,8 @@ import {
 	MatDialogRef,
 } from "@angular/material/dialog";
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
+import { Set, TrainingProgramExercise } from "src/app/Models/Exercise.model";
+import { generateId } from "src/app/utils/utils";
 
 @Component({
 	selector: "app-new-exercise-dialog",
@@ -16,30 +16,24 @@ import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-
 })
 export class NewExerciseDialogComponent {
 	public options: string[] = [];
-	public exercise = {
+	public exercise: TrainingProgramExercise = {
 		name: "",
-		series: 3,
-		range: [6, 8],
+		intensity: "hard",
 		rest: {
 			minutes: "02",
 			seconds: "00",
 		},
-		RPE: 8,
 		note: "",
-
-		// superset data:
-		secondExercise: "",
-
-		// advanced data:
-		advanced: {
-			sets: [{ min: 6, max: 8 }],
-		},
-
-		// configuration type:
-		configurationType: "basic",
+		set: [
+			{
+				minimumReps: 8,
+				maximumReps: 10,
+			},
+		],
+		groupId: generateId(),
 	};
 
-	private editMode = false;
+	public editMode = false;
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: any,
@@ -57,18 +51,32 @@ export class NewExerciseDialogComponent {
 	}
 
 	async getExercises() {
-		let uid = JSON.parse(localStorage.getItem("user"))["uid"];
-		this.options = (await this.firebase.getExercise(uid)).sort(
-			(a: string, b: string) => a.localeCompare(b)
-		);
+		this.options = await this.firebase.getExercise();
+	}
+
+	closeDialog() {
+		this.dialogRef.close();
 	}
 
 	addSet() {
-		this.exercise.advanced.sets.push({ min: 6, max: 8 });
+		if (this.exercise.set.length > 0) {
+			const lastSet: Set =
+				this.exercise.set[this.exercise.set.length - 1];
+
+			this.exercise.set.push({
+				minimumReps: lastSet.minimumReps,
+				maximumReps: lastSet.maximumReps,
+			});
+		} else {
+			this.exercise.set.push({
+				minimumReps: 8,
+				maximumReps: 10,
+			});
+		}
 	}
 
 	removeSet(index: number) {
-		this.exercise.advanced.sets.splice(index, 1);
+		this.exercise.set.splice(index, 1);
 	}
 
 	openCustomExerciseDialog() {
@@ -78,20 +86,18 @@ export class NewExerciseDialogComponent {
 		});
 	}
 
-	isDesktop() {
-		return window.innerWidth > 500;
-	}
-
 	save() {
 		this.dialogRef.close(this.exercise);
 	}
 
 	savable() {
 		return (
-			this.exercise.name != "" &&
-			this.exercise.series != 0 &&
-			this.exercise.range[0] != 0 &&
-			this.exercise.range[1] != 0
+			this.exercise.name !== "" &&
+			this.exercise.set.length > 0 &&
+			this.exercise.set.every(
+				set => set.minimumReps > 0 && set.maximumReps > 0
+			) &&
+			this.exercise.set.every(set => set.minimumReps <= set.maximumReps)
 		);
 	}
 }

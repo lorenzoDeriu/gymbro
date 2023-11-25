@@ -1,54 +1,51 @@
-<div>
-	<h1>
-		<span>
-			Storico
-			<i style="font-size: 0.6em">{{ exerciseName() }}</i>
-		</span>
-	</h1>
-	<!-- <mat-divider class="mb-2"></mat-divider> -->
+<div
+	class="d-flex flex-column justify-content-center align-items-center p-3 overflow-hidden"
+	style="max-width: 500px; max-height: 60svh"
+>
+	<h1 class="text-center w-100">Storico</h1>
+	<h5 class="fst-italic text-center w-100">
+		{{ exerciseName() }}
+		<img src="assets/dumbbell.png" width="30" class="ms-2" alt="dumbbell" />
+	</h5>
 
-	<ng-container *ngIf="this.stats.length == 0 && !this.loading">
-		<p>Non ci sono dati per questo esercizio</p>
-	</ng-container>
+	<p class="text-center w-100" *ngIf="stats.length === 0 && !loading">
+		Non ci sono dati per questo esercizio
+	</p>
 
-	<ng-container *ngIf="!this.loading">
-		<ng-container *ngFor="let item of this.stats">
-			<p>
-				{{ item.date.split("/")[0] + "/" + item.date.split("/")[1] }}:
-				<ng-container
-					*ngIf="item.exercise.configurationType === 'advanced'"
-				>
-					<ng-container
-						*ngFor="
-							let set of item.exercise.advanced.sets;
-							index as i
-						"
+	<div class="d-flex justify-content-center mb-3" *ngIf="loading">
+		<div class="spinner-border" role="status">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+	</div>
+
+	<div class="overflow-auto w-100">
+		<div *ngFor="let stat of stats" class="w-100">
+			<div class="mb-2">
+				<p class="mb-0 fw-bold">
+					<i class="me-1 bi bi-calendar-event"></i>
+					{{ stat.date | date : "dd/MM/yyyy" }}
+				</p>
+
+				<div *ngFor="let set of formatEffectiveSets(stat.exercise.set)">
+					<small>
+						{{ set }}
+					</small>
+				</div>
+
+				<div *ngIf="stat.exercise.note !== '' && stat.exercise.note">
+					<p
+						class="text-secondary fst-italic mb-0"
+						style="font-size: 0.7em"
 					>
-						{{ i === 0 ? "" : "|" }} {{ set.reps }}@{{ set.load }}kg
-					</ng-container>
-				</ng-container>
+						<i class="me-1 bi bi-sticky"></i>
+						"{{ stat.exercise.note }}"
+					</p>
+				</div>
 
-				<ng-container
-					*ngIf="
-						!item.exercise.configurationType ||
-						item.exercise.configurationType === 'basic'
-					"
-				>
-					{{ item.exercise.series }}x{{ item.exercise.reps }}@{{
-						item.exercise.load
-					}}kg
-				</ng-container>
+				<mat-divider class="my-1"></mat-divider>
+			</div>
+		</div>
+	</div>
 
-				<ng-container
-					*ngIf="item.exercise.note != '' && item.exercise.note"
-				>
-					<br />
-					<i style="font-size: 0.7em; color: darkgray">
-						"{{ item.exercise.note }}"
-					</i>
-				</ng-container>
-			</p>
-			<mat-divider class="mb-1"></mat-divider>
-		</ng-container>
-	</ng-container>
+	<button (click)="closeDialog()" class="btn btn-dark w-100">Chiudi</button>
 </div>

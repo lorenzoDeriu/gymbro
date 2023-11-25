@@ -1,10 +1,16 @@
-#add-exercise-container {
-	width: 90%;
-	margin: 10px auto;
-	display: flex;
-	flex-direction: column;
+input:focus {
+	outline: none;
 }
 
-#cancel-button {
-	margin: 10px 0;
+.purple-btn {
+	border: none;
+	background-color: #6b44d4;
+}
+
+.purple-btn:hover {
+	background-color: #785ebe !important;
+}
+
+.purple-btn:active {
+	background-color: #957dd6 !important;
 }

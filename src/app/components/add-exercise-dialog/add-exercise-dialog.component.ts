@@ -24,8 +24,7 @@ export class AddExerciseDialogComponent {
 		if (this.router.url == "/admin") {
 			this.firebase.addExercise(form.value.exercise);
 		} else {
-			let uid = JSON.parse(localStorage.getItem("user"))["uid"];
-			this.firebase.addCustomExercise(form.value.exercise, uid);
+			this.firebase.addCustomExercise(form.value.exercise);
 			this.exercise = form.value.exercise;
 		}
 
