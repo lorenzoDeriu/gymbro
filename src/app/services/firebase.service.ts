@@ -23,9 +23,6 @@ import {
 	WithFieldValue,
 	DocumentData,
 	persistentLocalCache,
-	persistentMultipleTabManager,
-	CACHE_SIZE_UNLIMITED,
-	enableIndexedDbPersistence,
 } from "firebase/firestore";
 import {
 	getAuth,
