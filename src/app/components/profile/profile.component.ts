@@ -39,7 +39,12 @@ export class ProfileComponent implements OnInit {
 			this.searchUsername = this.route.snapshot.paramMap.get("username");
 		}
 
-		let friendUid: string = this.userService.getUidProfile();
+		let friendUid: string = this.userService.getUidProfile(); // this goes to undefined after the refresh
+
+        if (!friendUid) {
+            this.router.navigate(["/home/friends"]);
+        }
+
 		let user: User = await this.firebase.getUserData(friendUid);
 		this.username = user.username;
 		this.playlistUrl = user.playlistUrl;
