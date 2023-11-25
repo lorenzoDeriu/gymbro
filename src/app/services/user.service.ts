@@ -62,6 +62,17 @@ export class UserService {
 		this.checkForBackup();
 	}
 
+	public setupUser() {
+		this.firebase
+			.getUserData()
+			.then(user => {
+				this.user = user;
+			})
+			.catch(() => {
+				this.user = null;
+			});
+	}
+
 	public startChronometer() {
 		this.workoutStartTime = Date.now();
 		localStorage.setItem("workoutStartTime", String(this.workoutStartTime));

@@ -46,14 +46,14 @@ export class SettingsPageComponent implements OnInit {
 		this.loading = false;
 	}
 
-	private isPlaylistUrlValid() {
+	public isPlaylistUrlValid() {
 		return (
-			this.playlistUrl &&
-			this.playlistUrl.includes("https://open.spotify.com/playlist/")
+			this.playlistUrl === "" || (this.playlistUrl &&
+			this.playlistUrl.includes("https://open.spotify.com/"))
 		);
 	}
 
-	private isUsernameValid() {
+	public isUsernameValid() {
 		return (
 			this.username &&
 			this.username !== "" &&
@@ -102,20 +102,26 @@ export class SettingsPageComponent implements OnInit {
 		});
 	}
 
-	public saveSettings() {
+	public cancel() {
+		this.username = this.originalUsername;
+		this.onModify = false;
+	}
+
+	public async saveSettings() {
 		if (this.isUsernameValid()) {
-			this.firebase.updateUsername(this.username);
+			await this.firebase.updateUsername(this.username);
 		}
 
 		if (this.isPlaylistUrlValid()) {
-			this.firebase.updatePlaylistUrl(this.playlistUrl);
+			await this.firebase.updatePlaylistUrl(this.playlistUrl);
 		}
 
-		this.firebase.updateVisibility(this.visibility);
-		this.firebase.updateCustomExercises(this.customExercises);
+		await this.firebase.updateVisibility(this.visibility);
+		await this.firebase.updateCustomExercises(this.customExercises);
 
 		this.onModify = false;
 		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
+		window.location.reload();
 	}
 
 	public backToHome() {

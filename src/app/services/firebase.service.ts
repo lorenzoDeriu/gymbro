@@ -874,9 +874,10 @@ export class FirebaseService {
 	}
 
 	public async updatePlaylistUrl(playlistUrl: string) {
+		console.log(playlistUrl);
 		let uid = await this.getUid();
 		let documentReference = doc(this.db, "users", uid);
-		updateDoc(documentReference, { playlistUrl: playlistUrl });
+		await updateDoc(documentReference, { playlistUrl: playlistUrl });
 	}
 
 	// DO NOT TOUCH THIS!!!

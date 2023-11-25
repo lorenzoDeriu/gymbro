@@ -30,12 +30,7 @@ export class AuthService {
 	) {}
 
 	private async access(credential: UserCredential, username?: string) {
-		this.loginUser({
-			uid: credential.user.uid,
-			email: credential.user.email,
-			idToken: await credential.user.getIdToken(),
-			refreshToken: credential.user.refreshToken,
-		});
+		this.loginUser();
 
 		if (!(await this.firebase.existInfoOf(credential.user.uid)).exists) {
 			this.createNewUserInfo(username);
@@ -116,8 +111,9 @@ export class AuthService {
 		this.firebase.addUser(userObj, uid);
 	}
 
-	private loginUser(user: UserData) {
+	private loginUser() {
 		this.loggedIn = true;
+		this.userService.setupUser();
 		this.router.navigate(["/home/dashboard"]);
 	}
 

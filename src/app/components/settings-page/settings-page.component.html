@@ -172,13 +172,14 @@
 					>
 						<button
 							(click)="saveSettings()"
+							[disabled]="!isPlaylistUrlValid()"
 							class="me-1 btn purple-btn text-light w-100 d-none d-lg-block"
 						>
 							Salva
 							<i class="ms-1 bi bi-check"></i>
 						</button>
 						<button
-							(click)="onModify = false"
+							(click)="cancel()"
 							class="ms-1 btn btn-dark d-none d-lg-block"
 						>
 							<i class="bi bi-x"></i>
@@ -187,13 +188,14 @@
 						<!--Mobile-->
 						<button
 							(click)="saveSettings()"
+							[disabled]="!isPlaylistUrlValid()"
 							class="me-1 btn btn-sm purple-btn text-light w-100 d-block d-lg-none"
 						>
 							Salva
 							<i class="ms-1 bi bi-check"></i>
 						</button>
 						<button
-							(click)="onModify = false"
+							(click)="cancel()"
 							class="ms-1 btn btn-sm btn-dark d-block d-lg-none"
 						>
 							<i class="bi bi-x"></i>
