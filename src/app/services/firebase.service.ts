@@ -858,6 +858,8 @@ export class FirebaseService {
 		await deleteDoc(documentReference);
 
 		this.auth.currentUser.delete();
+
+        localStorage.clear();
 	}
 
 	public async updateVisibility(visibility: boolean) {

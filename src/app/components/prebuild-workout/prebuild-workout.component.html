@@ -230,15 +230,13 @@
 											class="input-group flex-nowrap d-flex align-items-center w-50"
 										>
 											<input
-												(input)="
-													filterRepsInput($event)
-												"
 												[disabled]="
 													workoutProgress.completed[
 														exerciseIndex
 													][setIndex]
 												"
-												type="text"
+												type="number"
+                                                inputmode="decimal"
 												[ngClass]="{
 													'form-control': true,
 													'rounded-start-5':
@@ -294,15 +292,13 @@
 											class="input-group flex-nowrap d-flex align-items-center w-50"
 										>
 											<input
-												(input)="
-													filterLoadInput($event)
-												"
 												[disabled]="
 													workoutProgress.completed[
 														exerciseIndex
 													][setIndex]
 												"
-												type="text"
+												type="number"
+                                                inputmode="decimal"
 												class="form-control rounded-start-5"
 												[(ngModel)]="
 													exercise.set[setIndex].load
@@ -430,9 +426,7 @@
 										for="btnradio2"
 									>
 										Pesante
-										<i
-											class="ms-1 bi bi-exclamation-triangle-fill"
-										></i>
+										<i class="ms-1 bi bi-lightning-fill"></i>
 									</label>
 
 									<input
@@ -613,15 +607,13 @@
 											class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50"
 										>
 											<input
-												(input)="
-													filterRepsInput($event)
-												"
 												[disabled]="
 													workoutProgress.completed[
 														exerciseIndex
 													][setIndex]
 												"
-												type="text"
+												type="number"
+                                                inputmode="decimal"
 												[ngClass]="{
 													'form-control': true,
 													'rounded-start-5':
@@ -677,15 +669,13 @@
 											class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50"
 										>
 											<input
-												(input)="
-													filterLoadInput($event)
-												"
 												[disabled]="
 													workoutProgress.completed[
 														exerciseIndex
 													][setIndex]
 												"
-												type="text"
+												type="number"
+                                                inputmode="decimal"
 												class="form-control rounded-start-5"
 												[(ngModel)]="
 													exercise.set[setIndex].load
@@ -786,6 +776,15 @@
 											Cedimento
 										</option>
 									</select>
+                                    <span class=" input-group-text" *ngIf="exercise.intensity === 'light'">
+										<i class="text-success bi bi-feather"></i>
+									</span>
+                                    <span class="input-group-text" *ngIf="exercise.intensity === 'hard'">
+										<i class="text-warning bi bi-lightning-fill"></i>
+									</span>
+                                    <span class="input-group-text" *ngIf="exercise.intensity === 'failure'">
+										<i class="text-danger bi bi-fire"></i>
+									</span>
 								</div>
 
 								<div

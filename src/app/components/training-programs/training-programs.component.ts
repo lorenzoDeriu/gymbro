@@ -57,6 +57,7 @@ export class TrainingProgramsComponent implements OnInit {
 	}
 
 	buildTrainingProgramButton() {
+        this.userService.resetTrainingProgram();
 		this.router.navigate(["/home/training-program-builder"]);
 	}
 
