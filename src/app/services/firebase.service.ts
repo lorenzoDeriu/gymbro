@@ -859,7 +859,7 @@ export class FirebaseService {
 
 		this.auth.currentUser.delete();
 
-        localStorage.clear();
+		localStorage.clear();
 	}
 
 	public async updateVisibility(visibility: boolean) {

@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
 
 		if (!friendUid) {
 			this.router.navigate(["/home/friends"]);
-            return;
+			return;
 		}
 
 		let user: User = await this.firebase.getUserData(friendUid);
