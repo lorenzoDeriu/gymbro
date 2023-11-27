@@ -81,6 +81,10 @@ export class FriendsComponent implements OnInit {
 
 	public viewProfile(index: number) {
 		this.userService.setUidProfile(this.followed[index].uid);
-		this.router.navigate(["/home/profile"]);
+
+		this.router.navigate([
+			"/home/profile",
+			{ username: this.followed[index].username },
+		]);
 	}
 }

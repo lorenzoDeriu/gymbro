@@ -29,6 +29,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public date: string = this.fromTimestampToString(Date.now());
 	public loading: boolean = false;
 	public editMode: boolean = false;
+	public restMode: boolean = false;
 
 	constructor(
 		private userService: UserService,
@@ -44,41 +45,44 @@ export class PrebuildWorkoutComponent implements OnInit {
 			this.editMode = editMode;
 		});
 
+		this.userService.restModeObs.subscribe(restMode => {
+			this.restMode = restMode;
+		});
+
 		this.availableExercise = await this.firebase.getExercise();
 
 		this.workout = this.userService.getWorkout();
 		this.date = this.fromTimestampToString(this.workout.date);
 		this.initWorkoutProgress();
 
-		if (localStorage.getItem("workoutProgress") !== null) {
-			this.workoutProgress = JSON.parse(
-				localStorage.getItem("workoutProgress")!!
-			);
-		}
+		this.loading = false;
+	}
 
-		if (localStorage.getItem("workoutProgress") === null) {
+	private initWorkoutProgress() {
+		if (localStorage.getItem("workoutProgress")) {
+			this.workoutProgress = JSON.parse(
+				localStorage.getItem("workoutProgress")
+			);
+
+			localStorage.setItem(
+				"workoutProgress",
+				JSON.stringify(this.workoutProgress)
+			);
+		} else {
+			this.workout.exercises.forEach((exercise, exerciseIndex) => {
+				this.workoutProgress.completed[exerciseIndex] = [];
+
+				exercise.set.forEach((_, setIndex) => {
+					this.workoutProgress.completed[exerciseIndex][setIndex] =
+						false;
+				});
+			});
+
 			localStorage.setItem(
 				"workoutProgress",
 				JSON.stringify(this.workoutProgress)
 			);
 		}
-
-		this.loading = false;
-	}
-
-	private initWorkoutProgress() {
-		this.workout.exercises.forEach((exercise, exerciseIndex) => {
-			this.workoutProgress.completed[exerciseIndex] = [];
-
-			exercise.set.forEach((_, setIndex) => {
-				this.workoutProgress.completed[exerciseIndex][setIndex] = false;
-			});
-		});
-
-		localStorage.setItem(
-			"workoutProgress",
-			JSON.stringify(this.workoutProgress)
-		);
 	}
 
 	public workoutExists() {
@@ -108,44 +112,23 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.router.navigate(["/home"]);
 	}
 
-	public filterRepsInput(e: Event) {
-		const event = e.target as HTMLInputElement;
-		const inputValue = event.value;
-
-		if (!"0123456789".includes(inputValue[inputValue.length - 1])) {
-			event.value = inputValue.slice(0, inputValue.length - 1);
-		}
-
-		if (inputValue.startsWith("0")) {
-			event.value = inputValue.slice(1);
-		}
-	}
-
-	public filterLoadInput(e: Event) {
-		const event = e.target as HTMLInputElement;
-		const inputValue = event.value;
-
-		if (!"0123456789".includes(inputValue[inputValue.length - 1])) {
-			event.value = inputValue.slice(0, inputValue.length - 1);
-		}
-
-		if (inputValue.length > 1 && inputValue.startsWith("0")) {
-			event.value = inputValue.slice(1);
-		}
-	}
-
 	public isSetValid(exerciseIndex: number, setIndex: number) {
 		return (
+			!isNaN(+this.workout.exercises[exerciseIndex].set[setIndex].reps) &&
 			this.workout.exercises[exerciseIndex].set[setIndex].reps !== null &&
 			this.workout.exercises[exerciseIndex].set[setIndex].reps > 0 &&
+			!isNaN(+this.workout.exercises[exerciseIndex].set[setIndex].load) &&
 			this.workout.exercises[exerciseIndex].set[setIndex].load !== null &&
 			this.workout.exercises[exerciseIndex].set[setIndex].load >= 0
 		);
 	}
 
 	public toggleCompleted(exerciseIndex: number, setIndex: number) {
-		if (!this.workoutProgress.completed[exerciseIndex][setIndex]) {
-			const { minutes, seconds } =
+		if (
+			!this.workoutProgress.completed[exerciseIndex][setIndex] &&
+			!this.restMode
+		) {
+			const { minutes, seconds }: Record<string, string> =
 				this.workout.exercises[exerciseIndex].rest; // Extract rest time from workout
 
 			const rest: number = (+minutes * 60 + +seconds) * 1000; // Convert rest time to milliseconds
@@ -225,8 +208,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	public deleteSet(exerciseIndex: number, setIndex: number) {
-		this.toggleCompleted(exerciseIndex, setIndex);
-
 		this.workout.exercises[exerciseIndex].set.splice(setIndex, 1);
 		this.userService.updateWorkout(this.workout);
 

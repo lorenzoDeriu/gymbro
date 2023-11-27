@@ -279,7 +279,6 @@ export class FirebaseService {
 			sendEmailVerification(this.auth.currentUser);
 			return userCredential;
 		} catch (e) {
-			console.log(e);
 			return null;
 		}
 	}
@@ -859,6 +858,8 @@ export class FirebaseService {
 		await deleteDoc(documentReference);
 
 		this.auth.currentUser.delete();
+
+		localStorage.clear();
 	}
 
 	public async updateVisibility(visibility: boolean) {
@@ -874,7 +875,6 @@ export class FirebaseService {
 	}
 
 	public async updatePlaylistUrl(playlistUrl: string) {
-		console.log(playlistUrl);
 		let uid = await this.getUid();
 		let documentReference = doc(this.db, "users", uid);
 		await updateDoc(documentReference, { playlistUrl: playlistUrl });

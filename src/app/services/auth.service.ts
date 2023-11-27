@@ -30,11 +30,15 @@ export class AuthService {
 	) {}
 
 	private async access(credential: UserCredential, username?: string) {
-		this.loginUser();
+		if (credential) {
+			this.loginUser();
 
-		if (!(await this.firebase.existInfoOf(credential.user.uid)).exists) {
-			this.createNewUserInfo(username);
-		}
+			if (
+				!(await this.firebase.existInfoOf(credential.user.uid)).exists
+			) {
+				this.createNewUserInfo(username);
+			}
+		} else throw "Credential Error";
 	}
 
 	public async signup(email: string, password: string, username: string) {
@@ -56,7 +60,6 @@ export class AuthService {
 				await this.firebase.loginEmailPsw(email, password)
 			);
 		} catch (error) {
-			console.log(error);
 			this.dialog.open(ErrorLoginDialogComponent, {
 				disableClose: false,
 			});
@@ -67,7 +70,6 @@ export class AuthService {
 		try {
 			await this.access(await this.firebase.accessWithGoogle());
 		} catch (error) {
-			console.log(error);
 			this.dialog.open(ErrorProviderDialogComponent, {
 				disableClose: false,
 			});

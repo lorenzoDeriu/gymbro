@@ -55,7 +55,7 @@ export class UserService {
 		};
 
 		this.trainingProgram = {
-			name: "Nuovo Programma",
+			name: "Nuovo Scheda",
 			session: [],
 		};
 
@@ -236,6 +236,14 @@ export class UserService {
 
 	public setWorkout(workout: Workout) {
 		this.workout = workout;
+	}
+
+	public resetTrainingProgram() {
+		this.trainingProgram = {
+			name: "Nuova Scheda",
+			session: [],
+		};
+		localStorage.removeItem("trainingProgram");
 	}
 
 	public setTrainingProgram(trainingProgram: TrainingProgram) {
