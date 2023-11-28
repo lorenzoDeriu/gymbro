@@ -66,7 +66,10 @@ export class FriendsComponent implements OnInit {
 		);
 
 		this.userService.setSearchResult(matchingUsername);
-		this.router.navigate(["/home/search-result", { username: username }]);
+		this.router.navigate([
+			"/home/search-result",
+			{ searchUsername: username },
+		]);
 	}
 
 	public async onUnfollow(index: number) {

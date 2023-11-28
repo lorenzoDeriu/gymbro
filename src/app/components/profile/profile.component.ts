@@ -39,6 +39,11 @@ export class ProfileComponent implements OnInit {
 			this.searchUsername = this.route.snapshot.paramMap.get("username");
 		}
 
+		if (this.route.snapshot.paramMap.get("searchUsername")) {
+			this.searchUsername =
+				this.route.snapshot.paramMap.get("searchUsername");
+		}
+
 		let friendUid: string = this.userService.getUidProfile(); // this goes to undefined after the refresh
 
 		if (!friendUid) {
@@ -62,10 +67,10 @@ export class ProfileComponent implements OnInit {
 	}
 
 	public onCancel() {
-		if (this.route.snapshot.paramMap.get("username")) {
+		if (this.route.snapshot.paramMap.get("searchUsername")) {
 			this.router.navigate([
 				"/home/search-result",
-				{ username: this.searchUsername },
+				{ searchUsername: this.searchUsername },
 			]);
 		} else {
 			this.router.navigate(["/home/friends"]);
