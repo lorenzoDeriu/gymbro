@@ -26,10 +26,10 @@ export class SearchResultComponent implements OnInit {
 
 		if (
 			this.searchResult.length === 0 &&
-			this.route.snapshot.paramMap.get("username")
+			this.route.snapshot.paramMap.get("searchUsername")
 		) {
 			this.searchResult = await this.firebase.getMatchingUsername(
-				this.route.snapshot.paramMap.get("username")
+				this.route.snapshot.paramMap.get("searchUsername")
 			);
 		}
 
@@ -51,7 +51,7 @@ export class SearchResultComponent implements OnInit {
 
 		this.router.navigate([
 			"/home/profile",
-			{ username: this.searchResult[index].username },
+			{ searchUsername: this.searchResult[index].username },
 		]);
 	}
 }
