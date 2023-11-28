@@ -1,0 +1,34 @@
+<div
+	class="d-flex flex-column justify-content-center align-items-center p-3 overflow-hidden"
+	style="max-height: 60svh; max-width: 350px"
+>
+	<h1 class="text-center">Esercizi custom</h1>
+
+	<div class="overflow-auto w-100" style="height: 90%">
+		<p *ngIf="data.exercises.length === 0" class="text-center">
+			Non hai esercizi custom
+		</p>
+
+		<div
+			*ngFor="let excercise of data.exercises; index as i"
+			class="d-flex justify-content-between align-items-center mb-3"
+		>
+			<p class="mb-0">{{ excercise }}</p>
+			<button
+				(click)="deleteItem(i)"
+				class="btn btn-sm btn-outline-danger d-none d-lg-block"
+			>
+				Elimina
+			</button>
+			<button
+				(click)="deleteItem(i)"
+				class="btn text-danger btn-sm d-block d-lg-none"
+				style="border: none"
+			>
+				<i class="bi bi-trash3"></i>
+			</button>
+		</div>
+	</div>
+
+	<button (click)="closeDialog()" class="btn btn-dark w-100">Chiudi</button>
+</div>

@@ -1,27 +1,82 @@
-<div id="search-result-container">
-	<div id="info" *ngIf="this.searchResult.length == 0">
-		<span>La ricerca non ha prodotto risultati</span>
+<div
+	*ngIf="loading"
+	class="d-flex justify-content-center align-items-center opacity-50 position-absolute"
+	style="
+		width: 100vw;
+		height: 100svh;
+		z-index: 10000;
+		background-color: black;
+	"
+>
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">Loading...</span>
 	</div>
+</div>
 
-	<mat-card *ngFor="let user of this.searchResult; index as i">
-		<div id="card-title">
-			<img src="../../../assets/personIcon.png" alt="" />
-			<span id="username">
-				<b>{{ user.username }}</b>
-			</span>
+<div id="wrapper" *ngIf="!loading">
+	<div id="main-container" class="p-3">
+		<h1 class="mt-3 mb-4" *ngIf="searchResult.length !== 0">Risultati</h1>
+		<h1 class="text-center mt-3 mb-4" *ngIf="searchResult.length === 0">
+			La ricerca non ha prodotto risultati
+		</h1>
+
+		<div class="d-none d-lg-block mb-4">
+			<button class="btn purple-btn text-light me-2" (click)="onCancel()">
+				<i class="me-1 bi bi-arrow-left"></i>
+				Torna Indietro
+			</button>
+			<button class="btn btn-dark ms-2" routerLink="/home">
+				Torna alla home
+				<i class="ms-1 bi bi-house-fill"></i>
+			</button>
 		</div>
 
-		<button mat-button (click)="onFollow(i)">Follow</button>
-	</mat-card>
+		<div class="d-block d-lg-none mb-4">
+			<button
+				class="btn btn-sm purple-btn text-light me-2"
+				(click)="onCancel()"
+			>
+				<i class="me-1 bi bi-arrow-left"></i>
+				Indietro
+			</button>
+			<button class="btn btn-sm btn-dark ms-2" routerLink="/home">
+				Home
+				<i class="bi bi-house-fill"></i>
+			</button>
+		</div>
 
-	<div id="cancel-button-container">
-		<button
-			id="cancel-button"
-			mat-raised-button
-			color="warn"
-			(click)="onCancel()"
+		<img
+			*ngIf="searchResult.length === 0"
+			src="assets/search-not-found.svg"
+			style="width: 50%"
+			alt="No results found"
+			class="mt-5"
+		/>
+
+		<div
+			*ngFor="let user of searchResult; index as i"
+			class="btn-group rounded-5 d-flex justify-content-between align-items-center user mb-3 w-100"
+			role="group"
+			aria-label="Basic example"
 		>
-			Annulla
-		</button>
+			<button
+				class="btn"
+				(click)="viewProfile(i)"
+				style="border: none; width: 85%"
+			>
+				<div class="avatar d-flex align-items-center text-truncate">
+					<img
+						src="assets/profile.png"
+						width="30px"
+						alt="profile-pic"
+					/>
+					<p class="mb-0 ms-3 text-truncate">{{ user.username }}</p>
+				</div>
+			</button>
+
+			<button class="btn" (click)="onFollow(i)" style="border: none">
+				<i class="bi bi-person-plus-fill"></i>
+			</button>
+		</div>
 	</div>
 </div>

@@ -1,58 +1,41 @@
-#training-program-selector-container {
+#wrapper {
+	width: 100vw;
+	height: calc(100svh - 66px);
+	transform: translateY(66px);
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
+}
+
+#main-container {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
-	width: 50%;
-	margin: auto;
+	align-items: center;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
-#title-container span {
-	display: flex;
-	justify-content: center;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-}
-
-#info-text {
-	display: flex;
-	justify-content: center;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-	font-size: 120%;
-}
-
-#cancel-button-container {
-	display: flex;
-	justify-content: flex-end;
-	margin-top: 10px;
-}
-
-.custom-button {
-	color: rgb(69, 69, 188) !important;
-	background-color: #fff !important;
-	border-color: rgb(69, 69, 188) !important;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-}
-
-.custom-button:hover {
-	color: #fff !important;
-	background-color: rgb(69, 69, 188) !important;
-	border-color: rgb(69, 69, 188) !important;
-	text-decoration: none;
-}
-
-@media (max-width: 700px) {
-	#training-program-selector-container {
-		width: 95%;
+@media (max-width: 900px) {
+	#main-container {
+		width: 100% !important;
 	}
 
-	mat-accordion .mat-expansion-panel-body::ng-deep {
-		padding: 13px;
+	.table {
+		font-size: 10px;
 	}
 
-	.mdc-data-table__header-cell::ng-deep {
-		padding: 8px;
+	.mobile-btn {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 300px) {
+	.table {
+		font-size: 8px;
+	}
+
+	.mobile-btn {
+		font-size: 10px;
 	}
 }

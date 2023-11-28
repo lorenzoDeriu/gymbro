@@ -3,10 +3,39 @@
 	src: url(https://static1.squarespace.com/static/6412b954167fb959080a9874/t/64e08b2ec3dafa01ab100e59/1692437295189/Poppins-Regular.ttf);
 }
 
+html,
+body {
+	height: 100svh;
+	width: 100vw;
+}
+
 * {
 	font-family: "Poppins", sans-serif !important;
 	overscroll-behavior: none;
 	scroll-behavior: smooth;
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+	scrollbar-width: none;
+}
+
+img {
+	-webkit-user-drag: none;
+	-khtml-user-drag: none;
+	-moz-user-drag: none;
+	-o-user-drag: none;
+	user-drag: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+	-moz-appearance: textfield;
 }
 
 ::-moz-selection {
@@ -32,7 +61,20 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-	-webkit-text-fill-color: white;
+	-webkit-text-fill-color: rgb(0, 0, 0);
 	-webkit-box-shadow: 0 0 0px 1000px transparent inset;
 	transition: background-color 5000s ease-in-out 0s;
+}
+
+.mdc-snackbar__surface {
+	background-color: #fff !important;
+}
+
+.mdc-snackbar__label {
+	color: #000 !important;
+}
+
+.mdc-snackbar button {
+	background-color: transparent !important;
+	color: #6b44d4 !important;
 }

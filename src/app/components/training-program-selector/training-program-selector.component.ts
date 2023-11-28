@@ -4,6 +4,10 @@ import { Component, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import { Session, TrainingProgram } from "src/app/Models/TrainingProgram.model";
+import { Workout } from "src/app/Models/Workout.model";
+import { Set } from "src/app/Models/Exercise.model";
+import { formatSets } from "src/app/utils/utils";
 
 @Component({
 	selector: "app-training-program-selector",
@@ -12,14 +16,7 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class TrainingProgramSelectorComponent implements OnInit {
 	public loading: boolean;
-
-	public trainingPrograms: any[];
-	public displayedColumns: string[] = [
-		"Esercizio",
-		"Serie x Ripetizioni",
-		"Recupero",
-		"RPE",
-	];
+	public trainingPrograms: TrainingProgram[];
 
 	constructor(
 		private userService: UserService,
@@ -35,17 +32,63 @@ export class TrainingProgramSelectorComponent implements OnInit {
 	}
 
 	public selectWorkout(programIndex: number, sessionIndex: number) {
-		this.userService.setWorkoutSelected(
-			this.trainingPrograms[programIndex].session[sessionIndex]
+		this.userService.setWorkout(
+			this.fromSessionToWorkout(
+				this.trainingPrograms[programIndex].session[sessionIndex]
+			)
 		);
+		this.userService.startChronometer();
 		this.router.navigate(["/home/prebuild-workout"]);
 	}
 
-	cancel() {
+	formatSets(sets: Set[]) {
+		return formatSets(sets);
+	}
+
+	private fromSessionToWorkout(session: Session): Workout {
+		const workout: Workout = {
+			...session,
+			date: Date.now(),
+			trainingTime: 0,
+			exercises: session.exercises.map(exercise => ({
+				name: exercise.name,
+				intensity: exercise.intensity,
+				rest: exercise.rest,
+				note: exercise.note,
+				groupId: exercise.groupId,
+				template: exercise.set,
+				set: exercise.set.map(set => ({
+					reps: set.minimumReps,
+					load: 0,
+				})),
+			})),
+		};
+
+		return workout;
+	}
+
+	public cancel() {
 		this.router.navigate(["/home"]);
 	}
 
-	showNotes(
+	public focusCollapse(type: "program" | "session", index: number) {
+		if (type === "program") {
+			const collapsers: NodeListOf<Element> =
+				document.querySelectorAll(".collapser");
+			const collapses: NodeListOf<Element> =
+				document.querySelectorAll(".collapse-body");
+
+			for (let i = 0; i < collapsers.length; i++) {
+				if (i !== index) {
+					collapsers[i].classList.remove("collapsed");
+					collapsers[i].setAttribute("aria-expanded", "false");
+					collapses[i].classList.remove("show");
+				}
+			}
+		}
+	}
+
+	public showNotes(
 		trainingProgramIndex: number,
 		sessionIndex: number,
 		exerciseIndex: number
@@ -53,9 +96,9 @@ export class TrainingProgramSelectorComponent implements OnInit {
 		this.dialog.open(NotesDialogComponent, {
 			width: "300px",
 			data: {
-				notes: this.trainingPrograms[trainingProgramIndex]["session"][
+				notes: this.trainingPrograms[trainingProgramIndex].session[
 					sessionIndex
-				]["exercises"][exerciseIndex]["note"],
+				].exercises[exerciseIndex].note,
 			},
 		});
 	}

@@ -1,33 +1,53 @@
-<mat-progress-bar
-	mode="indeterminate"
-	*ngIf="this.loading"
-	color="primary"
-></mat-progress-bar>
-<div id="progress-container">
-	<h1><span id="title">I tuoi Progressi</span></h1>
+<!-- <div id="wrapper" *ngIf="!loading">
+	<div id="main-container" class="p-3">
+		<h1 class="text-center mt-3">I tuoi Progressi</h1>
 
-	<div id="buttons-container">
-		<button mat-raised-button color="primary" (click)="this.showStats()">
-			Scegli un'esercizio
-		</button>
-		<button mat-raised-button (click)="this.goToHome()">
-			Torna alla home
-		</button>
-	</div>
+		<div class="d-flex align-items-center my-4">
+			<button
+				class="btn purple-btn text-light me-2 d-none d-lg-block"
+				(click)="showStats()"
+			>
+				Scegli un esercizio
+				<i class="ms-1 bi bi-card-checklist"></i>
+			</button>
+			<button
+				class="btn btn-dark ms-2 d-none d-lg-block"
+				(click)="goToHome()"
+			>
+				Torna alla home
+				<i class="ms-1 bi bi-house-fill"></i>
+			</button>
 
-	<div class="graph-container">
-		<canvas id="workoutCounterChart"></canvas>
-	</div>
+			<button
+				class="btn btn-sm text-light purple-btn me-2 d-block d-lg-none"
+				(click)="showStats()"
+			>
+				Scegli
+				<i class="ms-1 bi bi-card-checklist"></i>
+			</button>
+			<button
+				class="btn btn-sm btn-dark ms-2 d-block d-lg-none"
+				(click)="goToHome()"
+			>
+				Home
+				<i class="ms-1 bi bi-house-fill"></i>
+			</button>
+		</div>
 
-	<div class="graph-container">
-		<canvas id="benchPressChart"></canvas>
-	</div>
+		<div class="graph-container">
+			<canvas id="workoutCounterChart"></canvas>
+		</div>
 
-	<div class="graph-container">
-		<canvas id="deadliftChart"></canvas>
-	</div>
+		<div class="graph-container">
+			<canvas id="benchPressChart"></canvas>
+		</div>
 
-	<div class="graph-container">
-		<canvas id="squatChart"></canvas>
+		<div class="graph-container">
+			<canvas id="deadliftChart"></canvas>
+		</div>
+
+		<div class="graph-container">
+			<canvas id="squatChart"></canvas>
+		</div>
 	</div>
-</div>
+</div> -->

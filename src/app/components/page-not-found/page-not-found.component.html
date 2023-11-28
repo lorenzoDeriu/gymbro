@@ -1,6 +1,23 @@
-<div>
-	<h1><span>404 Page Not Found</span></h1>
-	<button mat-raised-button color="primary" (click)="onBackToHome()">
-		Torna alla Home
-	</button>
+<div id="wrapper">
+	<div id="main-container" class="p-3">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<h1 class="display-1 text-center">Errore 404</h1>
+					<h1 class="text-center">Pagina non trovata</h1>
+					<p class="text-center">
+						La pagina che stavi cercando potrebbe essere stata
+						rimossa, il nuome potrebbe essere cambiato, o è
+						momentaneamente non disponibile.
+					</p>
+					<div class="text-center">
+						<a class="btn btn-dark" routerLink="/home/dashboard">
+							Torna alla home
+							<i class="ms-1 bi bi-house-fill"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

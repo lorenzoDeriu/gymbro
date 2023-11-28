@@ -1,7 +1,25 @@
-.spacer {
-	flex: 1 1 auto;
+.blue-btn {
+	border: none;
+	background-color: #4089c9;
 }
 
-p {
-	margin-bottom: 0;
+.blue-btn:hover {
+	background-color: #659fd2 !important;
+}
+
+.blue-btn:active {
+	background-color: #7eafda !important;
+}
+
+.purple-btn {
+	border: none;
+	background-color: #6b44d4;
+}
+
+.purple-btn:hover {
+	background-color: #785ebe !important;
+}
+
+.purple-btn:active {
+	background-color: #957dd6 !important;
 }

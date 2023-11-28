@@ -1,284 +1,336 @@
-<div style="padding: 20px; border-radius: 50px">
-	<span class="custom-span" style="font-size: 1.4em; width: 100%">
-		Nuovo Esercizio
-	</span>
-	<mat-divider style="margin-top: 10px; margin-bottom: 10px"></mat-divider>
+<div
+	class="d-flex flex-column justify-content-center align-items-center overflow-hidden"
+	style="max-height: 60svh; max-width: 95vw"
+>
+	<div class="overflow-auto p-3">
+		<h1 class="text-center">
+			{{ editMode ? "Modifica esercizio" : "Aggiungi esercizio" }}
+		</h1>
 
-	<div class="btn-group btn-group-sm mb-4" role="group" style="width: 100%">
-		<input
-			type="radio"
-			class="btn-check"
-			id="rd1"
-			name="rd1"
-			[(ngModel)]="exercise.configurationType"
-			value="basic"
-		/>
-		<label class="btn btn-outline-dark" for="rd1">Base</label>
+		<form class="d-none d-lg-flex flex-column align-items-center">
+			<div class="input-group flex-nowrap mb-3">
+				<span class="input-group-text">Esercizio</span>
 
-		<input
-			type="radio"
-			class="btn-check"
-			id="rd2"
-			name="rd2"
-			value="advanced"
-			[(ngModel)]="exercise.configurationType"
-		/>
-		<label class="btn btn-outline-dark" for="rd2">Avanzato</label>
-	</div>
+				<select
+					class="form-select"
+					aria-label="Default select example"
+					style="cursor: pointer"
+					[(ngModel)]="exercise.name"
+					[ngModelOptions]="{ standalone: true }"
+				>
+					<option *ngFor="let exercise of options" [value]="exercise">
+						{{ exercise }}
+					</option>
+				</select>
 
-	<div class="input-group mb-3">
-		<label
-			class="input-group-text custom-span"
-			style="width: 70px"
-			for="inputGroupSelect01"
-		>
-			Esercizio
-		</label>
-		<select
-			class="form-select custom-select"
-			[ngStyle]="!isDesktop() && { 'font-size': '80%' }"
-			style="box-shadow: none; font-family: 'Josefin Sans'"
-			id="inputGroupSelect01"
-			[(ngModel)]="exercise.name"
-		>
-			<option selected disabled value="">Seleziona un esercizio</option>
-			<option *ngFor="let exercise of options" [value]="exercise">
-				{{ exercise }}
-			</option>
-		</select>
-		<button
-			(click)="openCustomExerciseDialog()"
-			class="btn btn-outline-secondary custom-button"
-			type="button"
-			id="button-addon2"
-		>
-			<i class="bi bi-plus-circle"></i>
-			<span style="font-size: 0.8em; margin-left: 5px">Crea</span>
-		</button>
-	</div>
+				<button
+					class="btn btn-dark"
+					type="button"
+					(click)="openCustomExerciseDialog()"
+				>
+					Crea
+					<i class="ms-1 bi bi-plus-lg"></i>
+				</button>
+			</div>
 
-	<ng-container
-		*ngIf="
-			!exercise.configurationType ||
-			exercise.configurationType === 'basic'
-		"
-	>
-		<div class="input-group mb-3" style="color: rgb(69, 69, 188)">
-			<span
-				class="input-group-text custom-span"
-				style="width: 70px"
-				id="inputGroup-sizing-default"
+			<div
+				*ngFor="let set of exercise.set; index as i"
+				class="input-group flex-nowrap mb-3"
 			>
-				Serie
-			</span>
-			<input
-				type="number"
-				class="form-control"
-				style="
-					box-shadow: none;
-					font-family: 'Josefin Sans', sans-serif;
-				"
-				[(ngModel)]="this.exercise.series"
-			/>
-		</div>
+				<span class="input-group-text">{{ i + 1 }}</span>
+				<span class="input-group-text">Min Reps</span>
+				<input
+					type="number"
+					class="form-control"
+					[(ngModel)]="exercise.set[i].minimumReps"
+					[min]="exercise.set[i].maximumReps"
+					[ngModelOptions]="{ standalone: true }"
+				/>
+				<span class="input-group-text">Max Reps</span>
+				<input
+					type="number"
+					class="form-control"
+					[(ngModel)]="exercise.set[i].maximumReps"
+					[max]="exercise.set[i].minimumReps"
+					[ngModelOptions]="{ standalone: true }"
+				/>
+				<button class="btn btn-danger" (click)="removeSet(i)">
+					<i class="bi bi-trash3"></i>
+				</button>
+			</div>
 
-		<div class="input-group mb-3" style="color: rgb(69, 69, 188)">
-			<span
-				class="input-group-text custom-span"
-				style="width: 70px"
-				id="inputGroup-sizing-default"
-			>
-				Min Reps
-			</span>
-			<input
-				type="number"
-				class="form-control"
-				style="
-					box-shadow: none;
-					font-family: 'Josefin Sans', sans-serif;
-				"
-				[(ngModel)]="this.exercise.range[0]"
-				[max]="this.exercise.range[1]"
-			/>
-			<span
-				class="input-group-text custom-span"
-				style="width: 70px"
-				id="inputGroup-sizing-default"
-			>
-				Max Reps
-			</span>
-			<input
-				type="number"
-				class="form-control"
-				style="
-					box-shadow: none;
-					font-family: 'Josefin Sans', sans-serif;
-				"
-				[(ngModel)]="this.exercise.range[1]"
-				[min]="this.exercise.range[0]"
-			/>
-		</div>
-	</ng-container>
-
-	<ng-container *ngIf="exercise.configurationType === 'advanced'">
-		<div
-			class="input-group mb-1"
-			style="color: rgb(69, 69, 188)"
-			*ngFor="let set of exercise.advanced.sets; index as i"
-		>
-			<span
-				class="input-group-text custom-span"
-				style="width: 15px"
-				id="inputGroup-sizing-default"
-			>
-				{{ i + 1 }}
-			</span>
-			<span
-				class="input-group-text custom-span"
-				[ngStyle]="isDesktop() ? { width: '70px' } : { width: '40px' }"
-				id="inputGroup-sizing-default"
-			>
-				{{ isDesktop() ? "Min Reps" : "Min" }}
-			</span>
-			<input
-				type="number"
-				class="form-control"
-				style="
-					box-shadow: none;
-					font-family: 'Josefin Sans', sans-serif;
-				"
-				[(ngModel)]="set.min"
-				[max]="set.max"
-			/>
-			<span
-				class="input-group-text custom-span"
-				[ngStyle]="isDesktop() ? { width: '70px' } : { width: '40px' }"
-				id="inputGroup-sizing-default"
-			>
-				{{ isDesktop() ? "Max Reps" : "Max" }}
-			</span>
-			<input
-				type="number"
-				class="form-control"
-				style="
-					box-shadow: none;
-					font-family: 'Josefin Sans', sans-serif;
-				"
-				[(ngModel)]="set.max"
-				[min]="set.min"
-			/>
-
-			<button
-				class="btn custom-button"
-				id="button-addon2"
-				(click)="removeSet(i)"
-			>
-				<i class="bi bi-trash"></i>
+			<button class="btn btn-dark w-100 mb-3" (click)="addSet()">
+				Aggiungi serie
+				<i class="ms-1 bi bi-plus"></i>
 			</button>
-		</div>
 
-		<div
-			style="
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				width: 100%;
-			"
-			class="mb-3 mt-2"
-		>
-			<button
-				class="btn btn-outline-secondary custom-button"
-				type="button"
-				id="button-addon2"
-				(click)="addSet()"
+			<p class="text-center">Intensità (RPE)</p>
+
+			<div
+				class="btn-group d-flex justify-content-center mb-3 w-100"
+				role="group"
+				aria-label="Basic radio toggle button group"
 			>
-				Aggiungi Serie
+				<input
+					type="radio"
+					class="btn-check"
+					name="btnradio"
+					id="btnradio1"
+					autocomplete="off"
+					[(ngModel)]="exercise.intensity"
+					value="light"
+				/>
+				<label
+					[ngClass]="{
+						'btn border': true,
+						'btn-success': exercise.intensity === 'light'
+					}"
+					for="btnradio1"
+				>
+					Leggero
+					<i class="ms-1 bi bi-feather"></i>
+				</label>
+
+				<input
+					type="radio"
+					class="btn-check"
+					name="btnradio"
+					id="btnradio2"
+					autocomplete="off"
+					checked
+					[(ngModel)]="exercise.intensity"
+					value="hard"
+				/>
+				<label
+					[ngClass]="{
+						'btn border': true,
+						'btn-warning text-light': exercise.intensity === 'hard'
+					}"
+					for="btnradio2"
+				>
+					Pesante
+					<i class="ms-1 bi bi-lightning-fill"></i>
+				</label>
+
+				<input
+					type="radio"
+					class="btn-check"
+					name="btnradio"
+					id="btnradio3"
+					autocomplete="off"
+					[(ngModel)]="exercise.intensity"
+					value="failure"
+				/>
+				<label
+					[ngClass]="{
+						'btn border': true,
+						'btn-danger': exercise.intensity === 'failure'
+					}"
+					for="btnradio3"
+				>
+					Cedimento
+					<i class="ms-1 bi bi-fire"></i>
+				</label>
+			</div>
+
+			<div class="input-group flex-nowrap mb-3">
+				<span class="input-group-text">Recupero</span>
+				<select
+					class="form-select custom-select"
+					style="cursor: pointer"
+					[(ngModel)]="exercise.rest.minutes"
+					[ngModelOptions]="{ standalone: true }"
+				>
+					<option value="00">00</option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+				</select>
+				<span class="input-group-text">:</span>
+				<select
+					class="form-select custom-select"
+					style="cursor: pointer"
+					[(ngModel)]="exercise.rest.seconds"
+					[ngModelOptions]="{ standalone: true }"
+				>
+					<option value="00">00</option>
+					<option value="15">15</option>
+					<option value="30">30</option>
+					<option value="45">45</option>
+				</select>
+			</div>
+
+			<div class="input-group flex-nowrap mb-3">
+				<span class="input-group-text">Note</span>
+				<input
+					type="text"
+					class="form-control"
+					[(ngModel)]="exercise.note"
+					[ngModelOptions]="{ standalone: true }"
+				/>
+			</div>
+
+			<div class="d-flex align-items-center w-100">
+				<button
+					class="btn w-100 me-2 purple-btn text-light"
+					[disabled]="!savable()"
+					(click)="save()"
+				>
+					{{ editMode ? "Modifica" : "Aggiungi" }}
+				</button>
+				<button class="btn btn-dark w-100 ms-2" (click)="closeDialog()">
+					Annulla
+				</button>
+			</div>
+		</form>
+
+		<!-- Mobile -->
+		<form class="d-flex flex-column align-items-center d-lg-none">
+			<div class="input-group input-group-sm flex-nowrap mb-3">
+				<span class="input-group-text">Esercizio</span>
+
+				<select
+					class="form-select"
+					aria-label="Default select example"
+					style="cursor: pointer"
+					[(ngModel)]="exercise.name"
+					[ngModelOptions]="{ standalone: true }"
+				>
+					<option *ngFor="let exercise of options" [value]="exercise">
+						{{ exercise }}
+					</option>
+				</select>
+
+				<button
+					class="btn btn-dark"
+					type="button"
+					(click)="openCustomExerciseDialog()"
+				>
+					<i class="bi bi-plus-lg"></i>
+				</button>
+			</div>
+
+			<div
+				*ngFor="let set of exercise.set; index as i"
+				class="input-group input-group-sm flex-nowrap mb-3"
+			>
+				<span class="input-group-text">{{ i + 1 }}</span>
+				<span class="input-group-text">Min</span>
+				<input
+					type="number"
+					class="form-control"
+					[(ngModel)]="exercise.set[i].minimumReps"
+					[min]="exercise.set[i].maximumReps"
+					[ngModelOptions]="{ standalone: true }"
+				/>
+				<span class="input-group-text">Max</span>
+				<input
+					type="number"
+					class="form-control"
+					[(ngModel)]="exercise.set[i].maximumReps"
+					[max]="exercise.set[i].minimumReps"
+					[ngModelOptions]="{ standalone: true }"
+				/>
+				<button class="btn btn-danger" (click)="removeSet(i)">
+					<i class="bi bi-trash3"></i>
+				</button>
+			</div>
+
+			<button class="btn btn-sm btn-dark w-100 mb-3" (click)="addSet()">
+				Aggiungi serie
+				<i class="ms-1 bi bi-plus"></i>
 			</button>
-		</div>
-	</ng-container>
 
-	<div class="input-group mb-3" style="color: rgb(69, 69, 188)">
-		<label
-			class="input-group-text custom-span"
-			for="inputGroupSelect01"
-			style="width: 70px"
-		>
-			RPE
-		</label>
-		<select
-			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
-			class="form-select custom-select"
-			id="inputGroupSelect01"
-			[(ngModel)]="this.exercise.RPE"
-		>
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
-			<option value="10">10</option>
-		</select>
-	</div>
+			<div class="input-group input-group-sm flex-nowrap mb-3">
+				<span class="input-group-text">Intensità</span>
+				<select
+					class="form-select custom-select"
+					style="cursor: pointer"
+					[(ngModel)]="exercise.intensity"
+					[ngModelOptions]="{ standalone: true }"
+				>
+					<option value="light">Leggero</option>
+					<option value="hard" selected>Pesante</option>
+					<option value="failure">Cedimento</option>
+				</select>
+				<span
+					class="input-group-text"
+					*ngIf="exercise.intensity === 'light'"
+				>
+					<i class="text-success bi bi-feather"></i>
+				</span>
+				<span
+					class="input-group-text"
+					*ngIf="exercise.intensity === 'hard'"
+				>
+					<i class="text-warning bi bi-lightning-fill"></i>
+				</span>
+				<span
+					class="input-group-text"
+					*ngIf="exercise.intensity === 'failure'"
+				>
+					<i class="text-danger bi bi-fire"></i>
+				</span>
+			</div>
 
-	<div class="input-group mb-3">
-		<label
-			class="input-group-text custom-span"
-			for="inputGroupSelect01"
-			style="width: 70px"
-		>
-			Recupero
-		</label>
-		<select
-			class="form-select custom-select"
-			id="inputGroupSelect01"
-			style="font-family: 'Josefin Sans', sans-serif"
-			[(ngModel)]="this.exercise.rest.minutes"
-		>
-			<option value="00">00</option>
-			<option value="01">01</option>
-			<option value="02">02</option>
-			<option value="03">03</option>
-			<option value="04">04</option>
-			<option value="05">05</option>
-		</select>
-		<label class="input-group-text" for="inputGroupSelect01">:</label>
-		<select
-			class="form-select custom-select"
-			id="inputGroupSelect01"
-			style="font-family: 'Josefin Sans', sans-serif"
-			[(ngModel)]="this.exercise.rest.seconds"
-		>
-			<option value="00">00</option>
-			<option value="15">15</option>
-			<option value="30">30</option>
-			<option value="45">45</option>
-		</select>
-	</div>
+			<div class="input-group input-group-sm flex-nowrap mb-3">
+				<span class="input-group-text">
+					<i class="bi bi-stopwatch-fill"></i>
+				</span>
+				<select
+					class="form-select custom-select"
+					style="cursor: pointer"
+					[(ngModel)]="exercise.rest.minutes"
+					[ngModelOptions]="{ standalone: true }"
+				>
+					<option value="00">00</option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+				</select>
+				<span class="input-group-text">:</span>
+				<select
+					class="form-select custom-select"
+					style="cursor: pointer"
+					[(ngModel)]="exercise.rest.seconds"
+					[ngModelOptions]="{ standalone: true }"
+				>
+					<option value="00">00</option>
+					<option value="15">15</option>
+					<option value="30">30</option>
+					<option value="45">45</option>
+				</select>
+			</div>
 
-	<div class="input-group mb-3" style="color: rgb(69, 69, 188)">
-		<span
-			class="input-group-text custom-span"
-			style="width: 70px"
-			id="inputGroup-sizing-default"
-		>
-			Note
-		</span>
-		<input
-			type="text"
-			class="form-control"
-			style="box-shadow: none; font-family: 'Josefin Sans', sans-serif"
-			[(ngModel)]="this.exercise.note"
-		/>
-	</div>
+			<div class="input-group input-group-sm flex-nowrap mb-3">
+				<span class="input-group-text">Note</span>
+				<input
+					type="text"
+					class="form-control"
+					[(ngModel)]="exercise.note"
+					[ngModelOptions]="{ standalone: true }"
+				/>
+			</div>
 
-	<div style="display: flex; justify-content: flex-end" (click)="save()">
-		<button class="btn custom-button" [disabled]="!savable()">
-			<i class="bi bi-check-circle-fill"></i>
-			Save
-		</button>
+			<div class="d-flex align-items-center w-100">
+				<button
+					class="btn btn-sm w-100 me-1 purple-btn text-light"
+					[disabled]="!savable()"
+					(click)="save()"
+				>
+					{{ editMode ? "Modifica" : "Aggiungi" }}
+				</button>
+				<button
+					class="btn btn-sm btn-dark w-100 ms-1"
+					(click)="closeDialog()"
+				>
+					Annulla
+				</button>
+			</div>
+		</form>
 	</div>
 </div>

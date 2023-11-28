@@ -1,3 +1,9 @@
+<div class="position-absolute top-0 end-0 me-3 mt-3">
+	<a href="about-preview" class="blue-link">
+		<i class="ms-1 bi bi-question-circle-fill"></i>
+	</a>
+</div>
+
 <div
 	*ngIf="onLogin"
 	class="right-wrap d-flex justify-content-center align-items-center"
@@ -19,6 +25,7 @@
 			<div class="d-flex flex-column w-100 mb-3">
 				<p class="mb-0">E-mail</p>
 				<input
+					name="email"
 					[(ngModel)]="email"
 					type="email"
 					class="border-0 border-bottom py-1"
@@ -38,6 +45,7 @@
 					</button>
 				</p>
 				<input
+					name="password"
 					[(ngModel)]="password"
 					[type]="hidePwd ? 'password' : 'text'"
 					class="border-0 border-bottom py-1 w-100"
@@ -54,8 +62,7 @@
 			<button
 				[disabled]="!allowLogin()"
 				(click)="login()"
-				class="login-btn btn w-100 mb-3 text-light"
-				style="background-color: #6b44d4; border: none"
+				class="purple-btn btn w-100 mb-3 text-light"
 			>
 				Accedi
 			</button>
@@ -116,14 +123,14 @@
 			</a>
 		</div>
 
-		<button
-			routerLink="/welcome"
-			class="back-btn btn btn-sm text-light"
+		<a
+			href="/welcome"
+			class="blue-btn btn btn-sm text-light"
 			style="border: none; background-color: #4089c9"
 		>
 			<i class="me-1 bi bi-arrow-left"></i>
 			Indietro
-		</button>
+		</a>
 	</div>
 </div>
 
@@ -149,6 +156,7 @@
 			<div class="d-flex flex-column w-100 mb-3">
 				<p class="mb-0">Username</p>
 				<input
+					name="username"
 					[(ngModel)]="username"
 					type="text"
 					class="border-0 border-bottom py-1"
@@ -158,6 +166,7 @@
 			<div class="d-flex flex-column w-100 mb-3">
 				<p class="mb-0">E-mail</p>
 				<input
+					name="emailRegister"
 					[(ngModel)]="emailRegister"
 					type="email"
 					class="border-0 border-bottom py-1"
@@ -177,6 +186,7 @@
 					</button>
 				</p>
 				<input
+					name="passwordRegister"
 					[(ngModel)]="passwordRegister"
 					[type]="hidePwd ? 'password' : 'text'"
 					class="border-0 border-bottom py-1 w-100"
@@ -196,6 +206,7 @@
 					</button>
 				</p>
 				<input
+					name="confirmPassword"
 					[(ngModel)]="confirmPassword"
 					[type]="hidePwdConfirm ? 'password' : 'text'"
 					class="border-0 border-bottom py-1 w-100"
@@ -204,9 +215,8 @@
 			</div>
 			<button
 				[disabled]="!allowRegister()"
-				(click)="login()"
-				class="login-btn btn w-100 mb-3 text-light"
-				style="background-color: #6b44d4; border: none"
+				(click)="register()"
+				class="purple-btn btn w-100 mb-3 text-light"
 			>
 				Registrati
 			</button>
@@ -234,13 +244,9 @@
 			</a>
 		</div>
 
-		<button
-			routerLink="/welcome"
-			class="back-btn btn btn-sm text-light"
-			style="border: none; background-color: #4089c9"
-		>
+		<a href="/welcome" class="blue-btn btn btn-sm text-light">
 			<i class="me-1 bi bi-arrow-left"></i>
 			Indietro
-		</button>
+		</a>
 	</div>
 </div>

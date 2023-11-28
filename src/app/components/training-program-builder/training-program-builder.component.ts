@@ -1,9 +1,13 @@
-import { UserService } from "src/app/services/user.service";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NewExerciseDialogComponent } from "../new-exercise-dialog/new-exercise-dialog.component";
+import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { Session, TrainingProgram } from "src/app/Models/TrainingProgram.model";
+import { UserService } from "src/app/services/user.service";
+import { formatSets } from "src/app/utils/utils";
+import { Set } from "src/app/Models/Exercise.model";
 
 @Component({
 	selector: "app-training-program-builder",
@@ -11,160 +15,140 @@ import { NewExerciseDialogComponent } from "../new-exercise-dialog/new-exercise-
 	styleUrls: ["./training-program-builder.component.css"],
 })
 export class TrainingProgramBuilderComponent implements OnInit {
-	trainingProgram: any = {
+	public trainingProgram: TrainingProgram = {
 		name: "",
-		session: [{ name: "Sessione 1", exercises: [] }],
+		session: [],
 	};
 
-	private editMode = false;
+	public editMode = false;
+	public loading = false;
 	private index: number;
 
 	constructor(
 		private router: Router,
-		private userService: UserService,
+		private route: ActivatedRoute,
 		private firebase: FirebaseService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private userService: UserService
 	) {}
 
 	async ngOnInit() {
-		if (localStorage.getItem("trainingProgramToEdit")) {
-			this.index = JSON.parse(
-				localStorage.getItem("trainingProgramToEdit")
-			).index;
-			localStorage.removeItem("trainingProgramToEdit");
+		this.loading = true;
+
+		if (this.route.snapshot.paramMap.get("id")) {
+			this.index = parseInt(this.route.snapshot.paramMap.get("id"));
 
 			this.trainingProgram = (await this.firebase.getTrainingPrograms())[
 				this.index
 			];
-			this.trainingProgram = this.legacyConversion(this.trainingProgram);
+			this.userService.setTrainingProgram(this.trainingProgram);
+
 			this.editMode = true;
+		} else {
+			this.trainingProgram = this.userService.getTrainingProgram();
 		}
+
+		this.loading = false;
 	}
 
-	legacyConversion(trainingProgram: any) {
-		trainingProgram.session = trainingProgram.session.map(
-			(session: any) => {
-				session.exercises = session.exercises.map((exercise: any) => {
-					if (!exercise.configurationType) {
-						exercise.configurationType = "basic";
-					}
+	formatSets(sets: Set[]) {
+		return formatSets(sets);
+	}
 
-					if (exercise.advanced == undefined) {
-						exercise.advanced = {
-							sets: [],
-						};
-					}
-
-					if (exercise.configurationType === "advanced") {
-						exercise.advanced?.sets?.forEach((set: any) => {
-							if (set.load == undefined) {
-								set.load = 0;
-							}
-
-							if (set.reps == undefined) {
-								set.reps = set.min;
-							}
-						});
-					}
-
-					if (exercise.reps) {
-						exercise.range = [exercise.reps, exercise.reps];
-						delete exercise.reps;
-					}
-
-					if (exercise.load != undefined) {
-						delete exercise.load;
-					}
-
-					if (exercise.restTime) {
-						exercise.rest = {
-							minutes: exercise.restTime.split(":")[0],
-							seconds: exercise.restTime.split(":")[1],
-						};
-
-						delete exercise.restTime;
-					}
-
-					return exercise;
-				});
-
-				return session;
-			}
+	public savable() {
+		return (
+			this.trainingProgram.name !== "" &&
+			this.trainingProgram.session.length > 0
 		);
-
-		return trainingProgram;
 	}
 
-	onCancel() {
-		this.router.navigate(["/home/training-programs"]);
-	}
-
-	onNewSessionBuild() {
-		this.router.navigate(["/home/session-builder"]);
-	}
-
-	async removeElement(index: number) {
-		this.userService.removeSessionFromTrianingProgram(index);
-		this.trainingProgram.session =
-			await this.userService.getTrainingProgram();
-	}
-
-	addExercise(session: any) {
+	public addExercise(session: Session) {
 		this.dialog
 			.open(NewExerciseDialogComponent, {
-				width: "500px",
-				maxWidth: "95vw",
+				disableClose: false,
 			})
 			.afterClosed()
 			.subscribe(exercise => {
-				if (exercise.name != "") {
+				if (exercise && exercise.name !== "") {
 					session.exercises.push(exercise);
+					this.userService.updateTrainingProgram(
+						this.trainingProgram
+					);
 				}
 			});
 	}
 
-	addSession() {
+	public addSession() {
 		this.trainingProgram = {
 			...this.trainingProgram,
 			session: [
 				...this.trainingProgram.session,
-				{ name: "", exercises: [] },
+				{ name: "Nuova sessione", exercises: [] },
 			],
 		};
+		this.userService.updateTrainingProgram(this.trainingProgram);
 	}
 
-	deleteSession(index: number) {
+	public deleteSessionDialog(index: number) {
+		this.dialog.open(SafetyActionConfirmDialogComponent, {
+			data: {
+				title: "Elimina sessione",
+				message: "Sei sicuro di voler eliminare questa sessione?",
+				args: [index],
+				confirm: async (index: number) => {
+					this.deleteSession(index);
+					this.userService.updateTrainingProgram(
+						this.trainingProgram
+					);
+				},
+			},
+		});
+	}
+
+	public deleteExerciseDialog(session: Session, index: number) {
+		this.dialog.open(SafetyActionConfirmDialogComponent, {
+			data: {
+				title: "Elimina esercizio",
+				message: "Sei sicuro di voler eliminare questo esercizio?",
+				args: [session, index],
+				confirm: async (session: Session, index: number) => {
+					this.deleteExercise(session, index);
+					this.userService.updateTrainingProgram(
+						this.trainingProgram
+					);
+				},
+			},
+		});
+	}
+
+	private deleteSession(index: number) {
 		this.trainingProgram.session.splice(index, 1);
+		this.userService.updateTrainingProgram(this.trainingProgram);
 	}
 
-	deleteExercise(session: any, exerciseIndex: number) {
+	private deleteExercise(session: Session, exerciseIndex: number) {
 		session.exercises.splice(exerciseIndex, 1);
+		this.userService.updateTrainingProgram(this.trainingProgram);
 	}
 
-	editExercise(session: any, exerciseIndex: number) {
+	public editExercise(session: Session, exerciseIndex: number) {
 		this.dialog
 			.open(NewExerciseDialogComponent, {
-				width: "500px",
-				maxWidth: "95vw",
 				data: session.exercises[exerciseIndex],
 			})
 			.afterClosed()
 			.subscribe(exercise => {
-				if (exercise.name != "") {
+				if (exercise && exercise.name !== "") {
 					session.exercises[exerciseIndex] = exercise;
+					this.userService.updateTrainingProgram(
+						this.trainingProgram
+					);
 				}
 			});
 	}
-	async saveTrainingProgram() {
-		if (this.editMode) {
-			await this.firebase.editTrainingProgram(
-				this.trainingProgram,
-				this.index
-			);
-			this.router.navigate(["/home/training-programs"]);
-		} else {
-			await this.firebase.addTrainingProgram(this.trainingProgram);
-			this.router.navigate(["/home/training-programs"]);
-		}
+
+	public async saveTrainingProgram() {
+		await this.userService.saveTrainingProgram(this.editMode, this.index);
+		this.router.navigate(["/home/training-programs"]);
 	}
 }

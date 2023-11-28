@@ -13,7 +13,7 @@
 				<div
 					class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75"
 				>
-					<p class="lh-base w-75 me-3" style="font-size: 0.9rem">
+					<p class="lh-base w-75 me-3 mb-0" style="font-size: 0.9rem">
 						Monitora i tuoi allenamenti tenendo traccia dei tuoi
 						progressi
 					</p>
@@ -31,7 +31,7 @@
 				<div
 					class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75"
 				>
-					<p class="lh-base w-75" style="font-size: 0.9rem">
+					<p class="lh-base w-75 mb-0" style="font-size: 0.9rem">
 						Tieni d'occhio i tuoi risultati con grafici interattivi
 						e statistiche dettagliate
 					</p>
@@ -49,7 +49,7 @@
 				<div
 					class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75"
 				>
-					<p class="lh-base w-75" style="font-size: 0.9rem">
+					<p class="lh-base w-75 mb-0" style="font-size: 0.9rem">
 						Connettiti con altri GymBro in modo da condivere le
 						vostre routine di allenamento
 					</p>
@@ -60,18 +60,33 @@
 				</div>
 			</section>
 		</div>
+
 		<div
 			class="d-flex justify-content-center align-items-center w-100"
 			style="height: 10%"
 		>
 			<button
 				(click)="access()"
-				class="mobile-access-btn text-light btn"
-				style="background-color: #4089c9; border: none"
+				[ngClass]="{
+					'blue-btn text-light btn btn-sm': true,
+					'me-3': mobileInstallBtnVisiblity()
+				}"
 			>
 				Accedi
+				<i class="ms-1 bi bi-box-arrow-in-right"></i>
+			</button>
+
+			<button
+				hidden
+				id="installMobile"
+				(click)="installApp('mobile')"
+				class="purple-btn btn btn-sm text-light"
+			>
+				Installa
+				<i class="ms-1 bi bi-download"></i>
 			</button>
 		</div>
+
 		<ul class="nav justify-content-center" style="height: 5%">
 			<li class="nav-item">
 				<a
@@ -109,6 +124,21 @@
 
 	<!-- Desktop -->
 	<div class="wrapper d-none d-lg-flex">
+		<div class="position-absolute top-0 end-0 me-3 mt-3">
+			<a
+				hidden
+				id="install"
+				(click)="installApp('desktop')"
+				class="blue-link me-3"
+			>
+				Installa
+				<i class="ms-1 bi bi-download"></i>
+			</a>
+			<a href="about-preview" class="blue-link">
+				About
+				<i class="ms-1 bi bi-question-circle-fill"></i>
+			</a>
+		</div>
 		<div class="left-wrap" style="width: 60%; height: 100svh">
 			<div class="scrollable" style="height: 95%; overflow-x: hidden">
 				<section
@@ -220,6 +250,7 @@
 					<div class="d-flex flex-column w-100 mb-3">
 						<p class="mb-0">E-mail</p>
 						<input
+							name="email"
 							[(ngModel)]="email"
 							type="email"
 							class="border-0 border-bottom py-1"
@@ -239,6 +270,7 @@
 							</button>
 						</p>
 						<input
+							name="password"
 							[(ngModel)]="password"
 							[type]="hidePwd ? 'password' : 'text'"
 							class="border-0 border-bottom py-1 w-100"
@@ -247,16 +279,14 @@
 					</div>
 					<a
 						(click)="forgotPassword()"
-						class="mb-3 text-decoration-none"
-						style="cursor: pointer"
+						class="mb-3 text-decoration-none blue-link"
 					>
 						Password dimenticata?
 					</a>
 					<button
 						[disabled]="!allowLogin()"
 						(click)="login()"
-						class="login-btn btn w-100 mb-3 text-light"
-						style="background-color: #6b44d4; border: none"
+						class="purple-btn btn w-100 mb-3 text-light"
 					>
 						Accedi
 					</button>
@@ -304,7 +334,7 @@
 						Non hai un account?
 						<a
 							(click)="switchToRegister()"
-							style="color: #4089c9; cursor: pointer"
+							class="blue-link text-decoration-none"
 						>
 							Registrati
 						</a>
@@ -348,6 +378,7 @@
 					<div class="d-flex flex-column w-100 mb-3">
 						<p class="mb-0">Username</p>
 						<input
+							name="username"
 							[(ngModel)]="username"
 							type="text"
 							class="border-0 border-bottom py-1"
@@ -357,6 +388,7 @@
 					<div class="d-flex flex-column w-100 mb-3">
 						<p class="mb-0">E-mail</p>
 						<input
+							name="emailRegister"
 							[(ngModel)]="emailRegister"
 							type="email"
 							class="border-0 border-bottom py-1"
@@ -376,6 +408,7 @@
 							</button>
 						</p>
 						<input
+							name="passwordRegister"
 							[(ngModel)]="passwordRegister"
 							[type]="hidePwd ? 'password' : 'text'"
 							class="border-0 border-bottom py-1 w-100"
@@ -398,6 +431,7 @@
 							</button>
 						</p>
 						<input
+							name="confirmPassword"
 							[(ngModel)]="confirmPassword"
 							[type]="hidePwdConfirm ? 'password' : 'text'"
 							class="border-0 border-bottom py-1 w-100"
@@ -407,8 +441,7 @@
 					<button
 						[disabled]="!allowRegister()"
 						(click)="register()"
-						class="login-btn btn w-100 mb-3 text-light"
-						style="background-color: #6b44d4; border: none"
+						class="purple-btn btn w-100 mb-3 text-light"
 					>
 						Registrati
 					</button>
@@ -416,7 +449,7 @@
 						Hai già un account?
 						<a
 							(click)="switchToLogin()"
-							style="color: #4089c9; cursor: pointer"
+							class="blue-link text-decoration-none"
 						>
 							Accedi
 						</a>

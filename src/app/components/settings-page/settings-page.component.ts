@@ -2,10 +2,12 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
-import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { CustomExcerciseDialogComponent } from "../custom-excercise-dialog/custom-excercise-dialog.component";
+import { ShareDialogComponent } from "../share-dialog/share-dialog.component";
+import { User } from "src/app/Models/User.model";
 
 @Component({
 	selector: "app-settings-page",
@@ -13,13 +15,13 @@ import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-ac
 	styleUrls: ["./settings-page.component.css"],
 })
 export class SettingsPageComponent implements OnInit {
-	public customExercises: any[] = [];
+	public customExercises: string[] = [];
 	public visibility: boolean;
-
+	public playlistUrl: string;
 	private originalUsername: string;
 	public username: string;
-
 	public loading: boolean = false;
+	public onModify: boolean = false;
 
 	constructor(
 		private firebase: FirebaseService,
@@ -31,20 +33,54 @@ export class SettingsPageComponent implements OnInit {
 
 	async ngOnInit() {
 		this.loading = true;
-		let uid = JSON.parse(localStorage.getItem("user")).uid;
 
-		let user: any = await this.firebase.getUserData(uid);
+		let user: User = await this.firebase.getUserData();
 
 		this.customExercises =
 			user.customExercises == undefined ? [] : user.customExercises;
 		this.visibility = user.visibility;
 		this.username = user.username;
+		this.playlistUrl = user.playlistUrl;
 		this.originalUsername = user.username;
 
 		this.loading = false;
 	}
 
-	changePassword() {
+	public isPlaylistUrlValid() {
+		return (
+			this.playlistUrl === "" ||
+			(this.playlistUrl &&
+				this.playlistUrl.includes("https://open.spotify.com/"))
+		);
+	}
+
+	public isUsernameValid() {
+		return (
+			this.username &&
+			this.username !== "" &&
+			this.username !== this.originalUsername
+		);
+	}
+
+	public openExcerciseDialog() {
+		this.dialog.open(CustomExcerciseDialogComponent, {
+			data: {
+				exercises: this.customExercises,
+			},
+			disableClose: false,
+		});
+	}
+
+	public shareUsername() {
+		this.dialog.open(ShareDialogComponent, {
+			data: {
+				username: this.username,
+			},
+			disableClose: false,
+		});
+	}
+
+	public changePassword() {
 		this.firebase.changePassword();
 		this.snackBar.open(
 			"Ti abbiamo inviato una mail per cambiare la password",
@@ -53,7 +89,7 @@ export class SettingsPageComponent implements OnInit {
 		);
 	}
 
-	deleteAccount() {
+	public deleteAccount() {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina account",
@@ -67,33 +103,29 @@ export class SettingsPageComponent implements OnInit {
 		});
 	}
 
-	saveSettings() {
-		let uid = JSON.parse(localStorage.getItem("user")).uid;
-		if (this.username != "" && this.username != this.originalUsername) {
-			this.firebase.updateUsername(uid, this.username);
+	public cancel() {
+		this.username = this.originalUsername;
+		this.onModify = false;
+	}
+
+	public async saveSettings() {
+		if (this.isUsernameValid()) {
+			await this.firebase.updateUsername(this.username);
 		}
 
-		this.firebase.updateVisibility(uid, this.visibility);
-		this.firebase.updateCustomExercises(uid, this.customExercises);
+		if (this.isPlaylistUrlValid()) {
+			await this.firebase.updatePlaylistUrl(this.playlistUrl);
+		}
 
+		await this.firebase.updateVisibility(this.visibility);
+		await this.firebase.updateCustomExercises(this.customExercises);
+
+		this.onModify = false;
 		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
-		this.router.navigate(["/home"]);
+		window.location.reload();
 	}
 
-	deleteItem(index: number) {
-		this.dialog.open(SafetyActionConfirmDialogComponent, {
-			data: {
-				title: "Elimina esercizio",
-				message: "Sei sicuro di voler eliminare questo esercizio?",
-				args: [index, this.customExercises],
-				confirm: async (index: number, customExercises: any) => {
-					customExercises.splice(index, 1);
-				},
-			},
-		});
-	}
-
-	backToHome() {
+	public backToHome() {
 		this.router.navigate(["/home"]);
 	}
 }

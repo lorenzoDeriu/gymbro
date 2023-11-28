@@ -1,79 +1,46 @@
-#settings-container {
-	width: 96%;
-	margin: auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start;
-	height: 100%;
-}
-
-#settings-sub-container {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	padding: 0;
-	padding: 10px;
-	margin-bottom: 20px;
-}
-
-.custom-button {
-	background-color: rgb(69, 69, 188);
-	color: white;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-}
-
-.custom-button:hover {
-	background-color: rgb(69, 69, 188);
-	color: white;
-}
-
-#slide-container {
-	margin-bottom: 10px;
-}
-
-#title span {
-	font-size: 1.5rem;
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
-	color: rgb(69, 69, 188);
-}
-
-#button-container {
+#wrapper {
+	width: 100vw;
+	height: calc(100svh - 66px);
+	transform: translateY(66px);
 	display: flex;
 	justify-content: center;
+	overflow: hidden;
 }
 
-#custom-exercise-name {
-	font-family: "Josefin Sans", sans-serif;
+#main-container {
+	height: 100%;
+	overflow-y: auto;
 }
 
-#expansion-panel-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
+input:focus {
+	outline: none;
 }
 
-mat-expansion-panel {
-	width: 25em;
+#checkbox-profile {
+	outline: none;
+	box-shadow: none;
+	cursor: pointer;
+	border-radius: 50%;
+	padding: 1px;
 }
 
-mat-expansion-panel-header {
-	font-family: "Josefin Sans", sans-serif;
-	font-weight: bold;
+.purple-btn {
+	border: none;
+	background-color: #6b44d4;
 }
 
-#exercise-setting-container {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 5px;
+.purple-btn:hover {
+	background-color: #785ebe !important;
 }
 
-@media (max-width: 600px) {
-	#settings-container {
-		width: 96%;
+.purple-btn:active {
+	background-color: #957dd6 !important;
+}
+
+@media (max-width: 450px) {
+	.input-container {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
 	}
 }
