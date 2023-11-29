@@ -8,6 +8,7 @@ import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-ac
 import { CustomExcerciseDialogComponent } from "../custom-excercise-dialog/custom-excercise-dialog.component";
 import { ShareDialogComponent } from "../share-dialog/share-dialog.component";
 import { User } from "src/app/Models/User.model";
+import { EditProfilePicDialogComponent } from "../edit-profile-pic-dialog/edit-profile-pic-dialog.component";
 
 @Component({
 	selector: "app-settings-page",
@@ -20,8 +21,10 @@ export class SettingsPageComponent implements OnInit {
 	public playlistUrl: string;
 	private originalUsername: string;
 	public username: string;
+	private uid: string;
 	public loading: boolean = false;
 	public onModify: boolean = false;
+	profilePic: string;
 
 	constructor(
 		private firebase: FirebaseService,
@@ -36,6 +39,9 @@ export class SettingsPageComponent implements OnInit {
 
 		let user: User = await this.firebase.getUserData();
 
+		this.uid = await this.firebase.getUid();
+
+		this.profilePic = user.profilePicUrl;
 		this.customExercises =
 			user.customExercises == undefined ? [] : user.customExercises;
 		this.visibility = user.visibility;
@@ -44,6 +50,19 @@ export class SettingsPageComponent implements OnInit {
 		this.originalUsername = user.username;
 
 		this.loading = false;
+	}
+
+	public openProfilePicDialog() {
+		this.dialog.open(EditProfilePicDialogComponent, {
+			data: {
+				uid: this.uid,
+				profilePic: this.profilePic,
+				updateProfilePic: (profilePic: string) => {
+					this.profilePic = profilePic;
+				},
+			},
+			disableClose: false,
+		});
 	}
 
 	public isPlaylistUrlValid() {
@@ -96,7 +115,7 @@ export class SettingsPageComponent implements OnInit {
 				message:
 					"Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile",
 				args: [this.authService],
-				confirm: async (authService: any) => {
+				confirm: async (authService: AuthService) => {
 					await authService.deleteAccount();
 				},
 			},

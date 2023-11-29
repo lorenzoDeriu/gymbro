@@ -8,11 +8,13 @@ export interface FollowedUserInfo {
 	uid: string;
 	username: string;
 	visibilityPermission: boolean;
+    profilePicUrl: string;
 }
 
 export interface SearchResult {
 	uid: string;
 	username: string;
+    profilePicUrl: string;
 }
 
 @Component({

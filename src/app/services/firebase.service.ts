@@ -3,7 +3,17 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 
 import { initializeApp } from "firebase/app";
-import "firebase/firestore";
+import {
+	FirebaseStorage,
+	StorageReference,
+	deleteObject,
+	getDownloadURL,
+	getStorage,
+	list,
+	listAll,
+	ref,
+	uploadBytes,
+} from "firebase/storage";
 import {
 	setDoc,
 	doc,
@@ -24,6 +34,7 @@ import {
 	WithFieldValue,
 	DocumentData,
 	persistentLocalCache,
+	Firestore,
 } from "firebase/firestore";
 import {
 	getAuth,
@@ -55,17 +66,20 @@ import {
 	SearchResult,
 } from "../components/friends/friends.component";
 import { generateId } from "../utils/utils";
+import { FirebaseApp } from "@angular/fire/app";
 
 @Injectable({
 	providedIn: "root",
 })
 export class FirebaseService {
-	private app = initializeApp(environment.firebaseConfig);
-	private db = initializeFirestore(this.app, {
+	private app: FirebaseApp = initializeApp(environment.firebaseConfig);
+	private db: Firestore = initializeFirestore(this.app, {
 		localCache: persistentLocalCache({}),
 	});
 
 	private auth: Auth = getAuth();
+
+	private storage: FirebaseStorage = getStorage(this.app);
 
 	private googleProvider = new GoogleAuthProvider();
 	private metaProvider = new FacebookAuthProvider();
@@ -103,6 +117,64 @@ export class FirebaseService {
 			}
 		});
 		console.log("db fixed");
+	}
+
+	public async getProfilePic(uid: string) {
+		const profilePicsRef: StorageReference = ref(
+			this.storage,
+			"profile-pics/" + uid
+		);
+		const listOfPics = await listAll(profilePicsRef);
+
+		if (listOfPics.items.length !== 0) {
+			return getDownloadURL(listOfPics.items[0]).then(url => {
+				return url;
+			});
+		}
+
+		return null;
+	}
+
+	public async uploadProfilePic(file: File, uid: string) {
+		const profilePicsRef: StorageReference = ref(
+			this.storage,
+			"profile-pics/" + uid
+		);
+		const profilePicRef: StorageReference = ref(
+			this.storage,
+			"profile-pics/" + uid + "/profile-pic"
+		);
+		const listOfPics = await list(profilePicsRef);
+
+		if (listOfPics.items.length !== 0) {
+			deleteObject(profilePicRef).then(async () => {
+				await uploadBytes(profilePicRef, file);
+
+				getDownloadURL(profilePicRef).then(url => {
+					this.updateProfilePicUrl(url);
+				});
+			});
+		} else {
+			await uploadBytes(profilePicRef, file);
+
+            getDownloadURL(profilePicRef).then(url => {
+                this.updateProfilePicUrl(url);
+            });
+		}
+	}
+
+	public async removeProfilePic(uid: string) {
+		const profilePicRef: StorageReference = ref(
+			this.storage,
+			"profile-pics/" + uid
+		);
+		const listOfPics = await listAll(profilePicRef);
+
+		if (listOfPics.items.length !== 0) {
+			await deleteObject(listOfPics.items[0]).then(() => {
+			    this.updateProfilePicUrl("");
+            });
+		}
 	}
 
 	private normalizeWorkout(workouts: any[]): Workout[] {
@@ -653,12 +725,13 @@ export class FirebaseService {
 		let uid = await this.getUid();
 
 		querySnapshot.forEach((document: DocumentSnapshot) => {
-			let user = { uid: "", username: "" };
+			let user = { uid: "", username: "", profilePicUrl: "" };
 
 			const userData = document.data() as User;
 
 			user.uid = document.id;
 			user.username = userData.username;
+            user.profilePicUrl = userData.profilePicUrl;
 
 			if (uid != user.uid) {
 				result.push(user);
@@ -718,6 +791,7 @@ export class FirebaseService {
 					username: (documentSnapshot.data() as User).username,
 					visibilityPermission: (documentSnapshot.data() as User)
 						.visibility,
+                    profilePicUrl: (documentSnapshot.data() as User).profilePicUrl,
 				};
 
 				result.push(userObj);
@@ -878,6 +952,12 @@ export class FirebaseService {
 		let uid = await this.getUid();
 		let documentReference = doc(this.db, "users", uid);
 		await updateDoc(documentReference, { playlistUrl: playlistUrl });
+	}
+
+	public async updateProfilePicUrl(profilePicUrl: string) {
+		let uid = await this.getUid();
+		let documentReference = doc(this.db, "users", uid);
+		await updateDoc(documentReference, { profilePicUrl: profilePicUrl });
 	}
 
 	// DO NOT TOUCH THIS!!!

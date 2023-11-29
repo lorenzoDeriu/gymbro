@@ -37,6 +37,22 @@ input:focus {
 	background-color: #957dd6 !important;
 }
 
+.edit-profile-pic {
+	opacity: 0;
+	cursor: pointer;
+	transition: opacity 0.3s ease-in-out;
+}
+
+.edit-profile-pic:hover {
+	opacity: 0.5;
+}
+
+@media (min-width: 992px) {
+    #main-container {
+        width: 600px;
+    }
+}
+
 @media (max-width: 450px) {
 	.input-container {
 		display: flex;

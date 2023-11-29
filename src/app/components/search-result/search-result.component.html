@@ -66,8 +66,10 @@
 			>
 				<div class="avatar d-flex align-items-center text-truncate">
 					<img
-						src="assets/profile.png"
+                        [src]="user.profilePicUrl ? user.profilePicUrl : 'assets/profile.png'"
+                        class="rounded-circle object-fit-cover"
 						width="30px"
+                        height="30px"
 						alt="profile-pic"
 					/>
 					<p class="mb-0 ms-3 text-truncate">{{ user.username }}</p>

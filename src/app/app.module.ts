@@ -21,8 +21,6 @@ import { PageNotFoundComponent } from "./components/page-not-found/page-not-foun
 import { MatGridListModule } from "@angular/material/grid-list";
 import {
 	MatRippleModule,
-	MAT_DATE_LOCALE,
-	DateAdapter,
 } from "@angular/material/core";
 import { NewWorkoutComponent } from "./components/new-workout/new-workout.component";
 import { OldWorkoutsComponent } from "./components/old-workouts/old-workouts.component";
@@ -75,6 +73,7 @@ import { ShareDialogComponent } from "./components/share-dialog/share-dialog.com
 import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
 import { AboutPreviewComponent } from "./components/about-preview/about-preview.component";
 import { WelcomeDialogComponent } from "./components/welcome-dialog/welcome-dialog.component";
+import { EditProfilePicDialogComponent } from './components/edit-profile-pic-dialog/edit-profile-pic-dialog.component';
 
 @NgModule({
 	declarations: [
@@ -115,6 +114,7 @@ import { WelcomeDialogComponent } from "./components/welcome-dialog/welcome-dial
 		AdminDialogComponent,
 		AboutPreviewComponent,
 		WelcomeDialogComponent,
+  EditProfilePicDialogComponent,
 	],
 	imports: [
 		BrowserModule,
