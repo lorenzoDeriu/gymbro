@@ -118,7 +118,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			!isNaN(+this.workout.exercises[exerciseIndex].set[setIndex].reps) &&
 			this.workout.exercises[exerciseIndex].set[setIndex].reps !== null &&
 			this.workout.exercises[exerciseIndex].set[setIndex].reps > 0 &&
-			!isNaN(+this.workout.exercises[exerciseIndex].set[setIndex].load) &&
+			!isNaN(+this.workout.exercises[exerciseIndex].set[setIndex].load?.toString()?.replace(",", ".")) &&
 			this.workout.exercises[exerciseIndex].set[setIndex].load !== null &&
 			this.workout.exercises[exerciseIndex].set[setIndex].load >= 0
 		);
