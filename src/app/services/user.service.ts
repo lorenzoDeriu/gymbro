@@ -180,6 +180,10 @@ export class UserService {
 	}
 
 	public async saveWorkout() {
+		if (!this.workout.date) {
+			this.workout.date = Date.now();
+		}
+
 		if (this.editMode.value) {
 			await this.firebase.updateWorkout(
 				this.workout,

@@ -53,6 +53,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.workout = this.userService.getWorkout();
 		this.date = this.fromTimestampToString(this.workout.date);
+		console.log(this.date);
 		this.initWorkoutProgress();
 
 		this.loading = false;
@@ -322,6 +323,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	private fromTimestampToString(date: number): string {
 		const d = new Date(date);
-		return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+		return `${d.getFullYear()}-${d.getMonth() + 1 < 10 ? "0" + (d.getMonth() + 1) : d.getMonth() + 1}-${d.getDate() < 10 ? "0" + d.getDate() : d.getDate()}`;
 	}
 }
