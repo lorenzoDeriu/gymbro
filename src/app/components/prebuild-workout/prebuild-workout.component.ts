@@ -114,6 +114,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	public isSetValid(exerciseIndex: number, setIndex: number) {
+		// console.log("load: ", this.workout.exercises[exerciseIndex].set[setIndex].load)
 		return (
 			!isNaN(+this.workout.exercises[exerciseIndex].set[setIndex].reps) &&
 			this.workout.exercises[exerciseIndex].set[setIndex].reps !== null &&
@@ -122,6 +123,44 @@ export class PrebuildWorkoutComponent implements OnInit {
 			this.workout.exercises[exerciseIndex].set[setIndex].load !== null &&
 			this.workout.exercises[exerciseIndex].set[setIndex].load >= 0
 		);
+	}
+
+	public filterInput(event: Event, exerciseIndex: number, setIndex: number, type: string) {
+		const e: InputEvent = event as InputEvent;
+
+		const input: string = (e.target as HTMLInputElement).value;
+
+		if ((e.data === "," || e.data === ".") && type === "reps") {
+			(e.target as HTMLInputElement).value = input.replace(",", "").replace(".", "");
+		}
+
+		if (e.data === "0" && +input === 0) {
+			(e.target as HTMLInputElement).value = "0";
+			return;
+		}
+
+		if (input === "") {
+			if (type === "load") {
+				this.workout.exercises[exerciseIndex].set[setIndex].load = 0;
+			} else {
+				this.workout.exercises[exerciseIndex].set[setIndex].reps = 0;
+			}
+			(e.target as HTMLInputElement).value = "0";
+			return;
+		}
+
+		const value: number = type === "load" ? +input.replace(",", ".") : +input.replace(",", "").replace(".", "");
+
+		if (isNaN(value)) {
+			(e.target as HTMLInputElement).value = type === "load" ? this.workout.exercises[exerciseIndex].set[setIndex].load.toString() : this.workout.exercises[exerciseIndex].set[setIndex].reps.toString();
+			return;
+		}
+
+		if (type === "load") {
+			this.workout.exercises[exerciseIndex].set[setIndex].load = value;
+		} else {
+			this.workout.exercises[exerciseIndex].set[setIndex].reps = value;
+		}
 	}
 
 	public toggleCompleted(exerciseIndex: number, setIndex: number) {

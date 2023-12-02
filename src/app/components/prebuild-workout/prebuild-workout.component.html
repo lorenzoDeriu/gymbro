@@ -235,8 +235,8 @@
 														exerciseIndex
 													][setIndex]
 												"
-												type="number"
-												inputmode="decimal"
+												type="text"
+												inputmode="numeric"
 												[ngClass]="{
 													'form-control': true,
 													'rounded-start-5':
@@ -254,9 +254,10 @@
 																	.length
 															))
 												}"
-												[(ngModel)]="
+												[ngModel]="
 													exercise.set[setIndex].reps
 												"
+												(input)="filterInput($event, exerciseIndex, setIndex, 'reps')"
 												[min]="0"
 												[ngModelOptions]="{
 													standalone: true
@@ -297,13 +298,14 @@
 														exerciseIndex
 													][setIndex]
 												"
-												type="number"
+												type="text"
 												inputmode="decimal"
 												class="form-control rounded-start-5"
-												[(ngModel)]="
+												[ngModel]="
 													exercise.set[setIndex].load
 												"
 												[min]="0"
+												(input)="filterInput($event, exerciseIndex, setIndex, 'load')"
 												[ngModelOptions]="{
 													standalone: true
 												}"
@@ -614,8 +616,8 @@
 														exerciseIndex
 													][setIndex]
 												"
-												type="number"
-												inputmode="decimal"
+												type="text"
+												inputmode="numeric"
 												[ngClass]="{
 													'form-control': true,
 													'rounded-start-5':
@@ -633,9 +635,10 @@
 																	.length
 															))
 												}"
-												[(ngModel)]="
+												[ngModel]="
 													exercise.set[setIndex].reps
 												"
+												(input)="filterInput($event, exerciseIndex, setIndex, 'reps')"
 												[min]="0"
 												[ngModelOptions]="{
 													standalone: true
@@ -676,16 +679,17 @@
 														exerciseIndex
 													][setIndex]
 												"
-												type="number"
+												type="text"
 												inputmode="decimal"
 												class="form-control rounded-start-5"
-												[(ngModel)]="
+												[ngModel]="
 													exercise.set[setIndex].load
 												"
 												[min]="0"
 												[ngModelOptions]="{
 													standalone: true
 												}"
+												(input)="filterInput($event, exerciseIndex, setIndex, 'load')"
 											/>
 											<span
 												class="input-group-text rounded-end-5"
