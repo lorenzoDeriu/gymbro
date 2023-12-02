@@ -3,6 +3,7 @@ import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
+import { environment } from "src/environments/environment";
 
 @Component({
 	selector: "app-edit-profile-pic-dialog",
@@ -43,9 +44,9 @@ export class EditProfilePicDialogComponent {
 		}
 
 		const file: File = files[0];
-		const fileSizeMB: number = Math.round(file.size / 1024);
+		const fileSizeByte: number = Math.round(file.size / 1024);
 
-		if (file && fileSizeMB < 4096) {
+		if (file && fileSizeByte < 8192) {
 			let fileUrl = URL.createObjectURL(file);
 			const form = new FormData();
 			form.append("providers", "microsoft, amazon");
@@ -55,8 +56,7 @@ export class EditProfilePicDialogComponent {
 			const options = {
 				url: "https://api.edenai.run/v2/image/explicit_content",
 				headers: {
-					Authorization:
-						"Bearer <API Key>",
+					Authorization: `Bearer ${environment.edenAiConfig.apiKey}`,
 				},
 				data: form,
 			};
