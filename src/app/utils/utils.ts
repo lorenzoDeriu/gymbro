@@ -20,7 +20,13 @@ export const formatSets = (sets: Set[]): string[] => {
 		) {
 			currentSetCount++;
 		} else {
-			formattedSets.push(`${currentSetCount}x${currentMinimumReps}${currentMaximumReps !== currentMinimumReps ? `-${currentMaximumReps}` : ""}`);
+			formattedSets.push(
+				`${currentSetCount}x${currentMinimumReps}${
+					currentMaximumReps !== currentMinimumReps
+						? `-${currentMaximumReps}`
+						: ""
+				}`
+			);
 
 			currentMinimumReps = set.minimumReps;
 
@@ -30,7 +36,13 @@ export const formatSets = (sets: Set[]): string[] => {
 		}
 	}
 
-	formattedSets.push(`${currentSetCount}x${currentMinimumReps}${currentMaximumReps !== currentMinimumReps ? `-${currentMaximumReps}` : ""}`);
+	formattedSets.push(
+		`${currentSetCount}x${currentMinimumReps}${
+			currentMaximumReps !== currentMinimumReps
+				? `-${currentMaximumReps}`
+				: ""
+		}`
+	);
 
 	return formattedSets;
 };
@@ -46,7 +58,9 @@ export const formatEffectiveSets = (sets: EffectiveSet[]): string[] => {
 		if (set.reps === currentReps && set.load === currentLoad) {
 			currentSetCount++;
 		} else {
-			formattedSets.push(`${currentSetCount}x${currentReps}@${currentLoad}`);
+			formattedSets.push(
+				`${currentSetCount}x${currentReps}@${currentLoad}`
+			);
 
 			currentReps = set.reps;
 

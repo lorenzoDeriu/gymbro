@@ -120,19 +120,30 @@ export class PrebuildWorkoutComponent implements OnInit {
 			!isNaN(+this.workout.exercises[exerciseIndex].set[setIndex].reps) &&
 			this.workout.exercises[exerciseIndex].set[setIndex].reps !== null &&
 			this.workout.exercises[exerciseIndex].set[setIndex].reps > 0 &&
-			!isNaN(+this.workout.exercises[exerciseIndex].set[setIndex].load?.toString()?.replace(",", ".")) &&
+			!isNaN(
+				+this.workout.exercises[exerciseIndex].set[setIndex].load
+					?.toString()
+					?.replace(",", ".")
+			) &&
 			this.workout.exercises[exerciseIndex].set[setIndex].load !== null &&
 			this.workout.exercises[exerciseIndex].set[setIndex].load >= 0
 		);
 	}
 
-	public filterInput(event: Event, exerciseIndex: number, setIndex: number, type: string) {
+	public filterInput(
+		event: Event,
+		exerciseIndex: number,
+		setIndex: number,
+		type: string
+	) {
 		const e: InputEvent = event as InputEvent;
 
 		const input: string = (e.target as HTMLInputElement).value;
 
 		if ((e.data === "," || e.data === ".") && type === "reps") {
-			(e.target as HTMLInputElement).value = input.replace(",", "").replace(".", "");
+			(e.target as HTMLInputElement).value = input
+				.replace(",", "")
+				.replace(".", "");
 		}
 
 		if (e.data === "0" && +input === 0) {
@@ -150,10 +161,20 @@ export class PrebuildWorkoutComponent implements OnInit {
 			return;
 		}
 
-		const value: number = type === "load" ? +input.replace(",", ".") : +input.replace(",", "").replace(".", "");
+		const value: number =
+			type === "load"
+				? +input.replace(",", ".")
+				: +input.replace(",", "").replace(".", "");
 
 		if (isNaN(value)) {
-			(e.target as HTMLInputElement).value = type === "load" ? this.workout.exercises[exerciseIndex].set[setIndex].load.toString() : this.workout.exercises[exerciseIndex].set[setIndex].reps.toString();
+			(e.target as HTMLInputElement).value =
+				type === "load"
+					? this.workout.exercises[exerciseIndex].set[
+							setIndex
+					  ].load.toString()
+					: this.workout.exercises[exerciseIndex].set[
+							setIndex
+					  ].reps.toString();
 			return;
 		}
 
@@ -323,6 +344,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	private fromTimestampToString(date: number): string {
 		const d = new Date(date);
-		return `${d.getFullYear()}-${d.getMonth() + 1 < 10 ? "0" + (d.getMonth() + 1) : d.getMonth() + 1}-${d.getDate() < 10 ? "0" + d.getDate() : d.getDate()}`;
+		return `${d.getFullYear()}-${
+			d.getMonth() + 1 < 10 ? "0" + (d.getMonth() + 1) : d.getMonth() + 1
+		}-${d.getDate() < 10 ? "0" + d.getDate() : d.getDate()}`;
 	}
 }

@@ -257,7 +257,14 @@
 												[ngModel]="
 													exercise.set[setIndex].reps
 												"
-												(input)="filterInput($event, exerciseIndex, setIndex, 'reps')"
+												(input)="
+													filterInput(
+														$event,
+														exerciseIndex,
+														setIndex,
+														'reps'
+													)
+												"
 												[min]="0"
 												[ngModelOptions]="{
 													standalone: true
@@ -305,7 +312,14 @@
 													exercise.set[setIndex].load
 												"
 												[min]="0"
-												(input)="filterInput($event, exerciseIndex, setIndex, 'load')"
+												(input)="
+													filterInput(
+														$event,
+														exerciseIndex,
+														setIndex,
+														'load'
+													)
+												"
 												[ngModelOptions]="{
 													standalone: true
 												}"
@@ -638,7 +652,14 @@
 												[ngModel]="
 													exercise.set[setIndex].reps
 												"
-												(input)="filterInput($event, exerciseIndex, setIndex, 'reps')"
+												(input)="
+													filterInput(
+														$event,
+														exerciseIndex,
+														setIndex,
+														'reps'
+													)
+												"
 												[min]="0"
 												[ngModelOptions]="{
 													standalone: true
@@ -689,7 +710,14 @@
 												[ngModelOptions]="{
 													standalone: true
 												}"
-												(input)="filterInput($event, exerciseIndex, setIndex, 'load')"
+												(input)="
+													filterInput(
+														$event,
+														exerciseIndex,
+														setIndex,
+														'load'
+													)
+												"
 											/>
 											<span
 												class="input-group-text rounded-end-5"
