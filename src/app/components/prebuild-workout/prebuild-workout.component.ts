@@ -53,7 +53,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.workout = this.userService.getWorkout();
 		this.date = this.fromTimestampToString(this.workout.date);
-		console.log(this.date);
 		this.initWorkoutProgress();
 
 		this.loading = false;
