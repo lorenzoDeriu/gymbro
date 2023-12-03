@@ -19,11 +19,11 @@ export class AdminComponent implements OnInit {
 	public loading: boolean = false;
 	private users: DocumentData[] = [];
 	private exercises: DocumentData[] = [];
-    public exercisesLength: number = 0;
-    public activeUsersLength: number = 0;
-    public allUsersLength: number = 0;
-    public adminUsersLength: number = 0;
-    private twoMonthsAgo: number;
+	public exercisesLength: number = 0;
+	public activeUsersLength: number = 0;
+	public allUsersLength: number = 0;
+	public adminUsersLength: number = 0;
+	private twoMonthsAgo: number;
 
 	constructor(private firebase: FirebaseService, private dialog: MatDialog) {}
 
@@ -35,49 +35,57 @@ export class AdminComponent implements OnInit {
 
 	async ngOnInit() {
 		this.loading = true;
-    
-        const today = new Date();
-        this.twoMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 2, today.getDate()).getTime();
+
+		const today = new Date();
+		this.twoMonthsAgo = new Date(
+			today.getFullYear(),
+			today.getMonth() - 2,
+			today.getDate()
+		).getTime();
 
 		this.exercises = await this.firebase.getAllExercises();
-        this.exercises.length = this.exercises.length;
+		this.exercises.length = this.exercises.length;
 
 		this.users = await this.firebase.getAllUsers();
-        this.activeUsersLength = this.getActiveUsersLength();
-        this.allUsersLength = this.users.length;
-        this.adminUsersLength = this.users.filter((user) => (user as User).admin).length;
+		this.activeUsersLength = this.getActiveUsersLength();
+		this.allUsersLength = this.users.length;
+		this.adminUsersLength = this.users.filter(
+			user => (user as User).admin
+		).length;
 
 		this.feedbacks = await this.firebase.getFeedbacks();
 
 		this.loading = false;
 	}
 
-    private getActiveUsersLength() {
-        let activeUsersLength = 0;
+	private getActiveUsersLength() {
+		let activeUsersLength = 0;
 
-        for (let i in this.users) {
-            const userWorkouts = ((this.users[i] as User).workout as Workout[]).sort((a: Workout, b: Workout) => {
-                return b.date - a.date;
-            });
+		for (let i in this.users) {
+			const userWorkouts = (
+				(this.users[i] as User).workout as Workout[]
+			).sort((a: Workout, b: Workout) => {
+				return b.date - a.date;
+			});
 
-            for (let j in userWorkouts) {
-                if (userWorkouts[j].date >= this.twoMonthsAgo) {
-                    activeUsersLength++;
-                    break;
-                }
-            }
-        }
+			for (let j in userWorkouts) {
+				if (userWorkouts[j].date >= this.twoMonthsAgo) {
+					activeUsersLength++;
+					break;
+				}
+			}
+		}
 
-        return activeUsersLength;
-    }
+		return activeUsersLength;
+	}
 
-    public showFeedback(index: number) {
-        this.dialog.open(ExpandFeedbackDialogComponent, {
-            data: {
-                message: this.feedbacks[index].content
-            },
-        });
-    }
+	public showFeedback(index: number) {
+		this.dialog.open(ExpandFeedbackDialogComponent, {
+			data: {
+				message: this.feedbacks[index].content,
+			},
+		});
+	}
 
 	async removeFeedback(index: number) {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
