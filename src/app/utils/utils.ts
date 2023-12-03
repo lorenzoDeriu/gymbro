@@ -50,8 +50,8 @@ export const formatSets = (sets: Set[]): string[] => {
 export const formatEffectiveSets = (sets: EffectiveSet[]): string[] => {
 	const formattedSets: string[] = [];
 
-	let currentReps = sets[0].reps;
-	let currentLoad = sets[0].load;
+	let currentReps = sets[0]?.reps ?? 0;
+	let currentLoad = sets[0]?.load ?? 0;
 	let currentSetCount = 0;
 
 	for (const set of sets) {
