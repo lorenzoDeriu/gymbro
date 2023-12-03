@@ -137,6 +137,11 @@
 							<form
 								class="d-none d-lg-flex flex-column align-items-center"
 							>
+                                <button *ngIf="exercise.template" class="btn btn-light shadow-sm mb-3" (click)="showExerciseFromTemplate(exerciseIndex)">
+                                    Visualizza esercizio nella scheda
+                                    <i class="bi bi-file-earmark-text"></i>
+                                </button>
+
 								<div class="input-group flex-nowrap mb-3">
 									<span class="input-group-text">
 										Esercizio
@@ -532,6 +537,11 @@
 							<form
 								class="d-flex flex-column align-items-center d-lg-none"
 							>
+                                <button class="btn btn-sm btn-light shadow-sm mb-3">
+                                    Visualizza esercizio nella scheda
+                                    <i class="bi bi-file-earmark-text"></i>
+                                </button>
+
 								<div
 									class="input-group input-group-sm flex-nowrap mb-3"
 								>
