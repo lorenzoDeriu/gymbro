@@ -139,39 +139,45 @@ export class SettingsPageComponent implements OnInit {
 
 	collapseSettings(target: HTMLElement) {
 		if (target.classList.contains("saveUsernameBtn")) {
-			document
-				.getElementById("collapseUsername")
-				.classList.remove("show");
+			(
+				document.getElementById("usernameBtn") as HTMLButtonElement
+			).click();
 		}
 
 		if (target.classList.contains("saveUsernameBtnMobile")) {
-			document
-				.getElementById("collapseUsernameMobile")
-				.classList.remove("show");
+			(
+				document.getElementById(
+					"usernameBtnMobile"
+				) as HTMLButtonElement
+			).click();
 		}
 
 		if (target.classList.contains("savePlaylistBtn")) {
-			document
-				.getElementById("collapsePlaylist")
-				.classList.remove("show");
+			(
+				document.getElementById("playlistBtn") as HTMLButtonElement
+			).click();
 		}
 
 		if (target.classList.contains("savePlaylistBtnMobile")) {
-			document
-				.getElementById("collapsePlaylistMobile")
-				.classList.remove("show");
+			(
+				document.getElementById(
+					"playlistBtnMobile"
+				) as HTMLButtonElement
+			).click();
 		}
 
 		if (target.classList.contains("updateVisibilityBtn")) {
-			document
-				.getElementById("collapseVisibility")
-				.classList.remove("show");
+			(
+				document.getElementById("visibilityBtn") as HTMLButtonElement
+			).click();
 		}
 
 		if (target.classList.contains("updateVisibilityBtnMobile")) {
-			document
-				.getElementById("collapseVisibilityMobile")
-				.classList.remove("show");
+			(
+				document.getElementById(
+					"visibilityBtnMobile"
+				) as HTMLButtonElement
+			).click();
 		}
 	}
 

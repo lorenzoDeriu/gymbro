@@ -98,6 +98,7 @@
 				<div class="w-100 d-flex flex-column">
 					<!-- Username Desktop -->
 					<button
+						id="usernameBtn"
 						class="d-none d-lg-flex btn btn-light border-0 shadow-sm rounded-3 p-2"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapseUsername"
@@ -141,6 +142,7 @@
 
 					<!-- Username Mobile -->
 					<button
+						id="usernameBtnMobile"
 						class="d-flex d-lg-none btn btn-sm btn-light border-0 shadow-sm rounded-3 p-2"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapseUsernameMobile"
@@ -184,6 +186,7 @@
 
 					<!-- Visibilty Desktop -->
 					<button
+						id="visibilityBtn"
 						class="d-none d-lg-flex btn btn-light border-0 shadow-sm rounded-3 p-2 mt-3"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapseVisibility"
@@ -213,7 +216,7 @@
 									[checked]="visibility"
 									[(ngModel)]="visibility"
 									(change)="saveSettings($event)"
-                                    style="cursor: pointer"
+									style="cursor: pointer"
 								/>
 								<label
 									class="form-check-label"
@@ -227,6 +230,7 @@
 
 					<!-- Visibility Mobile -->
 					<button
+						id="visibilityBtnMobile"
 						class="d-flex d-lg-none btn btn-sm btn-light border-0 shadow-sm rounded-3 p-2 mt-3"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapseVisibilityMobile"
@@ -252,15 +256,16 @@
 									class="form-check-input updateVisibilityBtnMobile"
 									type="checkbox"
 									role="switch"
-									id="flexSwitchCheckChecked"
+									id="flexSwitchCheckCheckedMobile"
 									[checked]="visibility"
 									[(ngModel)]="visibility"
 									(change)="saveSettings($event)"
-                                    style="cursor: pointer"
+									style="cursor: pointer"
 								/>
 								<label
 									class="form-check-label"
-									for="flexSwitchCheckChecked"
+									for="flexSwitchCheckCheckedMobile"
+									style="font-size: small"
 								>
 									Rendi visibili le tue schede agli altri
 								</label>
@@ -270,6 +275,7 @@
 
 					<!-- Playlist Desktop -->
 					<button
+						id="playlistBtn"
 						class="btn btn-light border-0 shadow-sm rounded-3 p-2 mt-3 d-none d-lg-flex"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapsePlaylist"
@@ -314,6 +320,7 @@
 
 					<!-- Playlist Mobile -->
 					<button
+						id="playlistBtnMobile"
 						class="btn btn-sm btn-light border-0 shadow-sm rounded-3 p-2 mt-3 d-flex d-lg-none"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapsePlaylistMobile"
