@@ -8,6 +8,7 @@ import { ExpandFeedbackDialogComponent } from "../expand-feedback-dialog/expand-
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import { User } from "src/app/Models/User.model";
 import { Workout } from "src/app/Models/Workout.model";
+import { ExpandExercisesDialogComponent } from "../expand-exercises-dialog/expand-exercises-dialog.component";
 
 @Component({
 	selector: "app-admin",
@@ -44,7 +45,7 @@ export class AdminComponent implements OnInit {
 		).getTime();
 
 		this.exercises = await this.firebase.getAllExercises();
-		this.exercises.length = this.exercises.length;
+		this.exercisesLength = this.exercises.length;
 
 		this.users = await this.firebase.getAllUsers();
 		this.activeUsersLength = this.getActiveUsersLength();
@@ -86,6 +87,14 @@ export class AdminComponent implements OnInit {
 			},
 		});
 	}
+
+    public showExercises() {
+        this.dialog.open(ExpandExercisesDialogComponent, {
+            data: {
+                exercises: this.exercises
+            },
+        });
+    }
 
 	async removeFeedback(index: number) {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {

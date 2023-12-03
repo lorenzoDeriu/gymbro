@@ -68,6 +68,7 @@ import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.com
 import { AboutPreviewComponent } from "./components/about-preview/about-preview.component";
 import { WelcomeDialogComponent } from "./components/welcome-dialog/welcome-dialog.component";
 import { ExpandFeedbackDialogComponent } from "./components/expand-feedback-dialog/expand-feedback-dialog.component";
+import { ExpandExercisesDialogComponent } from './components/expand-exercises-dialog/expand-exercises-dialog.component';
 
 @NgModule({
 	declarations: [
@@ -108,6 +109,7 @@ import { ExpandFeedbackDialogComponent } from "./components/expand-feedback-dial
 		AboutPreviewComponent,
 		WelcomeDialogComponent,
 		ExpandFeedbackDialogComponent,
+  ExpandExercisesDialogComponent,
 	],
 	imports: [
 		BrowserModule,

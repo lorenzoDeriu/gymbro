@@ -114,9 +114,9 @@ export class FirebaseService {
 	}
 
 	async getAllExercises() {
-		return await getDocs(collection(this.db, "exercises")).then(
+		return await getDocs(collection(this.db, "exercise")).then(
 			querySnapshot => {
-				return querySnapshot.docs;
+				return querySnapshot.docs.map(doc => doc.data())[0]["name"];
 			}
 		);
 	}
