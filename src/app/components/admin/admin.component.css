@@ -15,19 +15,6 @@
 	overflow: auto;
 }
 
-.purple-btn {
-	border: none;
-	background-color: #6b44d4;
-}
-
-.purple-btn:hover {
-	background-color: #785ebe !important;
-}
-
-.purple-btn:active {
-	background-color: #957dd6 !important;
-}
-
 @media (max-width: 1000px) {
 	.feedback-list {
 		width: 100% !important;

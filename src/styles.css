@@ -19,12 +19,51 @@ body {
 	scrollbar-width: none;
 }
 
+.purple-btn {
+	border: #6b44d4 1px solid !important;
+	background-color: #6b44d4 !important;
+}
+
+.purple-btn:disabled {
+	border: #9888c4 1px solid !important;
+	background-color: #9888c4 !important;
+}
+
+.purple-btn:hover {
+    border: #785ebe 1px solid !important;
+	background-color: #785ebe !important;
+}
+
+.purple-btn:active {
+    border: #9780d5 1px solid !important;
+	background-color: #9780d5 !important;
+}
+
+.blue-btn {
+	border: #4089c9 1px solid !important;
+	background-color: #4089c9 !important;
+}
+
+.blue-btn:disabled {
+    border: #7ea3c4 1px solid !important;
+	background-color: #7ea3c4 !important;
+}
+
+.blue-btn:hover {
+    border: #659fd2 1px solid !important;
+	background-color: #659fd2 !important;
+}
+
+.blue-btn:active {
+    border: #7eafda 1px solid !important;
+	background-color: #7eafda !important;
+}
+
 img {
 	-webkit-user-drag: none;
 	-khtml-user-drag: none;
 	-moz-user-drag: none;
 	-o-user-drag: none;
-	user-drag: none;
 }
 
 input::-webkit-outer-spin-button,
@@ -36,6 +75,7 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
 	-moz-appearance: textfield;
+    appearance: textfield;
 }
 
 ::-moz-selection {
