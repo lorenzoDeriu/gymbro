@@ -88,13 +88,13 @@ export class AdminComponent implements OnInit {
 		});
 	}
 
-    public showExercises() {
-        this.dialog.open(ExpandExercisesDialogComponent, {
-            data: {
-                exercises: this.exercises
-            },
-        });
-    }
+	public showExercises() {
+		this.dialog.open(ExpandExercisesDialogComponent, {
+			data: {
+				exercises: this.exercises,
+			},
+		});
+	}
 
 	async removeFeedback(index: number) {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {

@@ -1,12 +1,16 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SafetyActionConfirmDialogComponent } from '../safety-action-confirm-dialog/safety-action-confirm-dialog.component';
-import { Exercise } from 'src/app/Models/Exercise.model';
+import { Component, Inject } from "@angular/core";
+import {
+	MAT_DIALOG_DATA,
+	MatDialog,
+	MatDialogRef,
+} from "@angular/material/dialog";
+import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { Exercise } from "src/app/Models/Exercise.model";
 
 @Component({
-  selector: 'app-expand-exercises-dialog',
-  templateUrl: './expand-exercises-dialog.component.html',
-  styleUrls: ['./expand-exercises-dialog.component.css']
+	selector: "app-expand-exercises-dialog",
+	templateUrl: "./expand-exercises-dialog.component.html",
+	styleUrls: ["./expand-exercises-dialog.component.css"],
 })
 export class ExpandExercisesDialogComponent {
 	constructor(
@@ -29,9 +33,7 @@ export class ExpandExercisesDialogComponent {
 		});
 	}
 
-    editItem(index: number) {
-        
-    }
+	editItem(index: number) {}
 
 	closeDialog() {
 		this.dialogRef.close();
