@@ -56,29 +56,6 @@
 				</button>
 			</div>
 
-			<!-- 			<div class="form-check mb-4">
-				<input
-					id="checkbox-profile"
-					class="form-check-input"
-					type="checkbox"
-					[(ngModel)]="visibility"
-					[checked]="visibility"
-				/>
-				<label
-					class="form-check-label d-none d-lg-block"
-					for="checkbox-profile"
-				>
-					Rendi visibili le tue schede agli altri
-				</label>
-				<label
-					class="form-check-label d-block d-lg-none"
-					for="checkbox-profile"
-					style="font-size: small"
-				>
-					Rendi visibili le tue schede agli altri
-				</label>
-			</div> -->
-
 			<button
 				(click)="openExcerciseDialog()"
 				class="d-flex btn btn-light border-0 shadow-sm rounded-3 mb-3 p-2 w-100 d-none d-lg-block"
@@ -111,6 +88,7 @@
 				Torna alla home
 			</button>
 
+			<!-- Impostazioni -->
 			<div class="w-100 d-flex flex-column">
 				<h5>
 					Impostazioni
@@ -226,23 +204,23 @@
 						id="collapseVisibility"
 					>
 						<div class="card card-body border-0 p-0">
-                            <div class="form-check form-switch">
-                                <input
-                                    class="form-check-input updateVisibilityBtn"
-                                    type="checkbox"
-                                    role="switch"
-                                    id="flexSwitchCheckChecked"
-                                    [checked]="visibility"
-                                    [(ngModel)]="visibility"
-                                    (change)="saveSettings($event)"
-                                />
-                                <label
-                                    class="form-check-label"
-                                    for="flexSwitchCheckChecked"
-                                >
-                                    Rendi visibili le tue schede agli altri
-                                </label>
-                            </div>
+							<div class="form-check form-switch">
+								<input
+									class="form-check-input updateVisibilityBtn"
+									type="checkbox"
+									role="switch"
+									id="flexSwitchCheckChecked"
+									[checked]="visibility"
+									[(ngModel)]="visibility"
+									(change)="saveSettings($event)"
+								/>
+								<label
+									class="form-check-label"
+									for="flexSwitchCheckChecked"
+								>
+									Rendi visibili le tue schede agli altri
+								</label>
+							</div>
 						</div>
 					</div>
 
@@ -269,21 +247,22 @@
 					>
 						<div class="card card-body border-0 p-0">
 							<div class="form-check form-switch">
-                                <input
-                                    class="form-check-input updateVisibilityBtnMobile"
-                                    type="checkbox"
-                                    role="switch"
-                                    id="flexSwitchCheckChecked"
-                                    [checked]="visibility"
-                                    (change)="saveSettings($event)"
-                                />
-                                <label
-                                    class="form-check-label"
-                                    for="flexSwitchCheckChecked"
-                                >
-                                    Rendi visibili le tue schede agli altri
-                                </label>
-                            </div>
+								<input
+									class="form-check-input updateVisibilityBtnMobile"
+									type="checkbox"
+									role="switch"
+									id="flexSwitchCheckChecked"
+									[checked]="visibility"
+									[(ngModel)]="visibility"
+									(change)="saveSettings($event)"
+								/>
+								<label
+									class="form-check-label"
+									for="flexSwitchCheckChecked"
+								>
+									Rendi visibili le tue schede agli altri
+								</label>
+							</div>
 						</div>
 					</div>
 
@@ -307,7 +286,8 @@
 						<div class="card card-body border-0 p-0">
 							<div class="d-flex align-items-center">
 								<input
-									type="text"
+									type="url"
+									inputmode="url"
 									class="form-control rounded-3"
 									placeholder="Playlist URL"
 									aria-label="Playlist URL"
@@ -350,7 +330,8 @@
 						<div class="card card-body border-0 p-0">
 							<div class="d-flex align-items-center">
 								<input
-									type="text"
+									type="url"
+									inputmode="url"
 									class="form-control form-control-sm rounded-3"
 									placeholder="Playlist URL"
 									aria-label="Playlist URL"

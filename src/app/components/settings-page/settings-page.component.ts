@@ -63,13 +63,13 @@ export class SettingsPageComponent implements OnInit {
 		);
 	}
 
-    public resetUsernameInput() {
-        this.username = this.originalUsername;
-    }
+	public resetUsernameInput() {
+		this.username = this.originalUsername;
+	}
 
-    public resetPlaylistUrlInput() {
-        this.playlistUrl = this.originalPlaylistUrl;
-    }
+	public resetPlaylistUrlInput() {
+		this.playlistUrl = this.originalPlaylistUrl;
+	}
 
 	public openExcerciseDialog() {
 		this.dialog.open(CustomExcerciseDialogComponent, {
@@ -124,44 +124,56 @@ export class SettingsPageComponent implements OnInit {
 		await this.firebase.updateVisibility(this.visibility);
 		await this.firebase.updateCustomExercises(this.customExercises);
 
-        let user: User = await this.firebase.getUserData();
+		let user: User = await this.firebase.getUserData();
 		this.visibility = user.visibility;
 		this.username = user.username;
 		this.originalUsername = this.username;
 		this.playlistUrl = user.playlistUrl;
 		this.originalPlaylistUrl = this.playlistUrl;
 
-        const target = e.target as HTMLElement;
-        this.collapseSettings(target);
+		const target = e.target as HTMLElement;
+		this.collapseSettings(target);
 
 		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
 	}
 
-    collapseSettings(target: HTMLElement) {
-        if (target.classList.contains("saveUsernameBtn")) {
-            document.getElementById("collapseUsername").classList.remove("show");
-        }
+	collapseSettings(target: HTMLElement) {
+		if (target.classList.contains("saveUsernameBtn")) {
+			document
+				.getElementById("collapseUsername")
+				.classList.remove("show");
+		}
 
-        if (target.classList.contains("saveUsernameBtnMobile")) {
-            document.getElementById("collapseUsernameMobile").classList.remove("show");
-        }
+		if (target.classList.contains("saveUsernameBtnMobile")) {
+			document
+				.getElementById("collapseUsernameMobile")
+				.classList.remove("show");
+		}
 
-        if (target.classList.contains("savePlaylistBtn")) {
-            document.getElementById("collapsePlaylist").classList.remove("show");
-        }
+		if (target.classList.contains("savePlaylistBtn")) {
+			document
+				.getElementById("collapsePlaylist")
+				.classList.remove("show");
+		}
 
-        if (target.classList.contains("savePlaylistBtnMobile")) {
-            document.getElementById("collapsePlaylistMobile").classList.remove("show");
-        }
+		if (target.classList.contains("savePlaylistBtnMobile")) {
+			document
+				.getElementById("collapsePlaylistMobile")
+				.classList.remove("show");
+		}
 
-        if (target.classList.contains("updateVisibilityBtn")) {
-            document.getElementById("collapseVisibility").classList.remove("show");
-        }
+		if (target.classList.contains("updateVisibilityBtn")) {
+			document
+				.getElementById("collapseVisibility")
+				.classList.remove("show");
+		}
 
-        if (target.classList.contains("updateVisibilityBtnMobile")) {
-            document.getElementById("collapseVisibilityMobile").classList.remove("show");
-        }
-    }
+		if (target.classList.contains("updateVisibilityBtnMobile")) {
+			document
+				.getElementById("collapseVisibilityMobile")
+				.classList.remove("show");
+		}
+	}
 
 	public backToHome() {
 		this.router.navigate(["/home"]);

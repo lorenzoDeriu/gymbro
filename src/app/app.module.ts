@@ -1,14 +1,11 @@
 import { environment } from "src/environments/environment";
 import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AccessComponent } from "./components/access/access.component";
-
 import { HttpClientModule } from "@angular/common/http";
-
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -19,11 +16,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { MatGridListModule } from "@angular/material/grid-list";
-import {
-	MatRippleModule,
-	MAT_DATE_LOCALE,
-	DateAdapter,
-} from "@angular/material/core";
+import { MatRippleModule } from "@angular/material/core";
 import { NewWorkoutComponent } from "./components/new-workout/new-workout.component";
 import { OldWorkoutsComponent } from "./components/old-workouts/old-workouts.component";
 import { YourProgressComponent } from "./components/your-progress/your-progress.component";
@@ -32,13 +25,13 @@ import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { TrainingProgramSelectorComponent } from "./components/training-program-selector/training-program-selector.component";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { NewExerciseDialogComponent } from "./components/new-exercise-dialog/new-exercise-dialog.component";
-import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatSelectModule } from "@angular/material/select";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
-import { provideFirebaseApp, getApp, initializeApp } from "@angular/fire/app";
+import { provideFirebaseApp, initializeApp } from "@angular/fire/app";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { MatTableModule } from "@angular/material/table";
 import { TrainingProgramBuilderComponent } from "./components/training-program-builder/training-program-builder.component";
@@ -53,7 +46,6 @@ import { ProfileComponent } from "./components/profile/profile.component";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { FeedbackDialogComponent } from "./components/feedback-dialog/feedback-dialog.component";
 import { AdminComponent } from "./components/admin/admin.component";
-import { FeedbackListComponent } from "./components/feedback-list/feedback-list.component";
 import { AddExerciseDialogComponent } from "./components/add-exercise-dialog/add-exercise-dialog.component";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { AboutComponent } from "./components/about/about.component";
@@ -75,6 +67,7 @@ import { ShareDialogComponent } from "./components/share-dialog/share-dialog.com
 import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
 import { AboutPreviewComponent } from "./components/about-preview/about-preview.component";
 import { WelcomeDialogComponent } from "./components/welcome-dialog/welcome-dialog.component";
+import { ExpandFeedbackDialogComponent } from "./components/expand-feedback-dialog/expand-feedback-dialog.component";
 
 @NgModule({
 	declarations: [
@@ -97,7 +90,6 @@ import { WelcomeDialogComponent } from "./components/welcome-dialog/welcome-dial
 		ProfileComponent,
 		FeedbackDialogComponent,
 		AdminComponent,
-		FeedbackListComponent,
 		AddExerciseDialogComponent,
 		AboutComponent,
 		SettingsPageComponent,
@@ -115,6 +107,7 @@ import { WelcomeDialogComponent } from "./components/welcome-dialog/welcome-dial
 		AdminDialogComponent,
 		AboutPreviewComponent,
 		WelcomeDialogComponent,
+		ExpandFeedbackDialogComponent,
 	],
 	imports: [
 		BrowserModule,

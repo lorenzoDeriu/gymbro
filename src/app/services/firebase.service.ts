@@ -105,6 +105,22 @@ export class FirebaseService {
 		console.log("db fixed");
 	}
 
+	async getAllUsers() {
+		return await getDocs(collection(this.db, "users")).then(
+			querySnapshot => {
+				return querySnapshot.docs.map(doc => doc.data());
+			}
+		);
+	}
+
+	async getAllExercises() {
+		return await getDocs(collection(this.db, "exercises")).then(
+			querySnapshot => {
+				return querySnapshot.docs;
+			}
+		);
+	}
+
 	private normalizeWorkout(workouts: any[]): Workout[] {
 		let normalizedWorkout: Workout[] = [];
 
@@ -660,7 +676,7 @@ export class FirebaseService {
 			user.uid = document.id;
 			user.username = userData.username;
 
-			if (uid != user.uid) {
+			if (uid !== user.uid) {
 				result.push(user);
 			}
 		});

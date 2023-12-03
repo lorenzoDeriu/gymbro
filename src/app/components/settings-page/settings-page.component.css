@@ -8,7 +8,7 @@
 }
 
 #main-container {
-    width: 35%;
+	width: 35%;
 	height: 100%;
 	overflow-y: auto;
 }
@@ -19,7 +19,7 @@ input:focus {
 }
 
 .form-switch {
-    accent-color: #6b44d4;
+	accent-color: #6b44d4;
 }
 
 .purple-btn {
@@ -36,21 +36,21 @@ input:focus {
 }
 
 @media (max-width: 991px) {
-    .collapseDesktop {
-        display: none;
-    }
+	.collapseDesktop {
+		display: none;
+	}
 }
 
 @media (min-width: 991px) {
-    .collapseMobile {
-        display: none;
-    }
+	.collapseMobile {
+		display: none;
+	}
 }
 
 @media (max-width: 900px) {
-    #main-container {
-        width: 100%;
-    }
+	#main-container {
+		width: 100%;
+	}
 }
 
 @media (max-width: 450px) {
