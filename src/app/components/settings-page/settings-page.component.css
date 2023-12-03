@@ -8,20 +8,18 @@
 }
 
 #main-container {
+    width: 35%;
 	height: 100%;
 	overflow-y: auto;
 }
 
 input:focus {
 	outline: none;
+	box-shadow: none;
 }
 
-#checkbox-profile {
-	outline: none;
-	box-shadow: none;
-	cursor: pointer;
-	border-radius: 50%;
-	padding: 1px;
+.form-switch {
+    accent-color: #6b44d4;
 }
 
 .purple-btn {
@@ -35,6 +33,24 @@ input:focus {
 
 .purple-btn:active {
 	background-color: #957dd6 !important;
+}
+
+@media (max-width: 991px) {
+    .collapseDesktop {
+        display: none;
+    }
+}
+
+@media (min-width: 991px) {
+    .collapseMobile {
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    #main-container {
+        width: 100%;
+    }
 }
 
 @media (max-width: 450px) {

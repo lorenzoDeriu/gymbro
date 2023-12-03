@@ -18,10 +18,10 @@ export class SettingsPageComponent implements OnInit {
 	public customExercises: string[] = [];
 	public visibility: boolean;
 	public playlistUrl: string;
-	private originalUsername: string;
+	public originalPlaylistUrl: string;
 	public username: string;
+	public originalUsername: string;
 	public loading: boolean = false;
-	public onModify: boolean = false;
 
 	constructor(
 		private firebase: FirebaseService,
@@ -40,8 +40,9 @@ export class SettingsPageComponent implements OnInit {
 			user.customExercises == undefined ? [] : user.customExercises;
 		this.visibility = user.visibility;
 		this.username = user.username;
+		this.originalUsername = this.username;
 		this.playlistUrl = user.playlistUrl;
-		this.originalUsername = user.username;
+		this.originalPlaylistUrl = this.playlistUrl;
 
 		this.loading = false;
 	}
@@ -61,6 +62,14 @@ export class SettingsPageComponent implements OnInit {
 			this.username !== this.originalUsername
 		);
 	}
+
+    public resetUsernameInput() {
+        this.username = this.originalUsername;
+    }
+
+    public resetPlaylistUrlInput() {
+        this.playlistUrl = this.originalPlaylistUrl;
+    }
 
 	public openExcerciseDialog() {
 		this.dialog.open(CustomExcerciseDialogComponent, {
@@ -103,12 +112,7 @@ export class SettingsPageComponent implements OnInit {
 		});
 	}
 
-	public cancel() {
-		this.username = this.originalUsername;
-		this.onModify = false;
-	}
-
-	public async saveSettings() {
+	public async saveSettings(e: Event) {
 		if (this.isUsernameValid()) {
 			await this.firebase.updateUsername(this.username);
 		}
@@ -120,10 +124,44 @@ export class SettingsPageComponent implements OnInit {
 		await this.firebase.updateVisibility(this.visibility);
 		await this.firebase.updateCustomExercises(this.customExercises);
 
-		this.onModify = false;
+        let user: User = await this.firebase.getUserData();
+		this.visibility = user.visibility;
+		this.username = user.username;
+		this.originalUsername = this.username;
+		this.playlistUrl = user.playlistUrl;
+		this.originalPlaylistUrl = this.playlistUrl;
+
+        const target = e.target as HTMLElement;
+        this.collapseSettings(target);
+
 		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
-		window.location.reload();
 	}
+
+    collapseSettings(target: HTMLElement) {
+        if (target.classList.contains("saveUsernameBtn")) {
+            document.getElementById("collapseUsername").classList.remove("show");
+        }
+
+        if (target.classList.contains("saveUsernameBtnMobile")) {
+            document.getElementById("collapseUsernameMobile").classList.remove("show");
+        }
+
+        if (target.classList.contains("savePlaylistBtn")) {
+            document.getElementById("collapsePlaylist").classList.remove("show");
+        }
+
+        if (target.classList.contains("savePlaylistBtnMobile")) {
+            document.getElementById("collapsePlaylistMobile").classList.remove("show");
+        }
+
+        if (target.classList.contains("updateVisibilityBtn")) {
+            document.getElementById("collapseVisibility").classList.remove("show");
+        }
+
+        if (target.classList.contains("updateVisibilityBtnMobile")) {
+            document.getElementById("collapseVisibilityMobile").classList.remove("show");
+        }
+    }
 
 	public backToHome() {
 		this.router.navigate(["/home"]);
