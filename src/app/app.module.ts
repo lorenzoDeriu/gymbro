@@ -69,7 +69,7 @@ import { AboutPreviewComponent } from "./components/about-preview/about-preview.
 import { WelcomeDialogComponent } from "./components/welcome-dialog/welcome-dialog.component";
 import { ExpandFeedbackDialogComponent } from "./components/expand-feedback-dialog/expand-feedback-dialog.component";
 import { ExpandExercisesDialogComponent } from "./components/expand-exercises-dialog/expand-exercises-dialog.component";
-import { ShowExerciseFromTemplateDialogComponent } from './components/show-exercise-from-template-dialog/show-exercise-from-template-dialog.component';
+import { ShowExerciseFromTemplateDialogComponent } from "./components/show-exercise-from-template-dialog/show-exercise-from-template-dialog.component";
 
 @NgModule({
 	declarations: [
@@ -111,7 +111,7 @@ import { ShowExerciseFromTemplateDialogComponent } from './components/show-exerc
 		WelcomeDialogComponent,
 		ExpandFeedbackDialogComponent,
 		ExpandExercisesDialogComponent,
-  ShowExerciseFromTemplateDialogComponent,
+		ShowExerciseFromTemplateDialogComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -86,15 +86,24 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}
 	}
 
-    public showExerciseFromTemplate(exerciseIndex: number) {
-        this.dialog.open(ShowExerciseFromTemplateDialogComponent, {
-            data: {
-                name: this.workout.exercises[exerciseIndex].name,
-                sets: formatSets(this.workout.exercises[exerciseIndex].template),
-            },
-            disableClose: false,
-        })
-    }
+	public showExerciseFromTemplate(exerciseIndex: number) {
+		this.dialog.open(ShowExerciseFromTemplateDialogComponent, {
+			data: {
+				name: this.workout.exercises[exerciseIndex].name,
+				sets: formatSets(
+					this.workout.exercises[exerciseIndex].template
+				),
+			},
+			disableClose: false,
+		});
+	}
+
+	public pickDate() {
+		const datePicker = document.getElementById(
+			"date-picker"
+		) as HTMLInputElement;
+		datePicker.showPicker();
+	}
 
 	public workoutExists() {
 		return localStorage.getItem("workout") !== null;
