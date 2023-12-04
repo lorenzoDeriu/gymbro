@@ -1,14 +1,118 @@
 <div
 	class="d-flex flex-column justify-content-center align-items-center p-3 overflow-hidden"
-	style="min-width: 220px; max-width: 500px; max-height: 60svh"
+	style="min-width: 220px; max-width: 800px; max-height: 80svh"
 >
 	<h1 class="text-center">
-		{{ name }}
+		{{ workout.name }}
 	</h1>
 
-	<p *ngFor="let set of sets">
-		{{ set }}
-	</p>
+	<table class="table table-sm table-striped table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Esercizio</th>
+				<th scope="col">Serie</th>
+				<th scope="col">Intensità</th>
+				<th scope="col">Recupero</th>
+			</tr>
+		</thead>
+		<tbody class="table-group-divider">
+			<tr
+				*ngFor="
+					let exercise of workout.exercises;
+					index as exerciseIndex
+				"
+			>
+				<th class="text-wrap">
+					<i
+						*ngIf="exercise.note && exercise.note != ''"
+						(click)="showNotes(exerciseIndex)"
+						style="cursor: pointer"
+						class="me-1 bi bi-info-circle-fill"
+					></i>
+					{{ exercise.name }}
+				</th>
 
-	<button class="btn btn-dark w-100" (click)="closeDialog()">Chiudi</button>
+				<td class="text-wrap">
+					<div class="d-flex flex-column">
+						<div
+							*ngFor="
+								let set of formatSets(exercise.template);
+								index as setIndex
+							"
+						>
+							{{ set }}
+						</div>
+					</div>
+				</td>
+				<td>
+					<!--Desktop-->
+					<p
+						*ngIf="exercise.intensity === 'light'"
+						class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+						style="width: fit-content"
+					>
+						Leggero
+						<i class="ms-1 bi bi-feather"></i>
+					</p>
+					<p
+						*ngIf="exercise.intensity === 'hard'"
+						class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+						style="width: fit-content"
+					>
+						Pesante
+						<i class="ms-1 bi bi-lightning-fill"></i>
+					</p>
+					<p
+						*ngIf="exercise.intensity === 'failure'"
+						class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+						style="width: fit-content"
+					>
+						Cedimento
+						<i class="ms-1 bi bi-fire"></i>
+					</p>
+
+					<!--Mobile-->
+					<p
+						*ngIf="exercise.intensity === 'light'"
+						class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+						style="width: fit-content"
+					>
+						<i class="bi bi-feather"></i>
+					</p>
+					<p
+						*ngIf="exercise.intensity === 'hard'"
+						class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+						style="width: fit-content"
+					>
+						<i class="bi bi-lightning-fill"></i>
+					</p>
+					<p
+						*ngIf="exercise.intensity === 'failure'"
+						class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+						style="width: fit-content"
+					>
+						<i class="bi bi-fire"></i>
+					</p>
+				</td>
+
+				<td>
+					{{ exercise.rest.minutes + ":" + exercise.rest.seconds }}
+				</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<button
+		class="btn btn-dark w-100 d-none d-lg-block"
+		(click)="closeDialog()"
+	>
+		Chiudi
+	</button>
+	<button
+		class="btn btn-sm btn-dark w-100 d-block d-lg-none"
+		(click)="closeDialog()"
+	>
+		Chiudi
+	</button>
 </div>

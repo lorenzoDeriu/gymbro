@@ -8,7 +8,7 @@ import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { Workout } from "src/app/Models/Workout.model";
 import { EffectiveSet } from "src/app/Models/Exercise.model";
-import { generateId, formatSets } from "src/app/utils/utils";
+import { generateId } from "src/app/utils/utils";
 import { ShowExerciseFromTemplateDialogComponent } from "../show-exercise-from-template-dialog/show-exercise-from-template-dialog.component";
 
 export interface Progress {
@@ -86,13 +86,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}
 	}
 
-	public showExerciseFromTemplate(exerciseIndex: number) {
+	public showTrainingProgram() {
 		this.dialog.open(ShowExerciseFromTemplateDialogComponent, {
 			data: {
-				name: this.workout.exercises[exerciseIndex].name,
-				sets: formatSets(
-					this.workout.exercises[exerciseIndex].template
-				),
+				workout: this.workout,
 			},
 			disableClose: false,
 		});

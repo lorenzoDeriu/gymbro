@@ -97,7 +97,6 @@ export class TrainingProgramsComponent implements OnInit {
 		const exercise = session.exercises[exerciseIndex];
 
 		this.dialog.open(NotesDialogComponent, {
-			width: "300px",
 			data: { notes: exercise.note },
 		});
 	}

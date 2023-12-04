@@ -76,8 +76,23 @@
 				</button>
 			</div>
 
-			<div class="mb-4">
-				<div class="input-group d-none d-lg-flex">
+			<div class="d-flex align-items-center mb-4">
+				<button
+					class="btn btn-light border w-100 d-none d-lg-block"
+					(click)="showTrainingProgram()"
+				>
+					Visualizza scheda
+					<i class="bi bi-file-earmark-text"></i>
+				</button>
+
+				<button
+					class="btn btn-sm btn-light border d-block d-lg-none"
+					(click)="showTrainingProgram()"
+				>
+					<i class="bi bi-file-earmark-text"></i>
+				</button>
+
+				<div class="input-group d-none d-lg-flex ms-3">
 					<input
 						type="date"
 						class="form-control"
@@ -92,7 +107,7 @@
 					</button>
 				</div>
 
-				<div class="input-group input-group-sm d-flex d-lg-none">
+				<div class="input-group input-group-sm d-flex d-lg-none ms-3">
 					<input
 						type="date"
 						class="form-control"
@@ -142,17 +157,6 @@
 							<form
 								class="d-none d-lg-flex flex-column align-items-center"
 							>
-								<button
-									*ngIf="exercise.template"
-									class="btn btn-light shadow-sm mb-3"
-									(click)="
-										showExerciseFromTemplate(exerciseIndex)
-									"
-								>
-									Visualizza esercizio nella scheda
-									<i class="bi bi-file-earmark-text"></i>
-								</button>
-
 								<div class="input-group flex-nowrap mb-3">
 									<span class="input-group-text">
 										Esercizio
@@ -548,17 +552,6 @@
 							<form
 								class="d-flex flex-column align-items-center d-lg-none"
 							>
-								<button
-									*ngIf="exercise.template"
-									class="btn btn-sm btn-light shadow-sm mb-3"
-									(click)="
-										showExerciseFromTemplate(exerciseIndex)
-									"
-								>
-									Visualizza esercizio nella scheda
-									<i class="bi bi-file-earmark-text"></i>
-								</button>
-
 								<div
 									class="input-group input-group-sm flex-nowrap mb-3"
 								>

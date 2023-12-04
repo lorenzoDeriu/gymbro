@@ -139,6 +139,12 @@
 										"
 										style="cursor: pointer"
 										class="me-1 bi bi-info-circle-fill"
+										(click)="
+											showNotes(
+												sessionIndex,
+												exerciseIndex
+											)
+										"
 									></i>
 									{{ exercise.name }}
 								</th>
