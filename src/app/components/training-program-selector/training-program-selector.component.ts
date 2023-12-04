@@ -71,6 +71,11 @@ export class TrainingProgramSelectorComponent implements OnInit {
 		this.router.navigate(["/home"]);
 	}
 
+	public createWorkout() {
+		this.userService.startChronometer();
+		this.router.navigate(["/home/prebuild-workout"]);
+	}
+
 	public focusCollapse(type: "program" | "session", index: number) {
 		if (type === "program") {
 			const collapsers: NodeListOf<Element> =

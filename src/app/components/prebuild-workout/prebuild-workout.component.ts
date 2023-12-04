@@ -95,9 +95,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 		});
 	}
 
-    public workoutHasTemplate() {
-        return this.workout.exercises.some(exercise => exercise.template);
-    }
+	public workoutHasTemplate() {
+		return this.workout.exercises.some(exercise => exercise.template);
+	}
 
 	public pickDate() {
 		const datePicker = document.getElementById(
