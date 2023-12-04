@@ -78,7 +78,8 @@
 
 			<div class="d-flex align-items-center mb-4">
 				<button
-					class="btn btn-light border w-100 d-none d-lg-block"
+                    *ngIf="workoutHasTemplate()"
+					class="btn btn-light border w-100 d-none d-lg-block me-3"
 					(click)="showTrainingProgram()"
 				>
 					Visualizza scheda
@@ -86,13 +87,14 @@
 				</button>
 
 				<button
-					class="btn btn-sm btn-light border d-block d-lg-none"
+                    *ngIf="workoutHasTemplate()"
+					class="btn btn-sm btn-light border d-block d-lg-none me-3"
 					(click)="showTrainingProgram()"
 				>
 					<i class="bi bi-file-earmark-text"></i>
 				</button>
 
-				<div class="input-group d-none d-lg-flex ms-3">
+				<div class="input-group d-none d-lg-flex">
 					<input
 						type="date"
 						class="form-control"
@@ -107,7 +109,7 @@
 					</button>
 				</div>
 
-				<div class="input-group input-group-sm d-flex d-lg-none ms-3">
+				<div class="input-group input-group-sm d-flex d-lg-none">
 					<input
 						type="date"
 						class="form-control"
