@@ -17,7 +17,6 @@ import { MatIconModule } from "@angular/material/icon";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatRippleModule } from "@angular/material/core";
-import { NewWorkoutComponent } from "./components/new-workout/new-workout.component";
 import { OldWorkoutsComponent } from "./components/old-workouts/old-workouts.component";
 import { YourProgressComponent } from "./components/your-progress/your-progress.component";
 import { TrainingProgramsComponent } from "./components/training-programs/training-programs.component";
@@ -77,7 +76,6 @@ import { ShowExerciseFromTemplateDialogComponent } from "./components/show-exerc
 		AccessComponent,
 		HomeComponent,
 		PageNotFoundComponent,
-		NewWorkoutComponent,
 		OldWorkoutsComponent,
 		YourProgressComponent,
 		TrainingProgramsComponent,
