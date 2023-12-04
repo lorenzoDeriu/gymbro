@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { NewWorkoutDialogComponent } from "../new-workout-dialog/new-workout-dialog.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
@@ -38,15 +37,13 @@ export class DashboardComponent implements OnInit {
 		return localStorage.getItem("workout") != null;
 	}
 
-	openNewWorkoutDialog(): void {
+	workout(): void {
 		if (this.workoutExists()) {
 			this.router.navigate(["/home/prebuild-workout"]);
 			return;
 		}
 
-		this.dialog.open(NewWorkoutDialogComponent, {
-			disableClose: false,
-		});
+		this.router.navigate(["/home/training-program-selector"]);
 	}
 
 	openWIPSnackbar(): void {

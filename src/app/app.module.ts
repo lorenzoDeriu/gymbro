@@ -60,7 +60,6 @@ import { SafetyActionConfirmDialogComponent } from "./components/safety-action-c
 import { ErrorLoginDialogComponent } from "./components/error-login-dialog/error-login-dialog.component";
 import { ErrorRegisterDialogComponent } from "./components/error-register-dialog/error-register-dialog.component";
 import { ErrorProviderDialogComponent } from "./components/error-provider-dialog/error-provider-dialog.component";
-import { NewWorkoutDialogComponent } from "./components/new-workout-dialog/new-workout-dialog.component";
 import { CustomExcerciseDialogComponent } from "./components/custom-excercise-dialog/custom-excercise-dialog.component";
 import { ShareDialogComponent } from "./components/share-dialog/share-dialog.component";
 import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
@@ -101,7 +100,6 @@ import { ShowExerciseFromTemplateDialogComponent } from "./components/show-exerc
 		ErrorLoginDialogComponent,
 		ErrorRegisterDialogComponent,
 		ErrorProviderDialogComponent,
-		NewWorkoutDialogComponent,
 		CustomExcerciseDialogComponent,
 		ShareDialogComponent,
 		AdminDialogComponent,
