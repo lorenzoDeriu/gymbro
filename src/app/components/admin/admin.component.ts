@@ -80,6 +80,10 @@ export class AdminComponent implements OnInit {
 		return activeUsersLength;
 	}
 
+    public reload() {
+        window.location.reload();
+    }
+
 	public showFeedback(index: number) {
 		this.dialog.open(ExpandFeedbackDialogComponent, {
 			data: {

@@ -22,6 +22,10 @@
 		</h1>
 
 		<div class="my-4 d-none d-lg-block">
+            <button class="btn btn-light shadow-sm me-3" (click)="reload()">
+                <i class="bi bi-arrow-clockwise"></i>
+            </button>
+
 			<button
 				class="btn purple-btn text-light me-3"
 				(click)="addExercise()"
@@ -40,6 +44,10 @@
 		</div>
 
 		<div class="mb-3 d-block d-lg-none">
+            <button class="btn btn-sm btn-light shadow-sm me-3" (click)="reload()">
+                <i class="bi bi-arrow-clockwise"></i>
+            </button>
+
 			<button
 				class="btn btn-sm purple-btn text-light me-3"
 				(click)="addExercise()"
@@ -52,8 +60,7 @@
 				class="btn btn-sm btn-dark text-light"
 				routerLink="/home/dashboard"
 			>
-				Home
-				<i class="ms-1 bi bi-house-fill"></i>
+				<i class="bi bi-house-fill"></i>
 			</button>
 		</div>
 
