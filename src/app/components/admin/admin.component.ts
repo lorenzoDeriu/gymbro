@@ -83,7 +83,7 @@ export class AdminComponent implements OnInit {
 	public showFeedback(index: number) {
 		this.dialog.open(ExpandFeedbackDialogComponent, {
 			data: {
-				message: this.feedbacks[index].content,
+				message: this.feedbacks[index].content
 			},
 		});
 	}
