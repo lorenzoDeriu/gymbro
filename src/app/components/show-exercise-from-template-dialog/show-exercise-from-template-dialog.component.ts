@@ -8,7 +8,6 @@ import { Set } from "src/app/Models/Exercise.model";
 import { Workout } from "src/app/Models/Workout.model";
 import { formatSets } from "src/app/utils/utils";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
-import { TrainingProgram } from "src/app/Models/TrainingProgram.model";
 
 @Component({
 	selector: "app-show-exercise-from-template-dialog",
@@ -19,16 +18,13 @@ export class ShowExerciseFromTemplateDialogComponent {
 	public workout: Workout;
 
 	constructor(
-		@Inject(MAT_DIALOG_DATA) private data: {workout: Workout},
+		@Inject(MAT_DIALOG_DATA) private data: { workout: Workout },
 		private dialogRef: MatDialogRef<ShowExerciseFromTemplateDialogComponent>,
 		private dialog: MatDialog
 	) {}
 
 	ngOnInit() {
-		this.workout = {
-            ...this.data.workout,
-            exercises: this.data.workout.exercises.filter((exercise) => exercise.template)
-        };
+		this.workout = this.data.workout;
 	}
 
 	public formatSets(sets: Set[]) {

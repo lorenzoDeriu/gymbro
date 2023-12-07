@@ -119,7 +119,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public showTrainingProgram() {
 		this.dialog.open(ShowExerciseFromTemplateDialogComponent, {
 			data: {
-				workout: this.workout,
+				workout: JSON.parse(
+					localStorage.getItem("workoutTemplate")
+				) as Workout,
 			},
 			disableClose: false,
 		});
@@ -306,7 +308,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 				args: [],
 				confirm: () => {
 					this.userService.resetWorkout();
-					localStorage.removeItem("workoutProgress");
 					this.userService.endChronometer();
 					this.userService.endRest();
 					this.router.navigate(["/home"]);

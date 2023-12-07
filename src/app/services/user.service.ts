@@ -206,8 +206,12 @@ export class UserService {
 			trainingTime: 0,
 		};
 		localStorage.removeItem("workout");
+		localStorage.removeItem("workoutTemplate");
+		localStorage.removeItem("workoutProgress");
 		this.setEditMode(false);
 		localStorage.removeItem("editMode");
+		this.setRestMode(false);
+		localStorage.removeItem("restMode");
 		localStorage.removeItem("workoutToEditIndex");
 	}
 
