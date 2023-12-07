@@ -111,6 +111,7 @@ export class UserService {
 		this.setRestMode(false);
 		localStorage.removeItem("restStartTime");
 		localStorage.removeItem("timeToRest");
+        localStorage.removeItem("restMode");
 	}
 
 	private checkForBackup() {
@@ -208,6 +209,7 @@ export class UserService {
 		localStorage.removeItem("workout");
 		localStorage.removeItem("workoutTemplate");
 		localStorage.removeItem("workoutProgress");
+		localStorage.removeItem("workoutCompleteTime");
 		this.setEditMode(false);
 		localStorage.removeItem("editMode");
 		this.setRestMode(false);
