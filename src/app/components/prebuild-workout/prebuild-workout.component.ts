@@ -68,7 +68,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		if (
 			workoutStartTime &&
 			workoutCompleteTime &&
-			Date.now() - workoutCompleteTime > 30
+			Date.now() - workoutCompleteTime > 300000
 		) {
 			this.dialog.open(WorkoutNotSavedDialogComponent, {
 				data: {
