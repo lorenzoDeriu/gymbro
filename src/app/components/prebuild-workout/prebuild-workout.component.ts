@@ -97,9 +97,21 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	private isIOSDevice() {
-		console.log((navigator.userAgent.includes("Mac") && "ontouchend" in document))
+		console.log(
+			(navigator.userAgent.includes("iPhone") ||
+			navigator.userAgent.includes("iPad") ||
+			navigator.userAgent.includes("iPod") ||
+			navigator.userAgent.includes("iPhone Simulator") ||
+			navigator.userAgent.includes("iPad Simulator") ||
+			navigator.userAgent.includes("iPod Simulator"))
+		);
 		return (
-			(navigator.userAgent.includes("Mac") && "ontouchend" in document)
+			(navigator.userAgent.includes("iPhone") ||
+			navigator.userAgent.includes("iPad") ||
+			navigator.userAgent.includes("iPod") ||
+			navigator.userAgent.includes("iPhone Simulator") ||
+			navigator.userAgent.includes("iPad Simulator") ||
+			navigator.userAgent.includes("iPod Simulator"))
 		);
 	}
 
