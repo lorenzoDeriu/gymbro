@@ -30,6 +30,10 @@ input:focus {
 	display: none;
 }
 
+.dragging {
+    opacity: 0.2;
+}
+
 @media (min-width: 900px) {
 	#main-container {
 		width: 75%;

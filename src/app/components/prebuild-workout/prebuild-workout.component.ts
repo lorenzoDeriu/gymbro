@@ -33,6 +33,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public editMode: boolean = false;
 	public restMode: boolean = false;
 
+	private timerID: any;
+	private pressHoldDuration: number = 2000;
+
 	constructor(
 		private userService: UserService,
 		private router: Router,
@@ -87,6 +90,163 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}
 
 		this.loading = false;
+
+		setTimeout(() => {
+			this.enableDragAndDrop();
+		}, 0);
+	}
+
+	private isIOSDevice() {
+		console.log((navigator.userAgent.includes("Mac") && "ontouchend" in document))
+		return (
+			(navigator.userAgent.includes("Mac") && "ontouchend" in document)
+		);
+	}
+
+	private collapseAll() {
+		const collapsers: NodeListOf<Element> =
+			document.querySelectorAll(".collapser");
+		const collapses: NodeListOf<Element> =
+			document.querySelectorAll(".collapse-body");
+
+		for (let i = 0; i < collapsers.length; i++) {
+			collapsers[i]?.classList.remove("collapsed");
+			collapsers[i]?.setAttribute("aria-expanded", "false");
+			collapses[i]?.classList.remove("show");
+		}
+	}
+
+	private enableDragAndDrop() {
+		const exercisesList: Element = document.querySelector(".exercises");
+		const exercises: NodeListOf<Element> =
+			document.querySelectorAll(".exercise");
+
+		let dragStartingPosition: number = -1;
+		let dragEndingPosition: number = -1;
+
+		exercises.forEach(exercise => {
+			exercise.addEventListener("dragstart", () => {
+				dragStartingPosition = Array.from(
+					exercisesList.children
+				).indexOf(exercise);
+				exercise.classList.add("dragging");
+				localStorage.setItem("dragging", "true");
+				this.collapseAll();
+			});
+
+			exercise.addEventListener("dragend", () => {
+				exercise.classList.remove("dragging");
+				this.swapExercises(dragStartingPosition, dragEndingPosition);
+			});
+
+			if (this.isIOSDevice()) {
+				exercise.addEventListener("touchstart", () => {
+					this.timerID = setTimeout(() => {
+						dragStartingPosition = Array.from(
+							exercisesList.children
+						).indexOf(exercise);
+						exercise.classList.add("dragging");
+						localStorage.setItem("dragging", "true");
+						this.collapseAll();
+					}, this.pressHoldDuration);
+				});
+			}
+
+			exercise.addEventListener("touchend", () => {
+				if (this.timerID) clearTimeout(this.timerID);
+				exercise.classList.remove("dragging");
+				if (localStorage.getItem("dragging") === "true") {
+					this.swapExercises(
+						dragStartingPosition,
+						dragEndingPosition
+					);
+				}
+				localStorage.removeItem("dragging");
+			});
+		});
+
+		exercisesList.addEventListener("dragover", (e: any) => {
+			e.preventDefault();
+
+			const afterElement: Element = this.getDragAfterElement(
+				exercisesList,
+				e.clientY
+			);
+			const draggingExercise: Node = document.querySelector(".dragging");
+
+			if (!afterElement) {
+				exercisesList.appendChild(draggingExercise);
+				dragEndingPosition = exercises.length - 1;
+			} else {
+				exercisesList.insertBefore(draggingExercise, afterElement);
+				dragEndingPosition =
+					Array.from(exercisesList.children).indexOf(afterElement) -
+					1;
+			}
+		});
+
+		exercisesList.addEventListener("touchmove", (e: any) => {
+			const afterElement: Element = this.getDragAfterElement(
+				exercisesList,
+				e.touches[0].clientY
+			);
+
+			const draggingExercise: Node = document.querySelector(".dragging");
+
+			if (!draggingExercise) return;
+
+			if (!afterElement) {
+				exercisesList.appendChild(draggingExercise);
+				dragEndingPosition = exercises.length - 1;
+			} else {
+				exercisesList.insertBefore(draggingExercise, afterElement);
+				dragEndingPosition =
+					Array.from(exercisesList.children).indexOf(afterElement) -
+					1;
+			}
+		});
+	}
+
+	private getDragAfterElement(container: any, y: number) {
+		const draggableExercises = [
+			...container.querySelectorAll(".exercise:not(.dragging)"),
+		];
+
+		return draggableExercises.reduce(
+			(closest: any, child: any) => {
+				const box = child.getBoundingClientRect();
+
+				const offset = y - box.top - box.height / 2;
+
+				if (offset < 0 && offset > closest.offset) {
+					return { offset: offset, element: child };
+				} else {
+					return closest;
+				}
+			},
+			{ offset: Number.NEGATIVE_INFINITY }
+		).element;
+	}
+
+	private swapExercises(startingPosition: number, endingPosition: number) {
+		const exerciseToSwap = this.workout.exercises[startingPosition];
+		this.workout.exercises.splice(startingPosition, 1);
+		this.workout.exercises.splice(endingPosition, 0, exerciseToSwap);
+
+		const progressToSwap = this.workoutProgress.completed[startingPosition];
+		this.workoutProgress.completed.splice(startingPosition, 1);
+		this.workoutProgress.completed.splice(
+			endingPosition,
+			0,
+			progressToSwap
+		);
+
+		localStorage.setItem(
+			"workoutProgress",
+			JSON.stringify(this.workoutProgress)
+		);
+
+		this.userService.updateWorkout(this.workout);
 	}
 
 	private initWorkoutProgress() {
