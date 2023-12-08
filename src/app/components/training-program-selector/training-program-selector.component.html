@@ -19,40 +19,54 @@
 		id="main-container"
 		[ngClass]="{ 'p-3': true, 'w-75': trainingPrograms.length !== 0 }"
 	>
-		<h1 class="text-center my-4">
-			{{
-				trainingPrograms.length > 0
-					? "Scegli una scheda di allenamento"
-					: "Non ci sono schede di allenamento"
-			}}
-		</h1>
+		<div class="w-100 mb-5">
+			<h3 class="text-start">
+				<img src="assets/dumbbell.png" width="30" alt="" />
+				Crea da zero
+			</h3>
 
-		<button
-			class="btn btn-dark ms-2 mb-3 d-none d-lg-block"
-			routerLink="/home/dashboard"
-		>
-			Torna alla home
-			<i class="ms-1 bi bi-house-fill"></i>
-		</button>
+			<p class="d-none d-lg-block">
+				Gestisci manualmente il numero di esercizi, le serie, le
+				ripetizioni e tutto ciò che ti serve per allenarti come
+				desideri.
+			</p>
 
-		<button
-			class="btn btn-sm btn-dark ms-2 mb-3 d-block d-lg-none"
-			routerLink="/home/dashboard"
-		>
-			Torna alla home
-			<i class="ms-1 bi bi-house-fill"></i>
-		</button>
+			<small class="d-block d-lg-none mb-3">
+				Gestisci manualmente il numero di esercizi, le serie, le
+				ripetizioni e tutto ciò che ti serve per allenarti come
+				desideri.
+			</small>
 
-		<img
-			*ngIf="trainingPrograms.length === 0"
-			src="assets/no-old-workouts.svg"
-			alt="No workouts found"
-			style="width: 50%"
-		/>
+			<button
+				(click)="createWorkout()"
+				class="btn purple-btn text-light w-100 d-none d-lg-block"
+			>
+				Crea
+				<i class="ms-1 bi bi-plus"></i>
+			</button>
 
+			<button
+				(click)="createWorkout()"
+				class="btn btn-sm purple-btn text-light w-100 d-block d-lg-none"
+			>
+				Crea
+				<i class="ms-1 bi bi-plus"></i>
+			</button>
+		</div>
+
+		<div class="w-100">
+			<h3 class="text-start">
+				<i class="bi bi-file-earmark-text"></i>
+				Usa una scheda
+			</h3>
+		</div>
 		<div
 			*ngFor="let program of trainingPrograms; index as programIndex"
-			class="w-100 mb-2"
+			[ngClass]="{
+				'w-100': true,
+				'mb-2': programIndex !== trainingPrograms.length - 1,
+				'mb-5': programIndex === trainingPrograms.length - 1
+			}"
 		>
 			<a
 				[href]="'#program' + programIndex"
@@ -137,7 +151,7 @@
 												{{ exercise.name }}
 											</th>
 
-											<td>
+											<td class="text-wrap">
 												<div class="d-flex flex-column">
 													<div
 														*ngFor="
@@ -264,5 +278,40 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="w-100 mb-3 text-secondary">
+			<h3 class="text-start">
+				<i class="bi bi-journals"></i>
+				Usa un template
+			</h3>
+
+			<button
+				class="btn btn-light w-100 mb-1 border programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				data-bs-toggle="collapse"
+				role="button"
+				aria-expanded="false"
+				aria-controls="collapseExample"
+                disabled
+			>
+				<p class="text-center mb-0 text-secondary">Template</p>
+				<p class="mb-0 text-secondary">Presto disponibile</p>
+			</button>
+		</div>
+
+		<button
+			class="btn btn-dark ms-2 my-4 d-none d-lg-block"
+			routerLink="/home/dashboard"
+		>
+			Torna alla home
+			<i class="ms-1 bi bi-house-fill"></i>
+		</button>
+
+		<button
+			class="btn btn-sm btn-dark ms-2 my-4 d-block d-lg-none"
+			routerLink="/home/dashboard"
+		>
+			Torna alla home
+			<i class="ms-1 bi bi-house-fill"></i>
+		</button>
 	</div>
 </div>

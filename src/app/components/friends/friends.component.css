@@ -12,7 +12,8 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 input:focus {
@@ -25,17 +26,4 @@ input:focus {
 
 .user:hover {
 	box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.135);
-}
-
-.purple-btn {
-	border: none;
-	background-color: #6b44d4;
-}
-
-.purple-btn:hover {
-	background-color: #785ebe !important;
-}
-
-.purple-btn:active {
-	background-color: #957dd6 !important;
 }

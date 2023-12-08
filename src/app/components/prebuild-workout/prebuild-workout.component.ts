@@ -8,7 +8,9 @@ import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { Workout } from "src/app/Models/Workout.model";
 import { EffectiveSet } from "src/app/Models/Exercise.model";
-import { convertTimediffToTime, generateId } from "src/app/utils/utils";
+import { generateId } from "src/app/utils/utils";
+import { ShowExerciseFromTemplateDialogComponent } from "../show-exercise-from-template-dialog/show-exercise-from-template-dialog.component";
+import { WorkoutNotSavedDialogComponent } from "../workout-not-saved-dialog/workout-not-saved-dialog.component";
 
 export interface Progress {
 	/* access to the complete must refer to the following logic:
@@ -55,6 +57,35 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.date = this.fromTimestampToString(this.workout.date);
 		this.initWorkoutProgress();
 
+		// Check if 50 minutes have passed since the workout is completed
+		const workoutStartTime: number = JSON.parse(
+			localStorage.getItem("workoutStartTime")
+		);
+		const workoutCompleteTime: number = JSON.parse(
+			localStorage.getItem("workoutCompleteTime")
+		);
+
+		if (
+			workoutStartTime &&
+			workoutCompleteTime &&
+			Date.now() - workoutCompleteTime > 300000
+		) {
+			this.dialog.open(WorkoutNotSavedDialogComponent, {
+				data: {
+					trainingTime: workoutCompleteTime - workoutStartTime,
+					confirm: () => {
+						this.saveWorkout(
+							workoutCompleteTime - workoutStartTime
+						);
+					},
+					cancel: () => {
+						localStorage.removeItem("workoutCompleteTime");
+					},
+				},
+				disableClose: true,
+			});
+		}
+
 		this.loading = false;
 	}
 
@@ -85,6 +116,28 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}
 	}
 
+	public showTrainingProgram() {
+		this.dialog.open(ShowExerciseFromTemplateDialogComponent, {
+			data: {
+				workout: JSON.parse(
+					localStorage.getItem("workoutTemplate")
+				) as Workout,
+			},
+			disableClose: false,
+		});
+	}
+
+	public workoutHasTemplate() {
+		return this.workout.exercises.some(exercise => exercise.template);
+	}
+
+	public pickDate() {
+		const datePicker = document.getElementById(
+			"date-picker"
+		) as HTMLInputElement;
+		datePicker.showPicker();
+	}
+
 	public workoutExists() {
 		return localStorage.getItem("workout") !== null;
 	}
@@ -99,10 +152,12 @@ export class PrebuildWorkoutComponent implements OnInit {
 		);
 	}
 
-	public saveWorkout() {
+	public saveWorkout(trainingTime?: number) {
 		this.workout.date = this.fromStringToTimestamp(this.date);
-		if (!this.editMode)
+		if (!this.editMode && !trainingTime)
 			this.workout.trainingTime = this.userService.getTrainingTime();
+
+		if (trainingTime) this.workout.trainingTime = trainingTime;
 
 		this.userService.endChronometer();
 		this.userService.endRest();
@@ -110,11 +165,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.userService.saveWorkout();
 
 		localStorage.removeItem("workoutProgress");
+		localStorage.removeItem("workoutCompleteTime");
 		this.router.navigate(["/home"]);
 	}
 
 	public isSetValid(exerciseIndex: number, setIndex: number) {
-		// console.log("load: ", this.workout.exercises[exerciseIndex].set[setIndex].load)
 		return (
 			!isNaN(+this.workout.exercises[exerciseIndex].set[setIndex].reps) &&
 			this.workout.exercises[exerciseIndex].set[setIndex].reps !== null &&
@@ -205,6 +260,17 @@ export class PrebuildWorkoutComponent implements OnInit {
 			JSON.stringify(this.workoutProgress)
 		);
 
+		if (
+			this.workoutProgress.completed.every(exercise =>
+				exercise.every(setCompleted => setCompleted)
+			)
+		) {
+			localStorage.setItem(
+				"workoutCompleteTime",
+				JSON.stringify(Date.now())
+			);
+		}
+
 		this.userService.updateWorkout(this.workout);
 	}
 
@@ -242,7 +308,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 				args: [],
 				confirm: () => {
 					this.userService.resetWorkout();
-					localStorage.removeItem("workoutProgress");
 					this.userService.endChronometer();
 					this.userService.endRest();
 					this.router.navigate(["/home"]);

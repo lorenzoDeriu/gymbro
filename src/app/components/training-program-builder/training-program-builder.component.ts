@@ -8,6 +8,7 @@ import { Session, TrainingProgram } from "src/app/Models/TrainingProgram.model";
 import { UserService } from "src/app/services/user.service";
 import { formatSets } from "src/app/utils/utils";
 import { Set } from "src/app/Models/Exercise.model";
+import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 
 @Component({
 	selector: "app-training-program-builder",
@@ -49,6 +50,15 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		}
 
 		this.loading = false;
+	}
+
+	showNotes(sessionIndex: number, exerciseIndex: number) {
+		const session = this.trainingProgram.session[sessionIndex];
+		const exercise = session.exercises[exerciseIndex];
+
+		this.dialog.open(NotesDialogComponent, {
+			data: { notes: exercise.note },
+		});
 	}
 
 	formatSets(sets: Set[]) {

@@ -76,9 +76,25 @@
 				</button>
 			</div>
 
-			<div class="mb-4">
+			<div class="d-flex align-items-center mb-4">
+				<button
+					*ngIf="workoutHasTemplate()"
+					class="btn btn-light border w-100 d-none d-lg-block me-3"
+					(click)="showTrainingProgram()"
+				>
+					Visualizza scheda
+					<i class="bi bi-file-earmark-text"></i>
+				</button>
+
+				<button
+					*ngIf="workoutHasTemplate()"
+					class="btn btn-sm btn-light border d-block d-lg-none me-3"
+					(click)="showTrainingProgram()"
+				>
+					<i class="bi bi-file-earmark-text"></i>
+				</button>
+
 				<div class="input-group d-none d-lg-flex">
-					<span class="input-group-text">Data</span>
 					<input
 						type="date"
 						class="form-control"
@@ -87,10 +103,13 @@
 						[(ngModel)]="date"
 						[ngModelOptions]="{ standalone: true }"
 					/>
+
+					<button class="btn btn-light border" (click)="pickDate()">
+						<i class="bi bi-calendar"></i>
+					</button>
 				</div>
 
 				<div class="input-group input-group-sm d-flex d-lg-none">
-					<span class="input-group-text">Data</span>
 					<input
 						type="date"
 						class="form-control"
@@ -99,6 +118,9 @@
 						[(ngModel)]="date"
 						[ngModelOptions]="{ standalone: true }"
 					/>
+					<button class="btn btn-light border" (click)="pickDate()">
+						<i class="bi bi-calendar"></i>
+					</button>
 				</div>
 			</div>
 		</div>

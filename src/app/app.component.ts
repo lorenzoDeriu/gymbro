@@ -19,15 +19,8 @@ export class AppComponent {
 						evt.type === "VERSION_READY"
 				)
 			)
-			.subscribe(evt => {
-				snackbar
-					.open("Nuova versione disponibile!", "Aggiorna", {
-						duration: 10000,
-					})
-					.afterDismissed()
-					.subscribe(() => {
-						document.location.reload();
-					});
+			.subscribe(() => {
+				document.location.reload();
 			});
 	}
 }

@@ -22,38 +22,12 @@ input:focus {
 }
 
 #date-picker {
-	cursor: pointer;
+	cursor: default;
 }
 
 #date-picker::-webkit-inner-spin-button,
 #date-picker::-webkit-calendar-picker-indicator {
-	cursor: pointer;
-}
-
-.purple-btn {
-	border: none;
-	background-color: #6b44d4;
-}
-
-.purple-btn:hover {
-	background-color: #785ebe !important;
-}
-
-.purple-btn:active {
-	background-color: #957dd6 !important;
-}
-
-.blue-btn {
-	border: none;
-	background-color: #4089c9;
-}
-
-.blue-btn:hover {
-	background-color: #659fd2 !important;
-}
-
-.blue-btn:active {
-	background-color: #7eafda !important;
+	display: none;
 }
 
 @media (min-width: 900px) {

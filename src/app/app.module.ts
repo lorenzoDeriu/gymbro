@@ -17,7 +17,6 @@ import { MatIconModule } from "@angular/material/icon";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatRippleModule } from "@angular/material/core";
-import { NewWorkoutComponent } from "./components/new-workout/new-workout.component";
 import { OldWorkoutsComponent } from "./components/old-workouts/old-workouts.component";
 import { YourProgressComponent } from "./components/your-progress/your-progress.component";
 import { TrainingProgramsComponent } from "./components/training-programs/training-programs.component";
@@ -61,7 +60,6 @@ import { SafetyActionConfirmDialogComponent } from "./components/safety-action-c
 import { ErrorLoginDialogComponent } from "./components/error-login-dialog/error-login-dialog.component";
 import { ErrorRegisterDialogComponent } from "./components/error-register-dialog/error-register-dialog.component";
 import { ErrorProviderDialogComponent } from "./components/error-provider-dialog/error-provider-dialog.component";
-import { NewWorkoutDialogComponent } from "./components/new-workout-dialog/new-workout-dialog.component";
 import { CustomExcerciseDialogComponent } from "./components/custom-excercise-dialog/custom-excercise-dialog.component";
 import { ShareDialogComponent } from "./components/share-dialog/share-dialog.component";
 import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
@@ -69,6 +67,8 @@ import { AboutPreviewComponent } from "./components/about-preview/about-preview.
 import { WelcomeDialogComponent } from "./components/welcome-dialog/welcome-dialog.component";
 import { ExpandFeedbackDialogComponent } from "./components/expand-feedback-dialog/expand-feedback-dialog.component";
 import { ExpandExercisesDialogComponent } from "./components/expand-exercises-dialog/expand-exercises-dialog.component";
+import { ShowExerciseFromTemplateDialogComponent } from "./components/show-exercise-from-template-dialog/show-exercise-from-template-dialog.component";
+import { WorkoutNotSavedDialogComponent } from "./components/workout-not-saved-dialog/workout-not-saved-dialog.component";
 
 @NgModule({
 	declarations: [
@@ -76,7 +76,6 @@ import { ExpandExercisesDialogComponent } from "./components/expand-exercises-di
 		AccessComponent,
 		HomeComponent,
 		PageNotFoundComponent,
-		NewWorkoutComponent,
 		OldWorkoutsComponent,
 		YourProgressComponent,
 		TrainingProgramsComponent,
@@ -102,7 +101,6 @@ import { ExpandExercisesDialogComponent } from "./components/expand-exercises-di
 		ErrorLoginDialogComponent,
 		ErrorRegisterDialogComponent,
 		ErrorProviderDialogComponent,
-		NewWorkoutDialogComponent,
 		CustomExcerciseDialogComponent,
 		ShareDialogComponent,
 		AdminDialogComponent,
@@ -110,6 +108,8 @@ import { ExpandExercisesDialogComponent } from "./components/expand-exercises-di
 		WelcomeDialogComponent,
 		ExpandFeedbackDialogComponent,
 		ExpandExercisesDialogComponent,
+		ShowExerciseFromTemplateDialogComponent,
+		WorkoutNotSavedDialogComponent,
 	],
 	imports: [
 		BrowserModule,

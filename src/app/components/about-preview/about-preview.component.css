@@ -30,19 +30,6 @@
 	margin: 0 1em 0 1em;
 }
 
-.blue-btn {
-	border: none;
-	background-color: #4089c9;
-}
-
-.blue-btn:hover {
-	background-color: #659fd2 !important;
-}
-
-.blue-btn:active {
-	background-color: #7eafda !important;
-}
-
 #install {
 	display: none;
 }
