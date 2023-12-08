@@ -34,7 +34,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public restMode: boolean = false;
 
 	private timerID: any;
-	private pressHoldDuration: number = 2000;
+	private pressHoldDuration: number = 800;
 
 	constructor(
 		private userService: UserService,
@@ -137,19 +137,24 @@ export class PrebuildWorkoutComponent implements OnInit {
 		let dragEndingPosition: number = -1;
 
 		exercises.forEach(exercise => {
-			exercise.addEventListener("dragstart", () => {
-				dragStartingPosition = Array.from(
-					exercisesList.children
-				).indexOf(exercise);
-				exercise.classList.add("dragging");
-				localStorage.setItem("dragging", "true");
-				this.collapseAll();
-			});
+			if (!this.isIOSDevice()) {
+				exercise.addEventListener("dragstart", () => {
+					console.log("dragstart", exercise);
+					dragStartingPosition = Array.from(
+						exercisesList.children
+					).indexOf(exercise);
+					dragEndingPosition = dragStartingPosition;
+					exercise.classList.add("dragging");
+					localStorage.setItem("dragging", "true");
+					this.collapseAll();
+				});
 
-			exercise.addEventListener("dragend", () => {
-				exercise.classList.remove("dragging");
-				this.swapExercises(dragStartingPosition, dragEndingPosition);
-			});
+				exercise.addEventListener("dragend", () => {
+					exercise.classList.remove("dragging");
+					this.swapExercises(dragStartingPosition, dragEndingPosition);
+				});
+			}
+
 
 			if (this.isIOSDevice()) {
 				exercise.addEventListener("touchstart", () => {
@@ -167,6 +172,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			exercise.addEventListener("touchend", () => {
 				if (this.timerID) clearTimeout(this.timerID);
 				exercise.classList.remove("dragging");
+				console.log(localStorage.getItem("dragging"))
 				if (localStorage.getItem("dragging") === "true") {
 					this.swapExercises(
 						dragStartingPosition,
@@ -198,6 +204,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		});
 
 		exercisesList.addEventListener("touchmove", (e: any) => {
+			console.log("touchmove");
 			const afterElement: Element = this.getDragAfterElement(
 				exercisesList,
 				e.touches[0].clientY
@@ -466,6 +473,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 			"workoutProgress",
 			JSON.stringify(this.workoutProgress)
 		);
+
+		setTimeout(() => {
+			this.enableDragAndDrop();
+		}, 0);
 	}
 
 	public onCancel() {
@@ -569,6 +580,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 						"workoutProgress",
 						JSON.stringify(this.workoutProgress)
 					);
+
+					setTimeout(() => {
+						this.enableDragAndDrop();
+					}, 0);
 				},
 			},
 		});
