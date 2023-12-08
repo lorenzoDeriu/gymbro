@@ -158,7 +158,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 			if (this.isIOSDevice()) {
 				exercise.addEventListener("touchstart", () => {
+					localStorage.setItem("scrolling", "false");
 					this.timerID = setTimeout(() => {
+						if (localStorage.getItem("scrolling") === "true") return;
+
 						dragStartingPosition = Array.from(
 							exercisesList.children
 						).indexOf(exercise);
@@ -204,7 +207,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 		});
 
 		exercisesList.addEventListener("touchmove", (e: any) => {
-			console.log("touchmove");
+			localStorage.setItem("scrolling", "true");
+			if (localStorage.getItem("dragging") !== "true") return;
+
 			const afterElement: Element = this.getDragAfterElement(
 				exercisesList,
 				e.touches[0].clientY
