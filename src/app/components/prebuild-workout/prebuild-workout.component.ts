@@ -34,7 +34,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public restMode: boolean = false;
 
 	private timerID: any;
-	private pressHoldDuration: number = 800;
+	private pressHoldDuration: number = 1000;
 
 	constructor(
 		private userService: UserService,
@@ -96,22 +96,18 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}, 0);
 	}
 
+	onMobile() {
+		return window.innerWidth <= 991;
+	}
+
 	private isIOSDevice() {
-		console.log(
-			(navigator.userAgent.includes("iPhone") ||
-			navigator.userAgent.includes("iPad") ||
-			navigator.userAgent.includes("iPod") ||
-			navigator.userAgent.includes("iPhone Simulator") ||
-			navigator.userAgent.includes("iPad Simulator") ||
-			navigator.userAgent.includes("iPod Simulator"))
-		);
 		return (
-			(navigator.userAgent.includes("iPhone") ||
+			navigator.userAgent.includes("iPhone") ||
 			navigator.userAgent.includes("iPad") ||
 			navigator.userAgent.includes("iPod") ||
 			navigator.userAgent.includes("iPhone Simulator") ||
 			navigator.userAgent.includes("iPad Simulator") ||
-			navigator.userAgent.includes("iPod Simulator"))
+			navigator.userAgent.includes("iPod Simulator")
 		);
 	}
 
@@ -139,7 +135,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 		exercises.forEach(exercise => {
 			if (!this.isIOSDevice()) {
 				exercise.addEventListener("dragstart", () => {
-					console.log("dragstart", exercise);
 					dragStartingPosition = Array.from(
 						exercisesList.children
 					).indexOf(exercise);
@@ -151,16 +146,21 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 				exercise.addEventListener("dragend", () => {
 					exercise.classList.remove("dragging");
-					this.swapExercises(dragStartingPosition, dragEndingPosition);
+					this.swapExercises(
+						dragStartingPosition,
+						dragEndingPosition
+					);
 				});
 			}
 
-
+			// Compatibility with mobile devices
 			if (this.isIOSDevice()) {
-				exercise.addEventListener("touchstart", () => {
+				exercise.addEventListener("touchstart", (e: any) => {
+					if (e.touches[0].target.classList.contains("collapser")) return;
 					localStorage.setItem("scrolling", "false");
 					this.timerID = setTimeout(() => {
-						if (localStorage.getItem("scrolling") === "true") return;
+						if (localStorage.getItem("scrolling") === "true")
+							return;
 
 						dragStartingPosition = Array.from(
 							exercisesList.children
@@ -175,7 +175,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 			exercise.addEventListener("touchend", () => {
 				if (this.timerID) clearTimeout(this.timerID);
 				exercise.classList.remove("dragging");
-				console.log(localStorage.getItem("dragging"))
 				if (localStorage.getItem("dragging") === "true") {
 					this.swapExercises(
 						dragStartingPosition,
