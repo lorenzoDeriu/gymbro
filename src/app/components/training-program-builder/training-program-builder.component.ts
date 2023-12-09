@@ -107,16 +107,15 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					if (dragStartSessionIndex !== dragEndSessionIndex) {
 						dragEndingPosition =
 							this.trainingProgram.session[dragEndSessionIndex]
-							.exercises.length - 1;
-
+								.exercises.length - 1;
 
 						this.swapExercises(
 							startingSessionIndex,
 							dragStartingPosition,
 							dragEndingPosition + 1
 						);
-							return;
-						}
+						return;
+					}
 
 					const sessionID =
 						exercise.parentElement.parentElement.parentElement
@@ -188,8 +187,11 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					document.querySelector(".dragging");
 
 				if (dragEndSessionIndex !== dragStartSessionIndex) {
-					dragEndingPosition = Array.from(exercisesList.children).length - 1;
-					Array.from(sessionsList).at(startingSessionIndex).appendChild(draggingExercise);
+					dragEndingPosition =
+						Array.from(exercisesList.children).length - 1;
+					Array.from(sessionsList)
+						.at(startingSessionIndex)
+						.appendChild(draggingExercise);
 					return;
 				}
 
