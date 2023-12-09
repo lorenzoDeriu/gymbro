@@ -24,6 +24,8 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	public editMode = false;
 	public loading = false;
 	private index: number;
+	private timerID: any;
+	private pressHoldDuration = 1000;
 
 	constructor(
 		private router: Router,
@@ -36,7 +38,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	async ngOnInit() {
 		this.loading = true;
 
-		if (this.route.snapshot.paramMap.get("id")) {
+		if (!localStorage.getItem("trainingProgram") && this.route.snapshot.paramMap.get("id")) {
 			this.index = parseInt(this.route.snapshot.paramMap.get("id"));
 
 			this.trainingProgram = (await this.firebase.getTrainingPrograms())[
@@ -50,6 +52,164 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		}
 
 		this.loading = false;
+
+		setTimeout(() => {
+			this.enableDragAndDrop();
+		}, 0);
+	}
+
+	private isIOSDevice() {
+		return (
+			navigator.userAgent.includes("iPhone") ||
+			navigator.userAgent.includes("iPad") ||
+			navigator.userAgent.includes("iPod") ||
+			navigator.userAgent.includes("iPhone Simulator") ||
+			navigator.userAgent.includes("iPad Simulator") ||
+			navigator.userAgent.includes("iPod Simulator")
+		);
+	}
+
+	private enableDragAndDrop() {
+		const exercises = document.querySelectorAll(".trow");
+		const exercisesList = document.querySelector(".tbody");
+
+		let dragStartingPosition: number = -1;
+		let dragEndingPosition: number = -1;
+
+		exercises.forEach(exercise => {
+			if (!this.isIOSDevice()) {
+				exercise.addEventListener("dragstart", () => {
+					dragStartingPosition = Array.from(
+						exercisesList.children
+					).indexOf(exercise);
+					dragEndingPosition = dragStartingPosition;
+					exercise.classList.add("dragging");
+					localStorage.setItem("dragging", "true");
+				});
+
+				exercise.addEventListener("dragend", () => {
+					exercise.classList.remove("dragging");
+					const sessionID = exercise.parentElement.parentElement.parentElement.parentElement.id;
+					const sessionIndex = parseInt(sessionID.at(-1));
+					this.swapExercises(
+						sessionIndex,
+						dragStartingPosition,
+						dragEndingPosition
+					);
+					localStorage.removeItem("dragging");
+				});
+			}
+
+			// Compatibility with mobile devices
+			if (this.isIOSDevice()) {
+				exercise.addEventListener("touchstart", (e: any) => {
+					if (e.touches[0].target.classList.contains("collapser")) return;
+					//if (!e.touches[0].target.classList.contains("collapser")) e.preventDefault();
+					localStorage.setItem("scrolling", "false");
+					this.timerID = setTimeout(() => {
+						if (localStorage.getItem("scrolling") === "true")
+							return;
+
+						dragStartingPosition = Array.from(
+							exercisesList.children
+						).indexOf(exercise);
+						exercise.classList.add("dragging");
+						localStorage.setItem("dragging", "true");
+					}, this.pressHoldDuration);
+				});
+			}
+
+			exercise.addEventListener("touchend", () => {
+				if (this.timerID) clearTimeout(this.timerID);
+				exercise.classList.remove("dragging");
+				const sessionID = exercise.parentElement.parentElement.parentElement.parentElement.id;
+				const sessionIndex = parseInt(sessionID.at(-1));
+				if (localStorage.getItem("dragging") === "true") {
+					this.swapExercises(
+						sessionIndex,
+						dragStartingPosition,
+						dragEndingPosition
+					);
+				}
+				localStorage.removeItem("dragging");
+			});
+		});
+
+		exercisesList.addEventListener("dragover", (e: any) => {
+			e.preventDefault();
+
+			const afterElement: Element = this.getDragAfterElement(
+				exercisesList,
+				e.clientY
+			);
+			const draggingExercise: Node = document.querySelector(".dragging");
+
+			if (!afterElement) {
+				exercisesList.appendChild(draggingExercise);
+				dragEndingPosition = exercises.length - 1;
+			} else {
+				exercisesList.insertBefore(draggingExercise, afterElement);
+				dragEndingPosition =
+					Array.from(exercisesList.children).indexOf(afterElement) -
+					1;
+			}
+		});
+
+		exercisesList.addEventListener("touchmove", (e: any) => {
+			localStorage.setItem("scrolling", "true");
+			if (localStorage.getItem("dragging") !== "true") return;
+
+			const afterElement: Element = this.getDragAfterElement(
+				exercisesList,
+				e.touches[0].clientY
+			);
+
+			const draggingExercise: Node = document.querySelector(".dragging");
+
+			if (!draggingExercise) return;
+
+			if (!afterElement) {
+				exercisesList.appendChild(draggingExercise);
+				dragEndingPosition = exercises.length - 1;
+			} else {
+				exercisesList.insertBefore(draggingExercise, afterElement);
+				dragEndingPosition =
+					Array.from(exercisesList.children).indexOf(afterElement) -
+					1;
+			}
+		});
+	}
+
+	private getDragAfterElement(container: any, y: number) {
+		const draggableExercises = [
+			...container.querySelectorAll(".trow:not(.dragging)"),
+		];
+
+		return draggableExercises.reduce(
+			(closest: any, child: any) => {
+				const box = child.getBoundingClientRect();
+
+				const offset = y - box.top - box.height / 2;
+
+				if (offset < 0 && offset > closest.offset) {
+					return { offset: offset, element: child };
+				} else {
+					return closest;
+				}
+			},
+			{ offset: Number.NEGATIVE_INFINITY }
+		).element;
+	}
+
+	private swapExercises(sessionIndex: number, startingPosition: number, endingPosition: number) {
+		const exercises = this.trainingProgram.session[sessionIndex].exercises;
+		const exerciseToSwap = exercises[startingPosition];
+
+		exercises.splice(startingPosition, 1);
+		exercises.splice(endingPosition, 0, exerciseToSwap);
+
+		this.trainingProgram.session[0].exercises = exercises;
+		this.userService.updateTrainingProgram(this.trainingProgram);
 	}
 
 	showNotes(sessionIndex: number, exerciseIndex: number) {
@@ -160,5 +320,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	public async saveTrainingProgram() {
 		await this.userService.saveTrainingProgram(this.editMode, this.index);
 		this.router.navigate(["/home/training-programs"]);
+	}
+
+	public cancel() {
+		localStorage.removeItem("trainingProgram");
 	}
 }

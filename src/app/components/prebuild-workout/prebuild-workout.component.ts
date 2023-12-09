@@ -150,6 +150,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 						dragStartingPosition,
 						dragEndingPosition
 					);
+					localStorage.removeItem("dragging");
 				});
 			}
 
@@ -157,6 +158,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			if (this.isIOSDevice()) {
 				exercise.addEventListener("touchstart", (e: any) => {
 					if (e.touches[0].target.classList.contains("collapser")) return;
+					//if (!e.touches[0].target.classList.contains("collapser")) e.preventDefault();
 					localStorage.setItem("scrolling", "false");
 					this.timerID = setTimeout(() => {
 						if (localStorage.getItem("scrolling") === "true")
