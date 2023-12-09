@@ -21,6 +21,7 @@ input:focus {
 }
 
 .user {
+	background-color: #f8f9fa;
 	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.135);
 }
 
