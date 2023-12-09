@@ -32,7 +32,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public loading: boolean = false;
 	public editMode: boolean = false;
 	public restMode: boolean = false;
-
+	public onMobile: boolean = window.innerWidth < 991;
 	private timerID: any;
 	private pressHoldDuration: number = 1000;
 
@@ -89,15 +89,15 @@ export class PrebuildWorkoutComponent implements OnInit {
 			});
 		}
 
+		window.addEventListener("resize", () => {
+			this.onMobile = window.innerWidth < 991;
+		});
+
 		this.loading = false;
 
 		setTimeout(() => {
 			this.enableDragAndDrop();
 		}, 0);
-	}
-
-	onMobile() {
-		return window.innerWidth <= 991;
 	}
 
 	private isIOSDevice() {
@@ -135,6 +135,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		exercises.forEach(exercise => {
 			if (!this.isIOSDevice()) {
 				exercise.addEventListener("dragstart", () => {
+					this.onMobile = window.innerWidth < 768;
 					dragStartingPosition = Array.from(
 						exercisesList.children
 					).indexOf(exercise);
@@ -157,6 +158,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			// Compatibility with mobile devices
 			if (this.isIOSDevice()) {
 				exercise.addEventListener("touchstart", (e: any) => {
+					this.onMobile = window.innerWidth < 768;
 					if (e.touches[0].target.classList.contains("collapser")) return;
 					//if (!e.touches[0].target.classList.contains("collapser")) e.preventDefault();
 					localStorage.setItem("scrolling", "false");
