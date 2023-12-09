@@ -57,7 +57,10 @@ input:focus {
 		outline: none !important;
 	}
 
-	.mobileDragger:hover, .mobileDragger:focus, .mobileDragger:active, .mobileDragger:focus {
+	.mobileDragger:hover,
+	.mobileDragger:focus,
+	.mobileDragger:active,
+	.mobileDragger:focus {
 		background-color: #f8f9fa !important;
 		border: 1px solid #f8f9fa !important;
 		outline: none !important;
@@ -69,7 +72,10 @@ input:focus {
 		outline: none !important;
 	}
 
-	.exercise-collapser:hover, .exercise-collapser:focus, .exercise-collapser:active, .mobileDragger:focus {
+	.exercise-collapser:hover,
+	.exercise-collapser:focus,
+	.exercise-collapser:active,
+	.mobileDragger:focus {
 		background-color: #f8f9fa !important;
 		border: 1px solid #f8f9fa !important;
 		outline: none !important;

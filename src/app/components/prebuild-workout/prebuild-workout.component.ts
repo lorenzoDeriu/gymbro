@@ -34,7 +34,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public restMode: boolean = false;
 	public onMobile: boolean = window.innerWidth < 991;
 	private timerID: any;
-	private pressHoldDuration: number = 1000;
+	private pressHoldDuration: number = 500;
 
 	constructor(
 		private userService: UserService,
@@ -135,7 +135,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		exercises.forEach(exercise => {
 			if (!this.isIOSDevice()) {
 				exercise.addEventListener("dragstart", () => {
-					this.onMobile = window.innerWidth < 768;
+					this.onMobile = window.innerWidth < 991;
 					dragStartingPosition = Array.from(
 						exercisesList.children
 					).indexOf(exercise);
@@ -158,9 +158,14 @@ export class PrebuildWorkoutComponent implements OnInit {
 			// Compatibility with mobile devices
 			if (this.isIOSDevice()) {
 				exercise.addEventListener("touchstart", (e: any) => {
-					this.onMobile = window.innerWidth < 768;
-					if (e.touches[0].target.classList.contains("collapser")) return;
-					if (!e.touches[0].target.classList.contains("collapser")) e.preventDefault();
+					this.onMobile = window.innerWidth < 991;
+					console.log(e.touches[0]);
+					console.log(e.touches[0].target);
+					console.log(
+						e.touches[0].target.classList.contains("collapser")
+					);
+					if (e.touches[0].target.classList.contains("collapser"))
+						return;
 					localStorage.setItem("scrolling", "false");
 					this.timerID = setTimeout(() => {
 						if (localStorage.getItem("scrolling") === "true")

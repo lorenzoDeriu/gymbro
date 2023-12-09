@@ -25,7 +25,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	public loading = false;
 	private index: number;
 	private timerID: any;
-	private pressHoldDuration = 1000;
+	private pressHoldDuration = 800;
 
 	constructor(
 		private router: Router,
@@ -38,7 +38,10 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	async ngOnInit() {
 		this.loading = true;
 
-		if (!localStorage.getItem("trainingProgram") && this.route.snapshot.paramMap.get("id")) {
+		if (
+			!localStorage.getItem("trainingProgram") &&
+			this.route.snapshot.paramMap.get("id")
+		) {
 			this.index = parseInt(this.route.snapshot.paramMap.get("id"));
 
 			this.trainingProgram = (await this.firebase.getTrainingPrograms())[
@@ -71,17 +74,28 @@ export class TrainingProgramBuilderComponent implements OnInit {
 
 	private enableDragAndDrop() {
 		const exercises = document.querySelectorAll(".trow");
-		const exercisesList = document.querySelector(".tbody");
+		const sessionsList = document.querySelectorAll(".tbody");
 
 		let dragStartingPosition: number = -1;
 		let dragEndingPosition: number = -1;
 
+		let dragStartSessionIndex: number = -1;
+		let dragEndSessionIndex: number = -1;
+
+		let startingSessionIndex: number = -1;
+
 		exercises.forEach(exercise => {
 			if (!this.isIOSDevice()) {
 				exercise.addEventListener("dragstart", () => {
+					const sessionID =
+						exercise.parentElement.parentElement.parentElement
+							.parentElement.id;
+					const sessionIndex = parseInt(sessionID.at(-1));
+					dragStartSessionIndex = sessionIndex;
 					dragStartingPosition = Array.from(
-						exercisesList.children
+						sessionsList[sessionIndex].children
 					).indexOf(exercise);
+					startingSessionIndex = sessionIndex;
 					dragEndingPosition = dragStartingPosition;
 					exercise.classList.add("dragging");
 					localStorage.setItem("dragging", "true");
@@ -89,7 +103,24 @@ export class TrainingProgramBuilderComponent implements OnInit {
 
 				exercise.addEventListener("dragend", () => {
 					exercise.classList.remove("dragging");
-					const sessionID = exercise.parentElement.parentElement.parentElement.parentElement.id;
+
+					if (dragStartSessionIndex !== dragEndSessionIndex) {
+						dragEndingPosition =
+							this.trainingProgram.session[dragEndSessionIndex]
+							.exercises.length - 1;
+
+
+						this.swapExercises(
+							startingSessionIndex,
+							dragStartingPosition,
+							dragEndingPosition + 1
+						);
+							return;
+						}
+
+					const sessionID =
+						exercise.parentElement.parentElement.parentElement
+							.parentElement.id;
 					const sessionIndex = parseInt(sessionID.at(-1));
 					this.swapExercises(
 						sessionIndex,
@@ -103,15 +134,17 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			// Compatibility with mobile devices
 			if (this.isIOSDevice()) {
 				exercise.addEventListener("touchstart", (e: any) => {
-					if (e.touches[0].target.classList.contains("collapser")) return;
-					//if (!e.touches[0].target.classList.contains("collapser")) e.preventDefault();
 					localStorage.setItem("scrolling", "false");
 					this.timerID = setTimeout(() => {
 						if (localStorage.getItem("scrolling") === "true")
 							return;
 
+						const sessionID =
+							exercise.parentElement.parentElement.parentElement
+								.parentElement.id;
+						const sessionIndex = parseInt(sessionID.at(-1));
 						dragStartingPosition = Array.from(
-							exercisesList.children
+							sessionsList[sessionIndex].children
 						).indexOf(exercise);
 						exercise.classList.add("dragging");
 						localStorage.setItem("dragging", "true");
@@ -122,7 +155,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			exercise.addEventListener("touchend", () => {
 				if (this.timerID) clearTimeout(this.timerID);
 				exercise.classList.remove("dragging");
-				const sessionID = exercise.parentElement.parentElement.parentElement.parentElement.id;
+				const sessionID =
+					exercise.parentElement.parentElement.parentElement
+						.parentElement.id;
 				const sessionIndex = parseInt(sessionID.at(-1));
 				if (localStorage.getItem("dragging") === "true") {
 					this.swapExercises(
@@ -135,48 +170,69 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			});
 		});
 
-		exercisesList.addEventListener("dragover", (e: any) => {
-			e.preventDefault();
+		Array.from(sessionsList).forEach(exercisesList => {
+			exercisesList.addEventListener("dragover", (e: any) => {
+				e.preventDefault();
 
-			const afterElement: Element = this.getDragAfterElement(
-				exercisesList,
-				e.clientY
-			);
-			const draggingExercise: Node = document.querySelector(".dragging");
+				const afterElement: Element = this.getDragAfterElement(
+					exercisesList,
+					e.clientY
+				);
+				dragEndSessionIndex = parseInt(
+					exercisesList.parentElement.parentElement.parentElement.id.at(
+						-1
+					)
+				);
 
-			if (!afterElement) {
-				exercisesList.appendChild(draggingExercise);
-				dragEndingPosition = exercises.length - 1;
-			} else {
-				exercisesList.insertBefore(draggingExercise, afterElement);
-				dragEndingPosition =
-					Array.from(exercisesList.children).indexOf(afterElement) -
-					1;
-			}
-		});
+				const draggingExercise: Node =
+					document.querySelector(".dragging");
 
-		exercisesList.addEventListener("touchmove", (e: any) => {
-			localStorage.setItem("scrolling", "true");
-			if (localStorage.getItem("dragging") !== "true") return;
+				if (dragEndSessionIndex !== dragStartSessionIndex) {
+					dragEndingPosition = Array.from(exercisesList.children).length - 1;
+					Array.from(sessionsList).at(startingSessionIndex).appendChild(draggingExercise);
+					return;
+				}
 
-			const afterElement: Element = this.getDragAfterElement(
-				exercisesList,
-				e.touches[0].clientY
-			);
+				if (!afterElement) {
+					exercisesList.appendChild(draggingExercise);
+					dragEndingPosition =
+						Array.from(exercisesList.children).length - 1;
+				} else {
+					exercisesList.insertBefore(draggingExercise, afterElement);
+					dragEndingPosition =
+						Array.from(exercisesList.children).indexOf(
+							afterElement
+						) - 1;
+				}
+			});
 
-			const draggingExercise: Node = document.querySelector(".dragging");
+			exercisesList.addEventListener("touchmove", (e: any) => {
+				localStorage.setItem("scrolling", "true");
+				if (localStorage.getItem("dragging") !== "true") return;
 
-			if (!draggingExercise) return;
+				e.preventDefault();
 
-			if (!afterElement) {
-				exercisesList.appendChild(draggingExercise);
-				dragEndingPosition = exercises.length - 1;
-			} else {
-				exercisesList.insertBefore(draggingExercise, afterElement);
-				dragEndingPosition =
-					Array.from(exercisesList.children).indexOf(afterElement) -
-					1;
-			}
+				const afterElement: Element = this.getDragAfterElement(
+					exercisesList,
+					e.touches[0].clientY
+				);
+
+				const draggingExercise: Node =
+					document.querySelector(".dragging");
+
+				if (!draggingExercise) return;
+
+				if (!afterElement) {
+					exercisesList.appendChild(draggingExercise);
+					dragEndingPosition = exercises.length - 1;
+				} else {
+					exercisesList.insertBefore(draggingExercise, afterElement);
+					dragEndingPosition =
+						Array.from(exercisesList.children).indexOf(
+							afterElement
+						) - 1;
+				}
+			});
 		});
 	}
 
@@ -201,14 +257,20 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		).element;
 	}
 
-	private swapExercises(sessionIndex: number, startingPosition: number, endingPosition: number) {
+	private swapExercises(
+		sessionIndex: number,
+		startingPosition: number,
+		endingPosition: number
+	) {
+		console.log(sessionIndex, startingPosition, endingPosition);
+
 		const exercises = this.trainingProgram.session[sessionIndex].exercises;
 		const exerciseToSwap = exercises[startingPosition];
 
 		exercises.splice(startingPosition, 1);
 		exercises.splice(endingPosition, 0, exerciseToSwap);
 
-		this.trainingProgram.session[0].exercises = exercises;
+		this.trainingProgram.session[sessionIndex].exercises = exercises;
 		this.userService.updateTrainingProgram(this.trainingProgram);
 	}
 
@@ -244,6 +306,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.userService.updateTrainingProgram(
 						this.trainingProgram
 					);
+					this.enableDragAndDrop();
 				}
 			});
 	}
@@ -257,6 +320,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 			],
 		};
 		this.userService.updateTrainingProgram(this.trainingProgram);
+		this.enableDragAndDrop();
 	}
 
 	public deleteSessionDialog(index: number) {
@@ -270,6 +334,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.userService.updateTrainingProgram(
 						this.trainingProgram
 					);
+					this.enableDragAndDrop();
 				},
 			},
 		});
@@ -286,6 +351,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.userService.updateTrainingProgram(
 						this.trainingProgram
 					);
+					this.enableDragAndDrop();
 				},
 			},
 		});

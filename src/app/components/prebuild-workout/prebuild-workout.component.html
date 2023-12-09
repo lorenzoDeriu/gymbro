@@ -125,15 +125,19 @@
 			</div>
 		</div>
 
-		<div class="exercises w-100">
+		<div class="exercises w-100" [draggable]="!onMobile">
 			<div
 				*ngFor="
 					let exercise of this.workout.exercises;
 					index as exerciseIndex
 				"
 				class="w-100 mb-2 exercise"
+				[draggable]="!onMobile"
 			>
-				<div class="d-flex align-items-center shadow-sm rounded">
+				<div
+					class="d-flex align-items-center shadow-sm rounded"
+					[draggable]="!onMobile"
+				>
 					<a
 						[href]="'#exercise' + exerciseIndex"
 						[ngClass]="{
@@ -144,9 +148,9 @@
 						role="button"
 						aria-expanded="false"
 						aria-controls="collapseExample"
-						draggable="true"
+						[draggable]="!onMobile"
 					>
-						<p class="mb-0">
+						<p class="mb-0" [draggable]="!onMobile">
 							{{
 								exercise.name !== ""
 									? exercise.name
