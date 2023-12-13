@@ -19,7 +19,7 @@
 		id="main-container"
 		[ngClass]="{ 'p-3': true, 'w-75': workouts.length !== 0 }"
 	>
-		<h1 class="text-center mt-3 mb-4">
+		<h1 class="text-center mb-3 w-100">
 			{{
 				!workouts || workouts.length === 0
 					? "Non ci sono allenamenti, creane uno nuovo!"
@@ -28,7 +28,8 @@
 		</h1>
 
 		<button
-			class="btn btn-dark ms-2 d-none d-lg-block mb-4"
+			*ngIf="workouts.length === 0"
+			class="btn btn-dark mb-4 d-none d-lg-block"
 			(click)="backToHomeButton()"
 		>
 			Torna alla home
@@ -36,11 +37,12 @@
 		</button>
 
 		<button
-			class="btn btn-sm btn-dark ms-2 d-block d-lg-none mb-4"
+			*ngIf="workouts.length === 0"
+			class="btn btn-sm btn-dark mb-4 d-block d-lg-none"
 			(click)="backToHomeButton()"
 		>
 			Torna alla home
-			<i class="bi bi-house-fill"></i>
+			<i class="ms-1 bi bi-house-fill"></i>
 		</button>
 
 		<img
@@ -52,7 +54,7 @@
 
 		<!-- TODO: Show all old workouts with pagination -->
 		<div
-			*ngFor="let workout of current6Workouts; index as workoutIndex"
+			*ngFor="let workout of current7Workouts; index as workoutIndex"
 			class="w-100 mb-2"
 		>
 			<a
@@ -243,22 +245,75 @@
 			</div>
 		</div>
 
-		<div class="d-flex align-items-center my-3" *ngIf="workouts.length > 0">
-			<button class="btn border-0 btn-sm me-2" (click)="goToFirstPage()" [disabled]="currentPage === 1">
-				<i class="bi bi-chevron-double-left"></i>
+		<div
+			class="d-flex justify-content-between align-items-center w-100 shadow-sm rounded bg-light px-3"
+			*ngIf="workouts.length > 0"
+		>
+			<button
+				class="btn btn-sm btn-dark rounded-5"
+				(click)="backToHomeButton()"
+			>
+				<i class="bi bi-house-fill"></i>
 			</button>
-			<button class="btn border-0 btn-sm" (click)="previousPage()" [disabled]="currentPage === 1">
-				<i class="bi bi-chevron-left"></i>
-			</button>
-			<span class="mx-3">
-				{{ currentPage }}
+
+			<span class="d-none d-lg-flex align-items-center">
+				<img
+					src="assets/dumbbell-icon.png"
+					class="me-1"
+					width="14"
+					alt=""
+				/>
+				{{ workouts.length }}
+				Allenamenti
 			</span>
-			<button class="btn border-0 btn-sm" (click)="nextPage()" [disabled]="get6WorkoutsByPage(currentPage + 1).length === 0">
-				<i class="bi bi-chevron-right"></i>
-			</button>
-			<button class="btn border-0 btn-sm ms-2" (click)="goToLastPage()" [disabled]="get6WorkoutsByPage(currentPage + 1).length === 0">
-				<i class="bi bi-chevron-double-right"></i>
-			</button>
+
+			<span class="d-flex align-items-center d-lg-none workoutsNumber">
+				{{ workouts.length }}
+				<img
+					src="assets/dumbbell-icon.png"
+					class="ms-1"
+					width="14"
+					alt=""
+				/>
+			</span>
+
+			<div class="d-flex align-items-center my-3 pagination">
+				<button
+					class="btn border-0 btn-sm"
+					(click)="goToFirstPage()"
+					[disabled]="currentPage === 1"
+				>
+					<i class="bi bi-chevron-double-left pagination"></i>
+				</button>
+				<button
+					class="btn border-0 btn-sm"
+					(click)="previousPage()"
+					[disabled]="currentPage === 1"
+				>
+					<i class="bi bi-chevron-left pagination"></i>
+				</button>
+				<span class="mx-3">
+					{{ currentPage }}
+				</span>
+				<button
+					class="btn border-0 btn-sm"
+					(click)="nextPage()"
+					[disabled]="
+						get7WorkoutsByPage(currentPage + 1).length === 0
+					"
+				>
+					<i class="bi bi-chevron-right pagination"></i>
+				</button>
+				<button
+					class="btn border-0 btn-sm"
+					(click)="goToLastPage()"
+					[disabled]="
+						get7WorkoutsByPage(currentPage + 1).length === 0
+					"
+				>
+					<i class="bi bi-chevron-double-right pagination"></i>
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

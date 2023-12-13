@@ -11,7 +11,6 @@ import {
 	convertTimediffToTime,
 } from "src/app/utils/utils";
 import { EffectiveSet } from "src/app/Models/Exercise.model";
-import { th } from "date-fns/locale";
 
 @Component({
 	selector: "app-old-workouts",
@@ -21,10 +20,9 @@ import { th } from "date-fns/locale";
 export class OldWorkoutsComponent implements OnInit, OnDestroy {
 	public workouts: Workout[] = [];
 	public loading: boolean;
-	public splittedWorkouts: Workout[][] = [];
 	public currentPage: number;
-	public lastPage: number = Math.ceil(this.workouts.length / 6);
-	public current6Workouts: Workout[] = [];
+	public lastPage: number = Math.ceil(this.workouts.length / 7);
+	public current7Workouts: Workout[] = [];
 
 	constructor(
 		private userService: UserService,
@@ -37,7 +35,7 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 		this.loading = true;
 		this.currentPage = localStorage.getItem("currentPage") ? parseInt(localStorage.getItem("currentPage")) : 1;
 		this.workouts = await this.firebase.getWorkouts();
-		this.current6Workouts = this.get6WorkoutsByPage(this.currentPage);
+		this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
 		this.loading = false;
 	}
 
@@ -45,10 +43,10 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 		localStorage.removeItem("currentPage");
 	}
 
-	public get6WorkoutsByPage(page: number): Workout[] {
+	public get7WorkoutsByPage(page: number): Workout[] {
 		const workouts: Workout[] = this.workouts.slice(
-			(page - 1) * 6,
-			page * 6
+			(page - 1) * 7,
+			page * 7
 		);
 
 		return workouts;
@@ -57,28 +55,28 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 	public goToFirstPage() {
 		this.currentPage = 1;
 		localStorage.setItem("currentPage", this.currentPage.toString());
-		this.current6Workouts = this.get6WorkoutsByPage(this.currentPage);
+		this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
 	}
 
 	public goToLastPage() {
-		this.currentPage = Math.ceil(this.workouts.length / 6);
+		this.currentPage = Math.ceil(this.workouts.length / 7);
 		localStorage.setItem("currentPage", this.currentPage.toString());
-		this.current6Workouts = this.get6WorkoutsByPage(this.currentPage);
+		this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
 	}
 
 	public previousPage() {
 		if (this.currentPage > 1) {
 			this.currentPage--;
 			localStorage.setItem("currentPage", this.currentPage.toString());
-			this.current6Workouts = this.get6WorkoutsByPage(this.currentPage);
+			this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
 		}
 	}
 
 	public nextPage() {
-		if (this.currentPage < this.workouts.length / 6) {
+		if (this.currentPage < this.workouts.length / 7) {
 			this.currentPage++;
 			localStorage.setItem("currentPage", this.currentPage.toString());
-			this.current6Workouts = this.get6WorkoutsByPage(this.currentPage);
+			this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
 		}
 	}
 
@@ -162,6 +160,7 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 				) => {
 					workouts.splice(index, 1);
 					await userService.updateWorkouts(workouts);
+					this.workouts = await this.firebase.getWorkouts();
 				},
 			},
 		});
