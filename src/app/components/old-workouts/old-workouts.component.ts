@@ -1,6 +1,6 @@
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
@@ -18,7 +18,7 @@ import { th } from "date-fns/locale";
 	templateUrl: "./old-workouts.component.html",
 	styleUrls: ["./old-workouts.component.css"],
 })
-export class OldWorkoutsComponent implements OnInit {
+export class OldWorkoutsComponent implements OnInit, OnDestroy {
 	public workouts: Workout[] = [];
 	public loading: boolean;
 	public splittedWorkouts: Workout[][] = [];
@@ -39,6 +39,10 @@ export class OldWorkoutsComponent implements OnInit {
 		this.workouts = await this.firebase.getWorkouts();
 		this.current6Workouts = this.get6WorkoutsByPage(this.currentPage);
 		this.loading = false;
+	}
+
+	ngOnDestroy() {
+		localStorage.removeItem("currentPage");
 	}
 
 	public get6WorkoutsByPage(page: number): Workout[] {
@@ -203,10 +207,5 @@ export class OldWorkoutsComponent implements OnInit {
 					.note,
 			},
 		});
-	}
-
-	public goToHome() {
-		localStorage.removeItem("currentPage");
-		this.router.navigate(["/home/dashboard"]);
 	}
 }
