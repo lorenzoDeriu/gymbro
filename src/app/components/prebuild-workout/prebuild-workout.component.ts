@@ -312,6 +312,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.workout.exercises.forEach(exercise => {
 			exercise.intensity = "light";
 		});
+
+		this.userService.updateWorkout(this.workout);
 	}
 
 	public showTrainingProgram() {
