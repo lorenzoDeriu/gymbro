@@ -138,11 +138,7 @@
 
 			<!-- Spotify -->
 			<a
-				*ngIf="
-					playlistUrl &&
-					!editMode &&
-					workoutExists()
-				"
+				*ngIf="playlistUrl && !editMode && workoutExists()"
 				[href]="playlistUrl"
 				target="_blank"
 				class="ms-2 btn d-none d-lg-block rounded-5 py-2 text-light"
@@ -152,11 +148,7 @@
 			</a>
 
 			<a
-				*ngIf="
-					playlistUrl &&
-					!editMode &&
-					workoutExists()
-				"
+				*ngIf="playlistUrl && !editMode && workoutExists()"
 				[href]="playlistUrl"
 				target="_blank"
 				class="ms-1 btn btn-sm d-block d-lg-none rounded-5 text-light"

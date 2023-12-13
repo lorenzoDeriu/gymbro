@@ -111,7 +111,7 @@ export class UserService {
 		this.setRestMode(false);
 		localStorage.removeItem("restStartTime");
 		localStorage.removeItem("timeToRest");
-        localStorage.removeItem("restMode");
+		localStorage.removeItem("restMode");
 	}
 
 	private checkForBackup() {
