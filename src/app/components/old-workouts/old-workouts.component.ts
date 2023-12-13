@@ -11,6 +11,7 @@ import {
 	convertTimediffToTime,
 } from "src/app/utils/utils";
 import { EffectiveSet } from "src/app/Models/Exercise.model";
+import { th } from "date-fns/locale";
 
 @Component({
 	selector: "app-old-workouts",
@@ -20,6 +21,10 @@ import { EffectiveSet } from "src/app/Models/Exercise.model";
 export class OldWorkoutsComponent implements OnInit {
 	public workouts: Workout[] = [];
 	public loading: boolean;
+	public splittedWorkouts: Workout[][] = [];
+	public currentPage: number;
+	public lastPage: number = Math.ceil(this.workouts.length / 6);
+	public current6Workouts: Workout[] = [];
 
 	constructor(
 		private userService: UserService,
@@ -30,8 +35,47 @@ export class OldWorkoutsComponent implements OnInit {
 
 	async ngOnInit() {
 		this.loading = true;
+		this.currentPage = localStorage.getItem("currentPage") ? parseInt(localStorage.getItem("currentPage")) : 1;
 		this.workouts = await this.firebase.getWorkouts();
+		this.current6Workouts = this.get6WorkoutsByPage(this.currentPage);
 		this.loading = false;
+	}
+
+	public get6WorkoutsByPage(page: number): Workout[] {
+		const workouts: Workout[] = this.workouts.slice(
+			(page - 1) * 6,
+			page * 6
+		);
+
+		return workouts;
+	}
+
+	public goToFirstPage() {
+		this.currentPage = 1;
+		localStorage.setItem("currentPage", this.currentPage.toString());
+		this.current6Workouts = this.get6WorkoutsByPage(this.currentPage);
+	}
+
+	public goToLastPage() {
+		this.currentPage = Math.ceil(this.workouts.length / 6);
+		localStorage.setItem("currentPage", this.currentPage.toString());
+		this.current6Workouts = this.get6WorkoutsByPage(this.currentPage);
+	}
+
+	public previousPage() {
+		if (this.currentPage > 1) {
+			this.currentPage--;
+			localStorage.setItem("currentPage", this.currentPage.toString());
+			this.current6Workouts = this.get6WorkoutsByPage(this.currentPage);
+		}
+	}
+
+	public nextPage() {
+		if (this.currentPage < this.workouts.length / 6) {
+			this.currentPage++;
+			localStorage.setItem("currentPage", this.currentPage.toString());
+			this.current6Workouts = this.get6WorkoutsByPage(this.currentPage);
+		}
 	}
 
 	public formatEffectiveSets(sets: EffectiveSet[]): string[] {
@@ -159,5 +203,10 @@ export class OldWorkoutsComponent implements OnInit {
 					.note,
 			},
 		});
+	}
+
+	public goToHome() {
+		localStorage.removeItem("currentPage");
+		this.router.navigate(["/home/dashboard"]);
 	}
 }
