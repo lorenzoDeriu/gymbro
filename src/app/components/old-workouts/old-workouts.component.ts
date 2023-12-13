@@ -161,6 +161,7 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 					workouts.splice(index, 1);
 					await userService.updateWorkouts(workouts);
 					this.workouts = await this.firebase.getWorkouts();
+					this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
 				},
 			},
 		});
