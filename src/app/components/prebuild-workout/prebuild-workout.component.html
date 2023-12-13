@@ -77,9 +77,17 @@
 			</div>
 
 			<div class="d-flex align-items-center mb-4">
+				<button class="btn btn-light d-none d-lg-block me-3 shadow-sm" (click)="deloadWorkout()">
+					<i class="bi bi-feather text-success"></i>
+				</button>
+
+				<button class="btn btn-sm btn-light d-block d-lg-none me-3 shadow-sm" (click)="deloadWorkout()">
+					<i class="bi bi-feather text-success"></i>
+				</button>
+
 				<button
 					*ngIf="workoutHasTemplate()"
-					class="btn btn-light border w-100 d-none d-lg-block me-3"
+					class="btn btn-light w-100 d-none d-lg-block me-3 shadow-sm"
 					(click)="showTrainingProgram()"
 				>
 					Visualizza scheda
@@ -88,7 +96,7 @@
 
 				<button
 					*ngIf="workoutHasTemplate()"
-					class="btn btn-sm btn-light border d-block d-lg-none me-3"
+					class="btn btn-sm btn-light d-block d-lg-none me-3 shadow-sm"
 					(click)="showTrainingProgram()"
 				>
 					<i class="bi bi-file-earmark-text"></i>

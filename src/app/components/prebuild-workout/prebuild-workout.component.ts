@@ -308,6 +308,12 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}
 	}
 
+	public deloadWorkout() {
+		this.workout.exercises.forEach(exercise => {
+			exercise.intensity = "light";
+		});
+	}
+
 	public showTrainingProgram() {
 		this.dialog.open(ShowExerciseFromTemplateDialogComponent, {
 			data: {
