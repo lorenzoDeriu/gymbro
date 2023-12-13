@@ -11,6 +11,21 @@
 	background-position: center;
 }
 
+.form-check-input {
+	cursor: pointer;
+	outline: none;
+	box-shadow: none;
+}
+
+.form-check-input:focus {
+	border-color: #dee2e6;
+}
+
+.form-check-input:checked {
+    background-color: #6b44d4;
+    border-color: #6b44d4;
+}
+
 .scrollable {
 	display: grid;
 	grid-auto-flow: column;

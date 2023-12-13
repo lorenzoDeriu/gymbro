@@ -19,6 +19,8 @@ export class AccessComponent {
 	public hidePwd: boolean = true;
 	public hidePwdConfirm: boolean = true;
 	public onLogin: boolean = true;
+	public agreeToTermsAndConds: boolean = false;
+	public agreeToTermsAndCondsRegister: boolean = false;
 
 	constructor(
 		private authService: AuthService,
@@ -40,6 +42,7 @@ export class AccessComponent {
 
 	allowLogin(): boolean {
 		return (
+			this.agreeToTermsAndConds &&
 			this.email &&
 			!!this.email.match(
 				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -52,6 +55,7 @@ export class AccessComponent {
 
 	allowRegister(): boolean {
 		return (
+			this.agreeToTermsAndCondsRegister &&
 			this.emailRegister &&
 			!!this.emailRegister.match(
 				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/

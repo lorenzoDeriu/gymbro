@@ -283,6 +283,26 @@
 					>
 						Password dimenticata?
 					</a>
+					<div class="form-check mb-3 w-100">
+						<input
+							class="form-check-input"
+							type="checkbox"
+							value=""
+							id="flexCheckDefault"
+							(change)="agreeToTermsAndConds = !agreeToTermsAndConds"
+						/>
+						<label class="form-check-label" for="flexCheckDefault">
+							Accetto i termini e le condizioni della
+							<a
+								target="_blank"
+								href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
+								class="blue-link text-decoration-none"
+							>
+								Privacy Policy
+							</a>
+							di GymBro
+						</label>
+					</div>
 					<button
 						[disabled]="!allowLogin()"
 						(click)="login()"
@@ -339,19 +359,6 @@
 							Registrati
 						</a>
 					</p>
-					<a
-						target="_blank"
-						href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
-						class="align-self-center"
-						style="
-							cursor: pointer;
-							font-size: 0.5rem;
-							color: black;
-							text-decoration: underline;
-						"
-					>
-						Privacy
-					</a>
 				</div>
 			</div>
 		</div>
@@ -438,6 +445,26 @@
 							style="background-color: transparent"
 						/>
 					</div>
+					<div class="form-check mb-3 w-100">
+						<input
+							class="form-check-input"
+							type="checkbox"
+							value=""
+							id="flexCheckDefault"
+							(change)="agreeToTermsAndCondsRegister = !agreeToTermsAndCondsRegister"
+						/>
+						<label class="form-check-label" for="flexCheckDefault">
+							Accetto i termini e le condizioni della
+							<a
+								target="_blank"
+								href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
+								class="blue-link text-decoration-none"
+							>
+								Privacy Policy
+							</a>
+							di GymBro
+						</label>
+					</div>
 					<button
 						[disabled]="!allowRegister()"
 						(click)="register()"
@@ -454,19 +481,6 @@
 							Accedi
 						</a>
 					</p>
-					<a
-						target="_blank"
-						href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
-						class="align-self-center"
-						style="
-							cursor: pointer;
-							font-size: 0.5rem;
-							color: black;
-							text-decoration: underline;
-						"
-					>
-						Privacy
-					</a>
 				</div>
 			</div>
 		</div>
