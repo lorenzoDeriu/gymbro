@@ -62,3 +62,9 @@ section {
 input:focus {
 	outline: none;
 }
+
+@media (max-width: 300px) {
+	#logo {
+		width: 150px;
+	}
+}
