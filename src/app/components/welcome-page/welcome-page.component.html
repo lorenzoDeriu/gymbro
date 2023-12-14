@@ -283,6 +283,26 @@
 					>
 						Password dimenticata?
 					</a>
+					<div class="form-check mb-3">
+						<input
+							class="form-check-input"
+							type="checkbox"
+							value=""
+							id="flexCheckChecked"
+							(change)="agreePrivacy = !agreePrivacy"
+						/>
+						<label class="form-check-label" for="flexCheckChecked">
+							Accetto i termini e le condizioni contenuti nella
+							<a
+								target="_blank"
+								href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
+								class="blue-link text-decoration-none"
+							>
+								Privacy Policy
+							</a>
+							di GymBro
+						</label>
+					</div>
 					<button
 						[disabled]="!allowLogin()"
 						(click)="login()"
@@ -338,17 +358,6 @@
 						>
 							Registrati
 						</a>
-					</p>
-					<p class="text-center" style="font-size: 0.5rem;">
-						Continuando dichiari di accettere i termini e le condizioni contenuti nella
-						<a
-							target="_blank"
-							href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
-							class="blue-link text-decoration-none"
-						>
-							Privacy Policy
-						</a>
-						di GymBro
 					</p>
 				</div>
 			</div>
@@ -436,6 +445,26 @@
 							style="background-color: transparent"
 						/>
 					</div>
+					<div class="form-check mb-3">
+						<input
+							class="form-check-input"
+							type="checkbox"
+							value=""
+							id="flexCheckChecked"
+							(change)="agreePrivacy = !agreePrivacy"
+						/>
+						<label class="form-check-label" for="flexCheckChecked">
+							Accetto i termini e le condizioni contenuti nella
+							<a
+								target="_blank"
+								href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
+								class="blue-link text-decoration-none"
+							>
+								Privacy Policy
+							</a>
+							di GymBro
+						</label>
+					</div>
 					<button
 						[disabled]="!allowRegister()"
 						(click)="register()"
@@ -451,17 +480,6 @@
 						>
 							Accedi
 						</a>
-					</p>
-					<p class="text-center" style="font-size: 0.5rem;">
-						Continuando dichiari di accettere i termini e le condizioni contenuti nella
-						<a
-							target="_blank"
-							href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
-							class="blue-link text-decoration-none"
-						>
-							Privacy Policy
-						</a>
-						di GymBro
 					</p>
 				</div>
 			</div>

@@ -19,6 +19,7 @@ export class WelcomePageComponent implements OnInit {
 	public hidePwd: boolean = true;
 	public hidePwdConfirm: boolean = true;
 	public onLogin: boolean = true;
+	public agreePrivacy: boolean = false;
 	public scrollableContainer: HTMLElement =
 		document.querySelector(".scrollable");
 	private installButton: HTMLElement | undefined = document.getElementById(
@@ -133,6 +134,7 @@ export class WelcomePageComponent implements OnInit {
 
 	allowLogin(): boolean {
 		return (
+			this.agreePrivacy &&
 			this.email &&
 			!!this.email.match(
 				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -145,6 +147,7 @@ export class WelcomePageComponent implements OnInit {
 
 	allowRegister(): boolean {
 		return (
+			this.agreePrivacy &&
 			this.emailRegister &&
 			!!this.emailRegister.match(
 				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
