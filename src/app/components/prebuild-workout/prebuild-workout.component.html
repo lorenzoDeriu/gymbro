@@ -470,7 +470,7 @@
 											type="radio"
 											class="btn-check"
 											name="btnradio"
-											id="btnradio1"
+											[id]="'light' + exerciseIndex"
 											autocomplete="off"
 											[(ngModel)]="exercise.intensity"
 											value="light"
@@ -482,7 +482,7 @@
 													exercise.intensity ===
 													'light'
 											}"
-											for="btnradio1"
+											[for]="'light' + exerciseIndex"
 										>
 											Leggero
 											<i class="ms-1 bi bi-feather"></i>
@@ -492,7 +492,7 @@
 											type="radio"
 											class="btn-check"
 											name="btnradio"
-											id="btnradio2"
+											[id]="'hard' + exerciseIndex"
 											autocomplete="off"
 											checked
 											[(ngModel)]="exercise.intensity"
@@ -505,7 +505,7 @@
 													exercise.intensity ===
 													'hard'
 											}"
-											for="btnradio2"
+											[for]="'hard' + exerciseIndex"
 										>
 											Pesante
 											<i
@@ -517,7 +517,7 @@
 											type="radio"
 											class="btn-check"
 											name="btnradio"
-											id="btnradio3"
+											[id]="'failure' + exerciseIndex"
 											autocomplete="off"
 											[(ngModel)]="exercise.intensity"
 											value="failure"
@@ -529,7 +529,7 @@
 													exercise.intensity ===
 													'failure'
 											}"
-											for="btnradio3"
+											[for]="'failure' + exerciseIndex"
 										>
 											Cedimento
 											<i class="ms-1 bi bi-fire"></i>
