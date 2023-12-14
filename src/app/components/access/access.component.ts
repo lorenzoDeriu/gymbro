@@ -1,7 +1,6 @@
 import { PasswordRecoverDialogComponent } from "../password-recover-dialog/password-recover-dialog.component";
 import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
 
 @Component({
@@ -22,7 +21,6 @@ export class AccessComponent {
 
 	constructor(
 		private authService: AuthService,
-		private router: Router,
 		private dialog: MatDialog
 	) {}
 
