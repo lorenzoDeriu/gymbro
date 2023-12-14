@@ -70,6 +70,7 @@ import { ExpandExercisesDialogComponent } from "./components/expand-exercises-di
 import { ShowExerciseFromTemplateDialogComponent } from "./components/show-exercise-from-template-dialog/show-exercise-from-template-dialog.component";
 import { WorkoutNotSavedDialogComponent } from "./components/workout-not-saved-dialog/workout-not-saved-dialog.component";
 import { DeloadDialogComponent } from './components/deload-dialog/deload-dialog.component';
+import { UpdateNotesDialogComponent } from './components/update-notes-dialog/update-notes-dialog.component';
 
 @NgModule({
 	declarations: [
@@ -111,7 +112,8 @@ import { DeloadDialogComponent } from './components/deload-dialog/deload-dialog.
 		ExpandExercisesDialogComponent,
 		ShowExerciseFromTemplateDialogComponent,
 		WorkoutNotSavedDialogComponent,
-  DeloadDialogComponent,
+    DeloadDialogComponent,
+    UpdateNotesDialogComponent,
 	],
 	imports: [
 		BrowserModule,

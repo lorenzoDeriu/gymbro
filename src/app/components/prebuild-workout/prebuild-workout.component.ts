@@ -160,11 +160,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 			if (this.isIOSDevice()) {
 				exercise.addEventListener("touchstart", (e: any) => {
 					this.onMobile = window.innerWidth < 991;
-					console.log(e.touches[0]);
-					console.log(e.touches[0].target);
-					console.log(
-						e.touches[0].target.classList.contains("collapser")
-					);
 					if (e.touches[0].target.classList.contains("collapser"))
 						return;
 					localStorage.setItem("scrolling", "false");
