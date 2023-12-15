@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
 import { PasswordRecoverDialogComponent } from "../password-recover-dialog/password-recover-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
 	selector: "app-welcome-page",
@@ -34,7 +35,8 @@ export class WelcomePageComponent implements OnInit {
 	constructor(
 		private authService: AuthService,
 		private router: Router,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private snackBar: MatSnackBar
 	) {}
 
 	async ngOnInit() {
@@ -162,14 +164,32 @@ export class WelcomePageComponent implements OnInit {
 	}
 
 	accessWithGoogle() {
+		if (!this.agreePrivacy) {
+			this.snackBar.open("Devi accettare la Privacy Policy per accedere!", "OK", {
+				duration: 5000,
+			});
+			return;
+		}
 		this.authService.accessWithGoogle();
 	}
 
 	accessWithFacebook() {
+		if (!this.agreePrivacy) {
+			this.snackBar.open("Devi accettare la Privacy Policy per accedere!", "OK", {
+				duration: 5000,
+			});
+			return;
+		}
 		this.authService.accessWithMeta();
 	}
 
 	accessWithTwitter() {
+		if (!this.agreePrivacy) {
+			this.snackBar.open("Devi accettare la Privacy Policy per accedere!", "OK", {
+				duration: 5000,
+			});
+			return;
+		}
 		this.authService.accessWithX();
 	}
 
