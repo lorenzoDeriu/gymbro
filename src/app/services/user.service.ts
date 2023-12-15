@@ -215,7 +215,7 @@ export class UserService {
 		this.setRestMode(false);
 		localStorage.removeItem("restMode");
 		localStorage.removeItem("workoutToEditIndex");
-		localStorage.removeItem("scrolling")
+		localStorage.removeItem("scrolling");
 	}
 
 	public getPlaylistURL() {

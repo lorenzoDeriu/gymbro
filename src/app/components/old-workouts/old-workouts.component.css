@@ -25,7 +25,9 @@
 		white-space: nowrap;
 	}
 
-	.mobile-btn, .workoutsNumber, .pagination {
+	.mobile-btn,
+	.workoutsNumber,
+	.pagination {
 		font-size: 12px;
 	}
 }
@@ -35,9 +37,9 @@
 		font-size: 8px;
 	}
 
-	.mobile-btn, .workoutsNumber, .pagination {
+	.mobile-btn,
+	.workoutsNumber,
+	.pagination {
 		font-size: 10px;
 	}
-
-
 }

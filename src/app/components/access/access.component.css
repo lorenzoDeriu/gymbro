@@ -22,8 +22,8 @@
 }
 
 .form-check-input:checked {
-    background-color: #6b44d4;
-    border-color: #6b44d4;
+	background-color: #6b44d4;
+	border-color: #6b44d4;
 }
 
 .scrollable {

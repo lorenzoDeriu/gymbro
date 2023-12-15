@@ -165,9 +165,13 @@ export class WelcomePageComponent implements OnInit {
 
 	accessWithGoogle() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open("Devi accettare la Privacy Policy per accedere!", "OK", {
-				duration: 5000,
-			});
+			this.snackBar.open(
+				"Devi accettare la Privacy Policy per accedere!",
+				"OK",
+				{
+					duration: 5000,
+				}
+			);
 			return;
 		}
 		this.authService.accessWithGoogle();
@@ -175,9 +179,13 @@ export class WelcomePageComponent implements OnInit {
 
 	accessWithFacebook() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open("Devi accettare la Privacy Policy per accedere!", "OK", {
-				duration: 5000,
-			});
+			this.snackBar.open(
+				"Devi accettare la Privacy Policy per accedere!",
+				"OK",
+				{
+					duration: 5000,
+				}
+			);
 			return;
 		}
 		this.authService.accessWithMeta();
@@ -185,9 +193,13 @@ export class WelcomePageComponent implements OnInit {
 
 	accessWithTwitter() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open("Devi accettare la Privacy Policy per accedere!", "OK", {
-				duration: 5000,
-			});
+			this.snackBar.open(
+				"Devi accettare la Privacy Policy per accedere!",
+				"OK",
+				{
+					duration: 5000,
+				}
+			);
 			return;
 		}
 		this.authService.accessWithX();
