@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
 		private router: Router
 	) {}
 
-	ngOnInit() {
+	async ngOnInit() {
 		if (localStorage.getItem("welcomeDialog") !== "true") {
 			this.dialog.open(WelcomeDialogComponent, {
 				disableClose: false,

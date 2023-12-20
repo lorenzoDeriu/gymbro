@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 import { User } from "../Models/User.model";
 import { SearchResult } from "../components/friends/friends.component";
 import { BehaviorSubject } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({
 	providedIn: "root",
@@ -37,7 +38,9 @@ export class UserService {
 
 	private interval: any;
 
-	constructor(private firebase: FirebaseService) {
+	private workoutPrevision: Promise<Workout>;
+
+	constructor(private firebase: FirebaseService, private router: Router) {
 		this.firebase
 			.getUserData()
 			.then(user => {
@@ -60,6 +63,47 @@ export class UserService {
 		};
 
 		this.checkForBackup();
+		this.workoutPrevision = this.makeWorkoutPrevision();
+	}
+
+	public async makeWorkoutPrevision(): Promise<Workout> {
+		const workouts = await this.firebase.getWorkouts();
+
+		if (workouts.length === 0) {
+			return null;
+		}
+
+		if (
+			new Date(workouts[0].date).toISOString().slice(0, 10) ===
+			new Date(Date.now()).toISOString().slice(0, 10)
+		) {
+			return null;
+		}
+
+		// get the workout from one week ago
+		const oneWeek = 7 * 24 * 60 * 60 * 1000;
+		const workout = workouts.find(
+			w =>
+				new Date(w.date).toISOString().slice(0, 10) ===
+				new Date(Date.now() - oneWeek).toISOString().slice(0, 10)
+		);
+
+		return workout;
+	}
+
+	public getWorkoutPrevision(): Promise<Workout> {
+		return this.workoutPrevision;
+	}
+
+	public reuseWorkout(workout: Workout) {
+		this.workout = workout;
+
+		this.workout.date = Date.now();
+		this.workout.trainingTime = 0;
+
+		localStorage.setItem("workout", JSON.stringify(workout));
+		this.startChronometer();
+		this.router.navigate(["/prebuild-workout"]);
 	}
 
 	public setupUser() {
