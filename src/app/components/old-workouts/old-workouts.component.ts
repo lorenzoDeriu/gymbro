@@ -33,7 +33,9 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 
 	async ngOnInit() {
 		this.loading = true;
-		this.currentPage = localStorage.getItem("currentPage") ? parseInt(localStorage.getItem("currentPage")) : 1;
+		this.currentPage = localStorage.getItem("currentPage")
+			? parseInt(localStorage.getItem("currentPage"))
+			: 1;
 		this.workouts = await this.firebase.getWorkouts();
 		this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
 		this.loading = false;
@@ -161,7 +163,9 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 					workouts.splice(index, 1);
 					await userService.updateWorkouts(workouts);
 					this.workouts = await this.firebase.getWorkouts();
-					this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
+					this.current7Workouts = this.get7WorkoutsByPage(
+						this.currentPage
+					);
 				},
 			},
 		});
