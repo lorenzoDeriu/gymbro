@@ -355,7 +355,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		);
 	}
 
-	public saveWorkout(trainingTime?: number) {
+	public async saveWorkout(trainingTime?: number) {
 		this.workout.date = this.fromStringToTimestamp(this.date);
 		if (!this.editMode && !trainingTime)
 			this.workout.trainingTime = this.userService.getTrainingTime();
@@ -365,7 +365,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.userService.endChronometer();
 		this.userService.endRest();
 		this.userService.updateWorkout(this.workout);
-		this.userService.saveWorkout();
+		await this.userService.saveWorkout();
 
 		localStorage.removeItem("workoutProgress");
 		localStorage.removeItem("workoutCompleteTime");
