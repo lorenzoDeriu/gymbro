@@ -103,7 +103,7 @@ export class UserService {
 
 		localStorage.setItem("workout", JSON.stringify(workout));
 		this.startChronometer();
-		this.router.navigate(["/prebuild-workout"]);
+		this.router.navigate(["/home/prebuild-workout"]);
 	}
 
 	public setupUser() {
