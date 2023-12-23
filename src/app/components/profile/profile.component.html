@@ -42,15 +42,18 @@
 		</div>
 
 		<img
-			class="mb-2 mt-4 d-none d-lg-block"
-			src="assets/profile.png"
+			class="mb-2 mt-4 d-none d-lg-block rounded-circle object-fit-cover"
+			[src]="profilePic ? profilePic : 'assets/profile.png'"
 			width="200"
+			height="200"
 			alt="Profile pic"
 		/>
+
 		<img
-			class="mb-2 mt-4 d-block d-lg-none"
-			src="assets/profile.png"
+			class="mb-2 mt-4 d-block d-lg-none rounded-circle object-fit-cover"
+			[src]="profilePic ? profilePic : 'assets/profile.png'"
 			width="150"
+			height="150"
 			alt="Profile pic"
 		/>
 

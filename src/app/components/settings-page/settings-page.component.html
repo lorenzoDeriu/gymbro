@@ -19,18 +19,57 @@
 		<div class="h-100 w-100 d-flex flex-column align-items-center">
 			<h1 class="text-center">Profilo</h1>
 
-			<img
-				class="mb-2 mt-4 d-none d-lg-block"
-				src="assets/profile.png"
-				width="200"
-				alt="Profile pic"
-			/>
-			<img
-				class="mb-2 mt-4 d-block d-lg-none"
-				src="assets/profile.png"
-				width="150"
-				alt="Profile pic"
-			/>
+			<div
+				class="mb-2 mt-4 d-none d-lg-block position-relative top-0 left-0"
+			>
+				<img
+					class="position-relative top-0 left-0 rounded-circle object-fit-cover"
+					[src]="profilePic ? profilePic : 'assets/profile.png'"
+					width="200"
+					height="200"
+					alt="Profile pic"
+				/>
+
+				<div
+					class="rounded-circle position-absolute top-0 left-0 edit-profile-pic"
+					style="
+						width: 200px;
+						height: 200px;
+						background-color: rgb(0, 0, 0);
+					"
+					(click)="openProfilePicDialog()"
+				>
+					<div
+						class="w-100 h-100 d-flex justify-content-center align-items-center"
+					>
+						<i class="bi bi-camera text-light fs-1"></i>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="mb-2 mt-4 d-block d-lg-none position-relative top-0 left-0"
+			>
+				<img
+					[src]="profilePic ? profilePic : 'assets/profile.png'"
+					class="position-relative top-0 left-0 rounded-circle object-fit-cover"
+					width="150"
+					height="150"
+					alt="Profile pic"
+				/>
+
+				<div
+					class="rounded-circle position-absolute top-0 left-0"
+					style="width: 150px; height: 150px"
+				>
+					<button
+						class="btn btn-sm btn-light position-absolute top-0 end-0 rounded-circle py-1"
+						(click)="openProfilePicDialog()"
+					>
+						<i class="bi bi-camera text-dark"></i>
+					</button>
+				</div>
+			</div>
 
 			<p *ngIf="username" class="w-100 text-center text-wrap">
 				{{ username }}

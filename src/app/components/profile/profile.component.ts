@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
 	public trainingPrograms: TrainingProgram[];
 	public playlistUrl: string;
 	public loading: boolean;
+	public profilePic: string;
 
 	constructor(
 		private firebase: FirebaseService,
@@ -54,6 +55,7 @@ export class ProfileComponent implements OnInit {
 		let user: User = await this.firebase.getUserData(friendUid);
 		this.username = user.username;
 		this.playlistUrl = user.playlistUrl;
+		this.profilePic = user.profilePicUrl;
 
 		this.trainingPrograms = await this.firebase.getTrainingProgramsFromUser(
 			friendUid
