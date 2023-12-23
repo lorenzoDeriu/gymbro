@@ -85,6 +85,10 @@ img {
 			"ts ts ts ts";
 	}
 
+	#workoutPrevision {
+		display: none;
+	}
+
 	#new-workout,
 	#old-workout {
 		display: flex;
@@ -131,6 +135,10 @@ img {
 		gap: 20px;
 	}
 
+	#workoutPrevision {
+		display: flex;
+	}
+
 	img {
 		width: 50px;
 		height: 50px;
@@ -143,8 +151,8 @@ img {
 		align-items: center;
 		padding: 20px;
 		box-shadow: 0 0 5px rgba(33, 33, 33, 0.2);
-		min-height: 120px;
-		max-height: 180px;
+		min-height: 100px;
+		max-height: 150px;
 	}
 
 	h3 {

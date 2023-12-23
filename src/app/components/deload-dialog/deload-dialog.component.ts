@@ -1,10 +1,10 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-deload-dialog',
-  templateUrl: './deload-dialog.component.html',
-  styleUrls: ['./deload-dialog.component.css']
+	selector: "app-deload-dialog",
+	templateUrl: "./deload-dialog.component.html",
+	styleUrls: ["./deload-dialog.component.css"],
 })
 export class DeloadDialogComponent {
 	constructor(

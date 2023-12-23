@@ -28,32 +28,13 @@
 
 				<div *ngFor="let set of formatEffectiveSets(stat.exercise.set)">
 					<small>
-						<span
-							*ngIf="
-								stat.exercise.intensity ===
-								'light'
-							"
-						>
-							<i
-								class="text-success bi bi-feather"
-							></i>
+						<span *ngIf="stat.exercise.intensity === 'light'">
+							<i class="text-success bi bi-feather"></i>
 						</span>
-						<span
-							*ngIf="
-								stat.exercise.intensity ===
-								'hard'
-							"
-						>
-							<i
-								class="text-warning bi bi-lightning-fill"
-							></i>
+						<span *ngIf="stat.exercise.intensity === 'hard'">
+							<i class="text-warning bi bi-lightning-fill"></i>
 						</span>
-						<span
-							*ngIf="
-								stat.exercise.intensity ===
-								'failure'
-							"
-						>
+						<span *ngIf="stat.exercise.intensity === 'failure'">
 							<i class="text-danger bi bi-fire"></i>
 						</span>
 						{{ set }}

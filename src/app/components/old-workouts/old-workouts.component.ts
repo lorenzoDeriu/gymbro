@@ -175,6 +175,10 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 		return localStorage.getItem("workout") !== null;
 	}
 
+	public reuseWorkout(index: number) {
+		this.userService.reuseWorkout(this.workouts[index]);
+	}
+
 	public editWorkout(index: number) {
 		if (this.workoutExists()) {
 			this.dialog.open(SafetyActionConfirmDialogComponent, {
