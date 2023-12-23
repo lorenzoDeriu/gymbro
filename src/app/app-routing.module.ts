@@ -6,7 +6,6 @@ import { RouterModule, Routes } from "@angular/router";
 import { AccessComponent } from "./components/access/access.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { HomeComponent } from "./components/home/home.component";
-import { NewWorkoutComponent } from "./components/new-workout/new-workout.component";
 import { OldWorkoutsComponent } from "./components/old-workouts/old-workouts.component";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { TrainingProgramsComponent } from "./components/training-programs/training-programs.component";
@@ -33,7 +32,6 @@ const routes: Routes = [
 		children: [
 			{ path: "", redirectTo: "dashboard", pathMatch: "full" },
 			{ path: "dashboard", component: DashboardComponent },
-			{ path: "new-workout-choice", component: NewWorkoutComponent },
 			{ path: "old-workouts", component: OldWorkoutsComponent },
 			/* { path: "progress", component: YourProgressComponent }, */
 			{

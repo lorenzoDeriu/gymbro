@@ -1,17 +1,16 @@
 <div
-    *ngIf="uploading"
-    class="d-flex flex-column justify-content-center align-items-center px-5 py-4"
-    style="width: fit-content"
+	*ngIf="uploading"
+	class="d-flex flex-column justify-content-center align-items-center px-5 py-4"
+	style="width: fit-content"
 >
-
-    <h2 class="mb-3 text-center">Caricamento in corso...</h2>
-    <div class="spinner-border text-dark" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
+	<h2 class="mb-3 text-center">Caricamento in corso...</h2>
+	<div class="spinner-border text-dark" role="status">
+		<span class="visually-hidden">Loading...</span>
+	</div>
 </div>
 
 <div
-    *ngIf="!uploading"
+	*ngIf="!uploading"
 	class="d-flex flex-column jusitfy-content-center align-items-center p-3"
 	style="width: fit-content"
 >

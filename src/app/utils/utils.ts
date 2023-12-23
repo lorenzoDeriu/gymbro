@@ -8,40 +8,69 @@ export interface ExerciseLog {
 
 export const formatSets = (sets: Set[]): string[] => {
 	const formattedSets: string[] = [];
-	const setCountMap: Map<string, number> = new Map();
+
+	let currentMinimumReps = sets[0].minimumReps;
+	let currentMaximumReps = sets[0].maximumReps;
+	let currentSetCount = 0;
 
 	for (const set of sets) {
-		const key = `${set.minimumReps} - ${set.maximumReps}`;
+		if (
+			set.minimumReps === currentMinimumReps &&
+			set.maximumReps === currentMaximumReps
+		) {
+			currentSetCount++;
+		} else {
+			formattedSets.push(
+				`${currentSetCount}x${currentMinimumReps}${
+					currentMaximumReps !== currentMinimumReps
+						? `-${currentMaximumReps}`
+						: ""
+				}`
+			);
 
-		setCountMap.set(key, (setCountMap.get(key) || 0) + 1);
+			currentMinimumReps = set.minimumReps;
+
+			currentMaximumReps = set.maximumReps;
+
+			currentSetCount = 1;
+		}
 	}
 
-	setCountMap.forEach((count, key) => {
-		const [minReps, maxReps] = key.split(" - ").map(Number);
-
-		if (minReps === maxReps) {
-			formattedSets.push(`${count} x ${minReps}`);
-		} else {
-			formattedSets.push(`${count} x ${minReps} - ${maxReps}`);
-		}
-	});
+	formattedSets.push(
+		`${currentSetCount}x${currentMinimumReps}${
+			currentMaximumReps !== currentMinimumReps
+				? `-${currentMaximumReps}`
+				: ""
+		}`
+	);
 
 	return formattedSets;
 };
 
 export const formatEffectiveSets = (sets: EffectiveSet[]): string[] => {
 	const formattedSets: string[] = [];
-	const setCountMap: Map<string, number> = new Map();
+
+	let currentReps = sets[0]?.reps ?? 0;
+	let currentLoad = sets[0]?.load ?? 0;
+	let currentSetCount = 0;
 
 	for (const set of sets) {
-		const key = `${set.reps}@${set.load}Kg`;
+		if (set.reps === currentReps && set.load === currentLoad) {
+			currentSetCount++;
+		} else {
+			formattedSets.push(
+				`${currentSetCount}x${currentReps}@${currentLoad}Kg`
+			);
 
-		setCountMap.set(key, (setCountMap.get(key) || 0) + 1);
+			currentReps = set.reps;
+
+			currentLoad = set.load;
+
+			currentSetCount = 1;
+		}
 	}
 
-	setCountMap.forEach((count, key) => {
-		formattedSets.push(`${count} x ${key}`);
-	});
+	formattedSets.push(`${currentSetCount}x${currentReps}@${currentLoad}Kg`);
 
 	return formattedSets;
 };

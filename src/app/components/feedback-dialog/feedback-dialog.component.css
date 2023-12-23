@@ -3,16 +3,3 @@ textarea:focus {
 	box-shadow: none;
 	border: 1px solid #cdcdcd;
 }
-
-.purple-btn {
-	border: none;
-	background-color: #6b44d4;
-}
-
-.purple-btn:hover {
-	background-color: #785ebe !important;
-}
-
-.purple-btn:active {
-	background-color: #957dd6 !important;
-}

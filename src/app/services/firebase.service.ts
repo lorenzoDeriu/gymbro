@@ -157,9 +157,9 @@ export class FirebaseService {
 		} else {
 			await uploadBytes(profilePicRef, file);
 
-            getDownloadURL(profilePicRef).then(url => {
-                this.updateProfilePicUrl(url);
-            });
+			getDownloadURL(profilePicRef).then(url => {
+				this.updateProfilePicUrl(url);
+			});
 		}
 	}
 
@@ -172,9 +172,25 @@ export class FirebaseService {
 
 		if (listOfPics.items.length !== 0) {
 			await deleteObject(listOfPics.items[0]).then(() => {
-			    this.updateProfilePicUrl("");
-            });
+				this.updateProfilePicUrl("");
+			});
 		}
+	}
+
+	async getAllUsers() {
+		return await getDocs(collection(this.db, "users")).then(
+			querySnapshot => {
+				return querySnapshot.docs.map(doc => doc.data());
+			}
+		);
+	}
+
+	async getAllExercises() {
+		return await getDocs(collection(this.db, "exercise")).then(
+			querySnapshot => {
+				return querySnapshot.docs.map(doc => doc.data())[0]["name"];
+			}
+		);
 	}
 
 	private normalizeWorkout(workouts: any[]): Workout[] {
@@ -731,9 +747,9 @@ export class FirebaseService {
 
 			user.uid = document.id;
 			user.username = userData.username;
-            user.profilePicUrl = userData.profilePicUrl;
+			user.profilePicUrl = userData.profilePicUrl;
 
-			if (uid != user.uid) {
+			if (uid !== user.uid) {
 				result.push(user);
 			}
 		});
@@ -791,7 +807,8 @@ export class FirebaseService {
 					username: (documentSnapshot.data() as User).username,
 					visibilityPermission: (documentSnapshot.data() as User)
 						.visibility,
-                    profilePicUrl: (documentSnapshot.data() as User).profilePicUrl,
+					profilePicUrl: (documentSnapshot.data() as User)
+						.profilePicUrl,
 				};
 
 				result.push(userObj);

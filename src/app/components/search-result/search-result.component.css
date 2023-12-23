@@ -20,24 +20,12 @@ input:focus {
 }
 
 .user {
+	background-color: #f8f9fa;
 	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.135);
 }
 
 .user:hover {
 	box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.135);
-}
-
-.purple-btn {
-	border: none;
-	background-color: #6b44d4;
-}
-
-.purple-btn:hover {
-	background-color: #785ebe !important;
-}
-
-.purple-btn:active {
-	background-color: #957dd6 !important;
 }
 
 @media (max-width: 1000px) {

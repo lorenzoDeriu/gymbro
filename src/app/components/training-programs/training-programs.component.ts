@@ -40,9 +40,9 @@ export class TrainingProgramsComponent implements OnInit {
 
 			for (let i = 0; i < collapsers.length; i++) {
 				if (i !== index) {
-					collapsers[i].classList.remove("collapsed");
-					collapsers[i].setAttribute("aria-expanded", "false");
-					collapses[i].classList.remove("show");
+					collapsers[i]?.classList.remove("collapsed");
+					collapsers[i]?.setAttribute("aria-expanded", "false");
+					collapses[i]?.classList.remove("show");
 				}
 			}
 		}
@@ -97,7 +97,6 @@ export class TrainingProgramsComponent implements OnInit {
 		const exercise = session.exercises[exerciseIndex];
 
 		this.dialog.open(NotesDialogComponent, {
-			width: "300px",
 			data: { notes: exercise.note },
 		});
 	}

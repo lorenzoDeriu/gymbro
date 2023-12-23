@@ -1,7 +1,7 @@
 import { PasswordRecoverDialogComponent } from "../password-recover-dialog/password-recover-dialog.component";
 import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { Router } from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import { AuthService } from "src/app/services/auth.service";
 
 @Component({
@@ -19,11 +19,12 @@ export class AccessComponent {
 	public hidePwd: boolean = true;
 	public hidePwdConfirm: boolean = true;
 	public onLogin: boolean = true;
+	public agreePrivacy: boolean = false;
 
 	constructor(
 		private authService: AuthService,
-		private router: Router,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private snackBar: MatSnackBar
 	) {}
 
 	login() {
@@ -40,6 +41,7 @@ export class AccessComponent {
 
 	allowLogin(): boolean {
 		return (
+			this.agreePrivacy &&
 			this.email &&
 			!!this.email.match(
 				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -52,6 +54,7 @@ export class AccessComponent {
 
 	allowRegister(): boolean {
 		return (
+			this.agreePrivacy &&
 			this.emailRegister &&
 			!!this.emailRegister.match(
 				/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -66,14 +69,44 @@ export class AccessComponent {
 	}
 
 	accessWithGoogle() {
+		if (!this.agreePrivacy) {
+			this.snackBar.open(
+				"Devi accettare la Privacy Policy per accedere!",
+				"OK",
+				{
+					duration: 5000,
+				}
+			);
+			return;
+		}
 		this.authService.accessWithGoogle();
 	}
 
 	accessWithFacebook() {
+		if (!this.agreePrivacy) {
+			this.snackBar.open(
+				"Devi accettare la Privacy Policy per accedere!",
+				"OK",
+				{
+					duration: 5000,
+				}
+			);
+			return;
+		}
 		this.authService.accessWithMeta();
 	}
 
 	accessWithTwitter() {
+		if (!this.agreePrivacy) {
+			this.snackBar.open(
+				"Devi accettare la Privacy Policy per accedere!",
+				"OK",
+				{
+					duration: 5000,
+				}
+			);
+			return;
+		}
 		this.authService.accessWithX();
 	}
 

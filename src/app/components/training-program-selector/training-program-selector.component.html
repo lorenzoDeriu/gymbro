@@ -19,44 +19,61 @@
 		id="main-container"
 		[ngClass]="{ 'p-3': true, 'w-75': trainingPrograms.length !== 0 }"
 	>
-		<h1 class="text-center my-4">
-			{{
-				trainingPrograms.length > 0
-					? "Scegli una scheda di allenamento"
-					: "Non ci sono schede di allenamento"
-			}}
-		</h1>
+		<div class="w-100 mb-5">
+			<h3 class="text-start">
+				<img src="assets/dumbbell.png" width="30" alt="" />
+				Crea da zero
+			</h3>
 
-		<button
-			class="btn btn-dark ms-2 mb-3 d-none d-lg-block"
-			routerLink="/home/dashboard"
+			<p class="d-none d-lg-block">
+				Gestisci manualmente il numero di esercizi, le serie, le
+				ripetizioni e tutto ciò che ti serve per allenarti come
+				desideri.
+			</p>
+
+			<small class="d-block d-lg-none mb-3">
+				Gestisci manualmente il numero di esercizi, le serie, le
+				ripetizioni e tutto ciò che ti serve per allenarti come
+				desideri.
+			</small>
+
+			<button
+				(click)="createWorkout()"
+				class="btn purple-btn text-light w-100 d-none d-lg-block"
+			>
+				Crea
+				<i class="ms-1 bi bi-plus"></i>
+			</button>
+
+			<button
+				(click)="createWorkout()"
+				class="btn btn-sm purple-btn text-light w-100 d-block d-lg-none"
+			>
+				Crea
+				<i class="ms-1 bi bi-plus"></i>
+			</button>
+		</div>
+
+		<div
+			[ngClass]="{ 'w-100': true, 'mb-5': trainingPrograms.length === 0 }"
 		>
-			Torna alla home
-			<i class="ms-1 bi bi-house-fill"></i>
-		</button>
-
-		<button
-			class="btn btn-sm btn-dark ms-2 mb-3 d-block d-lg-none"
-			routerLink="/home/dashboard"
-		>
-			Torna alla home
-			<i class="ms-1 bi bi-house-fill"></i>
-		</button>
-
-		<img
-			*ngIf="trainingPrograms.length === 0"
-			src="assets/no-old-workouts.svg"
-			alt="No workouts found"
-			style="width: 50%"
-		/>
+			<h3 class="text-start">
+				<i class="bi bi-file-earmark-text"></i>
+				Usa una scheda
+			</h3>
+		</div>
 
 		<div
 			*ngFor="let program of trainingPrograms; index as programIndex"
-			class="w-100 mb-2"
+			[ngClass]="{
+				'w-100': true,
+				'mb-2': programIndex !== trainingPrograms.length - 1,
+				'mb-5': programIndex === trainingPrograms.length - 1
+			}"
 		>
 			<a
 				[href]="'#program' + programIndex"
-				class="btn btn-light w-100 mb-1 border programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				class="btn btn-light w-100 mb-1 shadow-sm programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
 				data-bs-toggle="collapse"
 				role="button"
 				aria-expanded="false"
@@ -70,10 +87,10 @@
 			</a>
 
 			<div
-				class="collapse w-100 programs-collapse-body collapse-body"
+				class="collapse w-100 programs-collapse-body collapse-body shadow-sm"
 				[id]="'program' + programIndex"
 			>
-				<div class="card card-body p-1">
+				<div class="card card-body p-1 border-0">
 					<h5 class="text-center">Sessioni</h5>
 					<div
 						*ngFor="
@@ -84,7 +101,7 @@
 					>
 						<a
 							[href]="'#session' + programIndex + sessionIndex"
-							class="btn btn-light w-100 mb-1 border collapser sessions-collapser d-flex justify-content-between align-items-center mobile-btn"
+							class="btn btn-light shadow-sm w-100 mb-1 collapser sessions-collapser d-flex justify-content-between align-items-center mobile-btn"
 							data-bs-toggle="collapse"
 							role="button"
 							aria-expanded="false"
@@ -97,10 +114,10 @@
 						</a>
 
 						<div
-							class="collapse w-100 sessions-collapse-body collapse-body"
+							class="collapse w-100 sessions-collapse-body collapse-body shadow-sm"
 							[id]="'session' + programIndex + sessionIndex"
 						>
-							<div class="card card-body p-1">
+							<div class="card card-body p-1 border-0">
 								<table
 									class="table table-sm table-striped table-hover"
 								>
@@ -118,7 +135,7 @@
 												index as exerciseIndex
 											"
 										>
-											<th>
+											<th class="text-wrap">
 												<i
 													*ngIf="
 														exercise.note &&
@@ -264,189 +281,40 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
 
-<!-- <mat-progress-bar
-	*ngIf="this.loading"
-	mode="indeterminate"
-	color="primary"
-></mat-progress-bar>
-<div id="training-program-selector-container">
-	<div id="title-container">
-		<h1><span id="title">Scegli la scheda</span></h1>
-	</div>
+		<div class="w-100 mb-3 text-secondary">
+			<h3 class="text-start">
+				<i class="bi bi-journals"></i>
+				Usa un template
+			</h3>
 
-	<ng-container
-		*ngIf="
-			(this.trainingPrograms == undefined ||
-				this.trainingPrograms.length == 0) &&
-			!this.loading
-		"
-	>
-		<p id="info-text">Non ci sono schede</p>
-	</ng-container>
+			<button
+				class="btn btn-light w-100 mb-1 shadow-sm programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				data-bs-toggle="collapse"
+				role="button"
+				aria-expanded="false"
+				aria-controls="collapseExample"
+				disabled
+			>
+				<p class="text-center mb-0 text-secondary">Template</p>
+				<p class="mb-0 text-secondary">Presto disponibile</p>
+			</button>
+		</div>
 
-	<mat-accordion>
-		<mat-expansion-panel
-			hideToggle
-			*ngFor="
-				let program of this.trainingPrograms;
-				index as trainingProgramIndex
-			"
+		<button
+			class="btn btn-dark my-4 d-none d-lg-block w-100"
+			routerLink="/home/dashboard"
 		>
-			<mat-expansion-panel-header>
-				<mat-panel-title>{{ program.name }}</mat-panel-title>
-				<mat-panel-description>
-					Numero di sessioni: {{ program.session.length }}
-				</mat-panel-description>
-			</mat-expansion-panel-header>
+			Torna alla home
+			<i class="ms-1 bi bi-house-fill"></i>
+		</button>
 
-			<mat-accordion>
-				<mat-expansion-panel
-					hideToggle
-					*ngFor="
-						let session of program.session;
-						index as sessionIndex
-					"
-				>
-					<mat-expansion-panel-header>
-						<mat-panel-title>{{ session.name }}</mat-panel-title>
-						<mat-panel-description>
-							Numero di esercizi: {{ session.exercises.length }}
-						</mat-panel-description>
-					</mat-expansion-panel-header>
-
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Nome</th>
-								<th scope="col">Serie-Ripetizioni</th>
-								<th scope="col">RPE</th>
-								<th scope="col">Riposo</th>
-								<th scope="col">Note</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr
-								*ngFor="
-									let exercise of session.exercises;
-									index as exerciseIndex
-								"
-							>
-								<th scope="row">{{ exercise.name }}</th>
-								<td>
-									<ng-container
-										*ngIf="
-											exercise.configurationType ===
-											'advanced'
-										"
-									>
-										<ng-container
-											*ngFor="
-												let set of exercise.advanced
-													.sets;
-												index as i
-											"
-										>
-											<b>{{ i + 1 + ":" }}</b>
-											{{
-												set.min != set.max
-													? set.min +
-													  " reps - " +
-													  set.max +
-													  " reps"
-													: set.min + " reps"
-											}}
-											<br />
-										</ng-container>
-									</ng-container>
-
-									<ng-container
-										*ngIf="
-											!exercise.configurationType ||
-											exercise.configurationType ===
-												'basic'
-										"
-									>
-										{{
-											exercise.series > 0
-												? exercise.series +
-												  "x" +
-												  (exercise.range &&
-												  exercise.range[0] !=
-														exercise.range[1]
-														? exercise.range[0] +
-														  "-" +
-														  exercise.range[1]
-														: exercise.reps
-														? exercise.reps
-														: exercise.range[0])
-												: "/"
-										}}
-									</ng-container>
-								</td>
-								<td>{{ exercise.RPE }}</td>
-								<td>
-									{{
-										exercise.rest
-											? exercise.rest.minutes +
-											  ":" +
-											  exercise.rest.seconds
-											: exercise.restTime
-											? exercise.restTime
-											: "/"
-									}}
-								</td>
-								<td>
-									<i
-										*ngIf="
-											exercise.note && exercise.note != ''
-										"
-										class="bi bi-question-circle-fill"
-										style="cursor: pointer"
-										(click)="
-											showNotes(
-												trainingProgramIndex,
-												sessionIndex,
-												exerciseIndex
-											)
-										"
-									></i>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
-					<div
-						style="
-							display: flex;
-							flex-direction: row;
-							justify-content: flex-end;
-						"
-					>
-						<button
-							class="btn btn-primary custom-button"
-							color="primary"
-							(click)="
-								selectWorkout(
-									trainingProgramIndex,
-									sessionIndex
-								)
-							"
-						>
-							Seleziona
-						</button>
-					</div>
-				</mat-expansion-panel>
-			</mat-accordion>
-		</mat-expansion-panel>
-	</mat-accordion>
-
-	<div id="cancel-button-container">
-		<button class="btn btn-outline-danger" color="warn" (click)="cancel()">
-			Annulla
+		<button
+			class="btn btn-sm btn-dark my-4 d-block d-lg-none w-100"
+			routerLink="/home/dashboard"
+		>
+			Torna alla home
+			<i class="ms-1 bi bi-house-fill"></i>
 		</button>
 	</div>
 </div>
- -->

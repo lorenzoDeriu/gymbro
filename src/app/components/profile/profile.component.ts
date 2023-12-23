@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
 	public trainingPrograms: TrainingProgram[];
 	public playlistUrl: string;
 	public loading: boolean;
-    public profilePic: string;
+	public profilePic: string;
 
 	constructor(
 		private firebase: FirebaseService,
@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit {
 		let user: User = await this.firebase.getUserData(friendUid);
 		this.username = user.username;
 		this.playlistUrl = user.playlistUrl;
-        this.profilePic = user.profilePicUrl;
+		this.profilePic = user.profilePicUrl;
 
 		this.trainingPrograms = await this.firebase.getTrainingProgramsFromUser(
 			friendUid
@@ -96,9 +96,9 @@ export class ProfileComponent implements OnInit {
 
 			for (let i = 0; i < collapsers.length; i++) {
 				if (i !== index) {
-					collapsers[i].classList.remove("collapsed");
-					collapsers[i].setAttribute("aria-expanded", "false");
-					collapses[i].classList.remove("show");
+					collapsers[i]?.classList.remove("collapsed");
+					collapsers[i]?.setAttribute("aria-expanded", "false");
+					collapses[i]?.classList.remove("show");
 				}
 			}
 		}

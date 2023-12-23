@@ -1,4 +1,7 @@
-<nav class="navbar fixed-top bg-body-tertiary shadow" style="z-index: 1">
+<nav
+	class="navbar fixed-top bg-body-tertiary shadow-sm"
+	style="z-index: 1; height: 66px"
+>
 	<div class="container-fluid">
 		<a
 			class="navbar-brand m-0 d-none d-lg-block"
@@ -135,27 +138,17 @@
 
 			<!-- Spotify -->
 			<a
-				*ngIf="
-					playlistUrl &&
-					!editMode &&
-					workoutExists() &&
-					(!restMode || restMode)
-				"
+				*ngIf="playlistUrl && !editMode && workoutExists()"
 				[href]="playlistUrl"
 				target="_blank"
-				class="ms-2 btn d-none d-lg-block rounded-5 text-light"
+				class="ms-2 btn d-none d-lg-block rounded-5 py-2 text-light"
 				style="background-color: #1ed760"
 			>
 				<i class="bi bi-spotify"></i>
 			</a>
 
 			<a
-				*ngIf="
-					playlistUrl &&
-					!editMode &&
-					workoutExists() &&
-					(!restMode || restMode)
-				"
+				*ngIf="playlistUrl && !editMode && workoutExists()"
 				[href]="playlistUrl"
 				target="_blank"
 				class="ms-1 btn btn-sm d-block d-lg-none rounded-5 text-light"
@@ -212,8 +205,8 @@
 						(click)="onSettings()"
 						style="cursor: pointer"
 					>
-						Impostazioni
-						<i class="ms-2 bi bi-gear-wide-connected"></i>
+						Profilo
+						<i class="ms-2 bi bi-person-circle"></i>
 					</a>
 				</li>
 				<li class="text-end mb-1" *ngIf="isAdmin">

@@ -9,6 +9,6 @@ export type User = {
 	trainingPrograms: TrainingProgram[];
 	workout: Workout[];
 	playlistUrl?: string;
-    profilePicUrl?: string;
+	profilePicUrl?: string;
 	admin?: boolean;
 };

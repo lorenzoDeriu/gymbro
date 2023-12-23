@@ -1,6 +1,6 @@
 <div
 	class="d-flex flex-column justify-content-center align-items-center p-3 overflow-hidden"
-	style="max-width: 500px; max-height: 60svh"
+	style="min-width: 220px; width: auto; max-width: 500px; max-height: 60svh"
 >
 	<h1 class="text-center w-100">Storico</h1>
 	<h5 class="fst-italic text-center w-100">
@@ -18,7 +18,7 @@
 		</div>
 	</div>
 
-	<div class="overflow-auto w-100">
+	<div class="overflow-auto w-100 mb-3">
 		<div *ngFor="let stat of stats" class="w-100">
 			<div class="mb-2">
 				<p class="mb-0 fw-bold">
@@ -28,6 +28,15 @@
 
 				<div *ngFor="let set of formatEffectiveSets(stat.exercise.set)">
 					<small>
+						<span *ngIf="stat.exercise.intensity === 'light'">
+							<i class="text-success bi bi-feather"></i>
+						</span>
+						<span *ngIf="stat.exercise.intensity === 'hard'">
+							<i class="text-warning bi bi-lightning-fill"></i>
+						</span>
+						<span *ngIf="stat.exercise.intensity === 'failure'">
+							<i class="text-danger bi bi-fire"></i>
+						</span>
 						{{ set }}
 					</small>
 				</div>

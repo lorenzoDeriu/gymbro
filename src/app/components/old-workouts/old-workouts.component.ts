@@ -1,6 +1,6 @@
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { MatDialog } from "@angular/material/dialog";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
@@ -17,9 +17,12 @@ import { EffectiveSet } from "src/app/Models/Exercise.model";
 	templateUrl: "./old-workouts.component.html",
 	styleUrls: ["./old-workouts.component.css"],
 })
-export class OldWorkoutsComponent implements OnInit {
+export class OldWorkoutsComponent implements OnInit, OnDestroy {
 	public workouts: Workout[] = [];
 	public loading: boolean;
+	public currentPage: number;
+	public lastPage: number = Math.ceil(this.workouts.length / 7);
+	public current7Workouts: Workout[] = [];
 
 	constructor(
 		private userService: UserService,
@@ -30,8 +33,53 @@ export class OldWorkoutsComponent implements OnInit {
 
 	async ngOnInit() {
 		this.loading = true;
+		this.currentPage = localStorage.getItem("currentPage")
+			? parseInt(localStorage.getItem("currentPage"))
+			: 1;
 		this.workouts = await this.firebase.getWorkouts();
+		this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
 		this.loading = false;
+	}
+
+	ngOnDestroy() {
+		localStorage.removeItem("currentPage");
+	}
+
+	public get7WorkoutsByPage(page: number): Workout[] {
+		const workouts: Workout[] = this.workouts.slice(
+			(page - 1) * 7,
+			page * 7
+		);
+
+		return workouts;
+	}
+
+	public goToFirstPage() {
+		this.currentPage = 1;
+		localStorage.setItem("currentPage", this.currentPage.toString());
+		this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
+	}
+
+	public goToLastPage() {
+		this.currentPage = Math.ceil(this.workouts.length / 7);
+		localStorage.setItem("currentPage", this.currentPage.toString());
+		this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
+	}
+
+	public previousPage() {
+		if (this.currentPage > 1) {
+			this.currentPage--;
+			localStorage.setItem("currentPage", this.currentPage.toString());
+			this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
+		}
+	}
+
+	public nextPage() {
+		if (this.currentPage < this.workouts.length / 7) {
+			this.currentPage++;
+			localStorage.setItem("currentPage", this.currentPage.toString());
+			this.current7Workouts = this.get7WorkoutsByPage(this.currentPage);
+		}
 	}
 
 	public formatEffectiveSets(sets: EffectiveSet[]): string[] {
@@ -114,6 +162,10 @@ export class OldWorkoutsComponent implements OnInit {
 				) => {
 					workouts.splice(index, 1);
 					await userService.updateWorkouts(workouts);
+					this.workouts = await this.firebase.getWorkouts();
+					this.current7Workouts = this.get7WorkoutsByPage(
+						this.currentPage
+					);
 				},
 			},
 		});
@@ -121,6 +173,10 @@ export class OldWorkoutsComponent implements OnInit {
 
 	workoutExists() {
 		return localStorage.getItem("workout") !== null;
+	}
+
+	public reuseWorkout(index: number) {
+		this.userService.reuseWorkout(this.workouts[index]);
 	}
 
 	public editWorkout(index: number) {
