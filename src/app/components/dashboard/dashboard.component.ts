@@ -24,11 +24,13 @@ export class DashboardComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
-		if (localStorage.getItem("welcomeDialog") !== "true") {
+		if (localStorage.getItem("welcomeDialog") !== null) localStorage.removeItem("welcomeDialog");
+
+		if (localStorage.getItem("welcomeDialog_v12.5") !== "true") {
 			this.dialog.open(WelcomeDialogComponent, {
 				disableClose: false,
 			});
-			localStorage.setItem("welcomeDialog", "true");
+			localStorage.setItem("welcomeDialog_v12.5", "true");
 		}
 
 		this.userService.editModeObs.subscribe(editMode => {
