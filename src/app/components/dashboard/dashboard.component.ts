@@ -24,7 +24,8 @@ export class DashboardComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
-		if (localStorage.getItem("welcomeDialog") !== null) localStorage.removeItem("welcomeDialog");
+		if (localStorage.getItem("welcomeDialog") !== null)
+			localStorage.removeItem("welcomeDialog");
 
 		if (localStorage.getItem("welcomeDialog_v12.5") !== "true") {
 			this.dialog.open(WelcomeDialogComponent, {
