@@ -11,6 +11,21 @@
 	background-position: center;
 }
 
+.form-check-input {
+	cursor: pointer;
+	outline: none;
+	box-shadow: none;
+}
+
+.form-check-input:focus {
+	border-color: #dee2e6;
+}
+
+.form-check-input:checked {
+	background-color: #6b44d4;
+	border-color: #6b44d4;
+}
+
 .scrollable {
 	display: grid;
 	grid-auto-flow: column;
@@ -48,28 +63,8 @@ input:focus {
 	outline: none;
 }
 
-.purple-btn {
-	border: none;
-	background-color: #6b44d4;
-}
-
-.purple-btn:hover {
-	background-color: #785ebe !important;
-}
-
-.purple-btn:active {
-	background-color: #957dd6 !important;
-}
-
-.blue-btn {
-	border: none;
-	background-color: #4089c9;
-}
-
-.blue-btn:hover {
-	background-color: #659fd2 !important;
-}
-
-.blue-btn:active {
-	background-color: #7eafda !important;
+@media (max-width: 300px) {
+	#logo {
+		width: 150px;
+	}
 }

@@ -1,0 +1,12 @@
+@media (max-width: 900px) {
+	.table {
+		font-size: 10px;
+		white-space: nowrap;
+	}
+}
+
+@media (max-width: 300px) {
+	.table {
+		font-size: 8px;
+	}
+}

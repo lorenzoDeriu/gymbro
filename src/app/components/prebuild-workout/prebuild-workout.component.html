@@ -76,9 +76,39 @@
 				</button>
 			</div>
 
-			<div class="mb-4">
+			<div class="d-flex align-items-center mb-4">
+				<button
+					class="btn btn-light d-none d-lg-block me-3 shadow-sm"
+					(click)="deloadWorkout()"
+				>
+					<i class="bi bi-feather text-success"></i>
+				</button>
+
+				<button
+					class="btn btn-sm btn-light d-block d-lg-none me-3 shadow-sm"
+					(click)="deloadWorkout()"
+				>
+					<i class="bi bi-feather text-success"></i>
+				</button>
+
+				<button
+					*ngIf="workoutHasTemplate()"
+					class="btn btn-light w-100 d-none d-lg-block me-3 shadow-sm"
+					(click)="showTrainingProgram()"
+				>
+					Visualizza scheda
+					<i class="bi bi-file-earmark-text"></i>
+				</button>
+
+				<button
+					*ngIf="workoutHasTemplate()"
+					class="btn btn-sm btn-light d-block d-lg-none me-3 shadow-sm"
+					(click)="showTrainingProgram()"
+				>
+					<i class="bi bi-file-earmark-text"></i>
+				</button>
+
 				<div class="input-group d-none d-lg-flex">
-					<span class="input-group-text">Data</span>
 					<input
 						type="date"
 						class="form-control"
@@ -87,10 +117,13 @@
 						[(ngModel)]="date"
 						[ngModelOptions]="{ standalone: true }"
 					/>
+
+					<button class="btn btn-light border" (click)="pickDate()">
+						<i class="bi bi-calendar"></i>
+					</button>
 				</div>
 
 				<div class="input-group input-group-sm d-flex d-lg-none">
-					<span class="input-group-text">Data</span>
 					<input
 						type="date"
 						class="form-control"
@@ -99,801 +132,892 @@
 						[(ngModel)]="date"
 						[ngModelOptions]="{ standalone: true }"
 					/>
+					<button class="btn btn-light border" (click)="pickDate()">
+						<i class="bi bi-calendar"></i>
+					</button>
 				</div>
 			</div>
 		</div>
 
-		<div
-			*ngFor="
-				let exercise of this.workout.exercises;
-				index as exerciseIndex
-			"
-			class="w-100 mb-2"
-		>
-			<a
-				[href]="'#exercise' + exerciseIndex"
-				class="btn btn-light w-100 mb-1 border exercise-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
-				data-bs-toggle="collapse"
-				role="button"
-				aria-expanded="false"
-				aria-controls="collapseExample"
-			>
-				<p class="mb-0">
-					{{
-						exercise.name !== "" ? exercise.name : "Nuovo Esercizio"
-					}}
-				</p>
-			</a>
-
+		<div class="exercises w-100" [draggable]="!onMobile">
 			<div
-				class="collapse w-100 exercise-collapse-body collapse-body"
-				[id]="'exercise' + exerciseIndex"
+				*ngFor="
+					let exercise of this.workout.exercises;
+					index as exerciseIndex
+				"
+				class="w-100 mb-2 exercise"
+				[draggable]="!onMobile"
 			>
-				<div class="card card-body p-1">
-					<div
-						class="d-flex flex-column justify-content-center align-items-center"
+				<div
+					class="d-flex align-items-center shadow-sm rounded"
+					[draggable]="!onMobile"
+				>
+					<a
+						[href]="'#exercise' + exerciseIndex"
+						[ngClass]="{
+							'btn btn-light w-100 exercise-collapser collapser d-flex justify-content-between align-items-center mobile-btn': true,
+							'rounded-end-0': onMobile,
+						}"
+						data-bs-toggle="collapse"
+						role="button"
+						aria-expanded="false"
+						aria-controls="collapseExample"
+						[draggable]="!onMobile"
 					>
-						<div class="p-3 w-100 collapse-container">
-							<form
-								class="d-none d-lg-flex flex-column align-items-center"
-							>
-								<div class="input-group flex-nowrap mb-3">
-									<span class="input-group-text">
-										Esercizio
-									</span>
+						<p class="mb-0" [draggable]="!onMobile">
+							{{
+								exercise.name !== ""
+									? exercise.name
+									: "Nuovo Esercizio"
+							}}
+						</p>
+					</a>
 
-									<select
-										class="form-select"
-										aria-label="Default select example"
-										style="cursor: pointer"
-										[(ngModel)]="exercise.name"
-										[ngModelOptions]="{ standalone: true }"
-									>
-										<option [value]="exercise.name">
-											{{ exercise.name }}
-										</option>
-										<option
-											*ngFor="
-												let exercise of availableExercise
+					<button
+						class="btn btn-light rounded-start-0 mobile-btn d-block d-lg-none mobileDragger"
+						draggable="true"
+					>
+						<i class="bi bi-grip-vertical"></i>
+					</button>
+				</div>
+
+				<div
+					class="collapse w-100 exercise-collapse-body collapse-body mt-1 rounded shadow-sm"
+					[id]="'exercise' + exerciseIndex"
+				>
+					<div class="card card-body p-1 border-0">
+						<div
+							class="d-flex flex-column justify-content-center align-items-center"
+						>
+							<div class="p-3 w-100 collapse-container">
+								<form
+									class="d-none d-lg-flex flex-column align-items-center"
+								>
+									<div class="input-group flex-nowrap mb-3">
+										<span class="input-group-text">
+											Esercizio
+										</span>
+
+										<select
+											class="form-select"
+											aria-label="Default select example"
+											style="cursor: pointer"
+											[(ngModel)]="exercise.name"
+											[ngModelOptions]="{
+												standalone: true
+											}"
+										>
+											<option [value]="exercise.name">
+												{{ exercise.name }}
+											</option>
+											<option
+												*ngFor="
+													let exercise of availableExercise
+												"
+												[value]="exercise"
+											>
+												{{ exercise }}
+											</option>
+										</select>
+
+										<button
+											class="btn btn-dark"
+											type="button"
+											(click)="
+												openCustomExerciseDialog(
+													exerciseIndex
+												)
 											"
-											[value]="exercise"
 										>
-											{{ exercise }}
-										</option>
-									</select>
-
-									<button
-										class="btn btn-dark"
-										type="button"
-										(click)="
-											openCustomExerciseDialog(
-												exerciseIndex
-											)
-										"
-									>
-										Crea
-										<i class="ms-1 bi bi-plus-lg"></i>
-									</button>
-								</div>
-
-								<div
-									*ngIf="exercise.set.length !== 0"
-									class="d-flex align-items-center w-100"
-								>
-									<div class="input-group flex-nowrap me-2">
-										<input
-											type="number"
-											class="form-control w-100 border-0"
-											placeholder="Reps"
-											style="pointer-events: none"
-										/>
-										<input
-											type="number"
-											class="form-control w-100 border-0"
-											placeholder="Carico"
-											style="pointer-events: none"
-										/>
+											Crea
+											<i class="ms-1 bi bi-plus-lg"></i>
+										</button>
 									</div>
 
 									<div
-										class="d-flex align-items-center opacity-0"
-									>
-										<button
-											class="btn btn-sm blue-btn text-light me-1 rounded-5 py-1 px-2"
-											disabled
-											style="pointer-events: none"
-										>
-											<i class="bi bi-check"></i>
-										</button>
-
-										<button
-											class="btn btn-sm btn-danger rounded-5 py-1 px-2"
-											disabled
-											style="pointer-events: none"
-										>
-											<i class="bi bi-trash3"></i>
-										</button>
-									</div>
-								</div>
-
-								<div
-									*ngFor="
-										let set of exercise.set;
-										index as setIndex
-									"
-									class="d-flex align-items-center w-100 mb-3"
-								>
-									<div
-										class="input-group flex-nowrap me-2 w-100"
+										*ngIf="exercise.set.length !== 0"
+										class="d-flex align-items-center w-100"
 									>
 										<div
-											class="input-group flex-nowrap d-flex align-items-center w-50"
+											class="input-group flex-nowrap me-2"
 										>
 											<input
-												[disabled]="
-													workoutProgress.completed[
-														exerciseIndex
-													][setIndex]
-												"
-												type="text"
-												inputmode="numeric"
-												[ngClass]="{
-													'form-control': true,
-													'rounded-start-5':
+												type="number"
+												class="form-control w-100 border-0"
+												placeholder="Reps"
+												style="pointer-events: none"
+											/>
+											<input
+												type="number"
+												class="form-control w-100 border-0"
+												placeholder="Carico"
+												style="pointer-events: none"
+											/>
+										</div>
+
+										<div
+											class="d-flex align-items-center opacity-0"
+										>
+											<button
+												class="btn btn-sm blue-btn text-light me-1 rounded-5 py-1 px-2"
+												disabled
+												style="pointer-events: none"
+											>
+												<i class="bi bi-check"></i>
+											</button>
+
+											<button
+												class="btn btn-sm btn-danger rounded-5 py-1 px-2"
+												disabled
+												style="pointer-events: none"
+											>
+												<i class="bi bi-trash3"></i>
+											</button>
+										</div>
+									</div>
+
+									<div
+										*ngFor="
+											let set of exercise.set;
+											index as setIndex
+										"
+										class="d-flex align-items-center w-100 mb-3"
+									>
+										<div
+											class="input-group flex-nowrap me-2 w-100"
+										>
+											<div
+												class="input-group flex-nowrap d-flex align-items-center w-50"
+											>
+												<input
+													[disabled]="
+														workoutProgress
+															.completed[
+															exerciseIndex
+														][setIndex]
+													"
+													type="text"
+													inputmode="numeric"
+													[ngClass]="{
+														'form-control': true,
+														'rounded-start-5':
+															exercise.template &&
+															setIndex <
+																exercise
+																	.template
+																	.length,
+														'rounded-5 me-2':
+															!exercise.template ||
+															(exercise.template &&
+																!(
+																	setIndex <
+																	exercise
+																		.template
+																		.length
+																))
+													}"
+													[ngModel]="
+														exercise.set[setIndex]
+															.reps
+													"
+													(input)="
+														filterInput(
+															$event,
+															exerciseIndex,
+															setIndex,
+															'reps'
+														)
+													"
+													[min]="0"
+													[ngModelOptions]="{
+														standalone: true
+													}"
+												/>
+												<span
+													*ngIf="
 														exercise.template &&
 														setIndex <
 															exercise.template
-																.length,
-													'rounded-5 me-2':
-														!exercise.template ||
-														(exercise.template &&
-															!(
-																setIndex <
-																exercise
-																	.template
-																	.length
-															))
-												}"
-												[ngModel]="
-													exercise.set[setIndex].reps
-												"
-												(input)="
-													filterInput(
-														$event,
+																.length
+													"
+													class="input-group-text rounded-end-5 me-2"
+												>
+													{{
+														exercise.template[
+															setIndex
+														].minimumReps ===
+														exercise.template[
+															setIndex
+														].maximumReps
+															? exercise.template[
+																	setIndex
+															  ].minimumReps
+															: exercise.template[
+																	setIndex
+															  ].minimumReps +
+															  "-" +
+															  exercise.template[
+																	setIndex
+															  ].maximumReps
+													}}
+												</span>
+											</div>
+											<div
+												class="input-group flex-nowrap d-flex align-items-center w-50"
+											>
+												<input
+													[disabled]="
+														workoutProgress
+															.completed[
+															exerciseIndex
+														][setIndex]
+													"
+													type="text"
+													inputmode="decimal"
+													class="form-control rounded-start-5"
+													[ngModel]="
+														exercise.set[setIndex]
+															.load
+													"
+													[min]="0"
+													(input)="
+														filterInput(
+															$event,
+															exerciseIndex,
+															setIndex,
+															'load'
+														)
+													"
+													[ngModelOptions]="{
+														standalone: true
+													}"
+												/>
+												<span
+													class="input-group-text rounded-end-5"
+												>
+													Kg
+												</span>
+											</div>
+										</div>
+
+										<div class="d-flex align-items-center">
+											<button
+												[disabled]="
+													!isSetValid(
 														exerciseIndex,
-														setIndex,
-														'reps'
+														setIndex
 													)
 												"
-												[min]="0"
-												[ngModelOptions]="{
-													standalone: true
-												}"
-											/>
-											<span
 												*ngIf="
-													exercise.template &&
-													setIndex <
-														exercise.template.length
+													!workoutProgress.completed[
+														exerciseIndex
+													][setIndex] && !editMode
 												"
-												class="input-group-text rounded-end-5 me-2"
+												class="btn blue-btn text-light me-1 rounded-5 py-1 px-2"
+												(click)="
+													toggleCompleted(
+														exerciseIndex,
+														setIndex
+													)
+												"
 											>
-												{{
-													exercise.template[setIndex]
-														.minimumReps ===
-													exercise.template[setIndex]
-														.maximumReps
-														? exercise.template[
-																setIndex
-														  ].minimumReps
-														: exercise.template[
-																setIndex
-														  ].minimumReps +
-														  "-" +
-														  exercise.template[
-																setIndex
-														  ].maximumReps
-												}}
-											</span>
-										</div>
-										<div
-											class="input-group flex-nowrap d-flex align-items-center w-50"
-										>
-											<input
-												[disabled]="
+												<i class="bi bi-check"></i>
+											</button>
+
+											<button
+												*ngIf="
 													workoutProgress.completed[
 														exerciseIndex
 													][setIndex]
 												"
-												type="text"
-												inputmode="decimal"
-												class="form-control rounded-start-5"
-												[ngModel]="
-													exercise.set[setIndex].load
-												"
-												[min]="0"
-												(input)="
-													filterInput(
-														$event,
+												class="btn btn-dark text-light me-1 rounded-5 py-1 px-2"
+												(click)="
+													toggleCompleted(
 														exerciseIndex,
-														setIndex,
-														'load'
+														setIndex
 													)
 												"
-												[ngModelOptions]="{
-													standalone: true
-												}"
-											/>
-											<span
-												class="input-group-text rounded-end-5"
 											>
-												Kg
-											</span>
+												<i
+													class="bi bi-pencil-square"
+												></i>
+											</button>
+
+											<button
+												class="btn btn-danger rounded-5 py-1 px-2"
+												(click)="
+													deleteSet(
+														exerciseIndex,
+														setIndex
+													)
+												"
+											>
+												<i class="bi bi-trash3"></i>
+											</button>
 										</div>
 									</div>
 
-									<div class="d-flex align-items-center">
-										<button
-											[disabled]="
-												!isSetValid(
-													exerciseIndex,
-													setIndex
-												)
-											"
-											*ngIf="
-												!workoutProgress.completed[
-													exerciseIndex
-												][setIndex] && !editMode
-											"
-											class="btn blue-btn text-light me-1 rounded-5 py-1 px-2"
-											(click)="
-												toggleCompleted(
-													exerciseIndex,
-													setIndex
-												)
-											"
-										>
-											<i class="bi bi-check"></i>
-										</button>
-
-										<button
-											*ngIf="
-												workoutProgress.completed[
-													exerciseIndex
-												][setIndex]
-											"
-											class="btn btn-dark text-light me-1 rounded-5 py-1 px-2"
-											(click)="
-												toggleCompleted(
-													exerciseIndex,
-													setIndex
-												)
-											"
-										>
-											<i class="bi bi-pencil-square"></i>
-										</button>
-
-										<button
-											class="btn btn-danger rounded-5 py-1 px-2"
-											(click)="
-												deleteSet(
-													exerciseIndex,
-													setIndex
-												)
-											"
-										>
-											<i class="bi bi-trash3"></i>
-										</button>
-									</div>
-								</div>
-
-								<button
-									class="btn btn-dark w-100 mb-3"
-									(click)="addSet(exerciseIndex)"
-								>
-									Aggiungi serie
-									<i class="ms-1 bi bi-plus"></i>
-								</button>
-
-								<p class="text-center">Intensità (RPE)</p>
-
-								<div
-									class="btn-group d-flex justify-content-center mb-3 w-100"
-									role="group"
-									aria-label="Basic radio toggle button group"
-								>
-									<input
-										type="radio"
-										class="btn-check"
-										name="btnradio"
-										id="btnradio1"
-										autocomplete="off"
-										[(ngModel)]="exercise.intensity"
-										value="light"
-									/>
-									<label
-										[ngClass]="{
-											'btn border': true,
-											'btn-success':
-												exercise.intensity === 'light'
-										}"
-										for="btnradio1"
-									>
-										Leggero
-										<i class="ms-1 bi bi-feather"></i>
-									</label>
-
-									<input
-										type="radio"
-										class="btn-check"
-										name="btnradio"
-										id="btnradio2"
-										autocomplete="off"
-										checked
-										[(ngModel)]="exercise.intensity"
-										value="hard"
-									/>
-									<label
-										[ngClass]="{
-											'btn border': true,
-											'btn-warning text-light':
-												exercise.intensity === 'hard'
-										}"
-										for="btnradio2"
-									>
-										Pesante
-										<i
-											class="ms-1 bi bi-lightning-fill"
-										></i>
-									</label>
-
-									<input
-										type="radio"
-										class="btn-check"
-										name="btnradio"
-										id="btnradio3"
-										autocomplete="off"
-										[(ngModel)]="exercise.intensity"
-										value="failure"
-									/>
-									<label
-										[ngClass]="{
-											'btn border': true,
-											'btn-danger':
-												exercise.intensity === 'failure'
-										}"
-										for="btnradio3"
-									>
-										Cedimento
-										<i class="ms-1 bi bi-fire"></i>
-									</label>
-								</div>
-
-								<div class="input-group flex-nowrap mb-3">
-									<span class="input-group-text">
-										Recupero
-									</span>
-									<select
-										class="form-select custom-select"
-										style="cursor: pointer"
-										[(ngModel)]="exercise.rest.minutes"
-										[ngModelOptions]="{ standalone: true }"
-									>
-										<option value="00">00</option>
-										<option value="01">01</option>
-										<option value="02">02</option>
-										<option value="03">03</option>
-										<option value="04">04</option>
-										<option value="05">05</option>
-									</select>
-									<span class="input-group-text">:</span>
-									<select
-										class="form-select custom-select"
-										style="cursor: pointer"
-										[(ngModel)]="exercise.rest.seconds"
-										[ngModelOptions]="{ standalone: true }"
-									>
-										<option value="00">00</option>
-										<option value="15">15</option>
-										<option value="30">30</option>
-										<option value="45">45</option>
-									</select>
-								</div>
-
-								<div class="input-group flex-nowrap mb-3">
-									<span class="input-group-text">Note</span>
-									<input
-										type="text"
-										class="form-control"
-										[(ngModel)]="exercise.note"
-										[ngModelOptions]="{ standalone: true }"
-									/>
-								</div>
-
-								<div class="d-flex align-items-center w-100">
 									<button
-										class="btn purple-btn text-light me-2 w-100 rounded-5"
-										(click)="showOldStats(exerciseIndex)"
+										class="btn btn-dark w-100 mb-3"
+										(click)="addSet(exerciseIndex)"
 									>
-										Storico
-										<i class="ms-1 bi bi-journal-text"></i>
+										Aggiungi serie
+										<i class="ms-1 bi bi-plus"></i>
 									</button>
-									<button
-										class="btn btn-danger w-100 rounded-5"
-										(click)="delete(exerciseIndex)"
-									>
-										Elimina
-										<i class="ms-1 bi bi-trash3"></i>
-									</button>
-								</div>
-							</form>
 
-							<!-- Mobile -->
-							<form
-								class="d-flex flex-column align-items-center d-lg-none"
-							>
-								<div
-									class="input-group input-group-sm flex-nowrap mb-3"
-								>
-									<span class="input-group-text">
-										Esercizio
-									</span>
+									<p class="text-center">Intensità (RPE)</p>
 
-									<select
-										class="form-select"
-										aria-label="Default select example"
-										style="cursor: pointer"
-										[(ngModel)]="exercise.name"
-										[ngModelOptions]="{ standalone: true }"
-									>
-										<option
-											*ngFor="
-												let exercise of availableExercise
-											"
-											[value]="exercise"
-										>
-											{{ exercise }}
-										</option>
-									</select>
-
-									<button
-										class="btn btn-dark"
-										type="button"
-										(click)="
-											openCustomExerciseDialog(
-												exerciseIndex
-											)
-										"
-									>
-										<i class="bi bi-plus-lg"></i>
-									</button>
-								</div>
-
-								<div
-									*ngIf="exercise.set.length !== 0"
-									class="d-flex align-items-center w-100"
-								>
 									<div
-										class="input-group input-group-sm flex-nowrap me-2"
+										class="btn-group d-flex justify-content-center mb-3 w-100"
+										role="group"
+										aria-label="Basic radio toggle button group"
 									>
 										<input
-											type="number"
-											class="form-control w-100 border-0"
-											placeholder="Reps"
-											style="pointer-events: none"
+											type="radio"
+											class="btn-check"
+											name="btnradio"
+											[id]="'light' + exerciseIndex"
+											autocomplete="off"
+											[(ngModel)]="exercise.intensity"
+											value="light"
 										/>
+										<label
+											[ngClass]="{
+												'btn border': true,
+												'btn-success':
+													exercise.intensity ===
+													'light'
+											}"
+											[for]="'light' + exerciseIndex"
+										>
+											Leggero
+											<i class="ms-1 bi bi-feather"></i>
+										</label>
+
 										<input
-											type="number"
-											class="form-control w-100 border-0"
-											placeholder="Carico"
-											style="pointer-events: none"
+											type="radio"
+											class="btn-check"
+											name="btnradio"
+											[id]="'hard' + exerciseIndex"
+											autocomplete="off"
+											checked
+											[(ngModel)]="exercise.intensity"
+											value="hard"
 										/>
-									</div>
-
-									<div
-										class="d-flex align-items-center opacity-0"
-									>
-										<button
-											class="btn btn-sm blue-btn text-light me-1 rounded-5 py-1 px-2"
-											disabled
-											style="pointer-events: none"
+										<label
+											[ngClass]="{
+												'btn border': true,
+												'btn-warning text-light':
+													exercise.intensity ===
+													'hard'
+											}"
+											[for]="'hard' + exerciseIndex"
 										>
-											<i class="bi bi-check"></i>
-										</button>
-
-										<button
-											class="btn btn-sm btn-danger rounded-5 py-1 px-2"
-											disabled
-											style="pointer-events: none"
-										>
-											<i class="bi bi-trash3"></i>
-										</button>
-									</div>
-								</div>
-
-								<div
-									*ngFor="
-										let set of exercise.set;
-										index as setIndex
-									"
-									class="d-flex align-items-center w-100 mb-3"
-								>
-									<div
-										class="input-group input-group-sm flex-nowrap me-2"
-									>
-										<div
-											class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50"
-										>
-											<input
-												[disabled]="
-													workoutProgress.completed[
-														exerciseIndex
-													][setIndex]
-												"
-												type="text"
-												inputmode="numeric"
-												[ngClass]="{
-													'form-control': true,
-													'rounded-start-5':
-														exercise.template &&
-														setIndex <
-															exercise.template
-																.length,
-													'rounded-5 me-2':
-														!exercise.template ||
-														(exercise.template &&
-															!(
-																setIndex <
-																exercise
-																	.template
-																	.length
-															))
-												}"
-												[ngModel]="
-													exercise.set[setIndex].reps
-												"
-												(input)="
-													filterInput(
-														$event,
-														exerciseIndex,
-														setIndex,
-														'reps'
-													)
-												"
-												[min]="0"
-												[ngModelOptions]="{
-													standalone: true
-												}"
-											/>
-											<span
-												*ngIf="
-													exercise.template &&
-													setIndex <
-														exercise.template.length
-												"
-												class="input-group-text rounded-end-5 me-2"
-											>
-												{{
-													exercise.template[setIndex]
-														.minimumReps ===
-													exercise.template[setIndex]
-														.maximumReps
-														? exercise.template[
-																setIndex
-														  ].minimumReps
-														: exercise.template[
-																setIndex
-														  ].minimumReps +
-														  "-" +
-														  exercise.template[
-																setIndex
-														  ].maximumReps
-												}}
-											</span>
-										</div>
-										<div
-											class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50"
-										>
-											<input
-												[disabled]="
-													workoutProgress.completed[
-														exerciseIndex
-													][setIndex]
-												"
-												type="text"
-												inputmode="decimal"
-												class="form-control rounded-start-5"
-												[ngModel]="
-													exercise.set[setIndex].load
-												"
-												[min]="0"
-												[ngModelOptions]="{
-													standalone: true
-												}"
-												(input)="
-													filterInput(
-														$event,
-														exerciseIndex,
-														setIndex,
-														'load'
-													)
-												"
-											/>
-											<span
-												class="input-group-text rounded-end-5"
-											>
-												Kg
-											</span>
-										</div>
-									</div>
-
-									<div class="d-flex align-items-center">
-										<button
-											[disabled]="
-												!isSetValid(
-													exerciseIndex,
-													setIndex
-												)
-											"
-											*ngIf="
-												!workoutProgress.completed[
-													exerciseIndex
-												][setIndex] && !editMode
-											"
-											class="btn btn-sm blue-btn text-light me-1 rounded-5 py-1 px-2"
-											(click)="
-												toggleCompleted(
-													exerciseIndex,
-													setIndex
-												)
-											"
-										>
-											<i class="bi bi-check"></i>
-										</button>
-
-										<button
-											*ngIf="
-												workoutProgress.completed[
-													exerciseIndex
-												][setIndex]
-											"
-											class="btn btn-sm btn-dark text-light me-1 rounded-5 py-1 px-2"
-											(click)="
-												toggleCompleted(
-													exerciseIndex,
-													setIndex
-												)
-											"
-										>
-											<i class="bi bi-pencil-square"></i>
-										</button>
-
-										<button
-											class="btn btn-sm btn-danger rounded-5 py-1 px-2"
-											(click)="
-												deleteSet(
-													exerciseIndex,
-													setIndex
-												)
-											"
-										>
-											<i class="bi bi-trash3"></i>
-										</button>
-									</div>
-								</div>
-
-								<button
-									class="btn btn-sm btn-dark w-100 mb-3"
-									(click)="addSet(exerciseIndex)"
-								>
-									Aggiungi serie
-									<i class="ms-1 bi bi-plus"></i>
-								</button>
-
-								<div
-									class="input-group input-group-sm flex-nowrap mb-3"
-								>
-									<span class="input-group-text">
-										Intensità
-									</span>
-									<select
-										class="form-select custom-select"
-										style="cursor: pointer"
-										[(ngModel)]="exercise.intensity"
-										[ngModelOptions]="{ standalone: true }"
-									>
-										<option value="light">Leggero</option>
-										<option value="hard" selected>
 											Pesante
-										</option>
-										<option value="failure">
+											<i
+												class="ms-1 bi bi-lightning-fill"
+											></i>
+										</label>
+
+										<input
+											type="radio"
+											class="btn-check"
+											name="btnradio"
+											[id]="'failure' + exerciseIndex"
+											autocomplete="off"
+											[(ngModel)]="exercise.intensity"
+											value="failure"
+										/>
+										<label
+											[ngClass]="{
+												'btn border': true,
+												'btn-danger':
+													exercise.intensity ===
+													'failure'
+											}"
+											[for]="'failure' + exerciseIndex"
+										>
 											Cedimento
-										</option>
-									</select>
-									<span
-										class="input-group-text"
-										*ngIf="exercise.intensity === 'light'"
-									>
-										<i
-											class="text-success bi bi-feather"
-										></i>
-									</span>
-									<span
-										class="input-group-text"
-										*ngIf="exercise.intensity === 'hard'"
-									>
-										<i
-											class="text-warning bi bi-lightning-fill"
-										></i>
-									</span>
-									<span
-										class="input-group-text"
-										*ngIf="exercise.intensity === 'failure'"
-									>
-										<i class="text-danger bi bi-fire"></i>
-									</span>
-								</div>
+											<i class="ms-1 bi bi-fire"></i>
+										</label>
+									</div>
 
-								<div
-									class="input-group input-group-sm flex-nowrap mb-3"
+									<div class="input-group flex-nowrap mb-3">
+										<span class="input-group-text">
+											Recupero
+										</span>
+										<select
+											class="form-select custom-select"
+											style="cursor: pointer"
+											[(ngModel)]="exercise.rest.minutes"
+											[ngModelOptions]="{
+												standalone: true
+											}"
+										>
+											<option value="00">00</option>
+											<option value="01">01</option>
+											<option value="02">02</option>
+											<option value="03">03</option>
+											<option value="04">04</option>
+											<option value="05">05</option>
+										</select>
+										<span class="input-group-text">:</span>
+										<select
+											class="form-select custom-select"
+											style="cursor: pointer"
+											[(ngModel)]="exercise.rest.seconds"
+											[ngModelOptions]="{
+												standalone: true
+											}"
+										>
+											<option value="00">00</option>
+											<option value="15">15</option>
+											<option value="30">30</option>
+											<option value="45">45</option>
+										</select>
+									</div>
+
+									<div class="input-group flex-nowrap mb-3">
+										<span class="input-group-text">
+											Note
+										</span>
+										<input
+											type="text"
+											class="form-control"
+											[(ngModel)]="exercise.note"
+											[ngModelOptions]="{
+												standalone: true
+											}"
+										/>
+									</div>
+
+									<div
+										class="d-flex align-items-center w-100"
+									>
+										<button
+											class="btn purple-btn text-light me-2 w-100 rounded-5"
+											(click)="
+												showOldStats(exerciseIndex)
+											"
+										>
+											Storico
+											<i
+												class="ms-1 bi bi-journal-text"
+											></i>
+										</button>
+										<button
+											class="btn btn-danger w-100 rounded-5"
+											(click)="delete(exerciseIndex)"
+										>
+											Elimina
+											<i class="ms-1 bi bi-trash3"></i>
+										</button>
+									</div>
+								</form>
+
+								<!-- Mobile -->
+								<form
+									class="d-flex flex-column align-items-center d-lg-none"
 								>
-									<span class="input-group-text">
-										<i class="bi bi-stopwatch-fill"></i>
-									</span>
-									<select
-										class="form-select custom-select"
-										style="cursor: pointer"
-										[(ngModel)]="exercise.rest.minutes"
-										[ngModelOptions]="{ standalone: true }"
+									<div
+										class="input-group input-group-sm flex-nowrap mb-3"
 									>
-										<option value="00">00</option>
-										<option value="01">01</option>
-										<option value="02">02</option>
-										<option value="03">03</option>
-										<option value="04">04</option>
-										<option value="05">05</option>
-									</select>
-									<span class="input-group-text">:</span>
-									<select
-										class="form-select custom-select"
-										style="cursor: pointer"
-										[(ngModel)]="exercise.rest.seconds"
-										[ngModelOptions]="{ standalone: true }"
-									>
-										<option value="00">00</option>
-										<option value="15">15</option>
-										<option value="30">30</option>
-										<option value="45">45</option>
-									</select>
-								</div>
+										<span class="input-group-text">
+											Esercizio
+										</span>
 
-								<div
-									class="input-group input-group-sm flex-nowrap mb-3"
-								>
-									<span class="input-group-text">Note</span>
-									<input
-										type="text"
-										class="form-control"
-										[(ngModel)]="exercise.note"
-										[ngModelOptions]="{ standalone: true }"
-									/>
-								</div>
+										<select
+											class="form-select"
+											aria-label="Default select example"
+											style="cursor: pointer"
+											[(ngModel)]="exercise.name"
+											[ngModelOptions]="{
+												standalone: true
+											}"
+										>
+											<option
+												*ngFor="
+													let exercise of availableExercise
+												"
+												[value]="exercise"
+											>
+												{{ exercise }}
+											</option>
+										</select>
 
-								<div class="d-flex align-items-center w-100">
-									<button
-										class="btn btn-sm purple-btn text-light me-2 w-100 rounded-5"
-										(click)="showOldStats(exerciseIndex)"
+										<button
+											class="btn btn-dark"
+											type="button"
+											(click)="
+												openCustomExerciseDialog(
+													exerciseIndex
+												)
+											"
+										>
+											<i class="bi bi-plus-lg"></i>
+										</button>
+									</div>
+
+									<div
+										*ngIf="exercise.set.length !== 0"
+										class="d-flex align-items-center w-100"
 									>
-										<i class="bi bi-journal-text"></i>
-									</button>
-									<button
-										class="btn btn-sm btn-danger w-100 rounded-5"
-										(click)="delete(exerciseIndex)"
+										<div
+											class="input-group input-group-sm flex-nowrap me-2"
+										>
+											<input
+												type="number"
+												class="form-control w-100 border-0"
+												placeholder="Reps"
+												style="pointer-events: none"
+											/>
+											<input
+												type="number"
+												class="form-control w-100 border-0"
+												placeholder="Carico"
+												style="pointer-events: none"
+											/>
+										</div>
+
+										<div
+											class="d-flex align-items-center opacity-0"
+										>
+											<button
+												class="btn btn-sm blue-btn text-light me-1 rounded-5 py-1 px-2"
+												disabled
+												style="pointer-events: none"
+											>
+												<i class="bi bi-check"></i>
+											</button>
+
+											<button
+												class="btn btn-sm btn-danger rounded-5 py-1 px-2"
+												disabled
+												style="pointer-events: none"
+											>
+												<i class="bi bi-trash3"></i>
+											</button>
+										</div>
+									</div>
+
+									<div
+										*ngFor="
+											let set of exercise.set;
+											index as setIndex
+										"
+										class="d-flex align-items-center w-100 mb-3"
 									>
-										<i class="bi bi-trash3"></i>
+										<div
+											class="input-group input-group-sm flex-nowrap me-2"
+										>
+											<div
+												class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50"
+											>
+												<input
+													[disabled]="
+														workoutProgress
+															.completed[
+															exerciseIndex
+														][setIndex]
+													"
+													type="text"
+													inputmode="numeric"
+													[ngClass]="{
+														'form-control': true,
+														'rounded-start-5':
+															exercise.template &&
+															setIndex <
+																exercise
+																	.template
+																	.length,
+														'rounded-5 me-2':
+															!exercise.template ||
+															(exercise.template &&
+																!(
+																	setIndex <
+																	exercise
+																		.template
+																		.length
+																))
+													}"
+													[ngModel]="
+														exercise.set[setIndex]
+															.reps
+													"
+													(input)="
+														filterInput(
+															$event,
+															exerciseIndex,
+															setIndex,
+															'reps'
+														)
+													"
+													[min]="0"
+													[ngModelOptions]="{
+														standalone: true
+													}"
+												/>
+												<span
+													*ngIf="
+														exercise.template &&
+														setIndex <
+															exercise.template
+																.length
+													"
+													class="input-group-text rounded-end-5 me-2"
+												>
+													{{
+														exercise.template[
+															setIndex
+														].minimumReps ===
+														exercise.template[
+															setIndex
+														].maximumReps
+															? exercise.template[
+																	setIndex
+															  ].minimumReps
+															: exercise.template[
+																	setIndex
+															  ].minimumReps +
+															  "-" +
+															  exercise.template[
+																	setIndex
+															  ].maximumReps
+													}}
+												</span>
+											</div>
+											<div
+												class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50"
+											>
+												<input
+													[disabled]="
+														workoutProgress
+															.completed[
+															exerciseIndex
+														][setIndex]
+													"
+													type="text"
+													inputmode="decimal"
+													class="form-control rounded-start-5"
+													[ngModel]="
+														exercise.set[setIndex]
+															.load
+													"
+													[min]="0"
+													[ngModelOptions]="{
+														standalone: true
+													}"
+													(input)="
+														filterInput(
+															$event,
+															exerciseIndex,
+															setIndex,
+															'load'
+														)
+													"
+												/>
+												<span
+													class="input-group-text rounded-end-5"
+												>
+													Kg
+												</span>
+											</div>
+										</div>
+
+										<div class="d-flex align-items-center">
+											<button
+												[disabled]="
+													!isSetValid(
+														exerciseIndex,
+														setIndex
+													)
+												"
+												*ngIf="
+													!workoutProgress.completed[
+														exerciseIndex
+													][setIndex] && !editMode
+												"
+												class="btn btn-sm blue-btn text-light me-1 rounded-5 py-1 px-2"
+												(click)="
+													toggleCompleted(
+														exerciseIndex,
+														setIndex
+													)
+												"
+											>
+												<i class="bi bi-check"></i>
+											</button>
+
+											<button
+												*ngIf="
+													workoutProgress.completed[
+														exerciseIndex
+													][setIndex]
+												"
+												class="btn btn-sm btn-dark text-light me-1 rounded-5 py-1 px-2"
+												(click)="
+													toggleCompleted(
+														exerciseIndex,
+														setIndex
+													)
+												"
+											>
+												<i
+													class="bi bi-pencil-square"
+												></i>
+											</button>
+
+											<button
+												class="btn btn-sm btn-danger rounded-5 py-1 px-2"
+												(click)="
+													deleteSet(
+														exerciseIndex,
+														setIndex
+													)
+												"
+											>
+												<i class="bi bi-trash3"></i>
+											</button>
+										</div>
+									</div>
+
+									<button
+										class="btn btn-sm btn-dark w-100 mb-3"
+										(click)="addSet(exerciseIndex)"
+									>
+										Aggiungi serie
+										<i class="ms-1 bi bi-plus"></i>
 									</button>
-								</div>
-							</form>
+
+									<div
+										class="input-group input-group-sm flex-nowrap mb-3"
+									>
+										<span class="input-group-text">
+											Intensità
+										</span>
+										<select
+											class="form-select custom-select"
+											style="cursor: pointer"
+											[(ngModel)]="exercise.intensity"
+											[ngModelOptions]="{
+												standalone: true
+											}"
+										>
+											<option value="light">
+												Leggero
+											</option>
+											<option value="hard" selected>
+												Pesante
+											</option>
+											<option value="failure">
+												Cedimento
+											</option>
+										</select>
+										<span
+											class="input-group-text"
+											*ngIf="
+												exercise.intensity === 'light'
+											"
+										>
+											<i
+												class="text-success bi bi-feather"
+											></i>
+										</span>
+										<span
+											class="input-group-text"
+											*ngIf="
+												exercise.intensity === 'hard'
+											"
+										>
+											<i
+												class="text-warning bi bi-lightning-fill"
+											></i>
+										</span>
+										<span
+											class="input-group-text"
+											*ngIf="
+												exercise.intensity === 'failure'
+											"
+										>
+											<i
+												class="text-danger bi bi-fire"
+											></i>
+										</span>
+									</div>
+
+									<div
+										class="input-group input-group-sm flex-nowrap mb-3"
+									>
+										<span class="input-group-text">
+											<i class="bi bi-stopwatch-fill"></i>
+										</span>
+										<select
+											class="form-select custom-select"
+											style="cursor: pointer"
+											[(ngModel)]="exercise.rest.minutes"
+											[ngModelOptions]="{
+												standalone: true
+											}"
+										>
+											<option value="00">00</option>
+											<option value="01">01</option>
+											<option value="02">02</option>
+											<option value="03">03</option>
+											<option value="04">04</option>
+											<option value="05">05</option>
+										</select>
+										<span class="input-group-text">:</span>
+										<select
+											class="form-select custom-select"
+											style="cursor: pointer"
+											[(ngModel)]="exercise.rest.seconds"
+											[ngModelOptions]="{
+												standalone: true
+											}"
+										>
+											<option value="00">00</option>
+											<option value="15">15</option>
+											<option value="30">30</option>
+											<option value="45">45</option>
+										</select>
+									</div>
+
+									<div
+										class="input-group input-group-sm flex-nowrap mb-3"
+									>
+										<span class="input-group-text">
+											Note
+										</span>
+										<input
+											type="text"
+											class="form-control"
+											[(ngModel)]="exercise.note"
+											[ngModelOptions]="{
+												standalone: true
+											}"
+										/>
+									</div>
+
+									<div
+										class="d-flex align-items-center w-100"
+									>
+										<button
+											class="btn btn-sm purple-btn text-light me-2 w-100 rounded-5"
+											(click)="
+												showOldStats(exerciseIndex)
+											"
+										>
+											<i class="bi bi-journal-text"></i>
+										</button>
+										<button
+											class="btn btn-sm btn-danger w-100 rounded-5"
+											(click)="delete(exerciseIndex)"
+										>
+											<i class="bi bi-trash3"></i>
+										</button>
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>

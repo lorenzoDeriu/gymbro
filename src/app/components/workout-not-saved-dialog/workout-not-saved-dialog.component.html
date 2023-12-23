@@ -1,0 +1,60 @@
+<div
+	class="d-flex flex-column justify-content-center align-items-center p-3 overflow-hidden"
+	style="max-width: 500px"
+>
+	<i class="bi bi-info-circle fs-1" style="color: #6b44d4"></i>
+
+	<h1 class="text-center d-none d-lg-block">
+		Vuoi salvare il tuo allenamento?
+	</h1>
+
+	<h3 class="text-center d-block d-lg-none">
+		Vuoi salvare il tuo allenamento?
+	</h3>
+
+	<p class="w-100 d-none d-lg-block text-center">
+		<span class="fs-5">
+			<i class="bi bi-stopwatch"></i>
+			{{ trainingTime }}
+		</span>
+		è il tempo che hai impiegato per completare l'allenamento, ma non lo hai
+		ancora terminato. Salvando adesso potrai memorizzare il tempo esatto
+		impiegato per completarlo, altrimenti puoi continuare ad allenarti.
+	</p>
+
+	<small class="w-100 d-block d-lg-none mb-3 text-center">
+		<span class="fs-6">
+			<i class="bi bi-stopwatch"></i>
+			{{ trainingTime }}
+		</span>
+		è il tempo che hai impiegato per completare l'allenamento, ma non lo hai
+		ancora terminato. Salvando adesso potrai memorizzare il tempo esatto
+		impiegato per completarlo, altrimenti puoi continuare ad allenarti.
+	</small>
+
+	<div class="align-items-center w-100 d-none d-lg-flex">
+		<button
+			class="btn purple-btn text-light me-3 w-100"
+			(click)="confirmAction()"
+		>
+			Si, salva
+		</button>
+
+		<button (click)="closeDialog()" class="btn btn-dark w-100">
+			No, voglio allenarmi
+		</button>
+	</div>
+
+	<div class="align-items-center w-100 d-flex d-lg-none">
+		<button
+			class="btn btn-sm purple-btn text-light me-2 w-50"
+			(click)="confirmAction()"
+		>
+			Si
+		</button>
+
+		<button (click)="closeDialog()" class="btn btn-sm btn-dark w-50">
+			No
+		</button>
+	</div>
+</div>

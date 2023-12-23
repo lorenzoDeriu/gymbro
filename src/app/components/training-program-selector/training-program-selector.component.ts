@@ -38,6 +38,24 @@ export class TrainingProgramSelectorComponent implements OnInit {
 			)
 		);
 		this.userService.startChronometer();
+		localStorage.setItem(
+			"workoutTemplate",
+			JSON.stringify({
+				name: this.trainingPrograms[programIndex].name,
+				exercises: [
+					...this.trainingPrograms[programIndex].session[
+						sessionIndex
+					].exercises.map(exercise => ({
+						name: exercise.name,
+						intensity: exercise.intensity,
+						rest: exercise.rest,
+						note: exercise.note,
+						groupId: exercise.groupId,
+						template: exercise.set,
+					})),
+				],
+			})
+		);
 		this.router.navigate(["/home/prebuild-workout"]);
 	}
 
@@ -71,6 +89,11 @@ export class TrainingProgramSelectorComponent implements OnInit {
 		this.router.navigate(["/home"]);
 	}
 
+	public createWorkout() {
+		this.userService.startChronometer();
+		this.router.navigate(["/home/prebuild-workout"]);
+	}
+
 	public focusCollapse(type: "program" | "session", index: number) {
 		if (type === "program") {
 			const collapsers: NodeListOf<Element> =
@@ -80,9 +103,9 @@ export class TrainingProgramSelectorComponent implements OnInit {
 
 			for (let i = 0; i < collapsers.length; i++) {
 				if (i !== index) {
-					collapsers[i].classList.remove("collapsed");
-					collapsers[i].setAttribute("aria-expanded", "false");
-					collapses[i].classList.remove("show");
+					collapsers[i]?.classList.remove("collapsed");
+					collapsers[i]?.setAttribute("aria-expanded", "false");
+					collapses[i]?.classList.remove("show");
 				}
 			}
 		}
@@ -94,7 +117,6 @@ export class TrainingProgramSelectorComponent implements OnInit {
 		exerciseIndex: number
 	) {
 		this.dialog.open(NotesDialogComponent, {
-			width: "300px",
 			data: {
 				notes: this.trainingPrograms[trainingProgramIndex].session[
 					sessionIndex

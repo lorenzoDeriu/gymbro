@@ -1,0 +1,17 @@
+<div
+	class="d-flex flex-column justify-content-center align-items-center p-3 overflow-hidden"
+	style="max-width: 500px; max-height: 65svh"
+>
+	<h1 class="text-center w-100">
+		Feedback
+		<i class="ms-1 bi bi-flag-fill"></i>
+	</h1>
+
+	<div class="w-100 overflow-x-hidden overflow-y-auto">
+		<p class="text-break text-center">
+			{{ message }}
+		</p>
+	</div>
+
+	<button (click)="closeDialog()" class="btn btn-dark w-100">Chiudi</button>
+</div>

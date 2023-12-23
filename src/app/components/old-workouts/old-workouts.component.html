@@ -19,28 +19,30 @@
 		id="main-container"
 		[ngClass]="{ 'p-3': true, 'w-75': workouts.length !== 0 }"
 	>
-		<h1 class="text-center mt-3 mb-4">
+		<h1 class="text-center mb-3 w-100">
 			{{
 				!workouts || workouts.length === 0
 					? "Non ci sono allenamenti, creane uno nuovo!"
-					: "I tuoi vecchi allenamenti"
+					: "Vecchi allenamenti"
 			}}
 		</h1>
 
 		<button
-			class="btn btn-dark ms-2 d-none d-lg-block mb-4"
-			routerLink="/home"
+			*ngIf="workouts.length === 0"
+			class="btn btn-dark mb-4 d-none d-lg-block"
+			(click)="backToHomeButton()"
 		>
 			Torna alla home
 			<i class="ms-1 bi bi-house-fill"></i>
 		</button>
 
 		<button
-			class="btn btn-sm btn-dark ms-2 d-block d-lg-none mb-4"
-			routerLink="/home"
+			*ngIf="workouts.length === 0"
+			class="btn btn-sm btn-dark mb-4 d-block d-lg-none"
+			(click)="backToHomeButton()"
 		>
 			Torna alla home
-			<i class="bi bi-house-fill"></i>
+			<i class="ms-1 bi bi-house-fill"></i>
 		</button>
 
 		<img
@@ -52,12 +54,12 @@
 
 		<!-- TODO: Show all old workouts with pagination -->
 		<div
-			*ngFor="let workout of workouts; index as workoutIndex"
+			*ngFor="let workout of current7Workouts; index as workoutIndex"
 			class="w-100 mb-2"
 		>
 			<a
 				[href]="'#session' + workoutIndex"
-				class="btn btn-light w-100 mb-1 border session-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				class="btn btn-light w-100 mb-1 shadow-sm session-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
 				data-bs-toggle="collapse"
 				role="button"
 				aria-expanded="false"
@@ -71,14 +73,12 @@
 					{{ workout.name }}
 				</p>
 				<div>
-					<p
-						*ngIf="
+					<p style="pointer-events: none" class="text-end mb-0">
+						{{
 							workout.trainingTime || workout.trainingTime !== 0
-						"
-						style="pointer-events: none"
-						class="text-end mb-0"
-					>
-						{{ getTimeFromTimestamp(workout.trainingTime) }}
+								? getTimeFromTimestamp(workout.trainingTime)
+								: "-"
+						}}
 						<i class="ms-1 bi bi-stopwatch"></i>
 					</p>
 					<p style="pointer-events: none" class="text-end mb-0">
@@ -92,10 +92,10 @@
 			</a>
 
 			<div
-				class="collapse w-100 workout-collapse-body collapse-body mb-3"
+				class="collapse w-100 workout-collapse-body collapse-body mb-3 shadow-sm"
 				[id]="'session' + workoutIndex"
 			>
-				<div class="card card-body p-1">
+				<div class="card card-body p-1 border-0">
 					<table class="table table-sm table-striped table-hover">
 						<thead>
 							<tr>
@@ -112,7 +112,7 @@
 									index as exerciseIndex
 								"
 							>
-								<th>
+								<th class="text-wrap">
 									<i
 										*ngIf="
 											exercise.note && exercise.note != ''
@@ -210,7 +210,15 @@
 
 					<div class="d-none d-lg-flex align-items-center w-100">
 						<button
-							class="btn blue-btn w-100 text-light me-1"
+							class="btn btn-dark w-100 me-1"
+							(click)="reuseWorkout(workoutIndex)"
+						>
+							Riutilizza
+							<i class="ms-1 bi bi-recycle"></i>
+						</button>
+
+						<button
+							class="btn blue-btn w-100 text-light mx-1"
 							(click)="editWorkout(workoutIndex)"
 						>
 							Modifica
@@ -228,7 +236,14 @@
 
 					<div class="d-flex d-lg-none align-items-center w-100">
 						<button
-							class="btn btn-sm blue-btn w-100 text-light me-1"
+							class="btn btn-sm btn-dark w-100 me-1"
+							(click)="reuseWorkout(workoutIndex)"
+						>
+							<i class="bi bi-recycle"></i>
+						</button>
+
+						<button
+							class="btn btn-sm blue-btn w-100 text-light mx-1"
 							(click)="editWorkout(workoutIndex)"
 						>
 							<i class="bi bi-pencil-square"></i>
@@ -242,6 +257,77 @@
 						</button>
 					</div>
 				</div>
+			</div>
+		</div>
+
+		<div
+			class="d-flex justify-content-between align-items-center w-100 shadow-sm rounded bg-light px-3"
+			*ngIf="workouts.length > 0"
+		>
+			<button
+				class="btn btn-sm btn-dark rounded-5"
+				(click)="backToHomeButton()"
+			>
+				<i class="bi bi-house-fill"></i>
+			</button>
+
+			<span class="d-none d-lg-flex align-items-center">
+				<img
+					src="assets/dumbbell-icon.png"
+					class="me-1"
+					width="14"
+					alt=""
+				/>
+				{{ workouts.length }}
+				Allenamenti
+			</span>
+
+			<span class="d-flex align-items-center d-lg-none workoutsNumber">
+				{{ workouts.length }}
+				<img
+					src="assets/dumbbell-icon.png"
+					class="ms-1"
+					width="14"
+					alt=""
+				/>
+			</span>
+
+			<div class="d-flex align-items-center my-3 pagination">
+				<button
+					class="btn border-0 btn-sm"
+					(click)="goToFirstPage()"
+					[disabled]="currentPage === 1"
+				>
+					<i class="bi bi-chevron-double-left pagination"></i>
+				</button>
+				<button
+					class="btn border-0 btn-sm"
+					(click)="previousPage()"
+					[disabled]="currentPage === 1"
+				>
+					<i class="bi bi-chevron-left pagination"></i>
+				</button>
+				<span class="mx-3">
+					{{ currentPage }}
+				</span>
+				<button
+					class="btn border-0 btn-sm"
+					(click)="nextPage()"
+					[disabled]="
+						get7WorkoutsByPage(currentPage + 1).length === 0
+					"
+				>
+					<i class="bi bi-chevron-right pagination"></i>
+				</button>
+				<button
+					class="btn border-0 btn-sm"
+					(click)="goToLastPage()"
+					[disabled]="
+						get7WorkoutsByPage(currentPage + 1).length === 0
+					"
+				>
+					<i class="bi bi-chevron-double-right pagination"></i>
+				</button>
 			</div>
 		</div>
 	</div>

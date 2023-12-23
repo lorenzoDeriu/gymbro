@@ -1,6 +1,12 @@
+<div class="position-absolute top-0 start-0 ms-3 mt-3">
+	<a href="/welcome" class="blue-link">
+		<i class="bi bi-arrow-left"></i>
+	</a>
+</div>
+
 <div class="position-absolute top-0 end-0 me-3 mt-3">
 	<a href="about-preview" class="blue-link">
-		<i class="ms-1 bi bi-question-circle-fill"></i>
+		<i class="bi bi-question-circle-fill"></i>
 	</a>
 </div>
 
@@ -12,14 +18,14 @@
 	<div
 		class="d-flex flex-column justify-content-center align-items-center p-3 h-100 w-100"
 	>
-		<img src="assets/logo.png" width="200" />
+		<img src="assets/logo.png" id="logo" width="200" />
 		<div
 			class="mt-5 d-flex flex-column justify-content-center align-items-center px-3"
 			style="
 				min-width: 250px;
 				width: 80vw;
 				max-width: 400px;
-				margin-bottom: 32px;
+				font-size: 0.8rem;
 			"
 		>
 			<div class="d-flex flex-column w-100 mb-3">
@@ -59,6 +65,26 @@
 			>
 				Password dimenticata?
 			</a>
+			<div class="form-check mb-3">
+				<input
+					class="form-check-input"
+					type="checkbox"
+					value=""
+					id="flexCheckChecked"
+					(change)="agreePrivacy = !agreePrivacy"
+				/>
+				<label class="form-check-label" for="flexCheckChecked">
+					Accetto i termini e le condizioni contenuti nella
+					<a
+						target="_blank"
+						href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
+						class="blue-link text-decoration-none"
+					>
+						Privacy Policy
+					</a>
+					di GymBro
+				</label>
+			</div>
 			<button
 				[disabled]="!allowLogin()"
 				(click)="login()"
@@ -99,7 +125,7 @@
 					<img src="assets/x-logo.webp" height="30" alt="" />
 				</button>
 			</div>
-			<p class="mb-0">
+			<p>
 				Non hai un account?
 				<a
 					(click)="switchToRegister()"
@@ -108,29 +134,7 @@
 					Registrati
 				</a>
 			</p>
-			<a
-				target="_blank"
-				href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
-				class="align-self-center"
-				style="
-					cursor: pointer;
-					font-size: 0.5rem;
-					color: black;
-					text-decoration: underline;
-				"
-			>
-				Privacy
-			</a>
 		</div>
-
-		<a
-			href="/welcome"
-			class="blue-btn btn btn-sm text-light"
-			style="border: none; background-color: #4089c9"
-		>
-			<i class="me-1 bi bi-arrow-left"></i>
-			Indietro
-		</a>
 	</div>
 </div>
 
@@ -143,14 +147,14 @@
 	<div
 		class="d-flex flex-column justify-content-center align-items-center p-3 h-100 w-100"
 	>
-		<img src="assets/logo.png" width="200" />
+		<img src="assets/logo.png" id="logo" width="200" />
 		<div
 			class="mt-5 d-flex flex-column justify-content-center align-items-center px-3"
 			style="
 				min-width: 250px;
 				width: 80vw;
 				max-width: 400px;
-				margin-bottom: 32px;
+				font-size: 0.8rem;
 			"
 		>
 			<div class="d-flex flex-column w-100 mb-3">
@@ -213,6 +217,26 @@
 					style="background-color: transparent"
 				/>
 			</div>
+			<div class="form-check mb-3">
+				<input
+					class="form-check-input"
+					type="checkbox"
+					value=""
+					id="flexCheckChecked"
+					(change)="agreePrivacy = !agreePrivacy"
+				/>
+				<label class="form-check-label" for="flexCheckChecked">
+					Accetto i termini e le condizioni contenuti nella
+					<a
+						target="_blank"
+						href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
+						class="blue-link text-decoration-none"
+					>
+						Privacy Policy
+					</a>
+					di GymBro
+				</label>
+			</div>
 			<button
 				[disabled]="!allowRegister()"
 				(click)="register()"
@@ -220,7 +244,7 @@
 			>
 				Registrati
 			</button>
-			<p class="mb-0">
+			<p>
 				Hai già un account?
 				<a
 					(click)="switchToLogin()"
@@ -229,24 +253,6 @@
 					Accedi
 				</a>
 			</p>
-			<a
-				target="_blank"
-				href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
-				class="align-self-center"
-				style="
-					cursor: pointer;
-					font-size: 0.5rem;
-					color: black;
-					text-decoration: underline;
-				"
-			>
-				Privacy
-			</a>
 		</div>
-
-		<a href="/welcome" class="blue-btn btn btn-sm text-light">
-			<i class="me-1 bi bi-arrow-left"></i>
-			Indietro
-		</a>
 	</div>
 </div>

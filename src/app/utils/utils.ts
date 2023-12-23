@@ -59,7 +59,7 @@ export const formatEffectiveSets = (sets: EffectiveSet[]): string[] => {
 			currentSetCount++;
 		} else {
 			formattedSets.push(
-				`${currentSetCount}x${currentReps}@${currentLoad}`
+				`${currentSetCount}x${currentReps}@${currentLoad}Kg`
 			);
 
 			currentReps = set.reps;
@@ -70,7 +70,7 @@ export const formatEffectiveSets = (sets: EffectiveSet[]): string[] => {
 		}
 	}
 
-	formattedSets.push(`${currentSetCount}x${currentReps}@${currentLoad}`);
+	formattedSets.push(`${currentSetCount}x${currentReps}@${currentLoad}Kg`);
 
 	return formattedSets;
 };

@@ -7,8 +7,11 @@ import { ExerciseStatsDialogComponent } from "../exercise-stats-dialog/exercise-
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { Workout } from "src/app/Models/Workout.model";
-import { EffectiveSet } from "src/app/Models/Exercise.model";
-import { convertTimediffToTime, generateId } from "src/app/utils/utils";
+import { EffectiveSet, Exercise } from "src/app/Models/Exercise.model";
+import { generateId } from "src/app/utils/utils";
+import { ShowExerciseFromTemplateDialogComponent } from "../show-exercise-from-template-dialog/show-exercise-from-template-dialog.component";
+import { WorkoutNotSavedDialogComponent } from "../workout-not-saved-dialog/workout-not-saved-dialog.component";
+import { DeloadDialogComponent } from "../deload-dialog/deload-dialog.component";
 
 export interface Progress {
 	/* access to the complete must refer to the following logic:
@@ -30,6 +33,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public loading: boolean = false;
 	public editMode: boolean = false;
 	public restMode: boolean = false;
+	public onMobile: boolean = window.innerWidth < 991;
+	private timerID: any;
+	private pressHoldDuration: number = 500;
 
 	constructor(
 		private userService: UserService,
@@ -53,10 +59,222 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.workout = this.userService.getWorkout();
 		this.date = this.fromTimestampToString(this.workout.date);
-		console.log(this.date);
 		this.initWorkoutProgress();
 
+		// Check if 50 minutes have passed since the workout is completed
+		const workoutStartTime: number = JSON.parse(
+			localStorage.getItem("workoutStartTime")
+		);
+		const workoutCompleteTime: number = JSON.parse(
+			localStorage.getItem("workoutCompleteTime")
+		);
+
+		if (
+			workoutStartTime &&
+			workoutCompleteTime &&
+			Date.now() - workoutCompleteTime > 300000
+		) {
+			this.dialog.open(WorkoutNotSavedDialogComponent, {
+				data: {
+					trainingTime: workoutCompleteTime - workoutStartTime,
+					confirm: () => {
+						this.saveWorkout(
+							workoutCompleteTime - workoutStartTime
+						);
+					},
+					cancel: () => {
+						localStorage.removeItem("workoutCompleteTime");
+					},
+				},
+				disableClose: true,
+			});
+		}
+
+		window.addEventListener("resize", () => {
+			this.onMobile = window.innerWidth < 991;
+		});
+
 		this.loading = false;
+
+		setTimeout(() => {
+			this.enableDragAndDrop();
+		}, 0);
+	}
+
+	private isIOSDevice() {
+		return (
+			navigator.userAgent.includes("iPhone") ||
+			navigator.userAgent.includes("iPad") ||
+			navigator.userAgent.includes("iPod") ||
+			navigator.userAgent.includes("iPhone Simulator") ||
+			navigator.userAgent.includes("iPad Simulator") ||
+			navigator.userAgent.includes("iPod Simulator")
+		);
+	}
+
+	private collapseAll() {
+		const collapsers: NodeListOf<Element> =
+			document.querySelectorAll(".collapser");
+		const collapses: NodeListOf<Element> =
+			document.querySelectorAll(".collapse-body");
+
+		for (let i = 0; i < collapsers.length; i++) {
+			collapsers[i]?.classList.remove("collapsed");
+			collapsers[i]?.setAttribute("aria-expanded", "false");
+			collapses[i]?.classList.remove("show");
+		}
+	}
+
+	private enableDragAndDrop() {
+		const exercisesList: Element = document.querySelector(".exercises");
+		const exercises: NodeListOf<Element> =
+			document.querySelectorAll(".exercise");
+
+		let dragStartingPosition: number = -1;
+		let dragEndingPosition: number = -1;
+
+		exercises.forEach(exercise => {
+			if (!this.isIOSDevice()) {
+				exercise.addEventListener("dragstart", () => {
+					this.onMobile = window.innerWidth < 991;
+					dragStartingPosition = Array.from(
+						exercisesList.children
+					).indexOf(exercise);
+					dragEndingPosition = dragStartingPosition;
+					exercise.classList.add("dragging");
+					localStorage.setItem("dragging", "true");
+					this.collapseAll();
+				});
+
+				exercise.addEventListener("dragend", () => {
+					exercise.classList.remove("dragging");
+					this.swapExercises(
+						dragStartingPosition,
+						dragEndingPosition
+					);
+					localStorage.removeItem("dragging");
+				});
+			}
+
+			// Compatibility with mobile devices
+			if (this.isIOSDevice()) {
+				exercise.addEventListener("touchstart", (e: any) => {
+					this.onMobile = window.innerWidth < 991;
+					if (e.touches[0].target.classList.contains("collapser"))
+						return;
+					localStorage.setItem("scrolling", "false");
+					this.timerID = setTimeout(() => {
+						if (localStorage.getItem("scrolling") === "true")
+							return;
+
+						dragStartingPosition = Array.from(
+							exercisesList.children
+						).indexOf(exercise);
+						exercise.classList.add("dragging");
+						localStorage.setItem("dragging", "true");
+						this.collapseAll();
+					}, this.pressHoldDuration);
+				});
+			}
+
+			exercise.addEventListener("touchend", () => {
+				if (this.timerID) clearTimeout(this.timerID);
+				exercise.classList.remove("dragging");
+				if (localStorage.getItem("dragging") === "true") {
+					this.swapExercises(
+						dragStartingPosition,
+						dragEndingPosition
+					);
+				}
+				localStorage.removeItem("dragging");
+			});
+		});
+
+		exercisesList.addEventListener("dragover", (e: any) => {
+			e.preventDefault();
+
+			const afterElement: Element = this.getDragAfterElement(
+				exercisesList,
+				e.clientY
+			);
+			const draggingExercise: Node = document.querySelector(".dragging");
+
+			if (!afterElement) {
+				exercisesList.appendChild(draggingExercise);
+				dragEndingPosition = exercises.length - 1;
+			} else {
+				exercisesList.insertBefore(draggingExercise, afterElement);
+				dragEndingPosition =
+					Array.from(exercisesList.children).indexOf(afterElement) -
+					1;
+			}
+		});
+
+		exercisesList.addEventListener("touchmove", (e: any) => {
+			localStorage.setItem("scrolling", "true");
+			if (localStorage.getItem("dragging") !== "true") return;
+
+			const afterElement: Element = this.getDragAfterElement(
+				exercisesList,
+				e.touches[0].clientY
+			);
+
+			const draggingExercise: Node = document.querySelector(".dragging");
+
+			if (!draggingExercise) return;
+
+			if (!afterElement) {
+				exercisesList.appendChild(draggingExercise);
+				dragEndingPosition = exercises.length - 1;
+			} else {
+				exercisesList.insertBefore(draggingExercise, afterElement);
+				dragEndingPosition =
+					Array.from(exercisesList.children).indexOf(afterElement) -
+					1;
+			}
+		});
+	}
+
+	private getDragAfterElement(container: any, y: number) {
+		const draggableExercises = [
+			...container.querySelectorAll(".exercise:not(.dragging)"),
+		];
+
+		return draggableExercises.reduce(
+			(closest: any, child: any) => {
+				const box = child.getBoundingClientRect();
+
+				const offset = y - box.top - box.height / 2;
+
+				if (offset < 0 && offset > closest.offset) {
+					return { offset: offset, element: child };
+				} else {
+					return closest;
+				}
+			},
+			{ offset: Number.NEGATIVE_INFINITY }
+		).element;
+	}
+
+	private swapExercises(startingPosition: number, endingPosition: number) {
+		const exerciseToSwap = this.workout.exercises[startingPosition];
+		this.workout.exercises.splice(startingPosition, 1);
+		this.workout.exercises.splice(endingPosition, 0, exerciseToSwap);
+
+		const progressToSwap = this.workoutProgress.completed[startingPosition];
+		this.workoutProgress.completed.splice(startingPosition, 1);
+		this.workoutProgress.completed.splice(
+			endingPosition,
+			0,
+			progressToSwap
+		);
+
+		localStorage.setItem(
+			"workoutProgress",
+			JSON.stringify(this.workoutProgress)
+		);
+
+		this.userService.updateWorkout(this.workout);
 	}
 
 	private initWorkoutProgress() {
@@ -86,6 +304,43 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}
 	}
 
+	public deloadWorkout() {
+		this.dialog.open(DeloadDialogComponent, {
+			data: {
+				confirm: () => {
+					this.workout.exercises.forEach(exercise => {
+						exercise.intensity = "light";
+					});
+
+					this.userService.updateWorkout(this.workout);
+				},
+			},
+			disableClose: false,
+		});
+	}
+
+	public showTrainingProgram() {
+		this.dialog.open(ShowExerciseFromTemplateDialogComponent, {
+			data: {
+				workout: JSON.parse(
+					localStorage.getItem("workoutTemplate")
+				) as Workout,
+			},
+			disableClose: false,
+		});
+	}
+
+	public workoutHasTemplate() {
+		return this.workout.exercises.some(exercise => exercise.template);
+	}
+
+	public pickDate() {
+		const datePicker = document.getElementById(
+			"date-picker"
+		) as HTMLInputElement;
+		datePicker.showPicker();
+	}
+
 	public workoutExists() {
 		return localStorage.getItem("workout") !== null;
 	}
@@ -100,22 +355,24 @@ export class PrebuildWorkoutComponent implements OnInit {
 		);
 	}
 
-	public saveWorkout() {
+	public async saveWorkout(trainingTime?: number) {
 		this.workout.date = this.fromStringToTimestamp(this.date);
-		if (!this.editMode)
+		if (!this.editMode && !trainingTime)
 			this.workout.trainingTime = this.userService.getTrainingTime();
+
+		if (trainingTime) this.workout.trainingTime = trainingTime;
 
 		this.userService.endChronometer();
 		this.userService.endRest();
 		this.userService.updateWorkout(this.workout);
-		this.userService.saveWorkout();
+		await this.userService.saveWorkout();
 
 		localStorage.removeItem("workoutProgress");
+		localStorage.removeItem("workoutCompleteTime");
 		this.router.navigate(["/home"]);
 	}
 
 	public isSetValid(exerciseIndex: number, setIndex: number) {
-		// console.log("load: ", this.workout.exercises[exerciseIndex].set[setIndex].load)
 		return (
 			!isNaN(+this.workout.exercises[exerciseIndex].set[setIndex].reps) &&
 			this.workout.exercises[exerciseIndex].set[setIndex].reps !== null &&
@@ -206,6 +463,17 @@ export class PrebuildWorkoutComponent implements OnInit {
 			JSON.stringify(this.workoutProgress)
 		);
 
+		if (
+			this.workoutProgress.completed.every(exercise =>
+				exercise.every(setCompleted => setCompleted)
+			)
+		) {
+			localStorage.setItem(
+				"workoutCompleteTime",
+				JSON.stringify(Date.now())
+			);
+		}
+
 		this.userService.updateWorkout(this.workout);
 	}
 
@@ -229,6 +497,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 			"workoutProgress",
 			JSON.stringify(this.workoutProgress)
 		);
+
+		setTimeout(() => {
+			this.enableDragAndDrop();
+		}, 0);
 	}
 
 	public onCancel() {
@@ -243,7 +515,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 				args: [],
 				confirm: () => {
 					this.userService.resetWorkout();
-					localStorage.removeItem("workoutProgress");
 					this.userService.endChronometer();
 					this.userService.endRest();
 					this.router.navigate(["/home"]);
@@ -333,6 +604,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 						"workoutProgress",
 						JSON.stringify(this.workoutProgress)
 					);
+
+					setTimeout(() => {
+						this.enableDragAndDrop();
+					}, 0);
 				},
 			},
 		});

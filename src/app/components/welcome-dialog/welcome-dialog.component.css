@@ -1,16 +1,3 @@
-.purple-btn {
-	border: none;
-	background-color: #6b44d4;
-}
-
-.purple-btn:hover {
-	background-color: #785ebe !important;
-}
-
-.purple-btn:active {
-	background-color: #957dd6 !important;
-}
-
 .blue-link {
 	color: #4089c9;
 	text-decoration: none;
