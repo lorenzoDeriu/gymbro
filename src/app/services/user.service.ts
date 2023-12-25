@@ -98,6 +98,10 @@ export class UserService {
 	public reuseWorkout(workout: Workout) {
 		this.workout = workout;
 
+		this.workout.exercises.forEach(exercise => {
+			delete exercise.template;
+		});
+
 		this.workout.date = Date.now();
 		this.workout.trainingTime = 0;
 
