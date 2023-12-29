@@ -35,7 +35,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	public restMode: boolean = false;
 	public onMobile: boolean = window.innerWidth < 991;
 	private timerID: any;
-	private pressHoldDuration: number = 500;
+	private pressHoldDuration: number = 700;
 
 	constructor(
 		private userService: UserService,
@@ -178,6 +178,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			}
 
 			exercise.addEventListener("touchend", () => {
+				console.log("touchend")
 				if (this.timerID) clearTimeout(this.timerID);
 				exercise.classList.remove("dragging");
 				if (localStorage.getItem("dragging") === "true") {
@@ -213,6 +214,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		exercisesList.addEventListener("touchmove", (e: any) => {
 			localStorage.setItem("scrolling", "true");
 			if (localStorage.getItem("dragging") !== "true") return;
+			else e.preventDefault();
 
 			const afterElement: Element = this.getDragAfterElement(
 				exercisesList,
