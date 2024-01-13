@@ -125,10 +125,13 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}
 	}
 
+	private touchend_trigger: boolean = false;
+
 	private enableDragAndDrop() {
 		const exercisesList: Element = document.querySelector(".exercises");
+
 		const exercises: NodeListOf<Element> =
-			document.querySelectorAll(".exercise");
+		document.querySelectorAll(".exercise");
 
 		let dragStartingPosition: number = -1;
 		let dragEndingPosition: number = -1;
@@ -160,11 +163,12 @@ export class PrebuildWorkoutComponent implements OnInit {
 			if (this.isIOSDevice()) {
 				exercise.addEventListener("touchstart", (e: any) => {
 					this.onMobile = window.innerWidth < 991;
+					this.touchend_trigger = false;
 					if (e.touches[0].target.classList.contains("collapser"))
 						return;
 					localStorage.setItem("scrolling", "false");
 					this.timerID = setTimeout(() => {
-						if (localStorage.getItem("scrolling") === "true")
+						if (localStorage.getItem("scrolling") === "true" || this.touchend_trigger)
 							return;
 
 						dragStartingPosition = Array.from(
@@ -178,8 +182,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 			}
 
 			exercise.addEventListener("touchend", () => {
-				console.log("touchend")
-				if (this.timerID) clearTimeout(this.timerID);
+				if (this.timerID) {
+					this.touchend_trigger = true;
+					clearTimeout(this.timerID)
+				};
 				exercise.classList.remove("dragging");
 				if (localStorage.getItem("dragging") === "true") {
 					this.swapExercises(
@@ -596,9 +602,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 				title: "Elimina esercizio",
 				message: "Sei sicuro di voler eliminare questo esercizio?",
 				args: [this.workout, exerciseIndex],
-				confirm: (workout: Workout, index: number) => {
+				confirm: async (workout: Workout, index: number) => {
 					workout.exercises.splice(index, 1);
-					this.userService.updateWorkout(this.workout);
+					await this.userService.updateWorkout(this.workout);
 
 					this.workoutProgress.completed.splice(index, 1);
 
