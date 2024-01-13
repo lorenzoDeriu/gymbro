@@ -139,7 +139,18 @@
 			</div>
 		</div>
 
-		<div class="exercises w-100" [draggable]="!onMobile">
+		<div class="w-100" *ngIf="!showExercises">
+			<p *ngFor="let item of this.workout.exercises" class="placeholder-glow mb-0">
+				<span class="placeholder rounded col-12 m-1" style="height: 32px; background-color: #f8f9fa;"></span>
+			</p>
+		</div>
+
+
+		<div
+			*ngIf="showExercises"
+			class="exercises w-100"
+			[draggable]="!onMobile"
+		>
 			<div
 				*ngFor="
 					let exercise of this.workout.exercises;

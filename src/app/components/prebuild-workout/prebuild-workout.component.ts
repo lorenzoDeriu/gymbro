@@ -101,6 +101,17 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}, 0);
 	}
 
+	private initializeComponent() {
+		this.showExercises = false;
+
+		setTimeout(() => {
+			this.showExercises = true;
+			setTimeout(() => {
+				this.enableDragAndDrop();
+			}, 0);
+		}, 0)
+	}
+
 	private isIOSDevice() {
 		return (
 			navigator.userAgent.includes("iPhone") ||
@@ -126,12 +137,13 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	private touchend_trigger: boolean = false;
+	public showExercises: boolean = true;
 
 	private enableDragAndDrop() {
 		const exercisesList: Element = document.querySelector(".exercises");
 
 		const exercises: NodeListOf<Element> =
-		document.querySelectorAll(".exercise");
+			document.querySelectorAll(".exercise");
 
 		let dragStartingPosition: number = -1;
 		let dragEndingPosition: number = -1;
@@ -168,12 +180,17 @@ export class PrebuildWorkoutComponent implements OnInit {
 						return;
 					localStorage.setItem("scrolling", "false");
 					this.timerID = setTimeout(() => {
-						if (localStorage.getItem("scrolling") === "true" || this.touchend_trigger)
+						if (
+							localStorage.getItem("scrolling") === "true" ||
+							this.touchend_trigger
+						)
 							return;
 
 						dragStartingPosition = Array.from(
 							exercisesList.children
 						).indexOf(exercise);
+						dragEndingPosition = dragStartingPosition;
+
 						exercise.classList.add("dragging");
 						localStorage.setItem("dragging", "true");
 						this.collapseAll();
@@ -184,8 +201,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 			exercise.addEventListener("touchend", () => {
 				if (this.timerID) {
 					this.touchend_trigger = true;
-					clearTimeout(this.timerID)
-				};
+					clearTimeout(this.timerID);
+				}
 				exercise.classList.remove("dragging");
 				if (localStorage.getItem("dragging") === "true") {
 					this.swapExercises(
@@ -218,7 +235,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 		});
 
 		exercisesList.addEventListener("touchmove", (e: any) => {
-			localStorage.setItem("scrolling", "true");
 			if (localStorage.getItem("dragging") !== "true") return;
 			else e.preventDefault();
 
@@ -265,6 +281,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	private swapExercises(startingPosition: number, endingPosition: number) {
+		console.log(startingPosition, endingPosition)
 		const exerciseToSwap = this.workout.exercises[startingPosition];
 		this.workout.exercises.splice(startingPosition, 1);
 		this.workout.exercises.splice(endingPosition, 0, exerciseToSwap);
@@ -283,6 +300,15 @@ export class PrebuildWorkoutComponent implements OnInit {
 		);
 
 		this.userService.updateWorkout(this.workout);
+
+		this.initializeComponent();
+		// setTimeout(() => {
+			// if (endingPosition === 0 || endingPosition === this.workout.exercises.length - 1) {
+			// 	// this.workout = this.userService.getWorkout();
+			// } else {
+			// 	this.enableDragAndDrop();
+			// }
+		// }, 0);
 	}
 
 	private initWorkoutProgress() {
@@ -601,10 +627,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 			data: {
 				title: "Elimina esercizio",
 				message: "Sei sicuro di voler eliminare questo esercizio?",
-				args: [this.workout, exerciseIndex],
-				confirm: async (workout: Workout, index: number) => {
+				args: [this.workout, exerciseIndex, this.initializeComponent.bind(this)],
+				confirm: (workout: Workout, index: number, ngOnInit: any) => {
 					workout.exercises.splice(index, 1);
-					await this.userService.updateWorkout(this.workout);
+					this.userService.updateWorkout(this.workout);
 
 					this.workoutProgress.completed.splice(index, 1);
 
@@ -613,9 +639,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 						JSON.stringify(this.workoutProgress)
 					);
 
-					setTimeout(() => {
-						this.enableDragAndDrop();
-					}, 0);
+					ngOnInit();
+					// setTimeout(() => {
+					// 	// this.enableDragAndDrop();
+					// }, 0);
 				},
 			},
 		});

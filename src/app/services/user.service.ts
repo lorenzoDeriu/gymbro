@@ -223,8 +223,10 @@ export class UserService {
 		return this.workout;
 	}
 
-	public async updateWorkout(workout: Workout) {
+	public updateWorkout(workout: Workout) {
 		this.workout = workout;
+		console.log("workout updated");
+		console.table(this.workout.exercises);
 		localStorage.setItem("workout", JSON.stringify(workout));
 	}
 
