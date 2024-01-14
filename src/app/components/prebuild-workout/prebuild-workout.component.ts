@@ -102,6 +102,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	private initializeComponent() {
+		console.log("initializeComponent")
 		this.showExercises = false;
 
 		setTimeout(() => {
@@ -533,7 +534,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		);
 
 		setTimeout(() => {
-			this.enableDragAndDrop();
+			this.initializeComponent();
 		}, 0);
 	}
 
