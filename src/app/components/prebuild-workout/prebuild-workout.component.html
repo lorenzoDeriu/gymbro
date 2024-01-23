@@ -479,7 +479,7 @@
 									<p class="text-center">Intensità (RPE)</p>
 
 									<div
-										class="btn-group d-flex justify-content-center mb-3 w-100"
+										class="btn-group rounded-5 bg-light border d-flex justify-content-center mb-3 w-100"
 										role="group"
 										aria-label="Basic radio toggle button group"
 									>
@@ -494,8 +494,8 @@
 										/>
 										<label
 											[ngClass]="{
-												'btn border': true,
-												'btn-success':
+												'btn border border-0 m-1 rounded-5': true,
+												'btn-outline-success':
 													exercise.intensity ===
 													'light'
 											}"
@@ -517,8 +517,8 @@
 										/>
 										<label
 											[ngClass]="{
-												'btn border': true,
-												'btn-warning text-light':
+												'btn border border-0 m-1 rounded-5': true,
+												'btn-outline-warning text-light':
 													exercise.intensity ===
 													'hard'
 											}"
@@ -541,8 +541,8 @@
 										/>
 										<label
 											[ngClass]="{
-												'btn border': true,
-												'btn-danger':
+												'btn border border-0 m-1 rounded-5': true,
+												'btn-outline-danger':
 													exercise.intensity ===
 													'failure'
 											}"
@@ -633,7 +633,7 @@
 									<div
 										class="input-group input-group-sm flex-nowrap mb-3"
 									>
-										<span class="input-group-text">
+										<span class="input-group-text rounded-start-4">
 											Esercizio
 										</span>
 
@@ -657,7 +657,7 @@
 										</select>
 
 										<button
-											class="btn btn-dark"
+											class="btn btn-dark rounded-end-4"
 											type="button"
 											(click)="
 												openCustomExerciseDialog(
@@ -893,75 +893,94 @@
 									</div>
 
 									<button
-										class="btn btn-sm btn-dark w-100 mb-3"
+										class="btn btn-sm btn-dark w-100 mb-3 rounded-5"
 										(click)="addSet(exerciseIndex)"
 									>
 										Aggiungi serie
 										<i class="ms-1 bi bi-plus"></i>
 									</button>
 
+									<small class="text-center mb-1">Intensità (RPE)</small>
+
 									<div
-										class="input-group input-group-sm flex-nowrap mb-3"
+										class="btn-group btn-group-sm rounded-5 bg-light border d-flex justify-content-center mb-3 w-100"
+										role="group"
+										aria-label="Basic radio toggle button group"
 									>
-										<span class="input-group-text">
-											Intensità
-										</span>
-										<select
-											class="form-select custom-select"
-											style="cursor: pointer"
+										<input
+											type="radio"
+											class="btn-check"
+											name="btnradio"
+											[id]="'light' + exerciseIndex"
+											autocomplete="off"
 											[(ngModel)]="exercise.intensity"
-											[ngModelOptions]="{
-												standalone: true
+											value="light"
+										/>
+										<label
+											[ngClass]="{
+												'btn border border-0 m-1 rounded-5': true,
+												'btn-outline-success shadow-sm':
+													exercise.intensity ===
+													'light'
 											}"
+											[for]="'light' + exerciseIndex"
 										>
-											<option value="light">
-												Leggero
-											</option>
-											<option value="hard" selected>
-												Pesante
-											</option>
-											<option value="failure">
-												Cedimento
-											</option>
-										</select>
-										<span
-											class="input-group-text"
-											*ngIf="
-												exercise.intensity === 'light'
-											"
-										>
-											<i
-												class="text-success bi bi-feather"
-											></i>
-										</span>
-										<span
-											class="input-group-text"
-											*ngIf="
-												exercise.intensity === 'hard'
-											"
+											<i class="bi bi-feather"></i>
+										</label>
+
+										<input
+											type="radio"
+											class="btn-check"
+											name="btnradio"
+											[id]="'hard' + exerciseIndex"
+											autocomplete="off"
+											checked
+											[(ngModel)]="exercise.intensity"
+											value="hard"
+										/>
+										<label
+											[ngClass]="{
+												'btn border border-0 m-1 rounded-5': true,
+												'btn-outline-warning text-light shadow-sm':
+													exercise.intensity ===
+													'hard'
+											}"
+											[for]="'hard' + exerciseIndex"
 										>
 											<i
-												class="text-warning bi bi-lightning-fill"
+												class="bi bi-lightning-fill"
 											></i>
-										</span>
-										<span
-											class="input-group-text"
-											*ngIf="
-												exercise.intensity === 'failure'
-											"
+										</label>
+
+										<input
+											type="radio"
+											class="btn-check"
+											name="btnradio"
+											[id]="'failure' + exerciseIndex"
+											autocomplete="off"
+											[(ngModel)]="exercise.intensity"
+											value="failure"
+										/>
+										<label
+											[ngClass]="{
+												'btn border border-0 m-1 rounded-5': true,
+												'btn-outline-danger shadow-sm':
+													exercise.intensity ===
+													'failure'
+											}"
+											[for]="'failure' + exerciseIndex"
 										>
-											<i
-												class="text-danger bi bi-fire"
-											></i>
-										</span>
+											<i class="bi bi-fire"></i>
+										</label>
 									</div>
 
 									<div
 										class="input-group input-group-sm flex-nowrap mb-3"
 									>
-										<span class="input-group-text">
+										<span class="input-group-text rounded-start-4">
 											<i class="bi bi-stopwatch-fill"></i>
 										</span>
+
 										<select
 											class="form-select custom-select"
 											style="cursor: pointer"
@@ -979,7 +998,7 @@
 										</select>
 										<span class="input-group-text">:</span>
 										<select
-											class="form-select custom-select"
+											class="form-select custom-select rounded-end-4"
 											style="cursor: pointer"
 											[(ngModel)]="exercise.rest.seconds"
 											[ngModelOptions]="{
@@ -996,12 +1015,12 @@
 									<div
 										class="input-group input-group-sm flex-nowrap mb-3"
 									>
-										<span class="input-group-text">
+										<span class="input-group-text rounded-start-4">
 											Note
 										</span>
 										<input
 											type="text"
-											class="form-control"
+											class="form-control rounded-end-4"
 											[(ngModel)]="exercise.note"
 											[ngModelOptions]="{
 												standalone: true

@@ -225,8 +225,6 @@ export class UserService {
 
 	public updateWorkout(workout: Workout) {
 		this.workout = workout;
-		console.log("workout updated");
-		console.table(this.workout.exercises);
 		localStorage.setItem("workout", JSON.stringify(workout));
 	}
 
