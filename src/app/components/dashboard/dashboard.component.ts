@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
 import { WelcomeDialogComponent } from "../welcome-dialog/welcome-dialog.component";
 import { Workout } from "src/app/Models/Workout.model";
+import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 
 @Component({
 	selector: "app-dashboard",
@@ -66,6 +67,22 @@ export class DashboardComponent implements OnInit {
 	}
 
 	public useWorkoutPrevision() {
+		if (this.workoutExists()) {
+			this.dialog.open(SafetyActionConfirmDialogComponent, {
+				data: {
+					title: "Attenzione",
+					message:
+						"Hai già un allenamento in corso, utilizzando questo ne perderai i dati. Sei sicuro di voler continuare?",
+					args: [],
+					confirm: async () => {
+						this.userService.reuseWorkout(this.workoutPrevision);
+					},
+				},
+			});
+
+			return;
+		}
+
 		this.userService.reuseWorkout(this.workoutPrevision);
 	}
 }

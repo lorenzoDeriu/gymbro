@@ -109,7 +109,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			setTimeout(() => {
 				this.enableDragAndDrop();
 			}, 0);
-		}, 0)
+		}, 0);
 	}
 
 	private isIOSDevice() {
@@ -219,7 +219,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 				exercisesList,
 				e.clientY
 			);
-			const draggingExercise: Element = document.querySelector(".dragging");
+			const draggingExercise: Element =
+				document.querySelector(".dragging");
 
 			if (!draggingExercise) return;
 
@@ -243,7 +244,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 				e.touches[0].clientY
 			);
 
-			const draggingExercise: Element = document.querySelector(".dragging");
+			const draggingExercise: Element =
+				document.querySelector(".dragging");
 
 			if (!draggingExercise) return;
 
@@ -302,11 +304,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.initializeComponent();
 		// setTimeout(() => {
-			// if (endingPosition === 0 || endingPosition === this.workout.exercises.length - 1) {
-			// 	// this.workout = this.userService.getWorkout();
-			// } else {
-			// 	this.enableDragAndDrop();
-			// }
+		// if (endingPosition === 0 || endingPosition === this.workout.exercises.length - 1) {
+		// 	// this.workout = this.userService.getWorkout();
+		// } else {
+		// 	this.enableDragAndDrop();
+		// }
 		// }, 0);
 	}
 
@@ -626,7 +628,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 			data: {
 				title: "Elimina esercizio",
 				message: "Sei sicuro di voler eliminare questo esercizio?",
-				args: [this.workout, exerciseIndex, this.initializeComponent.bind(this)],
+				args: [
+					this.workout,
+					exerciseIndex,
+					this.initializeComponent.bind(this),
+				],
 				confirm: (workout: Workout, index: number, ngOnInit: any) => {
 					workout.exercises.splice(index, 1);
 					this.userService.updateWorkout(this.workout);

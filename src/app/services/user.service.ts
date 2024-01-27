@@ -244,6 +244,7 @@ export class UserService {
 		}
 
 		await this.firebase.saveWorkout(this.workout);
+		this.workoutPrevision = this.makeWorkoutPrevision();
 		this.resetWorkout();
 	}
 

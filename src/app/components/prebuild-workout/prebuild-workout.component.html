@@ -140,11 +140,16 @@
 		</div>
 
 		<div class="w-100" *ngIf="!showExercises">
-			<p *ngFor="let item of this.workout.exercises" class="placeholder-glow mb-0">
-				<span class="placeholder rounded col-12 m-1" style="height: 32px; background-color: #f8f9fa;"></span>
+			<p
+				*ngFor="let item of this.workout.exercises"
+				class="placeholder-glow mb-0"
+			>
+				<span
+					class="placeholder rounded col-12 m-1"
+					style="height: 32px; background-color: #f8f9fa"
+				></span>
 			</p>
 		</div>
-
 
 		<div
 			*ngIf="showExercises"
@@ -633,7 +638,9 @@
 									<div
 										class="input-group input-group-sm flex-nowrap mb-3"
 									>
-										<span class="input-group-text rounded-start-4">
+										<span
+											class="input-group-text rounded-start-4"
+										>
 											Esercizio
 										</span>
 
@@ -900,7 +907,9 @@
 										<i class="ms-1 bi bi-plus"></i>
 									</button>
 
-									<small class="text-center mb-1">Intensità (RPE)</small>
+									<small class="text-center mb-1">
+										Intensità (RPE)
+									</small>
 
 									<div
 										class="btn-group btn-group-sm rounded-5 bg-light border d-flex justify-content-center mb-3 w-100"
@@ -947,9 +956,7 @@
 											}"
 											[for]="'hard' + exerciseIndex"
 										>
-											<i
-												class="bi bi-lightning-fill"
-											></i>
+											<i class="bi bi-lightning-fill"></i>
 										</label>
 
 										<input
@@ -977,7 +984,9 @@
 									<div
 										class="input-group input-group-sm flex-nowrap mb-3"
 									>
-										<span class="input-group-text rounded-start-4">
+										<span
+											class="input-group-text rounded-start-4"
+										>
 											<i class="bi bi-stopwatch-fill"></i>
 										</span>
 
@@ -1015,7 +1024,9 @@
 									<div
 										class="input-group input-group-sm flex-nowrap mb-3"
 									>
-										<span class="input-group-text rounded-start-4">
+										<span
+											class="input-group-text rounded-start-4"
+										>
 											Note
 										</span>
 										<input
