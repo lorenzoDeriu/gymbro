@@ -61,6 +61,24 @@
 				<i class="bi bi-file-earmark-text"></i>
 				Usa una scheda
 			</h3>
+
+			<div *ngIf="trainingPrograms.length === 0">
+				<p class="d-none d-lg-block">
+					Non hai ancora creato una scheda! Se vuoi rendere più rapida
+					la creazione di un nuovo allenamento, creane una cliccando
+					<a routerLink="/home/training-program-builder">qui</a>
+					e quando ne avrai bisogno potrai selezionarla da questa
+					pagina.
+				</p>
+
+				<small class="d-block d-lg-none">
+					Non hai ancora creato una scheda! Se vuoi rendere più rapida
+					la creazione di un nuovo allenamento, creane una cliccando
+					<a routerLink="/home/training-program-builder">qui</a>
+					e quando ne avrai bisogno potrai selezionarla da questa
+					pagina.
+				</small>
+			</div>
 		</div>
 
 		<div
