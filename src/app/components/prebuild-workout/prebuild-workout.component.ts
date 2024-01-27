@@ -7,7 +7,7 @@ import { ExerciseStatsDialogComponent } from "../exercise-stats-dialog/exercise-
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
 import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { Workout } from "src/app/Models/Workout.model";
-import { EffectiveSet, Exercise } from "src/app/Models/Exercise.model";
+import { EffectiveSet } from "src/app/Models/Exercise.model";
 import { generateId } from "src/app/utils/utils";
 import { ShowExerciseFromTemplateDialogComponent } from "../show-exercise-from-template-dialog/show-exercise-from-template-dialog.component";
 import { WorkoutNotSavedDialogComponent } from "../workout-not-saved-dialog/workout-not-saved-dialog.component";
@@ -102,7 +102,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	private initializeComponent() {
-		console.log("initializeComponent")
 		this.showExercises = false;
 
 		setTimeout(() => {
@@ -110,7 +109,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			setTimeout(() => {
 				this.enableDragAndDrop();
 			}, 0);
-		}, 0)
+		}, 0);
 	}
 
 	private isIOSDevice() {
@@ -142,9 +141,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 	private enableDragAndDrop() {
 		const exercisesList: Element = document.querySelector(".exercises");
-
-		const exercises: NodeListOf<Element> =
-			document.querySelectorAll(".exercise");
+		const exercises: Element[] = Array.from(exercisesList.children);
 
 		let dragStartingPosition: number = -1;
 		let dragEndingPosition: number = -1;
@@ -222,7 +219,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 				exercisesList,
 				e.clientY
 			);
-			const draggingExercise: Node = document.querySelector(".dragging");
+			const draggingExercise: Element =
+				document.querySelector(".dragging");
+
+			if (!draggingExercise) return;
 
 			if (!afterElement) {
 				exercisesList.appendChild(draggingExercise);
@@ -244,7 +244,8 @@ export class PrebuildWorkoutComponent implements OnInit {
 				e.touches[0].clientY
 			);
 
-			const draggingExercise: Node = document.querySelector(".dragging");
+			const draggingExercise: Element =
+				document.querySelector(".dragging");
 
 			if (!draggingExercise) return;
 
@@ -282,7 +283,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 	}
 
 	private swapExercises(startingPosition: number, endingPosition: number) {
-		console.log(startingPosition, endingPosition)
 		const exerciseToSwap = this.workout.exercises[startingPosition];
 		this.workout.exercises.splice(startingPosition, 1);
 		this.workout.exercises.splice(endingPosition, 0, exerciseToSwap);
@@ -304,11 +304,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 
 		this.initializeComponent();
 		// setTimeout(() => {
-			// if (endingPosition === 0 || endingPosition === this.workout.exercises.length - 1) {
-			// 	// this.workout = this.userService.getWorkout();
-			// } else {
-			// 	this.enableDragAndDrop();
-			// }
+		// if (endingPosition === 0 || endingPosition === this.workout.exercises.length - 1) {
+		// 	// this.workout = this.userService.getWorkout();
+		// } else {
+		// 	this.enableDragAndDrop();
+		// }
 		// }, 0);
 	}
 
@@ -628,7 +628,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 			data: {
 				title: "Elimina esercizio",
 				message: "Sei sicuro di voler eliminare questo esercizio?",
-				args: [this.workout, exerciseIndex, this.initializeComponent.bind(this)],
+				args: [
+					this.workout,
+					exerciseIndex,
+					this.initializeComponent.bind(this),
+				],
 				confirm: (workout: Workout, index: number, ngOnInit: any) => {
 					workout.exercises.splice(index, 1);
 					this.userService.updateWorkout(this.workout);

@@ -176,6 +176,22 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 	}
 
 	public reuseWorkout(index: number) {
+		if (this.workoutExists()) {
+			this.dialog.open(SafetyActionConfirmDialogComponent, {
+				data: {
+					title: "Attenzione",
+					message:
+						"Hai già un allenamento in corso, riutilizzando questo ne perderai i dati. Sei sicuro di voler continuare?",
+					args: [index],
+					confirm: async (index: number) => {
+						this.userService.reuseWorkout(this.workouts[index]);
+					},
+				},
+			});
+
+			return;
+		}
+
 		this.userService.reuseWorkout(this.workouts[index]);
 	}
 

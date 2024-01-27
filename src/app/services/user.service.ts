@@ -225,8 +225,6 @@ export class UserService {
 
 	public updateWorkout(workout: Workout) {
 		this.workout = workout;
-		console.log("workout updated");
-		console.table(this.workout.exercises);
 		localStorage.setItem("workout", JSON.stringify(workout));
 	}
 
@@ -246,6 +244,7 @@ export class UserService {
 		}
 
 		await this.firebase.saveWorkout(this.workout);
+		this.workoutPrevision = this.makeWorkoutPrevision();
 		this.resetWorkout();
 	}
 

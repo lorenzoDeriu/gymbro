@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
+import { UpdateNotesDialogComponent } from "../update-notes-dialog/update-notes-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
 	selector: "app-about-preview",
@@ -17,7 +18,7 @@ export class AboutPreviewComponent {
 	) as HTMLButtonElement;
 	installPromptMobile: any;
 
-	constructor(private router: Router) {}
+	constructor(private dialog: MatDialog) {}
 
 	ngOnInit(): void {
 		this.installButton = document.getElementById(
@@ -61,6 +62,12 @@ export class AboutPreviewComponent {
 		this.installButton.setAttribute("hidden", "");
 		this.installPromptMobile = null;
 		this.installButtonMobile.setAttribute("hidden", "");
+	}
+
+	showUpdateNotesDialog() {
+		this.dialog.open(UpdateNotesDialogComponent, {
+			disableClose: false,
+		});
 	}
 
 	backToHome() {

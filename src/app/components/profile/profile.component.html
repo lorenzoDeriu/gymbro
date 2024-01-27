@@ -44,16 +44,24 @@
 		<img
 			class="mb-2 mt-4 d-none d-lg-block rounded-circle object-fit-cover"
 			[src]="profilePic ? profilePic : 'assets/profile.png'"
-			width="200"
-			height="200"
+			style="
+				min-width: 200px;
+				min-height: 200px;
+				width: 200px;
+				height: 200px;
+			"
 			alt="Profile pic"
 		/>
 
 		<img
 			class="mb-2 mt-4 d-block d-lg-none rounded-circle object-fit-cover"
 			[src]="profilePic ? profilePic : 'assets/profile.png'"
-			width="150"
-			height="150"
+			style="
+				min-width: 150px;
+				min-height: 150px;
+				width: 150px;
+				height: 150px;
+			"
 			alt="Profile pic"
 		/>
 
