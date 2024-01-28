@@ -27,6 +27,7 @@ export class FriendsComponent implements OnInit {
 	private username: string;
 
 	public loading: boolean;
+	public unfollowing: boolean;
 	public friends: string;
 	public followed: FollowedUserInfo[];
 
@@ -75,9 +76,11 @@ export class FriendsComponent implements OnInit {
 	}
 
 	public async onUnfollow(index: number) {
+		this.unfollowing = true;
 		await this.firebase.unfollow(this.followed[index].uid);
 		this.followed = await this.firebase.getFollowed();
 		this._hasFollow = this.followed.length > 0;
+		this.unfollowing = false;
 	}
 
 	public backToHome() {

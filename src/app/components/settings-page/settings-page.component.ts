@@ -236,9 +236,6 @@ export class SettingsPageComponent implements OnInit {
 	public viewProfile(uid: string, username: string) {
 		this.userService.setUidProfile(uid);
 
-		this.router.navigate([
-			"/home/profile",
-			{ searchUsername: username },
-		]);
+		this.router.navigate(["/home/profile", { searchUsername: username }]);
 	}
 }

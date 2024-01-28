@@ -80,8 +80,19 @@
 				</div>
 			</button>
 
-			<button class="btn" (click)="onFollow(i)" style="border: none">
+			<button
+				*ngIf="!following"
+				class="btn"
+				(click)="onFollow(i)"
+				style="border: none"
+			>
 				<i class="bi bi-person-plus-fill"></i>
+			</button>
+
+			<button *ngIf="following" class="btn" style="border: none">
+				<div class="spinner-border spinner-border-sm" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
 			</button>
 		</div>
 	</div>

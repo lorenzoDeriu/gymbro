@@ -13,6 +13,7 @@ import { NotificationService } from "src/app/services/notification.service";
 export class SearchResultComponent implements OnInit {
 	public searchResult: SearchResult[];
 	public loading: boolean = false;
+	public following: boolean = false;
 
 	constructor(
 		private router: Router,
@@ -45,11 +46,13 @@ export class SearchResultComponent implements OnInit {
 	}
 
 	public async onFollow(index: number) {
+		this.following = true;
 		await this.firebase.addFollow(this.searchResult[index].uid);
 		this.notification.sendNotification(
 			this.searchResult[index].uid,
 			"follow"
 		);
+		this.following = false;
 
 		this.router.navigate(["/home/friends"]);
 	}
