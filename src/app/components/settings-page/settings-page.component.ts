@@ -28,27 +28,6 @@ export class SettingsPageComponent implements OnInit {
 	public onModify: boolean = false;
 	profilePic: string;
 	public originalUsername: string;
-	public notifications: Notification[] = [
-		{
-			id: "0",
-			from: "EkHDHOzyK6aZGzxxhL39xjs9E5R2",
-			type: "download",
-		},
-		{
-			id: "1",
-			from: "EkHDHOzyK6aZGzxxhL39xjs9E5R2",
-			type: "follow",
-		},
-		{
-			id: "2",
-			from: "EkHDHOzyK6aZGzxxhL39xjs9E5R2",
-			type: "follow",
-		},
-		{
-			id: "3",
-			type: "update",
-		},
-	];
 	public onNotifications: boolean = false;
 
 	constructor(
@@ -75,8 +54,6 @@ export class SettingsPageComponent implements OnInit {
 		this.originalUsername = this.username;
 		this.playlistUrl = user.playlistUrl;
 		this.originalPlaylistUrl = this.playlistUrl;
-
-		this.notifications = this.notification.getNotifications();
 
 		this.loading = false;
 	}
@@ -228,14 +205,16 @@ export class SettingsPageComponent implements OnInit {
 		}
 	}
 
+	public getNotifications() {
+		return this.notification.getNotifications();
+	}
+
 	public deleteNotification(id: string) {
-		this.notifications = this.notifications.filter(
-			notification => notification.id !== id
-		);
+		this.notification.deleteNotification(id);
 	}
 
 	public async deleteAllNotifications() {
-		this.notifications = [];
+		this.notification.deleteAllNotifications();
 	}
 
 	public backToHome() {

@@ -44,7 +44,7 @@ export class NotificationService {
 		await this.firebase.addNotification(to, notification);
 	}
 
-	public async deleteNotifications(id: string) {
+	public async deleteNotification(id: string) {
 		await this.firebase.deleteNotification(id);
 		this.retriveNotification();
 	}

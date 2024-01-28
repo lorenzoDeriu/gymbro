@@ -167,7 +167,7 @@
 							Notifiche
 							<i class="ms-1 bi bi-bell-fill position-relative">
 								<span
-									*ngIf="notifications.length > 0"
+									*ngIf="getNotifications().length > 0"
 									class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
 								>
 									<span class="visually-hidden">
@@ -181,7 +181,7 @@
 							Notifiche
 							<i class="ms-1 bi bi-bell-fill position-relative">
 								<span
-									*ngIf="notifications.length > 0"
+									*ngIf="getNotifications().length > 0"
 									class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
 								>
 									<span class="visually-hidden">
@@ -503,14 +503,14 @@
 			<!-- Notifications -->
 			<div class="w-100 d-flex flex-column" *ngIf="onNotifications">
 				<p
-					*ngIf="notifications.length === 0"
+					*ngIf="getNotifications().length === 0"
 					class="text-muted text-center mt-3"
 				>
 					Non hai notifiche!
 				</p>
 
 				<button
-					*ngIf="notifications.length > 0"
+					*ngIf="getNotifications().length > 0"
 					class="btn btn-light shadow-sm btn-sm rounded-3 align-self-end mb-3"
 					style="width: fit-content"
 					(click)="deleteAllNotifications()"
@@ -520,7 +520,7 @@
 				</button>
 
 				<div
-					*ngFor="let notification of notifications"
+					*ngFor="let notification of getNotifications()"
 					class="w-100 d-flex flex-column"
 				>
 					<div
