@@ -45,7 +45,7 @@ input:focus {
 	}
 }
 
-@media (max-width: 900px) {
+@media (max-width: 991px) {
 	#main-container {
 		width: 100%;
 	}

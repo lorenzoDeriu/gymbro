@@ -1066,7 +1066,6 @@ export class FirebaseService {
 		});
 
 		return adminUid;
-
 	}
 
 	public async addNotificationToAdmin() {

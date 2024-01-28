@@ -114,7 +114,7 @@
 			</button>
 
 			<button
-				class="d-flex btn btn-dark border-0 shadow-sm rounded-3 mb-4 p-2 w-100 d-none d-lg-block"
+				class="d-flex btn btn-dark border-0 shadow-sm rounded-3 mb-3 p-2 w-100 d-none d-lg-block"
 				(click)="backToHome()"
 			>
 				<i class="me-2 bi bi-house-fill"></i>
@@ -122,85 +122,71 @@
 			</button>
 
 			<button
-				class="d-flex btn btn-sm btn-dark border-0 shadow-sm rounded-3 mb-4 p-2 w-100 d-block d-lg-none"
+				class="d-flex btn btn-sm btn-dark border-0 shadow-sm rounded-3 mb-3 p-2 w-100 d-block d-lg-none"
 				(click)="backToHome()"
 			>
 				<i class="me-2 bi bi-house-fill"></i>
 				Torna alla home
 			</button>
 
-			<div class="btn-group" role="group" aria-label="Basic example">
-				<button type="button" class="btn btn-primary">Middle</button>
-				<button type="button" class="btn btn-primary">Right</button>
+			<div
+				class="btn-group shadow-sm d-flex justify-content-center w-100 mb-3 gray-bg rounded-3"
+				role="group"
+				aria-label="btn-group"
+			>
+				<input
+					type="radio"
+					class="btn-check"
+					name="settings"
+					id="settingsRadio"
+					autocomplete="off"
+					[(ngModel)]="section"
+					value="settings"
+				/>
+				<label
+					[ngClass]="{
+						'btn border border-0 m-1 rounded-3 w-100': true,
+						'btn-outline-light': section === 'settings'
+					}"
+					for="settingsRadio"
+				>
+					Impostazioni
+					<i *ngIf="!isThinMobile" class="ms-1 bi bi-gear-wide-connected"></i>
+				</label>
+
+				<input
+					type="radio"
+					class="btn-check"
+					name="notifications"
+					id="notificationsRadio"
+					autocomplete="off"
+					[(ngModel)]="section"
+					value="notifications"
+				/>
+				<label
+					[ngClass]="{
+						'btn border border-0 m-1 rounded-3 w-100': true,
+						'btn-outline-light': section === 'notifications'
+					}"
+					for="notificationsRadio"
+				>
+					Notifiche
+					<i *ngIf="!isThinMobile" class="ms-1 bi bi-bell-fill position-relative">
+						<span
+							*ngIf="getNotifications().length > 0"
+							class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
+						>
+							<span class="visually-hidden">New alerts</span>
+						</span>
+					</i>
+				</label>
 			</div>
 
-			<ul
-				class="nav nav-underline w-100 d-flex align-items-center justify-content-between mb-2"
-			>
-				<li class="nav-item" style="cursor: pointer">
-					<a
-						[ngClass]="{
-							'text-decoration-none': true,
-							'active, text-dark': !onNotifications,
-							'text-muted': onNotifications
-						}"
-						aria-current="page"
-						(click)="onNotifications = false"
-					>
-						<p class="d-block d-md-none mb-0 fw-bold">
-							<i class="me-1 bi bi-gear-wide-connected"></i>
-							Impostazioni
-						</p>
-
-						<h5 class="d-none d-md-block fw-bold">
-							<i class="me-1 bi bi-gear-wide-connected"></i>
-							Impostazioni
-						</h5>
-					</a>
-				</li>
-
-				<li class="nav-item" style="cursor: pointer">
-					<a
-						[ngClass]="{
-							'text-decoration-none': true,
-							'active, text-dark': onNotifications,
-							'text-muted': !onNotifications
-						}"
-						(click)="onNotifications = true"
-					>
-						<p class="d-block d-md-none mb-0 fw-bold">
-							Notifiche
-							<i class="ms-1 bi bi-bell-fill position-relative">
-								<span
-									*ngIf="getNotifications().length > 0"
-									class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
-								>
-									<span class="visually-hidden">
-										New alerts
-									</span>
-								</span>
-							</i>
-						</p>
-
-						<h5 class="d-none d-md-block fw-bold">
-							Notifiche
-							<i class="ms-1 bi bi-bell-fill position-relative">
-								<span
-									*ngIf="getNotifications().length > 0"
-									class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
-								>
-									<span class="visually-hidden">
-										New alerts
-									</span>
-								</span>
-							</i>
-						</h5>
-					</a>
-				</li>
-			</ul>
-
 			<!-- Impostazioni -->
-			<div class="w-100 d-flex flex-column" *ngIf="!onNotifications">
+			<div
+				class="w-100 d-flex flex-column"
+				*ngIf="section === 'settings'"
+			>
 				<div class="w-100 d-flex flex-column">
 					<!-- Username Desktop -->
 					<button
@@ -506,7 +492,10 @@
 			</div>
 
 			<!-- Notifications -->
-			<div class="w-100 d-flex flex-column" *ngIf="onNotifications">
+			<div
+				class="w-100 d-flex flex-column"
+				*ngIf="section === 'notifications'"
+			>
 				<p
 					*ngIf="getNotifications().length === 0"
 					class="text-muted text-center mt-3"
@@ -550,8 +539,10 @@
 							alt=""
 						/>
 
+						<i *ngIf="notification.type === 'feedback'" class="bi bi-flag-fill"></i>
+
 						<small class="mx-3">
-							<strong *ngIf="notification.type !== 'update'">
+							<strong *ngIf="notification.type !== 'update' && notification.type !== 'feedback'" (click)="viewProfile(notification.from, notification.username)">
 								{{ notification.from }}
 							</strong>
 
@@ -565,6 +556,10 @@
 
 							<span *ngIf="notification.type === 'update'">
 								Gymbro si è aggiornata!
+							</span>
+
+							<span *ngIf="notification.type === 'feedback'">
+								Qualcuno ha lasciato un feedback!
 							</span>
 						</small>
 

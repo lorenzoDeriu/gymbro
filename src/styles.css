@@ -16,6 +16,10 @@ body {
 	scrollbar-width: none;
 }
 
+.gray-bg {
+	background-color: #c5c5c5 !important;
+}
+
 .dropdown-menu.dropdown-menu-end,
 .dropdown-menu.mt-2,
 .dropdown-menu {

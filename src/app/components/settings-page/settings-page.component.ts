@@ -11,6 +11,7 @@ import { User } from "src/app/Models/User.model";
 import { EditProfilePicDialogComponent } from "../edit-profile-pic-dialog/edit-profile-pic-dialog.component";
 import { Notification } from "src/app/Models/Notification.model";
 import { NotificationService } from "src/app/services/notification.service";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
 	selector: "app-settings-page",
@@ -26,9 +27,11 @@ export class SettingsPageComponent implements OnInit {
 	private uid: string;
 	public loading: boolean = false;
 	public onModify: boolean = false;
-	profilePic: string;
+	public screenWidth: number = window.innerWidth;
+	public isThinMobile: boolean = this.screenWidth <= 280;
+	public profilePic: string;
 	public originalUsername: string;
-	public onNotifications: boolean = false;
+	public section: "settings" | "notifications" = "settings";
 
 	constructor(
 		private firebase: FirebaseService,
@@ -36,12 +39,21 @@ export class SettingsPageComponent implements OnInit {
 		private authService: AuthService,
 		private router: Router,
 		private dialog: MatDialog,
-		private notification: NotificationService
+		private notification: NotificationService,
+		private userService: UserService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
 
+		this.screenWidth = window.innerWidth;
+
+		window.onresize = () => {
+			this.screenWidth = window.innerWidth;
+			this.isThinMobile = this.screenWidth <= 280;
+		};
+
+		this.isThinMobile = this.screenWidth <= 280;
 		let user: User = await this.firebase.getUserData();
 
 		this.uid = await this.firebase.getUid();
@@ -219,5 +231,14 @@ export class SettingsPageComponent implements OnInit {
 
 	public backToHome() {
 		this.router.navigate(["/home"]);
+	}
+
+	public viewProfile(uid: string, username: string) {
+		this.userService.setUidProfile(uid);
+
+		this.router.navigate([
+			"/home/profile",
+			{ searchUsername: username },
+		]);
 	}
 }

@@ -23,7 +23,7 @@ export class NotificationService {
 
 	private async resolveUsername(notifications: Notification[]) {
 		for (let i = 0; i < notifications.length; i++) {
-			notifications[i].from = await this.firebase.getUsername(
+			notifications[i].username = await this.firebase.getUsername(
 				notifications[i].from
 			);
 		}
