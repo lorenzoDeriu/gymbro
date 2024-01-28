@@ -50,4 +50,13 @@ export class NotificationService {
 		await this.firebase.deleteAllNotifications();
 		this.retriveNotification();
 	}
+
+	public async sendUpdateNotification() {
+		const notification: Notification = {
+			id: `ntf-${uuidv4()}`,
+			type: "update",
+		};
+
+		await this.firebase.addNotification(await this.firebase.getUid(), notification);
+	}
 }
