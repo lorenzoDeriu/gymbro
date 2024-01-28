@@ -9,6 +9,7 @@ import { CustomExcerciseDialogComponent } from "../custom-excercise-dialog/custo
 import { ShareDialogComponent } from "../share-dialog/share-dialog.component";
 import { User } from "src/app/Models/User.model";
 import { EditProfilePicDialogComponent } from "../edit-profile-pic-dialog/edit-profile-pic-dialog.component";
+import { Notification } from "src/app/Models/Notification.model";
 
 @Component({
 	selector: "app-settings-page",
@@ -26,6 +27,28 @@ export class SettingsPageComponent implements OnInit {
 	public onModify: boolean = false;
 	profilePic: string;
 	public originalUsername: string;
+	public notifications: Notification[] = [
+		{
+			id: "0",
+			from: "Mxo",
+			type: "download",
+		},
+		{
+			id: "1",
+			from: "Lorenzo",
+			type: "follow",
+		},
+		{
+			id: "2",
+			from: "Luca",
+			type: "follow",
+		},
+		{
+			id: "3",
+			type: "update",
+		},
+	];
+	public onNotifications: boolean = false;
 
 	constructor(
 		private firebase: FirebaseService,
@@ -199,6 +222,16 @@ export class SettingsPageComponent implements OnInit {
 				) as HTMLButtonElement
 			).click();
 		}
+	}
+
+	public deleteNotification(id: string) {
+		this.notifications = this.notifications.filter(
+			notification => notification.id !== id
+		);
+	}
+
+	public getNotificationUsernameFromUserId(userId: string) {
+		//
 	}
 
 	public backToHome() {

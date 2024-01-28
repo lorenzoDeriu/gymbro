@@ -166,7 +166,16 @@
 				aria-expanded="false"
 				style="border: none"
 			>
-				<i class="fs-3 bi bi-list"></i>
+				<i
+					class="fs-3 bi bi-list position-relative"
+					style="max-height: 25px"
+				>
+					<span
+						class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
+					>
+						<span class="visually-hidden">New alerts</span>
+					</span>
+				</i>
 			</button>
 			<ul class="dropdown-menu dropdown-menu-end">
 				<li class="text-end mb-1">
@@ -206,7 +215,13 @@
 						style="cursor: pointer"
 					>
 						Profilo
-						<i class="ms-2 bi bi-person-circle"></i>
+						<i class="ms-2 bi bi-person-circle position-relative">
+							<span
+								class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
+							>
+								<span class="visually-hidden">New alerts</span>
+							</span>
+						</i>
 					</a>
 				</li>
 				<li class="text-end mb-1" *ngIf="isAdmin">

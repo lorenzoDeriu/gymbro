@@ -16,7 +16,9 @@
 <!-- TODO: Remove !loading and check if object is already loaded -->
 <div id="wrapper" *ngIf="!loading">
 	<div id="main-container" class="p-3">
-		<div class="h-100 w-100 d-flex flex-column align-items-center">
+		<div
+			class="position-relative h-100 w-100 d-flex flex-column align-items-center"
+		>
 			<h1 class="text-center">Profilo</h1>
 
 			<div
@@ -63,10 +65,10 @@
 					style="width: 150px; height: 150px"
 				>
 					<button
-						class="btn btn-sm btn-light position-absolute top-0 end-0 rounded-circle py-1"
+						class="btn btn-sm btn-light shadow-sm position-absolute top-0 end-0 rounded-circle py-1"
 						(click)="openProfilePicDialog()"
 					>
-						<i class="bi bi-camera text-dark"></i>
+						<i class="bi bi-camera-fill text-dark"></i>
 					</button>
 				</div>
 			</div>
@@ -127,13 +129,73 @@
 				Torna alla home
 			</button>
 
-			<!-- Impostazioni -->
-			<div class="w-100 d-flex flex-column">
-				<h5>
-					Impostazioni
-					<i class="ms-2 bi bi-gear-wide-connected"></i>
-				</h5>
+			<ul
+				class="nav nav-underline w-100 d-flex align-items-center justify-content-between mb-2"
+			>
+				<li class="nav-item" style="cursor: pointer">
+					<a
+						[ngClass]="{
+							'text-decoration-none': true,
+							'active, text-dark': !onNotifications,
+							'text-muted': onNotifications
+						}"
+						aria-current="page"
+						(click)="onNotifications = false"
+					>
+						<p class="d-block d-md-none mb-0 fw-bold">
+							<i class="me-1 bi bi-gear-wide-connected"></i>
+							Impostazioni
+						</p>
 
+						<h5 class="d-none d-md-block">
+							<i class="me-1 bi bi-gear-wide-connected"></i>
+							Impostazioni
+						</h5>
+					</a>
+				</li>
+
+				<li class="nav-item" style="cursor: pointer">
+					<a
+						[ngClass]="{
+							'text-decoration-none': true,
+							'active, text-dark': onNotifications,
+							'text-muted': !onNotifications
+						}"
+						(click)="onNotifications = true"
+					>
+						<p class="d-block d-md-none mb-0 fw-bold">
+							Notifiche
+							<i class="ms-1 bi bi-bell-fill position-relative">
+								<span
+									*ngIf="notifications.length > 0"
+									class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
+								>
+									<span class="visually-hidden">
+										New alerts
+									</span>
+								</span>
+							</i>
+						</p>
+
+						<h5 class="d-none d-md-block">
+							Notifiche
+							<i class="ms-1 bi bi-bell-fill position-relative">
+								<span
+									*ngIf="notifications.length > 0"
+									class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
+								>
+									<span class="visually-hidden">
+										New alerts
+									</span>
+								</span>
+							</i>
+						</h5>
+					</a>
+				</li>
+			</ul>
+
+			<!-- Impostazioni -->
+			<div class="w-100 d-flex flex-column" *ngIf="!onNotifications">
 				<div class="w-100 d-flex flex-column">
 					<!-- Username Desktop -->
 					<button
@@ -435,6 +497,77 @@
 						<i class="me-2 bi bi-trash3-fill"></i>
 						Elimina Account
 					</button>
+				</div>
+			</div>
+
+			<!-- Notifications -->
+			<div class="w-100 d-flex flex-column" *ngIf="onNotifications">
+				<p
+					*ngIf="notifications.length === 0"
+					class="text-muted text-center mt-3"
+				>
+					Non hai notifiche!
+				</p>
+
+				<button
+					class="btn btn-dark btn-sm rounded-5 align-self-end mb-3 px-3"
+					style="width: fit-content"
+				>
+					<i class="ms-1 bi bi-trash3-fill"></i>
+				</button>
+
+				<div
+					*ngFor="let notification of notifications"
+					class="w-100 d-flex flex-column"
+				>
+					<div
+						class="d-flex justify-content-between align-items-center alert alert-light alert-dismissible fade show p-2 w-100 mb-2"
+						role="alert"
+						style="font-size: 14px"
+					>
+						<i
+							*ngIf="notification.type === 'download'"
+							class="bi bi-download"
+						></i>
+
+						<i
+							*ngIf="notification.type === 'follow'"
+							class="bi bi-person-plus-fill"
+						></i>
+
+						<img
+							*ngIf="notification.type === 'update'"
+							src="assets/confetti.png"
+							width="16"
+							alt=""
+						/>
+
+						<small class="mx-3">
+							<strong>
+								{{
+									getNotificationUsernameFromUserId(
+										notification.from
+									)
+								}}
+							</strong>
+							<span *ngIf="notification.type === 'follow'">
+								ha iniziato a seguirti
+							</span>
+							<span *ngIf="notification.type === 'download'">
+								ha salvato una tua scheda
+							</span>
+							<span *ngIf="notification.type === 'update'">
+								Gymbro si è aggiornata!
+							</span>
+						</small>
+
+						<i
+							class="bi bi-x"
+							data-bs-dismiss="alert"
+							type="button"
+							(click)="deleteNotification(notification.id)"
+						></i>
+					</div>
 				</div>
 			</div>
 		</div>
