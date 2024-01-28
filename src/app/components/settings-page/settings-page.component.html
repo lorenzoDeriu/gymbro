@@ -542,7 +542,7 @@
 						<i *ngIf="notification.type === 'feedback'" class="bi bi-flag-fill"></i>
 
 						<small class="mx-3">
-							<strong *ngIf="notification.type !== 'update' && notification.type !== 'feedback'" (click)="viewProfile(notification.from, notification.username)">
+							<strong *ngIf="notification.type !== 'update' && notification.type !== 'feedback'" (click)="viewProfile(notification.from, notification.username)" style="cursor: pointer;">
 								{{ notification.username }}
 							</strong>
 
