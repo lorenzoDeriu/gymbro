@@ -10,6 +10,7 @@ import { formatSets } from "src/app/utils/utils";
 import { Set } from "src/app/Models/Exercise.model";
 import { User } from "src/app/Models/User.model";
 import { UserService } from "src/app/services/user.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-profile",
@@ -30,7 +31,8 @@ export class ProfileComponent implements OnInit {
 		private snackBar: MatSnackBar,
 		private dialog: MatDialog,
 		private router: Router,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private notification: NotificationService
 	) {}
 
 	async ngOnInit() {
@@ -118,6 +120,12 @@ export class ProfileComponent implements OnInit {
 		this.firebase.addTrainingProgram(
 			this.trainingPrograms[trainingProgramIndex]
 		);
+
+		this.notification.sendNotification(
+			this.userService.getUidProfile(),
+			"download"
+		);
+
 		this.snackBar.open("Scheda salvata!", "Ok", { duration: 3000 });
 	}
 

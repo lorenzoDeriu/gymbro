@@ -27,7 +27,11 @@ export class AdminComponent implements OnInit {
 	public adminUsersLength: number = 0;
 	private twoMonthsAgo: number;
 
-	constructor(private firebase: FirebaseService, private dialog: MatDialog, private notification: NotificationService) {}
+	constructor(
+		private firebase: FirebaseService,
+		private dialog: MatDialog,
+		private notification: NotificationService
+	) {}
 
 	public addExercise() {
 		this.dialog.open(AddExerciseDialogComponent, {

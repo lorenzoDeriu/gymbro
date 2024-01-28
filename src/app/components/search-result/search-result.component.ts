@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { UserService } from "src/app/services/user.service";
 import { SearchResult } from "../friends/friends.component";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-search-result",
@@ -17,7 +18,8 @@ export class SearchResultComponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private firebase: FirebaseService,
-		private userService: UserService
+		private userService: UserService,
+		private notification: NotificationService
 	) {}
 
 	async ngOnInit() {
@@ -33,6 +35,8 @@ export class SearchResultComponent implements OnInit {
 			);
 		}
 
+		console.log(this.searchResult);
+
 		this.loading = false;
 	}
 
@@ -42,6 +46,10 @@ export class SearchResultComponent implements OnInit {
 
 	public async onFollow(index: number) {
 		await this.firebase.addFollow(this.searchResult[index].uid);
+		this.notification.sendNotification(
+			this.searchResult[index].uid,
+			"follow"
+		);
 
 		this.router.navigate(["/home/friends"]);
 	}

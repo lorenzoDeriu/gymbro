@@ -1,33 +1,36 @@
-import { Injectable } from '@angular/core';
-import { FirebaseService } from './firebase.service';
-import { Notification, NotificationType } from '../Models/Notification.model';
-import { v4 as uuidv4 } from 'uuid';
-
+import { Injectable } from "@angular/core";
+import { FirebaseService } from "./firebase.service";
+import { Notification, NotificationType } from "../Models/Notification.model";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable({
-  	providedIn: 'root'
+	providedIn: "root",
 })
 export class NotificationService {
 	private notifications: Notification[] = [];
 
-  	constructor(private firebase: FirebaseService) {
+	constructor(private firebase: FirebaseService) {
 		this.retriveNotification();
 	}
 
 	private async retriveNotification() {
-		this.firebase.getNotification().then(async (notifications: Notification[]) => {
-			this.notifications = await this.resolveUsername(notifications);
-		});
+		this.firebase
+			.getNotification()
+			.then(async (notifications: Notification[]) => {
+				this.notifications = await this.resolveUsername(notifications);
+			});
 	}
 
 	private async resolveUsername(notifications: Notification[]) {
 		for (let i = 0; i < notifications.length; i++) {
-			notifications[i].from = await this.firebase.getUsername(notifications[i].from);
+			notifications[i].from = await this.firebase.getUsername(
+				notifications[i].from
+			);
 		}
 		return notifications;
 	}
 
-	public getNotification() {
+	public getNotifications() {
 		return this.notifications;
 	}
 
@@ -57,6 +60,9 @@ export class NotificationService {
 			type: "update",
 		};
 
-		await this.firebase.addNotification(await this.firebase.getUid(), notification);
+		await this.firebase.addNotification(
+			await this.firebase.getUid(),
+			notification
+		);
 	}
 }

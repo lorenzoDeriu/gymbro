@@ -147,7 +147,7 @@
 							Impostazioni
 						</p>
 
-						<h5 class="d-none d-md-block">
+						<h5 class="d-none d-md-block fw-bold">
 							<i class="me-1 bi bi-gear-wide-connected"></i>
 							Impostazioni
 						</h5>
@@ -177,7 +177,7 @@
 							</i>
 						</p>
 
-						<h5 class="d-none d-md-block">
+						<h5 class="d-none d-md-block fw-bold">
 							Notifiche
 							<i class="ms-1 bi bi-bell-fill position-relative">
 								<span
@@ -510,9 +510,12 @@
 				</p>
 
 				<button
-					class="btn btn-dark btn-sm rounded-5 align-self-end mb-3 px-3"
+					*ngIf="notifications.length > 0"
+					class="btn btn-light shadow-sm btn-sm rounded-3 align-self-end mb-3"
 					style="width: fit-content"
+					(click)="deleteAllNotifications()"
 				>
+					Svuota
 					<i class="ms-1 bi bi-trash3-fill"></i>
 				</button>
 
@@ -543,19 +546,18 @@
 						/>
 
 						<small class="mx-3">
-							<strong>
-								{{
-									getNotificationUsernameFromUserId(
-										notification.from
-									)
-								}}
+							<strong *ngIf="notification.type !== 'update'">
+								{{ notification.from }}
 							</strong>
+
 							<span *ngIf="notification.type === 'follow'">
 								ha iniziato a seguirti
 							</span>
+
 							<span *ngIf="notification.type === 'download'">
 								ha salvato una tua scheda
 							</span>
+
 							<span *ngIf="notification.type === 'update'">
 								Gymbro si è aggiornata!
 							</span>

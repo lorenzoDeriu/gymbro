@@ -10,6 +10,7 @@ import { ShareDialogComponent } from "../share-dialog/share-dialog.component";
 import { User } from "src/app/Models/User.model";
 import { EditProfilePicDialogComponent } from "../edit-profile-pic-dialog/edit-profile-pic-dialog.component";
 import { Notification } from "src/app/Models/Notification.model";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-settings-page",
@@ -30,17 +31,17 @@ export class SettingsPageComponent implements OnInit {
 	public notifications: Notification[] = [
 		{
 			id: "0",
-			from: "Mxo",
+			from: "EkHDHOzyK6aZGzxxhL39xjs9E5R2",
 			type: "download",
 		},
 		{
 			id: "1",
-			from: "Lorenzo",
+			from: "EkHDHOzyK6aZGzxxhL39xjs9E5R2",
 			type: "follow",
 		},
 		{
 			id: "2",
-			from: "Luca",
+			from: "EkHDHOzyK6aZGzxxhL39xjs9E5R2",
 			type: "follow",
 		},
 		{
@@ -55,7 +56,8 @@ export class SettingsPageComponent implements OnInit {
 		private snackBar: MatSnackBar,
 		private authService: AuthService,
 		private router: Router,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private notification: NotificationService
 	) {}
 
 	async ngOnInit() {
@@ -73,6 +75,8 @@ export class SettingsPageComponent implements OnInit {
 		this.originalUsername = this.username;
 		this.playlistUrl = user.playlistUrl;
 		this.originalPlaylistUrl = this.playlistUrl;
+
+		this.notifications = this.notification.getNotifications();
 
 		this.loading = false;
 	}
@@ -230,8 +234,8 @@ export class SettingsPageComponent implements OnInit {
 		);
 	}
 
-	public getNotificationUsernameFromUserId(userId: string) {
-		//
+	public async deleteAllNotifications() {
+		this.notifications = [];
 	}
 
 	public backToHome() {

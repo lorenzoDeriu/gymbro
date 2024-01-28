@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="home-div rounded-5" id="new-workout" (click)="workout()">
-			<h3 class="mb-0" style="font-weight: 550">
+			<h3 class="mb-0">
 				{{
 					workoutExists()
 						? editMode
@@ -38,7 +38,7 @@
 			id="old-workout"
 			routerLink="/home/old-workouts"
 		>
-			<h3 class="mb-0" style="font-weight: 550">Vecchi Allenamenti</h3>
+			<h3 class="mb-0">Vecchi Allenamenti</h3>
 			<img src="assets/history.png" alt="" />
 		</div>
 
@@ -47,9 +47,7 @@
 			id="progress"
 			(click)="openWIPSnackbar()"
 		>
-			<h3 class="text-center opacity-25 mb-0" style="font-weight: 550">
-				I tuoi Progressi
-			</h3>
+			<h3 class="text-center opacity-25 mb-0">I tuoi Progressi</h3>
 			<img src="assets/progress.png" class="opacity-25" alt="" />
 		</div>
 
@@ -58,7 +56,7 @@
 			id="training-programs"
 			routerLink="/home/training-programs"
 		>
-			<h3 class="mb-0" style="font-weight: 550">Le tue Schede</h3>
+			<h3 class="mb-0">Le tue Schede</h3>
 			<img src="assets/programs.png" alt="" />
 		</div>
 	</div>

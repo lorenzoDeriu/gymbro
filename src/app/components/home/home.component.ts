@@ -6,6 +6,7 @@ import { FeedbackDialogComponent } from "../feedback-dialog/feedback-dialog.comp
 import { FirebaseService } from "src/app/services/firebase.service";
 import { UserService } from "src/app/services/user.service";
 import { convertTimediffToTime } from "src/app/utils/utils";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-home",
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
 		private router: Router,
 		private dialog: MatDialog,
 		private firebase: FirebaseService,
-		private userService: UserService
+		private userService: UserService,
+		private notification: NotificationService
 	) {}
 
 	async ngOnInit() {
@@ -49,6 +51,10 @@ export class HomeComponent implements OnInit {
 
 	fixDB() {
 		this.firebase.fixDB();
+	}
+
+	hasNotifications() {
+		return this.notification.getNotifications().length > 0;
 	}
 
 	onLogout() {
