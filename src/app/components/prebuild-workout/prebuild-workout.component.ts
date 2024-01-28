@@ -109,7 +109,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			setTimeout(() => {
 				this.enableDragAndDrop();
 			}, 0);
-		}, 0);
+		});
 	}
 
 	private isIOSDevice() {
@@ -303,13 +303,6 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.userService.updateWorkout(this.workout);
 
 		this.initializeComponent();
-		// setTimeout(() => {
-		// if (endingPosition === 0 || endingPosition === this.workout.exercises.length - 1) {
-		// 	// this.workout = this.userService.getWorkout();
-		// } else {
-		// 	this.enableDragAndDrop();
-		// }
-		// }, 0);
 	}
 
 	private initWorkoutProgress() {
@@ -533,9 +526,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 			JSON.stringify(this.workoutProgress)
 		);
 
-		setTimeout(() => {
-			this.initializeComponent();
-		}, 0);
+		this.initializeComponent();
 	}
 
 	public onCancel() {
@@ -633,7 +624,11 @@ export class PrebuildWorkoutComponent implements OnInit {
 					exerciseIndex,
 					this.initializeComponent.bind(this),
 				],
-				confirm: (workout: Workout, index: number, ngOnInit: any) => {
+				confirm: (
+					workout: Workout,
+					index: number,
+					initializeComponent: Function
+				) => {
 					workout.exercises.splice(index, 1);
 					this.userService.updateWorkout(this.workout);
 
@@ -644,10 +639,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 						JSON.stringify(this.workoutProgress)
 					);
 
-					ngOnInit();
-					// setTimeout(() => {
-					// 	// this.enableDragAndDrop();
-					// }, 0);
+					initializeComponent();
 				},
 			},
 		});
