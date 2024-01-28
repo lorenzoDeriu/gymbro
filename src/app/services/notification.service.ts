@@ -13,7 +13,7 @@ export class NotificationService {
 		this.retriveNotification();
 	}
 
-	private async retriveNotification() {
+	public async retriveNotification() {
 		this.firebase
 			.getNotification()
 			.then(async (notifications: Notification[]) => {

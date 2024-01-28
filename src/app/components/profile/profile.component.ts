@@ -1,4 +1,3 @@
-import { CustomExcerciseDialogComponent } from "./../custom-excercise-dialog/custom-excercise-dialog.component";
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -63,6 +62,7 @@ export class ProfileComponent implements OnInit {
 			friendUid
 		);
 
+		this.notification.retriveNotification();
 		this.loading = false;
 	}
 
