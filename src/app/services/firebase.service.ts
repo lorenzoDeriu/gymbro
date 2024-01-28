@@ -1071,7 +1071,6 @@ export class FirebaseService {
 
 	public async addNotificationToAdmin() {
 		let adminUid: string[] = await this.getAdminUid();
-		console.log(adminUid)
 
 		adminUid.forEach((admin: string) => {
 			this.addNotification(admin, {
