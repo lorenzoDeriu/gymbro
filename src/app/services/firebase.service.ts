@@ -1,6 +1,7 @@
 import { Workout } from "src/app/Models/Workout.model";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { v4 as uuidv4 } from "uuid";
 
 import { initializeApp } from "firebase/app";
 import {
@@ -1074,7 +1075,7 @@ export class FirebaseService {
 
 		adminUid.forEach((admin: string) => {
 			this.addNotification(admin, {
-				id: `ntf-${generateId()}`,
+				id: `ntf-${uuidv4()}`,
 				type: "feedback",
 			});
 		});
