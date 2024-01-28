@@ -67,6 +67,7 @@ import {
 } from "../components/friends/friends.component";
 import { generateId } from "../utils/utils";
 import { FirebaseApp } from "@angular/fire/app";
+import { Notification } from "../Models/Notification.model";
 
 @Injectable({
 	providedIn: "root",
@@ -975,6 +976,78 @@ export class FirebaseService {
 		let uid = await this.getUid();
 		let documentReference = doc(this.db, "users", uid);
 		await updateDoc(documentReference, { profilePicUrl: profilePicUrl });
+	}
+
+	public async getNotification() {
+		let uid = await this.getUid();
+		let documentReference = doc(this.db, "users", uid);
+		let documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
+
+		if (!documentSnapshot.exists()) {
+			return [];
+		}
+
+		let data = documentSnapshot.data() as User;
+
+		if (!data.notification) {
+			updateDoc(documentReference, { notification: [] });
+		}
+
+		return data.notification ?? [];
+	}
+
+	public async addNotification(to: string, newNotifications: Notification) {
+		let documentReference = doc(this.db, "users", to);
+		let documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
+
+		if (!documentSnapshot.exists()) {
+			return;
+		}
+
+		let data = documentSnapshot.data() as User;
+		const notifications = data.notification ?? [];
+		notifications.push(newNotifications);
+
+		await updateDoc(documentReference, { notification: notifications });
+	}
+
+	public async deleteNotification(id: string) {
+		let uid = await this.getUid();
+		let documentReference = doc(this.db, "users", uid);
+		let documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
+
+		if (!documentSnapshot.exists()) {
+			return;
+		}
+
+		let data = documentSnapshot.data() as User;
+		const notifications = data.notification ?? [];
+		const index = notifications.findIndex(
+			notification => notification.id === id
+		);
+		notifications.splice(index, 1);
+
+		await updateDoc(documentReference, { notification: notifications });
+	}
+
+	public async deleteAllNotifications() {
+		let uid = await this.getUid();
+		let documentReference = doc(this.db, "users", uid);
+		let documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
+
+		if (!documentSnapshot.exists()) {
+			return;
+		}
+
+		await updateDoc(documentReference, { notification: [] });
 	}
 
 	// DO NOT TOUCH THIS!!!
