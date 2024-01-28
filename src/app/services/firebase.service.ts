@@ -1050,6 +1050,37 @@ export class FirebaseService {
 		await updateDoc(documentReference, { notification: [] });
 	}
 
+	private async getAdminUid(): Promise<string[]> {
+		let adminUid: string[] = [];
+
+		let collectionReference = collection(this.db, "users");
+		let querySnapshot = navigator.onLine
+			? getDocs(query(collectionReference, where("admin", "==", true)))
+			: getDocsFromCache(
+					query(collectionReference, where("admin", "==", true))
+			  );
+
+		const qs = await querySnapshot;
+		qs.forEach(document => {
+			adminUid.push(document.id);
+		});
+
+		return adminUid;
+
+	}
+
+	public async addNotificationToAdmin() {
+		let adminUid: string[] = await this.getAdminUid();
+		console.log(adminUid)
+
+		adminUid.forEach((admin: string) => {
+			this.addNotification(admin, {
+				id: `ntf-${generateId()}`,
+				type: "feedback",
+			});
+		});
+	}
+
 	// DO NOT TOUCH THIS!!!
 	public async getUid() {
 		return await new Promise<string>((resolve, _) => {

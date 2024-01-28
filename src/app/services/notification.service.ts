@@ -55,14 +55,13 @@ export class NotificationService {
 	}
 
 	public async sendUpdateNotification() {
-		const notification: Notification = {
+		await this.firebase.addNotification(await this.firebase.getUid(), {
 			id: `ntf-${uuidv4()}`,
 			type: "update",
-		};
+		});
+	}
 
-		await this.firebase.addNotification(
-			await this.firebase.getUid(),
-			notification
-		);
+	public async sendFeedbackNotification() {
+		await this.firebase.addNotificationToAdmin();
 	}
 }
