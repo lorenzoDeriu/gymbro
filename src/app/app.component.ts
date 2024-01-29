@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { SwUpdate, VersionReadyEvent } from "@angular/service-worker";
 import { filter } from "rxjs";
+import { NotificationService } from "./services/notification.service";
 
 @Component({
 	selector: "app-root",
@@ -11,7 +12,7 @@ import { filter } from "rxjs";
 export class AppComponent implements OnInit {
 	title = "GymBro";
 
-	constructor(swUpdate: SwUpdate) {
+	constructor(swUpdate: SwUpdate, private notification: NotificationService) {
 		swUpdate.versionUpdates
 			.pipe(
 				filter(
@@ -20,17 +21,16 @@ export class AppComponent implements OnInit {
 				)
 			)
 			.subscribe(() => {
+				this.notification.sendUpdateNotification();
 				document.location.reload();
 			});
 	}
 
 	public ngOnInit() {
 		localStorage.getItem("theme")
-		? (
-			localStorage.getItem("theme") == "light"
-			? document.body.setAttribute("data-bs-theme", "light")
-			: document.body.setAttribute("data-bs-theme", "dark")
-		)
-		: document.body.setAttribute("data-bs-theme", "light");
+			? localStorage.getItem("theme") == "light"
+				? document.body.setAttribute("data-bs-theme", "light")
+				: document.body.setAttribute("data-bs-theme", "dark")
+			: document.body.setAttribute("data-bs-theme", "light");
 	}
 }

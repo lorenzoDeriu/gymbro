@@ -10,7 +10,10 @@ import { ThemeService } from "src/app/services/theme.service";
 export class AdminDialogComponent implements OnInit {
 	public theme: "light" | "dark";
 
-	constructor(public dialogRef: MatDialogRef<AdminDialogComponent>, private themeService: ThemeService) {}
+	constructor(
+		public dialogRef: MatDialogRef<AdminDialogComponent>,
+		private themeService: ThemeService
+	) {}
 
 	public ngOnInit() {
 		this.themeService.themeObs.subscribe(theme => {

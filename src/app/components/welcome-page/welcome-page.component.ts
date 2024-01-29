@@ -12,7 +12,7 @@ import { ThemeService } from "src/app/services/theme.service";
 	styleUrls: ["./welcome-page.component.css"],
 })
 export class WelcomePageComponent implements OnInit {
-	public theme: 'light' | 'dark';
+	public theme: "light" | "dark";
 	public email: string;
 	public password: string;
 	public username: string;
@@ -47,7 +47,7 @@ export class WelcomePageComponent implements OnInit {
 			this.router.navigate(["/home/dashboard"]);
 		}
 
-		this.themeService.themeObs.subscribe((theme) => {
+		this.themeService.themeObs.subscribe(theme => {
 			this.theme = theme;
 		});
 

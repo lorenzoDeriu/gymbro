@@ -72,7 +72,6 @@ import { ShowExerciseFromTemplateDialogComponent } from "./components/show-exerc
 import { WorkoutNotSavedDialogComponent } from "./components/workout-not-saved-dialog/workout-not-saved-dialog.component";
 import { DeloadDialogComponent } from "./components/deload-dialog/deload-dialog.component";
 import { UpdateNotesDialogComponent } from "./components/update-notes-dialog/update-notes-dialog.component";
-import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 @NgModule({
 	declarations: [
@@ -117,7 +116,6 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
 		WorkoutNotSavedDialogComponent,
 		DeloadDialogComponent,
 		UpdateNotesDialogComponent,
-  SnackbarComponent,
 	],
 	imports: [
 		BrowserModule,

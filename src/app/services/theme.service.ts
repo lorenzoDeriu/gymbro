@@ -5,7 +5,9 @@ import { BehaviorSubject } from "rxjs";
 	providedIn: "root",
 })
 export class ThemeService {
-	private theme: BehaviorSubject<"light" | "dark"> = new BehaviorSubject((localStorage.getItem("theme") as "light" | "dark") ?? "light");
+	private theme: BehaviorSubject<"light" | "dark"> = new BehaviorSubject(
+		(localStorage.getItem("theme") as "light" | "dark") ?? "light"
+	);
 	public themeObs = this.theme.asObservable();
 
 	constructor() {}

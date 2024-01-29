@@ -22,7 +22,14 @@
 				Torna Indietro
 			</button>
 
-			<button [ngClass]="{'btn ms-2': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}" routerLink="/home">
+			<button
+				[ngClass]="{
+					'btn ms-2': true,
+					'btn-light': theme === 'dark',
+					'btn-dark': theme === 'light'
+				}"
+				routerLink="/home"
+			>
 				Torna alla home
 				<i class="ms-1 bi bi-house-fill"></i>
 			</button>
@@ -37,7 +44,14 @@
 				Indietro
 			</button>
 
-			<button [ngClass]="{'btn btn-sm ms-2': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}" routerLink="/home">
+			<button
+				[ngClass]="{
+					'btn btn-sm ms-2': true,
+					'btn-light': theme === 'dark',
+					'btn-dark': theme === 'light'
+				}"
+				routerLink="/home"
+			>
 				Home
 				<i class="bi bi-house-fill"></i>
 			</button>
@@ -149,7 +163,11 @@
 								[href]="
 									'#session' + programIndex + sessionIndex
 								"
-								[ngClass]="{'btn shadow-sm border-0 w-100 mb-1 collapser sessions-collapser d-flex justify-content-between align-items-center mobile-btn': true, 'bg-dark': theme === 'dark', 'bg-light': theme === 'light'}"
+								[ngClass]="{
+									'btn shadow-sm border-0 w-100 mb-1 collapser sessions-collapser d-flex justify-content-between align-items-center mobile-btn': true,
+									'bg-dark': theme === 'dark',
+									'bg-light': theme === 'light'
+								}"
 								data-bs-toggle="collapse"
 								role="button"
 								aria-expanded="false"
@@ -319,7 +337,11 @@
 						</div>
 
 						<button
-							[ngClass]="{'btn d-none d-lg-block': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}"
+							[ngClass]="{
+								'btn d-none d-lg-block': true,
+								'btn-light': theme === 'dark',
+								'btn-dark': theme === 'light'
+							}"
 							(click)="saveTrainingProgram(programIndex)"
 						>
 							Salva nelle tue schede
@@ -327,7 +349,11 @@
 						</button>
 
 						<button
-							[ngClass]="{'btn btn-sm d-block d-lg-none': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}"
+							[ngClass]="{
+								'btn btn-sm d-block d-lg-none': true,
+								'btn-light': theme === 'dark',
+								'btn-dark': theme === 'light'
+							}"
 							(click)="saveTrainingProgram(programIndex)"
 						>
 							Salva

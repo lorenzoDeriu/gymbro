@@ -52,7 +52,11 @@
 
 		<button
 			(click)="closeDialog()"
-			[ngClass]="{'btn btn-sm w-50': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}"
+			[ngClass]="{
+				'btn btn-sm w-50': true,
+				'btn-light': theme === 'dark',
+				'btn-dark': theme === 'light'
+			}"
 		>
 			No
 		</button>

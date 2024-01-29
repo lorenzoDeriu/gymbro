@@ -48,7 +48,7 @@ export class NewExerciseDialogComponent implements OnInit {
 	public async ngOnInit() {
 		this.getExercises();
 
-		this.themeService.themeObs.subscribe((theme) => {
+		this.themeService.themeObs.subscribe(theme => {
 			this.theme = theme;
 		});
 

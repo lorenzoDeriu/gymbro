@@ -18,10 +18,10 @@ export class ExpandFeedbackDialogComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.themeService.themeObs.subscribe((theme) => {
+		this.themeService.themeObs.subscribe(theme => {
 			this.theme = theme;
 		});
-		
+
 		this.message = this.data.message;
 	}
 

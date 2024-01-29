@@ -1,7 +1,4 @@
-@font-face {
-	font-family: Poppins;
-	src: url(https://static1.squarespace.com/static/6412b954167fb959080a9874/t/64e08b2ec3dafa01ab100e59/1692437295189/Poppins-Regular.ttf);
-}
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
 html,
 body {
@@ -19,37 +16,41 @@ body {
 	scrollbar-width: none;
 }
 
-.dropdown-light {
-	--bs-dropdown-link-active-bg: rgba(232, 232, 232, 0.276) !important;
-	--bs-dropdown-link-active-color: #141414 !important;
+.gray-bg {
+	background-color: #c5c5c5 !important;
 }
 
 .dropdown-dark {
 	--bs-dropdown-link-active-bg: rgba(232, 232, 232, 0.276) !important;
 }
 
+.dropdown-light {
+	--bs-dropdown-link-active-bg: rgba(232, 232, 232, 0.276) !important;
+	--bs-dropdown-link-active-color: #141414 !important;
+}
+
 .purple-btn {
 	border: #6b44d4 1px solid !important;
 	background-color: #6b44d4 !important;
-	color: #fff;
+	color: #fff !important;
 }
 
 .purple-btn:disabled {
 	border: #9888c4 1px solid !important;
 	background-color: #9888c4 !important;
-	color: #fff;
+	color: #fff !important;
 }
 
 .purple-btn:hover {
 	border: #785ebe 1px solid !important;
 	background-color: #785ebe !important;
-	color: #fff;
+	color: #fff !important;
 }
 
 .purple-btn:active {
 	border: #9780d5 1px solid !important;
 	background-color: #9780d5 !important;
-	color: #fff;
+	color: #fff !important;
 }
 
 .blue-btn {
@@ -124,15 +125,14 @@ select:-webkit-autofill:focus {
 }
 
 .mdc-snackbar__surface {
-	background-color: transparent !important;
+	background-color: #fff !important;
+}
+
+.mdc-snackbar__label {
+	color: #000 !important;
 }
 
 .mdc-snackbar button {
-	background-color: #180e3342 !important;
-	color: #6b44d4 !important;
-	border: none !important;
-}
-
-.mat-mdc-dialog-surface.mdc-dialog__surface {
 	background-color: transparent !important;
+	color: #6b44d4 !important;
 }

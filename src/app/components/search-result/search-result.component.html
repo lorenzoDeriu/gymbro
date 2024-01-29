@@ -26,7 +26,14 @@
 				Torna Indietro
 			</button>
 
-			<button [ngClass]="{'btn ms-2': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}" routerLink="/home">
+			<button
+				[ngClass]="{
+					'btn ms-2': true,
+					'btn-light': theme === 'dark',
+					'btn-dark': theme === 'light'
+				}"
+				routerLink="/home"
+			>
 				Torna alla home
 				<i class="ms-1 bi bi-house-fill"></i>
 			</button>
@@ -41,7 +48,14 @@
 				Indietro
 			</button>
 
-			<button [ngClass]="{'btn btn-sm ms-2': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}" routerLink="/home">
+			<button
+				[ngClass]="{
+					'btn btn-sm ms-2': true,
+					'btn-light': theme === 'dark',
+					'btn-dark': theme === 'light'
+				}"
+				routerLink="/home"
+			>
 				Home
 				<i class="bi bi-house-fill"></i>
 			</button>
@@ -82,8 +96,19 @@
 				</div>
 			</button>
 
-			<button class="btn" (click)="onFollow(i)" style="border: none">
+			<button
+				*ngIf="!following"
+				class="btn"
+				(click)="onFollow(i)"
+				style="border: none"
+			>
 				<i class="bi bi-person-plus-fill"></i>
+			</button>
+
+			<button *ngIf="following" class="btn" style="border: none">
+				<div class="spinner-border spinner-border-sm" role="status">
+					<span class="visually-hidden">Loading...</span>
+				</div>
 			</button>
 		</div>
 	</div>

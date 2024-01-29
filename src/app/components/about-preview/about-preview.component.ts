@@ -19,9 +19,12 @@ export class AboutPreviewComponent {
 	) as HTMLButtonElement;
 	installPromptMobile: any;
 
-	public theme: 'light' | 'dark';
+	public theme: "light" | "dark";
 
-	constructor(private dialog: MatDialog, private themeService: ThemeService) {}
+	constructor(
+		private dialog: MatDialog,
+		private themeService: ThemeService
+	) {}
 
 	ngOnInit(): void {
 		this.installButton = document.getElementById(
@@ -32,7 +35,7 @@ export class AboutPreviewComponent {
 		) as HTMLButtonElement;
 
 		this.themeService.themeObs.subscribe(theme => {
-			this.theme = theme
+			this.theme = theme;
 		});
 
 		window.addEventListener("beforeinstallprompt", event => {

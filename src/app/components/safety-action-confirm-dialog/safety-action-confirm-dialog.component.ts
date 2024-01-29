@@ -21,10 +21,10 @@ export class SafetyActionConfirmDialogComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.themeService.themeObs.subscribe((theme) => {
+		this.themeService.themeObs.subscribe(theme => {
 			this.theme = theme;
 		});
-		
+
 		this.title = this.data.title;
 		this.message = this.data.message;
 		this.args = this.data.args;

@@ -31,7 +31,11 @@
 
 			<button
 				type="button"
-				[ngClass]="{'btn ms-2 w-100': true, 'btn-dark': theme === 'light', 'btn-light': theme === 'dark'}"
+				[ngClass]="{
+					'btn ms-2 w-100': true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
 				(click)="closeDialog()"
 			>
 				Annulla

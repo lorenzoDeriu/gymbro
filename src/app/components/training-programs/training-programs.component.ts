@@ -31,7 +31,7 @@ export class TrainingProgramsComponent implements OnInit {
 	async ngOnInit() {
 		this.loading = true;
 
-		this.themeService.themeObs.subscribe((theme) => {
+		this.themeService.themeObs.subscribe(theme => {
 			this.theme = theme;
 		});
 

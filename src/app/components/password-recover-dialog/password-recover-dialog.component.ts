@@ -10,7 +10,7 @@ import { ThemeService } from "src/app/services/theme.service";
 	styleUrls: ["./password-recover-dialog.component.css"],
 })
 export class PasswordRecoverDialogComponent implements OnInit {
-	public theme: 'light' | 'dark';
+	public theme: "light" | "dark";
 	public email: string;
 
 	constructor(
@@ -21,7 +21,7 @@ export class PasswordRecoverDialogComponent implements OnInit {
 	) {}
 
 	public ngOnInit(): void {
-		this.themeService.themeObs.subscribe((theme) => {
+		this.themeService.themeObs.subscribe(theme => {
 			this.theme = theme;
 		});
 	}

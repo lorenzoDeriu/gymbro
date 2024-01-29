@@ -24,5 +24,14 @@
 		</div>
 	</div>
 
-	<button (click)="closeDialog()" [ngClass]="{'btn w-100': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}">Chiudi</button>
+	<button
+		(click)="closeDialog()"
+		[ngClass]="{
+			'btn w-100': true,
+			'btn-light': theme === 'dark',
+			'btn-dark': theme === 'light'
+		}"
+	>
+		Chiudi
+	</button>
 </div>

@@ -1,3 +1,4 @@
+import { Notification } from "./Notification.model";
 import { TrainingProgram } from "./TrainingProgram.model";
 import { Workout } from "./Workout.model";
 
@@ -11,4 +12,5 @@ export type User = {
 	playlistUrl?: string;
 	profilePicUrl?: string;
 	admin?: boolean;
+	notification?: Notification[];
 };

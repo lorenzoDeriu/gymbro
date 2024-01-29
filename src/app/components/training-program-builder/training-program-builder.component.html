@@ -23,7 +23,11 @@
 		<form class="d-flex justify-content-center align-items-center mb-4">
 			<button
 				type="button"
-				[ngClass]="{'btn me-2 d-none d-lg-flex': true, 'btn-dark': theme === 'light', 'btn-light': theme === 'dark'}"
+				[ngClass]="{
+					'btn me-2 d-none d-lg-flex': true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
 				routerLink="/home/training-programs"
 				(click)="cancel()"
 			>
@@ -33,7 +37,11 @@
 
 			<button
 				type="button"
-				[ngClass]="{'btn btn-sm me-2 d-flex d-lg-none': true, 'btn-dark': theme === 'light', 'btn-light': theme === 'dark'}"
+				[ngClass]="{
+					'btn btn-sm me-2 d-flex d-lg-none': true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
 				routerLink="/home/training-programs"
 				(click)="cancel()"
 			>
@@ -241,11 +249,15 @@
 										>
 											<i class="bi bi-three-dots"></i>
 										</button>
-										<ul [ngClass]="{
-											'dropdown-menu': true,
-											'dropdown-dark': theme === 'dark',
-											'dropdown-light': theme === 'light'
-										}">
+										<ul
+											[ngClass]="{
+												'dropdown-menu': true,
+												'dropdown-dark':
+													theme === 'dark',
+												'dropdown-light':
+													theme === 'light'
+											}"
+										>
 											<li style="cursor: pointer">
 												<a
 													class="dropdown-item"
@@ -287,7 +299,11 @@
 					</p>
 
 					<button
-						[ngClass]="{'btn d-none d-lg-block': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}"
+						[ngClass]="{
+							'btn d-none d-lg-block': true,
+							'btn-light': theme === 'dark',
+							'btn-dark': theme === 'light'
+						}"
 						(click)="addExercise(session)"
 					>
 						Aggiungi esercizio
@@ -295,7 +311,11 @@
 					</button>
 
 					<button
-						[ngClass]="{'btn btn-sm d-block d-lg-none': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}"
+						[ngClass]="{
+							'btn btn-sm d-block d-lg-none': true,
+							'btn-light': theme === 'dark',
+							'btn-dark': theme === 'light'
+						}"
 						(click)="addExercise(session)"
 					>
 						Aggiungi esercizio

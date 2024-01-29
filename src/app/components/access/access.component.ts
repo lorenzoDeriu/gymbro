@@ -4,7 +4,6 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AuthService } from "src/app/services/auth.service";
 import { ThemeService } from "src/app/services/theme.service";
-import { SnackbarComponent } from "../snackbar/snackbar.component";
 
 @Component({
 	selector: "app-access",
@@ -80,13 +79,11 @@ export class AccessComponent implements OnInit {
 
 	accessWithGoogle() {
 		if (!this.agreePrivacy) {
-			this.snackBar.openFromComponent(SnackbarComponent, {
-				data: {
-					message: "Devi accettare la Privacy Policy per accedere!",
-					action: "OK",
-					duration: 5000,
-				},
-			});
+			this.snackBar.open(
+				"Devi accettare la Privacy Policy per accedere!",
+				"OK",
+				{ duration: 5000 }
+			);
 
 			return;
 		}
@@ -95,13 +92,11 @@ export class AccessComponent implements OnInit {
 
 	accessWithFacebook() {
 		if (!this.agreePrivacy) {
-			this.snackBar.openFromComponent(SnackbarComponent, {
-				data: {
-					message: "Devi accettare la Privacy Policy per accedere!",
-					action: "OK",
-					duration: 5000,
-				},
-			});
+			this.snackBar.open(
+				"Devi accettare la Privacy Policy per accedere!",
+				"OK",
+				{ duration: 5000 }
+			);
 
 			return;
 		}
@@ -110,13 +105,11 @@ export class AccessComponent implements OnInit {
 
 	accessWithTwitter() {
 		if (!this.agreePrivacy) {
-			this.snackBar.openFromComponent(SnackbarComponent, {
-				data: {
-					message: "Devi accettare la Privacy Policy per accedere!",
-					action: "OK",
-					duration: 5000,
-				},
-			});
+			this.snackBar.open(
+				"Devi accettare la Privacy Policy per accedere!",
+				"OK",
+				{ duration: 5000 }
+			);
 
 			return;
 		}

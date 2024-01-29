@@ -17,12 +17,15 @@ export class ExerciseStatsComponent implements OnInit {
 
 	public options: string[];
 
-	constructor(private firebase: FirebaseService, private themeService: ThemeService) {}
+	constructor(
+		private firebase: FirebaseService,
+		private themeService: ThemeService
+	) {}
 
 	async ngOnInit() {
 		this.options = await this.firebase.getExercise();
 
-		this.themeService.themeObs.subscribe((theme) => {
+		this.themeService.themeObs.subscribe(theme => {
 			this.theme = theme;
 		});
 	}

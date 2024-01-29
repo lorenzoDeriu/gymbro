@@ -21,7 +21,12 @@
 	>
 		<div class="w-100 mb-5">
 			<h3 class="text-start">
-				<img [ngStyle]="{'filter': theme === 'dark' ? 'invert(1)': ''}" src="assets/dumbbell.png" width="30" alt="" />
+				<img
+					[ngStyle]="{ filter: theme === 'dark' ? 'invert(1)' : '' }"
+					src="assets/dumbbell.png"
+					width="30"
+					alt=""
+				/>
 				Crea da zero
 			</h3>
 
@@ -119,7 +124,11 @@
 					>
 						<a
 							[href]="'#session' + programIndex + sessionIndex"
-							[ngClass]="{'btn w-100 mb-1 collapser shadow-sm border-0 sessions-collapser d-flex justify-content-between align-items-center mobile-btn': true, 'bg-light': theme === 'light', 'bg-dark': theme === 'dark'}"
+							[ngClass]="{
+								'btn w-100 mb-1 collapser shadow-sm border-0 sessions-collapser d-flex justify-content-between align-items-center mobile-btn': true,
+								'bg-light': theme === 'light',
+								'bg-dark': theme === 'dark'
+							}"
 							data-bs-toggle="collapse"
 							role="button"
 							aria-expanded="false"
@@ -269,7 +278,11 @@
 									</tbody>
 								</table>
 								<button
-									[ngClass]="{'btn d-none d-lg-block': true, 'btn-dark': theme === 'light', 'btn-light': theme === 'dark'}"
+									[ngClass]="{
+										'btn d-none d-lg-block': true,
+										'btn-dark': theme === 'light',
+										'btn-light': theme === 'dark'
+									}"
 									(click)="
 										selectWorkout(
 											programIndex,
@@ -282,7 +295,11 @@
 								</button>
 
 								<button
-								[ngClass]="{'btn d-block d-lg-none btn-sm': true, 'btn-dark': theme === 'light', 'btn-light': theme === 'dark'}"
+									[ngClass]="{
+										'btn d-block d-lg-none btn-sm': true,
+										'btn-dark': theme === 'light',
+										'btn-light': theme === 'dark'
+									}"
 									(click)="
 										selectWorkout(
 											programIndex,
@@ -320,7 +337,10 @@
 		</div>
 
 		<button
-			[ngClass]="{'btn btn-light my-4 d-none d-lg-block w-100': true, 'btn-dark': theme === 'light'}"
+			[ngClass]="{
+				'btn btn-light my-4 d-none d-lg-block w-100': true,
+				'btn-dark': theme === 'light'
+			}"
 			routerLink="/home/dashboard"
 		>
 			Torna alla home
@@ -328,7 +348,10 @@
 		</button>
 
 		<button
-		[ngClass]="{'btn btn-light my-4 d-block d-lg-none btn-sm w-100': true, 'btn-dark': theme === 'light'}"
+			[ngClass]="{
+				'btn btn-light my-4 d-block d-lg-none btn-sm w-100': true,
+				'btn-dark': theme === 'light'
+			}"
 			routerLink="/home/dashboard"
 		>
 			Torna alla home

@@ -314,8 +314,7 @@
 					}"
 					for="light"
 				>
-					Leggero
-					<i class="ms-1 bi bi-feather"></i>
+					<i class="bi bi-feather"></i>
 				</label>
 
 				<input
@@ -336,8 +335,7 @@
 					}"
 					for="hard"
 				>
-					Pesante
-					<i class="ms-1 bi bi-lightning-fill"></i>
+					<i class="bi bi-lightning-fill"></i>
 				</label>
 
 				<input
@@ -356,8 +354,7 @@
 					}"
 					for="failure"
 				>
-					Cedimento
-					<i class="ms-1 bi bi-fire"></i>
+					<i class="bi bi-fire"></i>
 				</label>
 			</div>
 
@@ -412,7 +409,11 @@
 				</button>
 
 				<button
-					[ngClass]="{'btn btn-sm w-100 ms-1 rounded-5': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}"
+					[ngClass]="{
+						'btn btn-sm w-100 ms-1 rounded-5': true,
+						'btn-light': theme === 'dark',
+						'btn-dark': theme === 'light'
+					}"
 					(click)="closeDialog()"
 				>
 					Annulla

@@ -10,7 +10,10 @@ import { ThemeService } from "src/app/services/theme.service";
 export class ErrorProviderDialogComponent implements OnInit {
 	public theme: "light" | "dark";
 
-	constructor(public dialogRef: MatDialogRef<ErrorProviderDialogComponent>, private themeService: ThemeService) {}
+	constructor(
+		public dialogRef: MatDialogRef<ErrorProviderDialogComponent>,
+		private themeService: ThemeService
+	) {}
 
 	public ngOnInit() {
 		this.themeService.themeObs.subscribe(theme => {

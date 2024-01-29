@@ -20,7 +20,11 @@
 		</div>
 
 		<div
-			[ngClass]="{'home-div bg-body-tertiary rounded-5': true, 'shadow-sm': theme === 'light', 'shadow': theme === 'dark'}"
+			[ngClass]="{
+				'home-div bg-body-tertiary rounded-5': true,
+				'shadow-sm': theme === 'light',
+				shadow: theme === 'dark'
+			}"
 			id="new-workout"
 			(click)="workout()"
 		>
@@ -34,36 +38,65 @@
 				}}
 				Allenamento
 			</h3>
-			<img [ngStyle]="{'filter': theme === 'dark' ? 'invert(1)': ''}" src="assets/dumbbell.png" alt="" />
+			<img
+				[ngStyle]="{ filter: theme === 'dark' ? 'invert(1)' : '' }"
+				src="assets/dumbbell.png"
+				alt=""
+			/>
 		</div>
 
 		<div
-			[ngClass]="{'home-div bg-body-tertiary rounded-5': true, 'shadow-sm': theme === 'light', 'shadow': theme === 'dark'}"
+			[ngClass]="{
+				'home-div bg-body-tertiary rounded-5': true,
+				'shadow-sm': theme === 'light',
+				shadow: theme === 'dark'
+			}"
 			id="old-workout"
 			routerLink="/home/old-workouts"
 		>
 			<h3 class="mb-0" style="font-weight: 550">Vecchi Allenamenti</h3>
-			<img [ngStyle]="{'filter': theme === 'dark' ? 'invert(1)': ''}" src="assets/history.png" alt="" />
+			<img
+				[ngStyle]="{ filter: theme === 'dark' ? 'invert(1)' : '' }"
+				src="assets/history.png"
+				alt=""
+			/>
 		</div>
 
 		<div
-			[ngClass]="{'home-div bg-body-tertiary rounded-5': true, 'shadow-sm': theme === 'light', 'shadow': theme === 'dark'}"
+			[ngClass]="{
+				'home-div bg-body-tertiary rounded-5': true,
+				'shadow-sm': theme === 'light',
+				shadow: theme === 'dark'
+			}"
 			id="progress"
 			(click)="openWIPSnackbar()"
 		>
 			<h3 class="text-center opacity-25 mb-0" style="font-weight: 550">
 				I tuoi Progressi
 			</h3>
-			<img [ngStyle]="{'filter': theme === 'dark' ? 'invert(1)': ''}" src="assets/progress.png" class="opacity-25" alt="" />
+			<img
+				[ngStyle]="{ filter: theme === 'dark' ? 'invert(1)' : '' }"
+				src="assets/progress.png"
+				class="opacity-25"
+				alt=""
+			/>
 		</div>
 
 		<div
-			[ngClass]="{'home-div bg-body-tertiary rounded-5': true, 'shadow-sm': theme === 'light', 'shadow': theme === 'dark'}"
+			[ngClass]="{
+				'home-div bg-body-tertiary rounded-5': true,
+				'shadow-sm': theme === 'light',
+				shadow: theme === 'dark'
+			}"
 			id="training-programs"
 			routerLink="/home/training-programs"
 		>
 			<h3 class="mb-0" style="font-weight: 550">Le tue Schede</h3>
-			<img [ngStyle]="{'filter': theme === 'dark' ? 'invert(1)': ''}" src="assets/programs.png" alt="" />
+			<img
+				[ngStyle]="{ filter: theme === 'dark' ? 'invert(1)' : '' }"
+				src="assets/programs.png"
+				alt=""
+			/>
 		</div>
 	</div>
 </div>

@@ -35,7 +35,7 @@ export class AboutComponent {
 			"installMobile"
 		) as HTMLButtonElement;
 
-		this.themeService.themeObs.subscribe((theme) => {
+		this.themeService.themeObs.subscribe(theme => {
 			this.theme = theme;
 		});
 

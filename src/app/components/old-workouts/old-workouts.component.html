@@ -29,7 +29,11 @@
 
 		<button
 			*ngIf="workouts.length === 0"
-			[ngClass]="{'btn mb-4 d-none d-lg-block': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}"
+			[ngClass]="{
+				'btn mb-4 d-none d-lg-block': true,
+				'btn-light': theme === 'dark',
+				'btn-dark': theme === 'light'
+			}"
 			(click)="backToHomeButton()"
 		>
 			Torna alla home
@@ -38,7 +42,11 @@
 
 		<button
 			*ngIf="workouts.length === 0"
-			[ngClass]="{'btn btn-sm mb-4 d-block d-lg-none': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}"
+			[ngClass]="{
+				'btn btn-sm mb-4 d-block d-lg-none': true,
+				'btn-light': theme === 'dark',
+				'btn-dark': theme === 'light'
+			}"
 			(click)="backToHomeButton()"
 		>
 			Torna alla home
@@ -95,7 +103,9 @@
 				class="collapse w-100 workout-collapse-body collapse-body rounded-3 mb-3 shadow-sm"
 				[id]="'session' + workoutIndex"
 			>
-				<div class="card bg-body-tertiary shadow-sm card-body p-1 border-0">
+				<div
+					class="card bg-body-tertiary shadow-sm card-body p-1 border-0"
+				>
 					<table class="table table-sm table-striped table-hover">
 						<thead>
 							<tr>
@@ -210,7 +220,11 @@
 
 					<div class="d-none d-lg-flex align-items-center w-100">
 						<button
-							[ngClass]="{'btn w-100 me-1': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}"
+							[ngClass]="{
+								'btn w-100 me-1': true,
+								'btn-light': theme === 'dark',
+								'btn-dark': theme === 'light'
+							}"
 							(click)="reuseWorkout(workoutIndex)"
 						>
 							Riutilizza
@@ -236,7 +250,11 @@
 
 					<div class="d-flex d-lg-none align-items-center w-100">
 						<button
-							[ngClass]="{'btn btn-sm w-100 me-1': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}"
+							[ngClass]="{
+								'btn btn-sm w-100 me-1': true,
+								'btn-light': theme === 'dark',
+								'btn-dark': theme === 'light'
+							}"
 							(click)="reuseWorkout(workoutIndex)"
 						>
 							<i class="bi bi-recycle"></i>
@@ -261,11 +279,15 @@
 		</div>
 
 		<div
-			class="d-flex justify-content-between align-items-center w-100  rounded px-3 shadow-sm bg-body-tertiary rounded-3"
+			class="d-flex justify-content-between align-items-center w-100 rounded px-3 shadow-sm bg-body-tertiary rounded-3"
 			*ngIf="workouts.length > 0"
 		>
 			<button
-				[ngClass]="{'btn btn-sm rounded-5': true, 'btn-dark': theme === 'light', 'btn-light': theme === 'dark'}"
+				[ngClass]="{
+					'btn btn-sm rounded-5': true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
 				(click)="backToHomeButton()"
 			>
 				<i class="bi bi-house-fill"></i>
@@ -273,7 +295,7 @@
 
 			<span class="d-none d-lg-flex align-items-center">
 				<img
-					[ngStyle]="{'filter': theme === 'dark' ? 'invert(1)': ''}"
+					[ngStyle]="{ filter: theme === 'dark' ? 'invert(1)' : '' }"
 					src="assets/dumbbell-icon.png"
 					class="me-1"
 					width="14"
@@ -286,7 +308,7 @@
 			<span class="d-flex align-items-center d-lg-none workoutsNumber">
 				{{ workouts.length }}
 				<img
-					[ngStyle]="{'filter': theme === 'dark' ? 'invert(1)': ''}"
+					[ngStyle]="{ filter: theme === 'dark' ? 'invert(1)' : '' }"
 					src="assets/dumbbell-icon.png"
 					class="ms-1"
 					width="14"

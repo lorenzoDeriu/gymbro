@@ -11,7 +11,11 @@
 
 	<button
 		(click)="closeDialog()"
-		[ngClass]="{'btn w-100': true, 'btn-dark': theme === 'light', 'btn-light': theme === 'dark'}"
+		[ngClass]="{
+			'btn w-100': true,
+			'btn-dark': theme === 'light',
+			'btn-light': theme === 'dark'
+		}"
 	>
 		Ok
 	</button>

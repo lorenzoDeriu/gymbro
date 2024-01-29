@@ -23,7 +23,7 @@ export class ExpandExercisesDialogComponent implements OnInit {
 	) {}
 
 	public ngOnInit() {
-		this.themeService.themeObs.subscribe((theme) => {
+		this.themeService.themeObs.subscribe(theme => {
 			this.theme = theme;
 		});
 	}

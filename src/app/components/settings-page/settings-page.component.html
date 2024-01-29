@@ -16,7 +16,9 @@
 <!-- TODO: Remove !loading and check if object is already loaded -->
 <div id="wrapper" *ngIf="!loading">
 	<div id="main-container" class="p-3">
-		<div class="h-100 w-100 d-flex flex-column align-items-center">
+		<div
+			class="position-relative h-100 w-100 d-flex flex-column align-items-center"
+		>
 			<h1 class="text-center">Profilo</h1>
 
 			<div
@@ -42,7 +44,7 @@
 					<div
 						class="w-100 h-100 d-flex justify-content-center align-items-center"
 					>
-						<i class="bi bi-camera-fill text-light fs-1"></i>
+						<i class="bi bi-camera-fill fs-1"></i>
 					</div>
 				</div>
 			</div>
@@ -63,7 +65,7 @@
 					style="width: 150px; height: 150px"
 				>
 					<button
-						class="btn btn-sm bg-body-tertiary position-absolute top-0 end-0 rounded-circle py-1"
+						class="btn btn-sm bg-body-tertiary shadow-sm position-absolute top-0 end-0 rounded-circle py-1"
 						(click)="openProfilePicDialog()"
 					>
 						<i class="bi bi-camera-fill"></i>
@@ -114,9 +116,9 @@
 
 			<button
 				[ngClass]="{
-					'd-flex btn rounded-3 mb-4 p-2 w-100 d-none d-lg-block': true,
-					'btn-dark': theme === 'light',
-					'btn-light': theme === 'dark'
+					'd-flex btn border-0 shadow-sm rounded-3 mb-4 p-2 w-100 d-none d-lg-block': true,
+					'btn-light': theme === 'dark',
+					'btn-dark': theme === 'light'
 				}"
 				(click)="backToHome()"
 			>
@@ -126,9 +128,9 @@
 
 			<button
 				[ngClass]="{
-					'd-flex btn btn-sm rounded-3 mb-4 p-2 w-100 d-block d-lg-none': true,
-					'btn-dark': theme === 'light',
-					'btn-light': theme === 'dark'
+					'd-flex btn btn-sm border-0 shadow-sm rounded-3 mb-4 p-2 w-100 d-block d-lg-none': true,
+					'btn-light': theme === 'dark',
+					'btn-dark': theme === 'light'
 				}"
 				(click)="backToHome()"
 			>
@@ -136,13 +138,74 @@
 				Torna alla home
 			</button>
 
-			<!-- Impostazioni -->
-			<div class="w-100 d-flex flex-column">
-				<h5>
+			<div
+				[ngClass]="{
+					'btn-group shadow-sm d-flex justify-content-center w-100 mb-3 rounded-3': true,
+					'gray-bg': theme === 'light',
+					'bg-body-tertiary': theme === 'dark'
+				}"
+				role="group"
+				aria-label="btn-group"
+			>
+				<input
+					type="radio"
+					class="btn-check"
+					name="settings"
+					id="settingsRadio"
+					autocomplete="off"
+					[(ngModel)]="section"
+					value="settings"
+				/>
+				<label
+					[ngClass]="{
+						'btn border border-0 m-1 rounded-3 w-100': true,
+						'btn-outline-light': section === 'settings'
+					}"
+					for="settingsRadio"
+				>
 					Impostazioni
-					<i class="ms-2 bi bi-gear-wide-connected"></i>
-				</h5>
+					<i
+						*ngIf="!isThinMobile"
+						class="ms-1 bi bi-gear-wide-connected"
+					></i>
+				</label>
 
+				<input
+					type="radio"
+					class="btn-check"
+					name="notifications"
+					id="notificationsRadio"
+					autocomplete="off"
+					[(ngModel)]="section"
+					value="notifications"
+				/>
+				<label
+					[ngClass]="{
+						'btn border border-0 m-1 rounded-3 w-100': true,
+						'btn-outline-light': section === 'notifications'
+					}"
+					for="notificationsRadio"
+				>
+					Notifiche
+					<i
+						*ngIf="!isThinMobile"
+						class="ms-1 bi bi-bell-fill position-relative"
+					>
+						<span
+							*ngIf="getNotifications().length > 0"
+							class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
+						>
+							<span class="visually-hidden">New alerts</span>
+						</span>
+					</i>
+				</label>
+			</div>
+
+			<!-- Impostazioni -->
+			<div
+				class="w-100 d-flex flex-column"
+				*ngIf="section === 'settings'"
+			>
 				<div class="w-100 d-flex flex-column">
 					<!-- Username Desktop -->
 					<button
@@ -444,6 +507,103 @@
 						<i class="me-2 bi bi-trash3-fill"></i>
 						Elimina Account
 					</button>
+				</div>
+			</div>
+
+			<!-- Notifications -->
+			<div
+				class="w-100 d-flex flex-column"
+				*ngIf="section === 'notifications'"
+			>
+				<p
+					*ngIf="getNotifications().length === 0"
+					class="text-muted text-center mt-3"
+				>
+					Non hai notifiche!
+				</p>
+
+				<button
+					*ngIf="getNotifications().length > 0"
+					class="btn bg-body-tertiary border-0 shadow-sm btn-sm rounded-3 align-self-end mb-3"
+					style="width: fit-content"
+					(click)="deleteAllNotifications()"
+				>
+					Svuota
+					<i class="ms-1 bi bi-trash3-fill"></i>
+				</button>
+
+				<div
+					*ngFor="let notification of getNotifications()"
+					class="w-100 d-flex flex-column"
+				>
+					<div
+						class="d-flex justify-content-between align-items-center alert alert-light alert-dismissible fade show p-2 w-100 mb-2"
+						role="alert"
+						style="font-size: 14px"
+					>
+						<i
+							*ngIf="notification.type === 'download'"
+							class="bi bi-download"
+						></i>
+
+						<i
+							*ngIf="notification.type === 'follow'"
+							class="bi bi-person-plus-fill"
+						></i>
+
+						<img
+							*ngIf="notification.type === 'update'"
+							src="assets/confetti.png"
+							width="16"
+							alt=""
+						/>
+
+						<i
+							*ngIf="notification.type === 'feedback'"
+							class="bi bi-flag-fill"
+						></i>
+
+						<small class="mx-3">
+							<strong
+								*ngIf="
+									notification.type !== 'update' &&
+									notification.type !== 'feedback'
+								"
+								(click)="
+									viewProfile(
+										notification.from,
+										notification.username
+									)
+								"
+								style="cursor: pointer"
+							>
+								{{ notification.username }}
+							</strong>
+
+							<span *ngIf="notification.type === 'follow'">
+								ha iniziato a seguirti
+							</span>
+
+							<span *ngIf="notification.type === 'download'">
+								ha salvato una tua scheda
+							</span>
+
+							<span *ngIf="notification.type === 'update'">
+								Gymbro si è aggiornata!
+							</span>
+
+							<span *ngIf="notification.type === 'feedback'">
+								Qualcuno ha lasciato un feedback!
+							</span>
+						</small>
+
+						<i
+							class="bi bi-x"
+							data-bs-dismiss="alert"
+							type="button"
+							(click)="deleteNotification(notification.id)"
+						></i>
+					</div>
 				</div>
 			</div>
 		</div>
