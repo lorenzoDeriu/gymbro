@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { SwUpdate, VersionReadyEvent } from "@angular/service-worker";
 import { filter } from "rxjs";
+import { NotificationService } from "./services/notification.service";
 
 @Component({
 	selector: "app-root",
@@ -11,7 +12,7 @@ import { filter } from "rxjs";
 export class AppComponent implements OnInit {
 	title = "GymBro";
 
-	constructor(swUpdate: SwUpdate) {
+	constructor(swUpdate: SwUpdate, private notification: NotificationService) {
 		swUpdate.versionUpdates
 			.pipe(
 				filter(
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
 				)
 			)
 			.subscribe(() => {
+				this.notification.sendUpdateNotification();
 				document.location.reload();
 			});
 	}

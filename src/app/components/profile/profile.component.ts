@@ -1,4 +1,3 @@
-import { CustomExcerciseDialogComponent } from "./../custom-excercise-dialog/custom-excercise-dialog.component";
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -11,6 +10,7 @@ import { Set } from "src/app/Models/Exercise.model";
 import { User } from "src/app/Models/User.model";
 import { UserService } from "src/app/services/user.service";
 import { ThemeService } from "src/app/services/theme.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-profile",
@@ -33,7 +33,8 @@ export class ProfileComponent implements OnInit {
 		private dialog: MatDialog,
 		private router: Router,
 		private route: ActivatedRoute,
-		private themeService: ThemeService
+		private themeService: ThemeService,
+		private notification: NotificationService
 	) {}
 
 	async ngOnInit() {
@@ -42,7 +43,7 @@ export class ProfileComponent implements OnInit {
 		this.themeService.themeObs.subscribe(theme => {
 			this.theme = theme
 		});
-		
+
 		if (this.route.snapshot.paramMap.get("username")) {
 			this.searchUsername = this.route.snapshot.paramMap.get("username");
 		}
@@ -68,6 +69,7 @@ export class ProfileComponent implements OnInit {
 			friendUid
 		);
 
+		this.notification.retriveNotification();
 		this.loading = false;
 	}
 
@@ -125,6 +127,12 @@ export class ProfileComponent implements OnInit {
 		this.firebase.addTrainingProgram(
 			this.trainingPrograms[trainingProgramIndex]
 		);
+
+		this.notification.sendNotification(
+			this.userService.getUidProfile(),
+			"download"
+		);
+
 		this.snackBar.open("Scheda salvata!", "Ok", { duration: 3000 });
 	}
 

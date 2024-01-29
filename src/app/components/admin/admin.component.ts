@@ -10,6 +10,7 @@ import { User } from "src/app/Models/User.model";
 import { Workout } from "src/app/Models/Workout.model";
 import { ExpandExercisesDialogComponent } from "../expand-exercises-dialog/expand-exercises-dialog.component";
 import { ThemeService } from "src/app/services/theme.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-admin",
@@ -31,10 +32,11 @@ export class AdminComponent implements OnInit {
 	constructor(
 		private firebase: FirebaseService,
 		private dialog: MatDialog,
-		private themeService: ThemeService
+		private themeService: ThemeService,
+		private notification: NotificationService
 	) {}
 
-	addExercise() {
+	public addExercise() {
 		this.dialog.open(AddExerciseDialogComponent, {
 			disableClose: false,
 		});
@@ -110,7 +112,7 @@ export class AdminComponent implements OnInit {
 		});
 	}
 
-	async removeFeedback(index: number) {
+	public async removeFeedback(index: number) {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina feedback",

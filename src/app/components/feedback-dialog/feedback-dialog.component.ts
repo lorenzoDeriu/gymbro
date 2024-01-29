@@ -3,6 +3,7 @@ import { MatDialogRef } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { ThemeService } from "src/app/services/theme.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-feedback-dialog",
@@ -17,7 +18,8 @@ export class FeedbackDialogComponent implements OnInit {
 		private firebase: FirebaseService,
 		private snackBar: MatSnackBar,
 		public dialogRef: MatDialogRef<FeedbackDialogComponent>,
-		private themeService: ThemeService
+		private themeService: ThemeService,
+		private notification: NotificationService
 	) {}
 
 	public ngOnInit() {
@@ -37,6 +39,7 @@ export class FeedbackDialogComponent implements OnInit {
 			duration: 3000,
 		});
 
+		this.notification.sendFeedbackNotification();
 		this.closeDialog();
 	}
 

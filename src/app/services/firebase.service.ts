@@ -1,6 +1,7 @@
 import { Workout } from "src/app/Models/Workout.model";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { v4 as uuidv4 } from "uuid";
 
 import { initializeApp } from "firebase/app";
 import {
@@ -35,6 +36,7 @@ import {
 	DocumentData,
 	persistentLocalCache,
 	Firestore,
+	onSnapshot,
 } from "firebase/firestore";
 import {
 	getAuth,
@@ -67,6 +69,7 @@ import {
 } from "../components/friends/friends.component";
 import { generateId } from "../utils/utils";
 import { FirebaseApp } from "@angular/fire/app";
+import { Notification } from "../Models/Notification.model";
 
 @Injectable({
 	providedIn: "root",
@@ -975,6 +978,107 @@ export class FirebaseService {
 		let uid = await this.getUid();
 		let documentReference = doc(this.db, "users", uid);
 		await updateDoc(documentReference, { profilePicUrl: profilePicUrl });
+	}
+
+	public async getNotification() {
+		let uid = await this.getUid();
+		let documentReference = doc(this.db, "users", uid);
+		let documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
+
+		if (!documentSnapshot.exists()) {
+			return [];
+		}
+
+		let data = documentSnapshot.data() as User;
+
+		if (!data.notification) {
+			updateDoc(documentReference, { notification: [] });
+		}
+
+		return data.notification ?? [];
+	}
+
+	public async addNotification(to: string, newNotifications: Notification) {
+		let documentReference = doc(this.db, "users", to);
+		let documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
+
+		if (!documentSnapshot.exists()) {
+			return;
+		}
+
+		let data = documentSnapshot.data() as User;
+		const notifications = data.notification ?? [];
+		notifications.push(newNotifications);
+
+		await updateDoc(documentReference, { notification: notifications });
+	}
+
+	public async deleteNotification(id: string) {
+		let uid = await this.getUid();
+		let documentReference = doc(this.db, "users", uid);
+		let documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
+
+		if (!documentSnapshot.exists()) {
+			return;
+		}
+
+		let data = documentSnapshot.data() as User;
+		const notifications = data.notification ?? [];
+		const index = notifications.findIndex(
+			notification => notification.id === id
+		);
+		notifications.splice(index, 1);
+
+		await updateDoc(documentReference, { notification: notifications });
+	}
+
+	public async deleteAllNotifications() {
+		let uid = await this.getUid();
+		let documentReference = doc(this.db, "users", uid);
+		let documentSnapshot = await this.getDocumentSnapshot(
+			documentReference
+		);
+
+		if (!documentSnapshot.exists()) {
+			return;
+		}
+
+		await updateDoc(documentReference, { notification: [] });
+	}
+
+	private async getAdminUid(): Promise<string[]> {
+		let adminUid: string[] = [];
+
+		let collectionReference = collection(this.db, "users");
+		let querySnapshot = navigator.onLine
+			? getDocs(query(collectionReference, where("admin", "==", true)))
+			: getDocsFromCache(
+					query(collectionReference, where("admin", "==", true))
+			  );
+
+		const qs = await querySnapshot;
+		qs.forEach(document => {
+			adminUid.push(document.id);
+		});
+
+		return adminUid;
+	}
+
+	public async addNotificationToAdmin() {
+		let adminUid: string[] = await this.getAdminUid();
+
+		adminUid.forEach((admin: string) => {
+			this.addNotification(admin, {
+				id: `ntf-${uuidv4()}`,
+				type: "feedback",
+			});
+		});
 	}
 
 	// DO NOT TOUCH THIS!!!
