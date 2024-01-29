@@ -9,6 +9,7 @@ import { CustomExcerciseDialogComponent } from "../custom-excercise-dialog/custo
 import { ShareDialogComponent } from "../share-dialog/share-dialog.component";
 import { User } from "src/app/Models/User.model";
 import { EditProfilePicDialogComponent } from "../edit-profile-pic-dialog/edit-profile-pic-dialog.component";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-settings-page",
@@ -17,6 +18,7 @@ import { EditProfilePicDialogComponent } from "../edit-profile-pic-dialog/edit-p
 })
 export class SettingsPageComponent implements OnInit {
 	public customExercises: string[] = [];
+	public theme: 'light' | 'dark';
 	public visibility: boolean;
 	public playlistUrl: string;
 	public originalPlaylistUrl: string;
@@ -32,11 +34,16 @@ export class SettingsPageComponent implements OnInit {
 		private snackBar: MatSnackBar,
 		private authService: AuthService,
 		private router: Router,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private themeService: ThemeService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		let user: User = await this.firebase.getUserData();
 

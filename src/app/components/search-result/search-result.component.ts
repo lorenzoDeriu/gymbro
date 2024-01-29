@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { UserService } from "src/app/services/user.service";
 import { SearchResult } from "../friends/friends.component";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-search-result",
@@ -12,17 +13,23 @@ import { SearchResult } from "../friends/friends.component";
 export class SearchResultComponent implements OnInit {
 	public searchResult: SearchResult[];
 	public loading: boolean = false;
+	public theme: "dark" | "light";
 
 	constructor(
 		private router: Router,
 		private route: ActivatedRoute,
 		private firebase: FirebaseService,
+		private themeService: ThemeService,
 		private userService: UserService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
 		this.searchResult = this.userService.getSearchResult();
+
+		this.themeService.themeObs.subscribe((theme) => {
+			this.theme = theme;
+		});
 
 		if (
 			this.searchResult.length === 0 &&

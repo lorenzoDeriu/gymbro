@@ -9,6 +9,7 @@ import { UserService } from "src/app/services/user.service";
 import { formatSets } from "src/app/utils/utils";
 import { Set } from "src/app/Models/Exercise.model";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-training-program-builder",
@@ -20,7 +21,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		name: "",
 		session: [],
 	};
-
+	public theme: "dark" | "light";
 	public editMode = false;
 	public loading = false;
 	private index: number;
@@ -32,11 +33,16 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		private route: ActivatedRoute,
 		private firebase: FirebaseService,
 		private dialog: MatDialog,
-		private userService: UserService
+		private userService: UserService,
+		private themeService: ThemeService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		if (
 			!localStorage.getItem("trainingProgram") &&
@@ -264,8 +270,6 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		startingPosition: number,
 		endingPosition: number
 	) {
-		console.log(sessionIndex, startingPosition, endingPosition);
-
 		const exercises = this.trainingProgram.session[sessionIndex].exercises;
 		const exerciseToSwap = exercises[startingPosition];
 

@@ -6,6 +6,7 @@ import { UserService } from "src/app/services/user.service";
 import { WelcomeDialogComponent } from "../welcome-dialog/welcome-dialog.component";
 import { Workout } from "src/app/Models/Workout.model";
 import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-dashboard",
@@ -14,6 +15,7 @@ import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dia
 })
 export class DashboardComponent implements OnInit {
 	public editMode: boolean;
+	public theme: "light" | "dark";
 	public workoutPrevision: Workout;
 	public screenWidth: number = window.innerWidth;
 
@@ -21,7 +23,8 @@ export class DashboardComponent implements OnInit {
 		private userService: UserService,
 		private dialog: MatDialog,
 		private snackbar: MatSnackBar,
-		private router: Router
+		private router: Router,
+		private themeService: ThemeService
 	) {}
 
 	async ngOnInit() {
@@ -34,6 +37,10 @@ export class DashboardComponent implements OnInit {
 			});
 			localStorage.setItem("welcomeDialog_v10.0", "true");
 		}
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		this.userService.editModeObs.subscribe(editMode => {
 			this.editMode = editMode;

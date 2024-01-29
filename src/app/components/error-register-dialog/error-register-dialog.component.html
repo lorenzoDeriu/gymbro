@@ -11,5 +11,14 @@
 		Wi-Fi e riprova.
 	</p>
 
-	<button (click)="closeDialog()" class="btn btn-dark w-100">Ok</button>
+	<button
+		(click)="closeDialog()"
+		[ngClass]="{
+			'btn w-100': true,
+			'btn-light': theme === 'dark',
+			'btn-dark': theme === 'light'
+		}"
+	>
+		Ok
+	</button>
 </div>

@@ -4,6 +4,7 @@ import { AuthService } from "src/app/services/auth.service";
 import { PasswordRecoverDialogComponent } from "../password-recover-dialog/password-recover-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-welcome-page",
@@ -11,6 +12,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 	styleUrls: ["./welcome-page.component.css"],
 })
 export class WelcomePageComponent implements OnInit {
+	public theme: 'light' | 'dark';
 	public email: string;
 	public password: string;
 	public username: string;
@@ -36,6 +38,7 @@ export class WelcomePageComponent implements OnInit {
 		private authService: AuthService,
 		private router: Router,
 		private dialog: MatDialog,
+		private themeService: ThemeService,
 		private snackBar: MatSnackBar
 	) {}
 
@@ -43,6 +46,10 @@ export class WelcomePageComponent implements OnInit {
 		if (this.authService.isAuthenticated()) {
 			this.router.navigate(["/home/dashboard"]);
 		}
+
+		this.themeService.themeObs.subscribe((theme) => {
+			this.theme = theme;
+		});
 
 		this.installButton = document.getElementById(
 			"install"

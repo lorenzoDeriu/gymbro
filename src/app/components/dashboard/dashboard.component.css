@@ -68,7 +68,7 @@ img {
 }
 
 /* Desktop */
-@media (min-width: 900px) {
+@media (min-width: 901px) {
 	#main-container {
 		height: 80svh;
 		position: absolute;

@@ -6,6 +6,7 @@ import { FeedbackDialogComponent } from "../feedback-dialog/feedback-dialog.comp
 import { FirebaseService } from "src/app/services/firebase.service";
 import { UserService } from "src/app/services/user.service";
 import { convertTimediffToTime } from "src/app/utils/utils";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-home",
@@ -13,6 +14,7 @@ import { convertTimediffToTime } from "src/app/utils/utils";
 	styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
+	public theme: "light" | "dark";
 	public restMode: boolean = false;
 	public isAdmin: boolean = false;
 	public editMode: boolean = false;
@@ -23,10 +25,15 @@ export class HomeComponent implements OnInit {
 		private router: Router,
 		private dialog: MatDialog,
 		private firebase: FirebaseService,
-		private userService: UserService
+		private userService: UserService,
+		private themeService: ThemeService
 	) {}
 
 	async ngOnInit() {
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+
 		this.userService.editModeObs.subscribe(editMode => {
 			this.editMode = editMode;
 		});
@@ -41,6 +48,11 @@ export class HomeComponent implements OnInit {
 
 	getWorkoutTime() {
 		return convertTimediffToTime(this.userService.getChronometerTime());
+	}
+
+	public toggleTheme() {
+		this.theme = this.theme === 'light' ? 'dark' : 'light';
+		this.themeService.setTheme(this.theme);
 	}
 
 	workoutExists() {

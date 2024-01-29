@@ -10,6 +10,7 @@ import { formatSets } from "src/app/utils/utils";
 import { Set } from "src/app/Models/Exercise.model";
 import { User } from "src/app/Models/User.model";
 import { UserService } from "src/app/services/user.service";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-profile",
@@ -18,6 +19,7 @@ import { UserService } from "src/app/services/user.service";
 })
 export class ProfileComponent implements OnInit {
 	public username: string;
+	public theme: "dark" | "light";
 	public searchUsername: string;
 	public trainingPrograms: TrainingProgram[];
 	public playlistUrl: string;
@@ -30,12 +32,17 @@ export class ProfileComponent implements OnInit {
 		private snackBar: MatSnackBar,
 		private dialog: MatDialog,
 		private router: Router,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private themeService: ThemeService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
 
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme
+		});
+		
 		if (this.route.snapshot.paramMap.get("username")) {
 			this.searchUsername = this.route.snapshot.paramMap.get("username");
 		}

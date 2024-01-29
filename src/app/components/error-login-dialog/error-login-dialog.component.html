@@ -1,5 +1,5 @@
 <div
-	class="d-flex flex-column justify-content-center align-items-center p-3"
+	class="d-flex flex-column justify-content-center align-items-center p-3 bg-body-tertiary"
 	style="height: fit-content; max-width: 500px"
 >
 	<i class="text-danger fs-1 bi bi-x-circle"></i>
@@ -11,5 +11,14 @@
 		rete Wi-Fi e riprova.
 	</p>
 
-	<button (click)="closeDialog()" class="btn btn-dark w-100">Ok</button>
+	<button
+		(click)="closeDialog()"
+		[ngClass]="{
+			'btn w-100': true,
+			'btn-dark': theme === 'light',
+			'btn-light': theme === 'dark'
+		}"
+	>
+		Ok
+	</button>
 </div>

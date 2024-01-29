@@ -1,5 +1,5 @@
 <div
-	class="d-flex flex-column justify-content-center align-items-center p-1 overflow-hidden"
+	class="d-flex flex-column justify-content-center align-items-center p-1 overflow-hidden bg-body-tertiary"
 	style="min-width: 220px; max-width: 800px; max-height: 80svh"
 >
 	<h1 class="text-center">
@@ -104,13 +104,22 @@
 	</table>
 
 	<button
-		class="btn btn-dark w-100 d-none d-lg-block"
+		[ngClass]="{
+			'btn w-100 d-none d-lg-block': true,
+			'btn-light': theme === 'dark',
+			'btn-dark': theme === 'light'
+		}"
 		(click)="closeDialog()"
 	>
 		Chiudi
 	</button>
+
 	<button
-		class="btn btn-sm btn-dark w-100 d-block d-lg-none"
+		[ngClass]="{
+			'btn btn-sm w-100 d-block d-lg-none': true,
+			'btn-light': theme === 'dark',
+			'btn-dark': theme === 'light'
+		}"
 		(click)="closeDialog()"
 	>
 		Chiudi

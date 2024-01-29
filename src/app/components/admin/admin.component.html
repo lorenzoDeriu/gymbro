@@ -22,7 +22,10 @@
 		</h1>
 
 		<div class="my-4 d-none d-lg-block">
-			<button class="btn btn-light shadow-sm me-3" (click)="reload()">
+			<button
+				class="btn bg-body-tertiary border-0 shadow-sm me-3"
+				(click)="reload()"
+			>
 				<i class="bi bi-arrow-clockwise"></i>
 			</button>
 
@@ -35,7 +38,11 @@
 			</button>
 
 			<button
-				class="btn btn-dark text-light"
+				[ngClass]="{
+					btn: true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
 				routerLink="/home/dashboard"
 			>
 				Torna alla home
@@ -45,7 +52,7 @@
 
 		<div class="mb-3 d-block d-lg-none">
 			<button
-				class="btn btn-sm btn-light shadow-sm me-3"
+				class="btn btn-sm bg-body-tertiary border-0 shadow-sm me-3"
 				(click)="reload()"
 			>
 				<i class="bi bi-arrow-clockwise"></i>
@@ -60,7 +67,11 @@
 			</button>
 
 			<button
-				class="btn btn-sm btn-dark text-light"
+				[ngClass]="{
+					'btn btn-sm': true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
 				routerLink="/home/dashboard"
 			>
 				<i class="bi bi-house-fill"></i>
@@ -71,8 +82,7 @@
 		<div class="w-75 d-none d-lg-block">
 			<div class="w-100 px-3 d-flex align-items-center">
 				<div
-					class="w-100 rounded-4 p-3 me-3"
-					style="box-shadow: 0 2px 10px 1px rgba(33, 33, 33, 0.2)"
+					class="w-100 rounded-4 p-3 me-3 bg-body-tertiary shadow-sm"
 				>
 					<h3>Utenti attivi</h3>
 					<p class="mb-0">
@@ -82,8 +92,7 @@
 				</div>
 
 				<div
-					class="w-100 rounded-4 p-3 me-3"
-					style="box-shadow: 0 2px 10px 1px rgba(33, 33, 33, 0.2)"
+					class="w-100 rounded-4 p-3 me-3 bg-body-tertiary shadow-sm"
 				>
 					<h3>Utenti Admin</h3>
 					<p class="mb-0">
@@ -93,8 +102,7 @@
 				</div>
 
 				<div
-					class="w-100 rounded-4 p-3 d-flex"
-					style="box-shadow: 0 2px 10px 1px rgba(33, 33, 33, 0.2)"
+					class="w-100 rounded-4 p-3 d-flex bg-body-tertiary shadow-sm"
 				>
 					<div class="w-100 border-end">
 						<h3>Esercizi</h3>
@@ -102,6 +110,9 @@
 							<img
 								src="assets/dumbbell-icon.png"
 								class="me-2"
+								[ngStyle]="{
+									filter: theme === 'dark' ? 'invert(1)' : ''
+								}"
 								width="16"
 								alt=""
 							/>
@@ -125,8 +136,7 @@
 				class="w-100 px-3 d-flex flex-column justify-content-center align-items-center"
 			>
 				<div
-					class="w-100 rounded-4 p-3 mb-3"
-					style="box-shadow: 0 2px 10px 1px rgba(33, 33, 33, 0.2)"
+					class="w-100 rounded-4 p-3 mb-3 bg-body-tertiary shadow-sm"
 				>
 					<h5>Utenti attivi</h5>
 					<small class="mb-0">
@@ -136,8 +146,7 @@
 				</div>
 
 				<div
-					class="w-100 rounded-4 p-3 mb-3"
-					style="box-shadow: 0 2px 10px 1px rgba(33, 33, 33, 0.2)"
+					class="w-100 rounded-4 p-3 mb-3 bg-body-tertiary shadow-sm"
 				>
 					<h5>Utenti Admin</h5>
 					<small class="mb-0">
@@ -147,8 +156,7 @@
 				</div>
 
 				<div
-					class="w-100 rounded-4 p-3 d-flex"
-					style="box-shadow: 0 2px 10px 1px rgba(33, 33, 33, 0.2)"
+					class="w-100 rounded-4 p-3 d-flex bg-body-tertiary shadow-sm"
 				>
 					<div class="w-100 border-end">
 						<h5>Esercizi</h5>
@@ -156,6 +164,9 @@
 							<img
 								src="assets/dumbbell-icon.png"
 								class="me-2"
+								[ngStyle]="{
+									filter: theme === 'dark' ? 'invert(1)' : ''
+								}"
 								width="16"
 								alt=""
 							/>
@@ -188,8 +199,7 @@
 				</div>
 				<div
 					*ngFor="let feedback of feedbacks; index as i"
-					class="rounded-4 d-flex align-items-center w-100 mb-3"
-					style="box-shadow: 0 2px 10px 1px rgba(33, 33, 33, 0.2)"
+					class="rounded-4 d-flex align-items-center w-100 mb-3 bg-body-tertiary shadow-sm"
 				>
 					<div
 						class="px-4 py-4 me-3 w-100 text-truncate d-none d-lg-block"
@@ -217,13 +227,21 @@
 
 					<div class="d-none d-lg-flex me-4">
 						<button
-							class="btn btn-light shadow-sm border-0 w-100 me-2"
+							[ngClass]="{
+								'btn shadow-sm border-0 w-100 me-2': true,
+								'btn-light': theme === 'light',
+								'btn-dark': theme === 'dark'
+							}"
 							(click)="showFeedback(i)"
 						>
 							<i class="bi bi-eye-fill"></i>
 						</button>
 						<button
-							class="btn btn-light shadow-sm border-0 w-100"
+							[ngClass]="{
+								'btn shadow-sm border-0 w-100': true,
+								'btn-light': theme === 'light',
+								'btn-dark': theme === 'dark'
+							}"
 							(click)="removeFeedback(i)"
 						>
 							<i class="bi bi-trash3 text-danger"></i>
@@ -232,13 +250,21 @@
 
 					<div class="d-flex d-lg-none me-3">
 						<button
-							class="btn btn-light shadow-sm btn-sm border-0 w-100 me-2"
+							[ngClass]="{
+								'btn shadow-sm btn-sm border-0 w-100 me-2': true,
+								'btn-light': theme === 'light',
+								'btn-dark': theme === 'dark'
+							}"
 							(click)="showFeedback(i)"
 						>
 							<i class="bi bi-eye-fill"></i>
 						</button>
 						<button
-							class="btn btn-light shadow-sm btn-sm border-0 w-100"
+							[ngClass]="{
+								'btn shadow-sm btn-sm border-0 w-100': true,
+								'btn-light': theme === 'light',
+								'btn-dark': theme === 'dark'
+							}"
 							(click)="removeFeedback(i)"
 						>
 							<i class="bi bi-trash3 text-danger"></i>

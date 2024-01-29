@@ -8,6 +8,7 @@ import { SafetyActionConfirmDialogComponent } from "src/app/components/safety-ac
 import { TrainingProgram } from "src/app/Models/TrainingProgram.model";
 import { formatSets } from "src/app/utils/utils";
 import { Set } from "src/app/Models/Exercise.model";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-training-programs",
@@ -16,17 +17,24 @@ import { Set } from "src/app/Models/Exercise.model";
 })
 export class TrainingProgramsComponent implements OnInit {
 	public loading: boolean;
+	public theme: "dark" | "light";
 	public trainingPrograms: TrainingProgram[] = [];
 
 	constructor(
 		private router: Router,
 		private userService: UserService,
 		private firebase: FirebaseService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private themeService: ThemeService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.themeService.themeObs.subscribe((theme) => {
+			this.theme = theme;
+		});
+
 		this.trainingPrograms = await this.firebase.getTrainingPrograms();
 		this.loading = false;
 	}

@@ -12,6 +12,7 @@ import { generateId } from "src/app/utils/utils";
 import { ShowExerciseFromTemplateDialogComponent } from "../show-exercise-from-template-dialog/show-exercise-from-template-dialog.component";
 import { WorkoutNotSavedDialogComponent } from "../workout-not-saved-dialog/workout-not-saved-dialog.component";
 import { DeloadDialogComponent } from "../deload-dialog/deload-dialog.component";
+import { ThemeService } from "src/app/services/theme.service";
 
 export interface Progress {
 	/* access to the complete must refer to the following logic:
@@ -26,6 +27,7 @@ export interface Progress {
 	styleUrls: ["./prebuild-workout.component.css"],
 })
 export class PrebuildWorkoutComponent implements OnInit {
+	public theme: "light" | "dark";
 	public availableExercise: string[] = [];
 	public workout: Workout;
 	public workoutProgress: Progress = { completed: [] };
@@ -41,11 +43,16 @@ export class PrebuildWorkoutComponent implements OnInit {
 		private userService: UserService,
 		private router: Router,
 		private firebase: FirebaseService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private themeService: ThemeService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		this.userService.editModeObs.subscribe(editMode => {
 			this.editMode = editMode;

@@ -1,5 +1,5 @@
 <div
-	class="d-flex flex-column justify-content-center align-items-center p-3 overflow-hidden"
+	class="d-flex flex-column justify-content-center align-items-center p-3 overflow-hidden bg-body-tertiary"
 	style="max-width: 500px; max-height: 65svh"
 >
 	<h1 class="text-center w-100">
@@ -13,5 +13,14 @@
 		</p>
 	</div>
 
-	<button (click)="closeDialog()" class="btn btn-dark w-100">Chiudi</button>
+	<button
+		(click)="closeDialog()"
+		[ngClass]="{
+			'btn w-100': true,
+			'btn-light': theme === 'dark',
+			'btn-dark': theme === 'light'
+		}"
+	>
+		Chiudi
+	</button>
 </div>

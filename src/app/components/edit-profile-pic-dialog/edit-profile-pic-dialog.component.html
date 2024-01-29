@@ -1,6 +1,6 @@
 <div
 	*ngIf="uploading"
-	class="d-flex flex-column justify-content-center align-items-center px-5 py-4"
+	class="d-flex flex-column justify-content-center align-items-center px-5 py-4 bg-body-tertiary"
 	style="width: fit-content"
 >
 	<h2 class="mb-3 text-center">Caricamento in corso...</h2>
@@ -11,7 +11,7 @@
 
 <div
 	*ngIf="!uploading"
-	class="d-flex flex-column jusitfy-content-center align-items-center p-3"
+	class="d-flex flex-column jusitfy-content-center align-items-center p-3 bg-body-tertiary"
 	style="width: fit-content"
 >
 	<h2 class="mb-3 text-center" *ngIf="!uploading">
@@ -19,7 +19,14 @@
 	</h2>
 
 	<div class="d-none d-lg-flex align-items-center w-100">
-		<button class="btn btn-dark w-100 me-2" (click)="editProfilePic()">
+		<button
+			[ngClass]="{
+				'btn w-100 me-2': true,
+				'btn-light': theme === 'dark',
+				'btn-dark': theme === 'light'
+			}"
+			(click)="editProfilePic()"
+		>
 			{{ data.profilePic ? "Modifica" : "Carica" }}
 			<i *ngIf="data.profilePic" class="ms-1 bi bi-pencil-square"></i>
 			<i *ngIf="!data.profilePic" class="ms-1 bi bi-cloud-upload"></i>
@@ -36,13 +43,18 @@
 
 	<div class="d-flex align-items-center w-100 d-lg-none">
 		<button
-			class="btn btn-sm btn-dark w-100 me-2"
+			[ngClass]="{
+				'btn btn-sm w-100 me-2': true,
+				'btn-light': theme === 'dark',
+				'btn-dark': theme === 'light'
+			}"
 			(click)="editProfilePic()"
 		>
 			{{ data.profilePic ? "Modifica" : "Carica" }}
 			<i *ngIf="data.profilePic" class="ms-1 bi bi-pencil-square"></i>
 			<i *ngIf="!data.profilePic" class="ms-1 bi bi-cloud-upload"></i>
 		</button>
+
 		<button
 			*ngIf="data.profilePic"
 			class="btn btn-sm btn-danger w-25"

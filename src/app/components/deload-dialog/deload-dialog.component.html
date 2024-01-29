@@ -1,5 +1,5 @@
 <div
-	class="d-flex flex-column justify-content-center align-items-center p-3"
+	class="d-flex flex-column justify-content-center align-items-center p-3 bg-body-tertiary"
 	style="max-width: 500px"
 >
 	<h1 class="text-center w-100 d-none d-lg-block">
@@ -16,13 +16,18 @@
 	</p>
 
 	<div class="d-flex justify-content-center align-items-center w-100">
-		<button
-			(click)="activateDeload()"
-			class="text-light purple-btn btn me-2 w-100"
-		>
+		<button (click)="activateDeload()" class="purple-btn btn me-2 w-100">
 			Ok
 		</button>
-		<button (click)="closeDialog()" class="btn btn-dark w-100">
+
+		<button
+			(click)="closeDialog()"
+			[ngClass]="{
+				'btn w-100': true,
+				'btn-light': theme === 'dark',
+				'btn-dark': theme === 'light'
+			}"
+		>
 			Annulla
 		</button>
 	</div>

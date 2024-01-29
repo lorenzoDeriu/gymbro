@@ -9,6 +9,7 @@ import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import { User } from "src/app/Models/User.model";
 import { Workout } from "src/app/Models/Workout.model";
 import { ExpandExercisesDialogComponent } from "../expand-exercises-dialog/expand-exercises-dialog.component";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-admin",
@@ -16,6 +17,7 @@ import { ExpandExercisesDialogComponent } from "../expand-exercises-dialog/expan
 	styleUrls: ["./admin.component.css"],
 })
 export class AdminComponent implements OnInit {
+	public theme: "light" | "dark";
 	public feedbacks: Feedback[] = [];
 	public loading: boolean = false;
 	private users: DocumentData[] = [];
@@ -26,7 +28,11 @@ export class AdminComponent implements OnInit {
 	public adminUsersLength: number = 0;
 	private twoMonthsAgo: number;
 
-	constructor(private firebase: FirebaseService, private dialog: MatDialog) {}
+	constructor(
+		private firebase: FirebaseService,
+		private dialog: MatDialog,
+		private themeService: ThemeService
+	) {}
 
 	addExercise() {
 		this.dialog.open(AddExerciseDialogComponent, {
@@ -36,6 +42,10 @@ export class AdminComponent implements OnInit {
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		const today = new Date();
 		this.twoMonthsAgo = new Date(

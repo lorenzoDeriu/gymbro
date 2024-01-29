@@ -30,7 +30,11 @@
 			<div class="d-flex justify-content-center align-items-center">
 				<button
 					type="button"
-					class="btn btn-dark me-2 d-none d-lg-flex"
+					[ngClass]="{
+						'btn me-2 d-none d-lg-flex': true,
+						'btn-dark': theme === 'light',
+						'btn-light': theme === 'dark'
+					}"
 					routerLink="/home/dashboard"
 				>
 					<i class="me-1 bi bi-house-fill"></i>
@@ -38,7 +42,11 @@
 				</button>
 				<button
 					type="button"
-					class="btn btn-sm btn-dark me-2 d-flex d-lg-none"
+					[ngClass]="{
+						'btn btn-sm me-2 d-flex d-lg-none': true,
+						'btn-dark': theme === 'light',
+						'btn-light': theme === 'dark'
+					}"
 					routerLink="/home/dashboard"
 				>
 					<i class="bi bi-house-fill"></i>
@@ -59,7 +67,7 @@
 
 				<button
 					type="button"
-					class="btn text-light purple-btn ms-2 d-none d-lg-flex"
+					class="btn purple-btn ms-2 d-none d-lg-flex"
 					[disabled]="!savable() && !editMode"
 					(click)="saveWorkout()"
 				>
@@ -68,7 +76,7 @@
 				</button>
 				<button
 					type="button"
-					class="btn purple-btn btn-sm text-light ms-2 d-flex d-lg-none"
+					class="btn purple-btn btn-sm ms-2 d-flex d-lg-none"
 					[disabled]="!savable() && !editMode"
 					(click)="saveWorkout()"
 				>
@@ -78,14 +86,14 @@
 
 			<div class="d-flex align-items-center mb-4">
 				<button
-					class="btn btn-light d-none d-lg-block me-3 shadow-sm"
+					class="btn d-none d-lg-block me-3 shadow-sm bg-body-tertiary border-0"
 					(click)="deloadWorkout()"
 				>
 					<i class="bi bi-feather text-success"></i>
 				</button>
 
 				<button
-					class="btn btn-sm btn-light d-block d-lg-none me-3 shadow-sm"
+					class="btn btn-sm d-block d-lg-none me-3 shadow-sm bg-body-tertiary border-0"
 					(click)="deloadWorkout()"
 				>
 					<i class="bi bi-feather text-success"></i>
@@ -93,7 +101,7 @@
 
 				<button
 					*ngIf="workoutHasTemplate()"
-					class="btn btn-light w-100 d-none d-lg-block me-3 shadow-sm"
+					class="btn w-100 d-none d-lg-block me-3 shadow-sm bg-body-tertiary border-0"
 					(click)="showTrainingProgram()"
 				>
 					Visualizza scheda
@@ -102,7 +110,7 @@
 
 				<button
 					*ngIf="workoutHasTemplate()"
-					class="btn btn-sm btn-light d-block d-lg-none me-3 shadow-sm"
+					class="btn btn-sm d-block d-lg-none me-3 shadow-sm bg-body-tertiary border-0"
 					(click)="showTrainingProgram()"
 				>
 					<i class="bi bi-file-earmark-text"></i>
@@ -118,7 +126,10 @@
 						[ngModelOptions]="{ standalone: true }"
 					/>
 
-					<button class="btn btn-light border" (click)="pickDate()">
+					<button
+						class="btn bg-body-tertiary border"
+						(click)="pickDate()"
+					>
 						<i class="bi bi-calendar"></i>
 					</button>
 				</div>
@@ -132,7 +143,10 @@
 						[(ngModel)]="date"
 						[ngModelOptions]="{ standalone: true }"
 					/>
-					<button class="btn btn-light border" (click)="pickDate()">
+					<button
+						class="btn bg-body-tertiary border"
+						(click)="pickDate()"
+					>
 						<i class="bi bi-calendar"></i>
 					</button>
 				</div>
@@ -151,13 +165,9 @@
 					<a
 						[href]="'#exercise' + exerciseIndex"
 						[ngClass]="{
-					'btn btn-light w-100 exercise-collapser collapser d-flex justify-content-between align-items-center mobile-btn': true,
-					'rounded-end-0': onMobile,
-				}"
-						data-bs-toggle="collapse"
-						role="button"
-						aria-expanded="false"
-						aria-controls="collapseExample"
+							'btn bg-body-tertiary border-0 w-100 exercise-collapser collapser d-flex justify-content-between align-items-center mobile-btn': true,
+							'rounded-end-0': onMobile,
+						}"
 					>
 						<p class="mb-0">
 							{{
@@ -169,8 +179,7 @@
 					</a>
 
 					<button
-						class="btn btn-light rounded-start-0 mobile-btn d-block d-lg-none mobileDragger"
-						draggable="true"
+						class="btn bg-body-tertiary border-0 rounded-start-0 mobile-btn d-block d-lg-none mobileDragger"
 					>
 						<i class="bi bi-grip-vertical"></i>
 					</button>
@@ -194,7 +203,7 @@
 					<a
 						[href]="'#exercise' + exerciseIndex"
 						[ngClass]="{
-							'btn btn-light w-100 exercise-collapser collapser d-flex justify-content-between align-items-center mobile-btn': true,
+							'btn bg-body-tertiary border-0 w-100 exercise-collapser collapser d-flex justify-content-between align-items-center mobile-btn': true,
 							'rounded-end-0': onMobile,
 						}"
 						data-bs-toggle="collapse"
@@ -213,7 +222,7 @@
 					</a>
 
 					<button
-						class="btn btn-light rounded-start-0 mobile-btn d-block d-lg-none mobileDragger"
+						class="btn bg-body-tertiary border-0 rounded-start-0 mobile-btn d-block d-lg-none mobileDragger"
 						draggable="true"
 					>
 						<i class="bi bi-grip-vertical"></i>
@@ -224,7 +233,9 @@
 					class="collapse w-100 exercise-collapse-body collapse-body mt-1 rounded shadow-sm"
 					[id]="'exercise' + exerciseIndex"
 				>
-					<div class="card card-body p-1 border-0">
+					<div
+						class="card bg-body-tertiary rounded-3 shadow-sm card-body p-1 border-0"
+					>
 						<div
 							class="d-flex flex-column justify-content-center align-items-center"
 						>
@@ -233,7 +244,9 @@
 									class="d-none d-lg-flex flex-column align-items-center"
 								>
 									<div class="input-group flex-nowrap mb-3">
-										<span class="input-group-text">
+										<span
+											class="input-group-text rounded-start-5"
+										>
 											Esercizio
 										</span>
 
@@ -260,7 +273,11 @@
 										</select>
 
 										<button
-											class="btn btn-dark"
+											[ngClass]="{
+												'btn rounded-end-5': true,
+												'btn-dark': theme === 'light',
+												'btn-light': theme === 'dark'
+											}"
 											type="button"
 											(click)="
 												openCustomExerciseDialog(
@@ -282,13 +299,13 @@
 										>
 											<input
 												type="number"
-												class="form-control w-100 border-0"
+												class="form-control bg-transparent w-100 border-0"
 												placeholder="Reps"
 												style="pointer-events: none"
 											/>
 											<input
 												type="number"
-												class="form-control w-100 border-0"
+												class="form-control bg-transparent w-100 border-0"
 												placeholder="Carico"
 												style="pointer-events: none"
 											/>
@@ -469,7 +486,13 @@
 														exerciseIndex
 													][setIndex]
 												"
-												class="btn btn-dark text-light me-1 rounded-5 py-1 px-2"
+												[ngClass]="{
+													'btn btn-sm me-1 rounded-5 py-1 px-2': true,
+													'btn-dark':
+														theme === 'light',
+													'btn-light':
+														theme === 'dark'
+												}"
 												(click)="
 													toggleCompleted(
 														exerciseIndex,
@@ -497,7 +520,11 @@
 									</div>
 
 									<button
-										class="btn btn-dark w-100 mb-3"
+										[ngClass]="{
+											'btn w-100 mb-3 rounded-5': true,
+											'btn-dark': theme === 'light',
+											'btn-light': theme === 'dark'
+										}"
 										(click)="addSet(exerciseIndex)"
 									>
 										Aggiungi serie
@@ -507,7 +534,11 @@
 									<p class="text-center">Intensità (RPE)</p>
 
 									<div
-										class="btn-group rounded-5 bg-light border d-flex justify-content-center mb-3 w-100"
+										[ngClass]="{
+											'btn-group rounded-5 border d-flex justify-content-center mb-3 w-100': true,
+											'bg-light': theme === 'light',
+											'bg-dark': theme === 'dark'
+										}"
 										role="group"
 										aria-label="Basic radio toggle button group"
 									>
@@ -582,7 +613,9 @@
 									</div>
 
 									<div class="input-group flex-nowrap mb-3">
-										<span class="input-group-text">
+										<span
+											class="input-group-text rounded-start-5"
+										>
 											Recupero
 										</span>
 										<select
@@ -602,7 +635,7 @@
 										</select>
 										<span class="input-group-text">:</span>
 										<select
-											class="form-select custom-select"
+											class="form-select custom-select rounded-end-5"
 											style="cursor: pointer"
 											[(ngModel)]="exercise.rest.seconds"
 											[ngModelOptions]="{
@@ -617,12 +650,14 @@
 									</div>
 
 									<div class="input-group flex-nowrap mb-3">
-										<span class="input-group-text">
+										<span
+											class="input-group-text rounded-start-5"
+										>
 											Note
 										</span>
 										<input
 											type="text"
-											class="form-control"
+											class="form-control rounded-end-5"
 											[(ngModel)]="exercise.note"
 											[ngModelOptions]="{
 												standalone: true
@@ -687,7 +722,11 @@
 										</select>
 
 										<button
-											class="btn btn-dark rounded-end-4"
+											[ngClass]="{
+												'btn rounded-end-4': true,
+												'btn-dark': theme === 'light',
+												'btn-light': theme === 'dark'
+											}"
 											type="button"
 											(click)="
 												openCustomExerciseDialog(
@@ -708,13 +747,13 @@
 										>
 											<input
 												type="number"
-												class="form-control w-100 border-0"
+												class="form-control bg-transparent w-100 border-0"
 												placeholder="Reps"
 												style="pointer-events: none"
 											/>
 											<input
 												type="number"
-												class="form-control w-100 border-0"
+												class="form-control bg-transparent w-100 border-0"
 												placeholder="Carico"
 												style="pointer-events: none"
 											/>
@@ -895,7 +934,13 @@
 														exerciseIndex
 													][setIndex]
 												"
-												class="btn btn-sm btn-dark text-light me-1 rounded-5 py-1 px-2"
+												[ngClass]="{
+													'btn btn-sm me-1 rounded-5 py-1 px-2': true,
+													'btn-dark':
+														theme === 'light',
+													'btn-light':
+														theme === 'dark'
+												}"
 												(click)="
 													toggleCompleted(
 														exerciseIndex,
@@ -923,7 +968,11 @@
 									</div>
 
 									<button
-										class="btn btn-sm btn-dark w-100 mb-3 rounded-5"
+										[ngClass]="{
+											'btn w-100 mb-3 rounded-4 btn-sm': true,
+											'btn-dark': theme === 'light',
+											'btn-light': theme === 'dark'
+										}"
 										(click)="addSet(exerciseIndex)"
 									>
 										Aggiungi serie
@@ -935,7 +984,11 @@
 									</small>
 
 									<div
-										class="btn-group btn-group-sm rounded-5 bg-light border d-flex justify-content-center mb-3 w-100"
+										[ngClass]="{
+											'btn-group btn-group-sm rounded-5 border d-flex justify-content-center mb-3 w-100': true,
+											'bg-light': theme === 'light',
+											'bg-dark': theme === 'dark'
+										}"
 										role="group"
 										aria-label="Basic radio toggle button group"
 									>
@@ -1089,7 +1142,14 @@
 		</div>
 
 		<div class="flex-column align-items-center d-none d-lg-flex w-25 mt-3">
-			<button class="btn btn-dark w-100 mb-3" (click)="addExercise()">
+			<button
+				[ngClass]="{
+					'btn w-100 mb-3': true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
+				(click)="addExercise()"
+			>
 				Aggiungi esercizio
 				<i class="bi bi-plus"></i>
 			</button>
@@ -1104,7 +1164,11 @@
 			class="flex-column align-items-center d-none d-sm-flex d-lg-none w-50 mt-3"
 		>
 			<button
-				class="btn btn-sm btn-dark w-100 mb-3"
+				[ngClass]="{
+					'btn btn-sm w-100 mb-3': true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
 				(click)="addExercise()"
 			>
 				Aggiungi esercizio
@@ -1119,7 +1183,11 @@
 		<!--Mobile-->
 		<div class="flex-column align-items-center d-flex d-sm-none w-100 mt-3">
 			<button
-				class="btn btn-sm btn-dark w-100 mb-3"
+				[ngClass]="{
+					'btn btn-sm w-100 mb-3': true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
 				(click)="addExercise()"
 			>
 				Aggiungi esercizio

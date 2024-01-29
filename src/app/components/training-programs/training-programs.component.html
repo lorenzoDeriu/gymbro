@@ -35,7 +35,8 @@
 				Nuova scheda
 				<i class="ms-1 bi bi-plus"></i>
 			</button>
-			<button class="btn btn-dark ms-2" (click)="backToHomeButton()">
+
+			<button [ngClass]="{'btn ms-2': true, 'btn-dark': theme === 'light', 'btn-light': theme === 'dark'}" (click)="backToHomeButton()">
 				Torna alla home
 				<i class="ms-1 bi bi-house-fill"></i>
 			</button>
@@ -49,8 +50,9 @@
 				Nuova
 				<i class="ms-1 bi bi-plus"></i>
 			</button>
+
 			<button
-				class="btn btn-sm btn-dark ms-2"
+				[ngClass]="{'btn btn-sm ms-2': true, 'btn-dark': theme === 'light', 'btn-light': theme === 'dark'}"
 				(click)="backToHomeButton()"
 			>
 				Home
@@ -71,7 +73,7 @@
 		>
 			<a
 				[href]="'#program' + programIndex"
-				class="btn btn-light w-100 mb-1 shadow-sm programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				class="btn w-100 mb-1 programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn shadow-sm bg-body-tertiary border-0"
 				data-bs-toggle="collapse"
 				role="button"
 				aria-expanded="false"
@@ -93,10 +95,10 @@
 			</a>
 
 			<div
-				class="collapse w-100 programs-collapse-body collapse-body shadow-sm"
+				class="collapse w-100 programs-collapse-body collapse-body rounded-3 shadow-sm"
 				[id]="'program' + programIndex"
 			>
-				<div class="card card-body p-1 border-0">
+				<div class="card card-body bg-body-tertiary p-1 border-0">
 					<h5 class="text-center">Sessioni</h5>
 					<div
 						*ngFor="
@@ -107,7 +109,7 @@
 					>
 						<a
 							[href]="'#session' + programIndex + sessionIndex"
-							class="btn btn-light w-100 mb-1 shadow-sm sessions-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+							[ngClass]="{'btn w-100 mb-1 sessions-collapser collapser d-flex justify-content-between align-items-center mobile-btn shadow-sm border-0': true, 'bg-light': theme === 'light', 'bg-dark': theme === 'dark'}"
 							data-bs-toggle="collapse"
 							role="button"
 							aria-expanded="false"
@@ -123,7 +125,7 @@
 						</a>
 
 						<div
-							class="collapse w-100 sessions-collapse-body collapse-body mb-3 shadow-sm"
+							[ngClass]="{'collapse w-100 sessions-collapse-body collapse-body mb-3 rounded-3': true, 'shadow-sm': theme === 'light', 'shadow-lg': theme === 'dark'}"
 							[id]="'session' + programIndex + sessionIndex"
 						>
 							<div class="card card-body p-1 border-0">

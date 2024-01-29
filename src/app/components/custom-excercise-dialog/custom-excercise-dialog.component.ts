@@ -1,24 +1,34 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import {
 	MAT_DIALOG_DATA,
 	MatDialog,
 	MatDialogRef,
 } from "@angular/material/dialog";
 import { SafetyActionConfirmDialogComponent } from "../safety-action-confirm-dialog/safety-action-confirm-dialog.component";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-custom-excercise-dialog",
 	templateUrl: "./custom-excercise-dialog.component.html",
 	styleUrls: ["./custom-excercise-dialog.component.css"],
 })
-export class CustomExcerciseDialogComponent {
+export class CustomExcerciseDialogComponent implements OnInit {
+	public theme: "light" | "dark";
+
 	constructor(
 		public dialogRef: MatDialogRef<CustomExcerciseDialogComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: { exercises: string[] },
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private themeService: ThemeService
 	) {}
 
-	deleteItem(index: number) {
+	public ngOnInit() {
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+	}
+
+	public deleteItem(index: number) {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina esericizio",
@@ -32,7 +42,7 @@ export class CustomExcerciseDialogComponent {
 		});
 	}
 
-	closeDialog() {
+	public closeDialog() {
 		this.dialogRef.close();
 	}
 }

@@ -11,6 +11,7 @@ import {
 	convertTimediffToTime,
 } from "src/app/utils/utils";
 import { EffectiveSet } from "src/app/Models/Exercise.model";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-old-workouts",
@@ -20,6 +21,7 @@ import { EffectiveSet } from "src/app/Models/Exercise.model";
 export class OldWorkoutsComponent implements OnInit, OnDestroy {
 	public workouts: Workout[] = [];
 	public loading: boolean;
+	public theme: "light" | "dark";
 	public currentPage: number;
 	public lastPage: number = Math.ceil(this.workouts.length / 7);
 	public current7Workouts: Workout[] = [];
@@ -28,11 +30,17 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 		private userService: UserService,
 		private router: Router,
 		private firebase: FirebaseService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private themeService: ThemeService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.themeService.themeObs.subscribe((theme) => {
+			this.theme = theme;
+		});
+
 		this.currentPage = localStorage.getItem("currentPage")
 			? parseInt(localStorage.getItem("currentPage"))
 			: 1;

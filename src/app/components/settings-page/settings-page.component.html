@@ -42,7 +42,7 @@
 					<div
 						class="w-100 h-100 d-flex justify-content-center align-items-center"
 					>
-						<i class="bi bi-camera text-light fs-1"></i>
+						<i class="bi bi-camera-fill text-light fs-1"></i>
 					</div>
 				</div>
 			</div>
@@ -63,10 +63,10 @@
 					style="width: 150px; height: 150px"
 				>
 					<button
-						class="btn btn-sm btn-light position-absolute top-0 end-0 rounded-circle py-1"
+						class="btn btn-sm bg-body-tertiary position-absolute top-0 end-0 rounded-circle py-1"
 						(click)="openProfilePicDialog()"
 					>
-						<i class="bi bi-camera text-dark"></i>
+						<i class="bi bi-camera-fill"></i>
 					</button>
 				</div>
 			</div>
@@ -80,15 +80,16 @@
 				<button
 					*ngIf="username"
 					(click)="shareUsername()"
-					class="btn btn-light rounded-5 shadow-sm btn-sm,"
+					class="btn bg-body-tertiary rounded-5 btn-sm shadow-sm"
 					style="border: none"
 				>
 					<i class="bi bi-box-arrow-up"></i>
 				</button>
+
 				<button
 					*ngIf="!username"
 					disabled
-					class="btn btn-light rounded-5 shadow-sm btn-sm,"
+					class="btn bg-body-tertiary rounded-5 btn-sm shadow-sm"
 					style="border: none"
 				>
 					<i class="bi bi-box-arrow-up"></i>
@@ -97,7 +98,7 @@
 
 			<button
 				(click)="openExcerciseDialog()"
-				class="d-flex btn btn-light border-0 shadow-sm rounded-3 mb-3 p-2 w-100 d-none d-lg-block"
+				class="d-flex btn border-0 bg-body-tertiary rounded-3 mb-3 p-2 w-100 d-none d-lg-block shadow-sm"
 			>
 				<i class="me-2 bi bi-arrows-angle-expand"></i>
 				Esercizi custom
@@ -105,14 +106,18 @@
 
 			<button
 				(click)="openExcerciseDialog()"
-				class="d-flex btn btn-sm btn-light border-0 shadow-sm rounded-3 mb-3 p-2 w-100 d-block d-lg-none"
+				class="d-flex btn border-0 bg-body-tertiary btn-sm rounded-3 mb-3 p-2 w-100 d-block d-lg-none shadow-sm"
 			>
 				<i class="me-2 bi bi-arrows-angle-expand"></i>
 				Esercizi custom
 			</button>
 
 			<button
-				class="d-flex btn btn-dark border-0 shadow-sm rounded-3 mb-4 p-2 w-100 d-none d-lg-block"
+				[ngClass]="{
+					'd-flex btn rounded-3 mb-4 p-2 w-100 d-none d-lg-block': true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
 				(click)="backToHome()"
 			>
 				<i class="me-2 bi bi-house-fill"></i>
@@ -120,7 +125,11 @@
 			</button>
 
 			<button
-				class="d-flex btn btn-sm btn-dark border-0 shadow-sm rounded-3 mb-4 p-2 w-100 d-block d-lg-none"
+				[ngClass]="{
+					'd-flex btn btn-sm rounded-3 mb-4 p-2 w-100 d-block d-lg-none': true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
 				(click)="backToHome()"
 			>
 				<i class="me-2 bi bi-house-fill"></i>
@@ -138,7 +147,7 @@
 					<!-- Username Desktop -->
 					<button
 						id="usernameBtn"
-						class="d-none d-lg-flex btn btn-light border-0 shadow-sm rounded-3 p-2"
+						class="d-none d-lg-flex btn bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapseUsername"
 						aria-expanded="false"
@@ -182,7 +191,7 @@
 					<!-- Username Mobile -->
 					<button
 						id="usernameBtnMobile"
-						class="d-flex d-lg-none btn btn-sm btn-light border-0 shadow-sm rounded-3 p-2"
+						class="d-flex d-lg-none btn btn-sm bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapseUsernameMobile"
 						aria-expanded="false"
@@ -226,7 +235,7 @@
 					<!-- Visibilty Desktop -->
 					<button
 						id="visibilityBtn"
-						class="d-none d-lg-flex btn btn-light border-0 shadow-sm rounded-3 p-2 mt-3"
+						class="d-none d-lg-flex btn bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapseVisibility"
 						aria-expanded="false"
@@ -270,7 +279,7 @@
 					<!-- Visibility Mobile -->
 					<button
 						id="visibilityBtnMobile"
-						class="d-flex d-lg-none btn btn-sm btn-light border-0 shadow-sm rounded-3 p-2 mt-3"
+						class="d-flex d-lg-none btn btn-sm bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapseVisibilityMobile"
 						aria-expanded="false"
@@ -315,7 +324,7 @@
 					<!-- Playlist Desktop -->
 					<button
 						id="playlistBtn"
-						class="btn btn-light border-0 shadow-sm rounded-3 p-2 mt-3 d-none d-lg-flex"
+						class="d-none d-lg-flex btn bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapsePlaylist"
 						aria-expanded="false"
@@ -360,7 +369,7 @@
 					<!-- Playlist Mobile -->
 					<button
 						id="playlistBtnMobile"
-						class="btn btn-sm btn-light border-0 shadow-sm rounded-3 p-2 mt-3 d-flex d-lg-none"
+						class="d-flex d-lg-none btn btn-sm bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3"
 						data-bs-toggle="collapse"
 						data-bs-target="#collapsePlaylistMobile"
 						aria-expanded="false"
@@ -404,7 +413,7 @@
 
 					<!-- Password -->
 					<button
-						class="btn btn-light border-0 shadow-sm rounded-3 p-2 mt-3 d-none d-lg-flex"
+						class="d-none d-lg-flex btn bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3 mt-3"
 						(click)="changePassword()"
 					>
 						<i class="me-2 bi bi-lock-fill"></i>
@@ -412,7 +421,7 @@
 					</button>
 
 					<button
-						class="btn btn-sm btn-light border-0 shadow-sm rounded-3 p-2 mt-3 d-flex d-lg-none"
+						class="d-flex d-lg-none btn btn-sm bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3 mt-3"
 						(click)="changePassword()"
 					>
 						<i class="me-2 bi bi-lock-fill"></i>

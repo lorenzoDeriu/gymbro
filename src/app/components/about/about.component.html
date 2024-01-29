@@ -30,43 +30,64 @@
 				class="d-flex justify-content-center align-items-center mt-5 w-100"
 			>
 				<div
-					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					[ngClass]="{
+						'feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center': true,
+						'shadow-sm': theme === 'light',
+						'shadow': theme === 'dark'
+					}"
 				>
 					<p class="mb-0 text-center">
 						Crea workout, da zero o grazie a una scheda salvata sul
 						tuo profilo
 					</p>
-					<img
-						class="position-absolute top-0 start-50 translate-middle"
-						style="background-color: #fff"
-						width="60"
-						src="assets/dumbbell.png"
-						alt="Dumbbell"
-					/>
+					<i
+						class="bi bi-plus-circle-dotted position-absolute top-0 start-50 translate-middle"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '60px'
+						}"
+					></i>
 				</div>
 				<div
-					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					[ngClass]="{
+						'feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center': true,
+						'shadow-sm': theme === 'light',
+						'shadow': theme === 'dark'
+					}"
 				>
 					<p class="mb-0 text-center">
 						Visualizza lo storico dei tuoi workout
 					</p>
-					<img
-						class="position-absolute top-0 start-50 translate-middle"
-						style="background-color: #fff"
-						width="60"
-						src="assets/history.png"
-						alt="Dumbbell"
-					/>
+					<i
+						class="bi bi-clock-history position-absolute top-0 start-50 translate-middle"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '60px'
+						}"
+					></i>
 				</div>
 				<div
-					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					[ngClass]="{
+						'feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center': true,
+						'shadow-sm': theme === 'light',
+						'shadow': theme === 'dark'
+					}"
 				>
 					<p class="mb-0 text-center">
 						Segui i tuoi progessi nella sezione "I tuoi progressi"
 					</p>
 					<i
 						class="bi bi-graph-up position-absolute top-0 start-50 translate-middle"
-						style="font-size: 60px; background-color: #fff"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '60px'
+						}"
 					></i>
 				</div>
 			</div>
@@ -75,18 +96,31 @@
 				class="d-flex flex-wrap justify-content-center align-items-center mt-5 w-100"
 			>
 				<div
-					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					[ngClass]="{
+						'feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center': true,
+						'shadow-sm': theme === 'light',
+						'shadow': theme === 'dark'
+					}"
 				>
 					<p class="mb-0 text-center">
 						Gestisci le tue schede di allenamento rapidamente
 					</p>
 					<i
 						class="bi bi-journals position-absolute top-0 start-50 translate-middle"
-						style="font-size: 60px; background-color: #fff"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '60px'
+						}"
 					></i>
 				</div>
 				<div
-					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					[ngClass]="{
+						'feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center': true,
+						'shadow-sm': theme === 'light',
+						'shadow': theme === 'dark'
+					}"
 				>
 					<p class="mb-0 text-center">
 						Segui altri GymBro e visualizza le loro schede di
@@ -94,11 +128,20 @@
 					</p>
 					<i
 						class="bi bi-people position-absolute top-0 start-50 translate-middle"
-						style="font-size: 60px; background-color: #fff"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '60px'
+						}"
 					></i>
 				</div>
 				<div
-					class="feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
+					[ngClass]="{
+						'feature-card rounded-5 border p-4 position-relative d-flex flex-column justify-content-center': true,
+						'shadow-sm': theme === 'light',
+						'shadow': theme === 'dark'
+					}"
 				>
 					<p class="mb-0 text-center">
 						Cronometra la durata dei tuoi allenamenti e tieni
@@ -106,7 +149,12 @@
 					</p>
 					<i
 						class="bi bi-stopwatch position-absolute top-0 start-50 translate-middle"
-						style="font-size: 60px; background-color: #fff"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '60px'
+						}"
 					></i>
 				</div>
 			</div>
@@ -248,7 +296,14 @@
 		</div>
 
 		<div class="w-100 d-flex justify-content-center align-items-center">
-			<button class="my-5 btn btn-dark" (click)="backToHome()">
+			<button
+				[ngClass]="{
+					'my-5 btn': true,
+					'btn-light': theme === 'dark',
+					'btn-dark': theme === 'light'
+				}"
+				(click)="backToHome()"
+			>
 				Torna alla home
 				<i class="ms-1 bi bi-house-fill"></i>
 			</button>
@@ -288,13 +343,15 @@
 						Crea workout, da zero o grazie a una scheda salvata sul
 						tuo profilo
 					</small>
-					<img
-						class="position-absolute top-0 start-50 translate-middle"
-						style="background-color: #fff"
-						width="45"
-						src="assets/dumbbell.png"
-						alt="Dumbbell"
-					/>
+					<i
+						class="bi bi-plus-circle-dotted position-absolute top-0 start-50 translate-middle"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '45px'
+						}"
+					></i>
 				</div>
 				<div
 					class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
@@ -303,13 +360,15 @@
 					<small class="mb-0 text-center">
 						Visualizza lo storico dei tuoi workout
 					</small>
-					<img
-						class="position-absolute top-0 start-50 translate-middle"
-						style="background-color: #fff"
-						width="45"
-						src="assets/history.png"
-						alt="Dumbbell"
-					/>
+					<i
+						class="bi bi-clock-history position-absolute top-0 start-50 translate-middle"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '45px'
+						}"
+					></i>
 				</div>
 				<div
 					class="feature-card-mobile mb-5 rounded-5 border p-4 position-relative d-flex flex-column justify-content-center"
@@ -320,7 +379,12 @@
 					</small>
 					<i
 						class="bi bi-graph-up position-absolute top-0 start-50 translate-middle"
-						style="font-size: 45px; background-color: #fff"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '45px'
+						}"
 					></i>
 				</div>
 				<div
@@ -332,7 +396,12 @@
 					</small>
 					<i
 						class="bi bi-journals position-absolute top-0 start-50 translate-middle"
-						style="font-size: 45px; background-color: #fff"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '45px'
+						}"
 					></i>
 				</div>
 				<div
@@ -345,7 +414,12 @@
 					</small>
 					<i
 						class="bi bi-people position-absolute top-0 start-50 translate-middle"
-						style="font-size: 45px; background-color: #fff"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '45px'
+						}"
 					></i>
 				</div>
 				<div
@@ -358,7 +432,12 @@
 					</small>
 					<i
 						class="bi bi-stopwatch position-absolute top-0 start-50 translate-middle"
-						style="font-size: 45px; background-color: #fff"
+						[ngStyle]="{
+							'background-color':
+								theme === 'light' ? '#fff' : '#212529',
+							color: theme === 'light' ? '#000' : '#fff',
+							'font-size': '45px'
+						}"
 					></i>
 				</div>
 			</div>
@@ -494,7 +573,14 @@
 		</div>
 
 		<div class="w-100 d-flex justify-content-center align-items-center">
-			<button class="my-5 btn btn-sm btn-dark" (click)="backToHome()">
+			<button
+				[ngClass]="{
+					'my-5 btn btn-sm': true,
+					'btn-light': theme === 'dark',
+					'btn-dark': theme === 'light'
+				}"
+				(click)="backToHome()"
+			>
 				Torna alla home
 				<i class="ms-1 bi bi-house-fill"></i>
 			</button>

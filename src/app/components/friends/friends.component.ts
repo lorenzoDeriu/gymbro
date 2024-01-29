@@ -3,6 +3,7 @@ import { FirebaseService } from "src/app/services/firebase.service";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
+import { ThemeService } from "src/app/services/theme.service";
 
 export interface FollowedUserInfo {
 	uid: string;
@@ -25,7 +26,7 @@ export interface SearchResult {
 export class FriendsComponent implements OnInit {
 	private _hasFollow: boolean;
 	private username: string;
-
+	public theme: "dark" | "light";
 	public loading: boolean;
 	public friends: string;
 	public followed: FollowedUserInfo[];
@@ -33,11 +34,17 @@ export class FriendsComponent implements OnInit {
 	constructor(
 		private firebase: FirebaseService,
 		private router: Router,
-		private userService: UserService
+		private userService: UserService,
+		private themeService: ThemeService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.themeService.themeObs.subscribe((theme) => {
+			this.theme = theme;
+		});
+
 		this.username = await this.firebase.getUsername();
 		this.followed = await this.firebase.getFollowed();
 

@@ -25,7 +25,8 @@
 				<i class="me-1 bi bi-arrow-left"></i>
 				Torna Indietro
 			</button>
-			<button class="btn btn-dark ms-2" routerLink="/home">
+
+			<button [ngClass]="{'btn ms-2': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}" routerLink="/home">
 				Torna alla home
 				<i class="ms-1 bi bi-house-fill"></i>
 			</button>
@@ -39,7 +40,8 @@
 				<i class="me-1 bi bi-arrow-left"></i>
 				Indietro
 			</button>
-			<button class="btn btn-sm btn-dark ms-2" routerLink="/home">
+
+			<button [ngClass]="{'btn btn-sm ms-2': true, 'btn-light': theme === 'dark', 'btn-dark': theme === 'light'}" routerLink="/home">
 				Home
 				<i class="bi bi-house-fill"></i>
 			</button>
@@ -55,7 +57,7 @@
 
 		<div
 			*ngFor="let user of searchResult; index as i"
-			class="btn-group rounded-5 d-flex justify-content-between align-items-center user mb-3 w-100"
+			class="btn-group bg-body-tertiary shadow-sm rounded-5 d-flex justify-content-between align-items-center mb-3 w-100"
 			role="group"
 			aria-label="Basic example"
 		>

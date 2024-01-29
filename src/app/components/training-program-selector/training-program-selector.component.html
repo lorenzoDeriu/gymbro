@@ -21,7 +21,7 @@
 	>
 		<div class="w-100 mb-5">
 			<h3 class="text-start">
-				<img src="assets/dumbbell.png" width="30" alt="" />
+				<img [ngStyle]="{'filter': theme === 'dark' ? 'invert(1)': ''}" src="assets/dumbbell.png" width="30" alt="" />
 				Crea da zero
 			</h3>
 
@@ -91,7 +91,7 @@
 		>
 			<a
 				[href]="'#program' + programIndex"
-				class="btn btn-light w-100 mb-1 shadow-sm programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				class="btn border-0 bg-body-tertiary shadow-sm w-100 mb-1 programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
 				data-bs-toggle="collapse"
 				role="button"
 				aria-expanded="false"
@@ -105,10 +105,10 @@
 			</a>
 
 			<div
-				class="collapse w-100 programs-collapse-body collapse-body shadow-sm"
+				class="collapse w-100 border-0 shadow-sm programs-collapse-body collapse-body rounded-3"
 				[id]="'program' + programIndex"
 			>
-				<div class="card card-body p-1 border-0">
+				<div class="card bg-body-tertiary card-body p-1 border-0">
 					<h5 class="text-center">Sessioni</h5>
 					<div
 						*ngFor="
@@ -119,7 +119,7 @@
 					>
 						<a
 							[href]="'#session' + programIndex + sessionIndex"
-							class="btn btn-light shadow-sm w-100 mb-1 collapser sessions-collapser d-flex justify-content-between align-items-center mobile-btn"
+							[ngClass]="{'btn w-100 mb-1 collapser shadow-sm border-0 sessions-collapser d-flex justify-content-between align-items-center mobile-btn': true, 'bg-light': theme === 'light', 'bg-dark': theme === 'dark'}"
 							data-bs-toggle="collapse"
 							role="button"
 							aria-expanded="false"
@@ -269,7 +269,7 @@
 									</tbody>
 								</table>
 								<button
-									class="btn btn-dark d-none d-lg-block"
+									[ngClass]="{'btn d-none d-lg-block': true, 'btn-dark': theme === 'light', 'btn-light': theme === 'dark'}"
 									(click)="
 										selectWorkout(
 											programIndex,
@@ -282,7 +282,7 @@
 								</button>
 
 								<button
-									class="btn btn-sm btn-dark d-block d-lg-none"
+								[ngClass]="{'btn d-block d-lg-none btn-sm': true, 'btn-dark': theme === 'light', 'btn-light': theme === 'dark'}"
 									(click)="
 										selectWorkout(
 											programIndex,
@@ -307,7 +307,7 @@
 			</h3>
 
 			<button
-				class="btn btn-light w-100 mb-1 shadow-sm programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				class="btn border-0 w-100 mb-1 programs-collapser collapser d-flex justify-content-between align-items-center mobile-btn shadow-sm bg-body-tertiary"
 				data-bs-toggle="collapse"
 				role="button"
 				aria-expanded="false"
@@ -320,7 +320,7 @@
 		</div>
 
 		<button
-			class="btn btn-dark my-4 d-none d-lg-block w-100"
+			[ngClass]="{'btn btn-light my-4 d-none d-lg-block w-100': true, 'btn-dark': theme === 'light'}"
 			routerLink="/home/dashboard"
 		>
 			Torna alla home
@@ -328,7 +328,7 @@
 		</button>
 
 		<button
-			class="btn btn-sm btn-dark my-4 d-block d-lg-none w-100"
+		[ngClass]="{'btn btn-light my-4 d-block d-lg-none btn-sm w-100': true, 'btn-dark': theme === 'light'}"
 			routerLink="/home/dashboard"
 		>
 			Torna alla home

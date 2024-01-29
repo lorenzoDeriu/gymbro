@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Chart } from "chart.js";
 import { Workout } from "src/app/Models/Workout.model";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-exercise-stats",
@@ -10,15 +11,20 @@ import { Workout } from "src/app/Models/Workout.model";
 	styleUrls: ["./exercise-stats.component.css"],
 })
 export class ExerciseStatsComponent implements OnInit {
+	public theme: "light" | "dark";
 	private workouts: Workout[];
 	private chart: any;
 
 	public options: string[];
 
-	constructor(private firebase: FirebaseService) {}
+	constructor(private firebase: FirebaseService, private themeService: ThemeService) {}
 
 	async ngOnInit() {
 		this.options = await this.firebase.getExercise();
+
+		this.themeService.themeObs.subscribe((theme) => {
+			this.theme = theme;
+		});
 	}
 
 	async showStas(form: NgForm) {

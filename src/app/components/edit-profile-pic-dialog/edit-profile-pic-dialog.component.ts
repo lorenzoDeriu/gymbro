@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
+import { ThemeService } from "src/app/services/theme.service";
 import { environment } from "src/environments/environment";
 
 @Component({
@@ -10,7 +11,8 @@ import { environment } from "src/environments/environment";
 	templateUrl: "./edit-profile-pic-dialog.component.html",
 	styleUrls: ["./edit-profile-pic-dialog.component.css"],
 })
-export class EditProfilePicDialogComponent {
+export class EditProfilePicDialogComponent implements OnInit {
+	public theme: "light" | "dark";
 	public hiddenProfilePicInput: HTMLInputElement;
 	public uploading: boolean = false;
 
@@ -18,6 +20,7 @@ export class EditProfilePicDialogComponent {
 		private http: HttpClient,
 		private dialogRef: MatDialogRef<EditProfilePicDialogComponent>,
 		private snackBar: MatSnackBar,
+		private themeService: ThemeService,
 		private firebase: FirebaseService,
 		@Inject(MAT_DIALOG_DATA)
 		public data: {
@@ -26,6 +29,12 @@ export class EditProfilePicDialogComponent {
 			updateProfilePic: (profilePic: string) => void;
 		}
 	) {}
+
+	public ngOnInit() {
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+	}
 
 	public editProfilePic() {
 		this.hiddenProfilePicInput = document.getElementById(
