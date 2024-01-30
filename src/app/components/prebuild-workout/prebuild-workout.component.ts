@@ -564,6 +564,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.dialog
 			.open(AddExerciseDialogComponent, {
 				disableClose: false,
+				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 			})
 			.afterClosed()
 			.subscribe(async customExercise => {

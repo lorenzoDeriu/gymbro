@@ -20,6 +20,54 @@ body {
 	background-color: #c5c5c5 !important;
 }
 
+.soft-light-btn {
+	background-color: #57606c !important;
+	border: #57606c 1px solid !important;
+	color: #fff !important;
+}
+
+.soft-light-btn:disabled {
+	border: #57606c68 1px solid !important;
+	background-color: #57606c68 !important;
+	color: #fff !important;
+}
+
+.soft-light-btn:hover {
+	border: #7b8591 1px solid !important;
+	background-color: #7b8591 !important;
+	color: #fff !important;
+}
+
+.soft-light-btn:active {
+	border: #9da7b4 1px solid !important;
+	background-color: #9da7b4 !important;
+	color: #fff !important;
+}
+
+.soft-dark-btn {
+	background-color: #c5c5c576 !important;
+	border: #c5c5c576 1px solid !important;
+	color: #000;
+}
+
+.soft-dark-btn:disabled {
+	border: #c5c5c576 1px solid !important;
+	background-color: #c5c5c576 !important;
+	color: #4c4c4c !important;
+}
+
+.soft-dark-btn:hover {
+	border: #908e8e76 1px solid !important;
+	background-color: #908e8e76 !important;
+	color: #000 !important;
+}
+
+.soft-dark-btn:active {
+	border: #78787876 1px solid !important;
+	background-color: #78787876 !important;
+	color: #000 !important;
+}
+
 .dropdown-dark {
 	--bs-dropdown-link-active-bg: rgba(232, 232, 232, 0.276) !important;
 }

@@ -280,8 +280,8 @@
 								<button
 									[ngClass]="{
 										'btn d-none d-lg-block': true,
-										'btn-dark': theme === 'light',
-										'btn-light': theme === 'dark'
+										'soft-dark-btn': theme === 'light',
+										'soft-light-btn': theme === 'dark'
 									}"
 									(click)="
 										selectWorkout(
@@ -297,8 +297,8 @@
 								<button
 									[ngClass]="{
 										'btn d-block d-lg-none btn-sm': true,
-										'btn-dark': theme === 'light',
-										'btn-light': theme === 'dark'
+										'soft-dark-btn': theme === 'light',
+										'soft-light-btn': theme === 'dark'
 									}"
 									(click)="
 										selectWorkout(
@@ -338,8 +338,9 @@
 
 		<button
 			[ngClass]="{
-				'btn btn-light my-4 d-none d-lg-block w-100': true,
-				'btn-dark': theme === 'light'
+				'btn my-4 d-none d-lg-block w-100': true,
+				'soft-dark-btn': theme === 'light',
+				'soft-light-btn': theme === 'dark'
 			}"
 			routerLink="/home/dashboard"
 		>
@@ -349,8 +350,9 @@
 
 		<button
 			[ngClass]="{
-				'btn btn-light my-4 d-block d-lg-none btn-sm w-100': true,
-				'btn-dark': theme === 'light'
+				'btn my-4 d-block d-lg-none btn-sm w-100': true,
+				'soft-dark-btn': theme === 'light',
+				'soft-light-btn': theme === 'dark'
 			}"
 			routerLink="/home/dashboard"
 		>

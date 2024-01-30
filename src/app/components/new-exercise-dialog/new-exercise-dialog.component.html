@@ -26,8 +26,8 @@
 				<button
 					[ngClass]="{
 						'btn rounded-end-5': true,
-						'btn-dark': theme === 'light',
-						'btn-light': theme === 'dark'
+						'soft-dark-btn': theme === 'light',
+						'soft-light-btn': theme === 'dark'
 					}"
 					type="button"
 					(click)="openCustomExerciseDialog()"
@@ -71,8 +71,8 @@
 			<button
 				[ngClass]="{
 					'btn w-100 mb-3 rounded-5': true,
-					'btn-light': theme === 'dark',
-					'btn-dark': theme === 'light'
+					'soft-light-btn': theme === 'dark',
+					'soft-dark-btn': theme === 'light'
 				}"
 				(click)="addSet()"
 			>
@@ -234,8 +234,8 @@
 				<button
 					[ngClass]="{
 						'btn rounded-end-4': true,
-						'btn-dark': theme === 'light',
-						'btn-light': theme === 'dark'
+						'soft-dark-btn': theme === 'light',
+						'soft-light-btn': theme === 'dark'
 					}"
 					type="button"
 					(click)="openCustomExerciseDialog()"
@@ -278,8 +278,8 @@
 			<button
 				[ngClass]="{
 					'btn btn-sm w-100 mb-3 rounded-5': true,
-					'btn-light': theme === 'dark',
-					'btn-dark': theme === 'light'
+					'soft-light-btn': theme === 'dark',
+					'soft-dark-btn': theme === 'light'
 				}"
 				(click)="addSet()"
 			>

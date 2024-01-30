@@ -25,8 +25,8 @@
 				type="button"
 				[ngClass]="{
 					'btn me-2 d-none d-lg-flex': true,
-					'btn-dark': theme === 'light',
-					'btn-light': theme === 'dark'
+					'soft-dark-btn': theme === 'light',
+					'soft-light-btn': theme === 'dark'
 				}"
 				routerLink="/home/training-programs"
 				(click)="cancel()"
@@ -39,8 +39,8 @@
 				type="button"
 				[ngClass]="{
 					'btn btn-sm me-2 d-flex d-lg-none': true,
-					'btn-dark': theme === 'light',
-					'btn-light': theme === 'dark'
+					'soft-dark-btn': theme === 'light',
+					'soft-light-btn': theme === 'dark'
 				}"
 				routerLink="/home/training-programs"
 				(click)="cancel()"
@@ -301,8 +301,8 @@
 					<button
 						[ngClass]="{
 							'btn d-none d-lg-block': true,
-							'btn-light': theme === 'dark',
-							'btn-dark': theme === 'light'
+							'soft-light-btn': theme === 'dark',
+							'soft-dark-btn': theme === 'light'
 						}"
 						(click)="addExercise(session)"
 					>
@@ -313,8 +313,8 @@
 					<button
 						[ngClass]="{
 							'btn btn-sm d-block d-lg-none': true,
-							'btn-light': theme === 'dark',
-							'btn-dark': theme === 'light'
+							'soft-light-btn': theme === 'dark',
+							'soft-dark-btn': theme === 'light'
 						}"
 						(click)="addExercise(session)"
 					>

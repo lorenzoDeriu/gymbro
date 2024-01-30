@@ -25,8 +25,8 @@
 			<button
 				[ngClass]="{
 					'btn ms-2': true,
-					'btn-light': theme === 'dark',
-					'btn-dark': theme === 'light'
+					'soft-light-btn': theme === 'dark',
+					'soft-dark-btn': theme === 'light'
 				}"
 				routerLink="/home"
 			>
@@ -47,8 +47,8 @@
 			<button
 				[ngClass]="{
 					'btn btn-sm ms-2': true,
-					'btn-light': theme === 'dark',
-					'btn-dark': theme === 'light'
+					'soft-light-btn': theme === 'dark',
+					'soft-dark-btn': theme === 'light'
 				}"
 				routerLink="/home"
 			>
@@ -339,8 +339,8 @@
 						<button
 							[ngClass]="{
 								'btn d-none d-lg-block': true,
-								'btn-light': theme === 'dark',
-								'btn-dark': theme === 'light'
+								'soft-light-btn': theme === 'dark',
+								'soft-dark-btn': theme === 'light'
 							}"
 							(click)="saveTrainingProgram(programIndex)"
 						>
@@ -351,8 +351,8 @@
 						<button
 							[ngClass]="{
 								'btn btn-sm d-block d-lg-none': true,
-								'btn-light': theme === 'dark',
-								'btn-dark': theme === 'light'
+								'soft-light-btn': theme === 'dark',
+								'soft-dark-btn': theme === 'light'
 							}"
 							(click)="saveTrainingProgram(programIndex)"
 						>

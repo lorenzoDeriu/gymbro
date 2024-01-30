@@ -28,8 +28,8 @@
 				type="button"
 				[ngClass]="{
 					'btn me-2 d-none d-lg-block': true,
-					'btn-dark': theme === 'light',
-					'btn-light': theme === 'dark'
+					'soft-dark-btn': theme === 'light',
+					'soft-light-btn': theme === 'dark'
 				}"
 				(click)="backToHome()"
 			>
@@ -40,8 +40,8 @@
 				type="button"
 				[ngClass]="{
 					'btn btn-sm me-2 d-block d-lg-none': true,
-					'btn-dark': theme === 'light',
-					'btn-light': theme === 'dark'
+					'soft-dark-btn': theme === 'light',
+					'soft-light-btn': theme === 'dark'
 				}"
 				(click)="backToHome()"
 			>

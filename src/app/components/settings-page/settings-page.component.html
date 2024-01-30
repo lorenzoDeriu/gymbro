@@ -117,8 +117,8 @@
 			<button
 				[ngClass]="{
 					'd-flex btn border-0 shadow-sm rounded-3 mb-4 p-2 w-100 d-none d-lg-block': true,
-					'btn-light': theme === 'dark',
-					'btn-dark': theme === 'light'
+					'soft-light-btn': theme === 'dark',
+					'soft-dark-btn': theme === 'light'
 				}"
 				(click)="backToHome()"
 			>
@@ -129,8 +129,8 @@
 			<button
 				[ngClass]="{
 					'd-flex btn btn-sm border-0 shadow-sm rounded-3 mb-4 p-2 w-100 d-block d-lg-none': true,
-					'btn-light': theme === 'dark',
-					'btn-dark': theme === 'light'
+					'soft-light-btn': theme === 'dark',
+					'soft-dark-btn': theme === 'light'
 				}"
 				(click)="backToHome()"
 			>

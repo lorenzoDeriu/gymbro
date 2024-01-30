@@ -31,8 +31,8 @@
 			*ngIf="workouts.length === 0"
 			[ngClass]="{
 				'btn mb-4 d-none d-lg-block': true,
-				'btn-light': theme === 'dark',
-				'btn-dark': theme === 'light'
+				'soft-light-btn': theme === 'dark',
+				'soft-dark-btn': theme === 'light'
 			}"
 			(click)="backToHomeButton()"
 		>
@@ -44,8 +44,8 @@
 			*ngIf="workouts.length === 0"
 			[ngClass]="{
 				'btn btn-sm mb-4 d-block d-lg-none': true,
-				'btn-light': theme === 'dark',
-				'btn-dark': theme === 'light'
+				'soft-light-btn': theme === 'dark',
+				'soft-dark-btn': theme === 'light'
 			}"
 			(click)="backToHomeButton()"
 		>
@@ -222,8 +222,8 @@
 						<button
 							[ngClass]="{
 								'btn w-100 me-1': true,
-								'btn-light': theme === 'dark',
-								'btn-dark': theme === 'light'
+								'soft-light-btn': theme === 'dark',
+								'soft-dark-btn': theme === 'light'
 							}"
 							(click)="reuseWorkout(workoutIndex)"
 						>
@@ -252,8 +252,8 @@
 						<button
 							[ngClass]="{
 								'btn btn-sm w-100 me-1': true,
-								'btn-light': theme === 'dark',
-								'btn-dark': theme === 'light'
+								'soft-light-btn': theme === 'dark',
+								'soft-dark-btn': theme === 'light'
 							}"
 							(click)="reuseWorkout(workoutIndex)"
 						>
@@ -285,8 +285,8 @@
 			<button
 				[ngClass]="{
 					'btn btn-sm rounded-5': true,
-					'btn-dark': theme === 'light',
-					'btn-light': theme === 'dark'
+					'soft-dark-btn': theme === 'light',
+					'soft-light-btn': theme === 'dark'
 				}"
 				(click)="backToHomeButton()"
 			>
