@@ -294,9 +294,8 @@
 						<input
 							class="form-check-input"
 							type="checkbox"
-							value=""
 							id="flexCheckChecked"
-							(change)="agreePrivacy = !agreePrivacy"
+							[(ngModel)]="agreePrivacy"
 						/>
 						<label class="form-check-label" for="flexCheckChecked">
 							Accetto i termini e le condizioni contenuti nella
@@ -463,9 +462,8 @@
 						<input
 							class="form-check-input"
 							type="checkbox"
-							value=""
 							id="flexCheckChecked"
-							(change)="agreePrivacy = !agreePrivacy"
+							[(ngModel)]="agreePrivacy"
 						/>
 						<label class="form-check-label" for="flexCheckChecked">
 							Accetto i termini e le condizioni contenuti nella

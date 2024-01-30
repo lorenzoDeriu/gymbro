@@ -39,6 +39,9 @@ export class AdminComponent implements OnInit {
 	public addExercise() {
 		this.dialog.open(AddExerciseDialogComponent, {
 			disableClose: false,
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -101,6 +104,9 @@ export class AdminComponent implements OnInit {
 			data: {
 				message: this.feedbacks[index].content,
 			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -109,6 +115,9 @@ export class AdminComponent implements OnInit {
 			data: {
 				exercises: this.exercises,
 			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -125,6 +134,9 @@ export class AdminComponent implements OnInit {
 					this.ngOnInit();
 				},
 			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 }

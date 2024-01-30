@@ -85,6 +85,7 @@ export class SettingsPageComponent implements OnInit {
 				},
 			},
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -118,6 +119,7 @@ export class SettingsPageComponent implements OnInit {
 				exercises: this.customExercises,
 			},
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -127,6 +129,7 @@ export class SettingsPageComponent implements OnInit {
 				username: this.username,
 			},
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -156,6 +159,7 @@ export class SettingsPageComponent implements OnInit {
 					await authService.deleteAccount();
 				},
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 

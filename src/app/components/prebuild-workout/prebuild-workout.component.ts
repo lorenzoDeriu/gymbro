@@ -93,6 +93,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 						localStorage.removeItem("workoutCompleteTime");
 					},
 				},
+				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"],
 				disableClose: true,
 			});
 		}
@@ -350,6 +351,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 					this.userService.updateWorkout(this.workout);
 				},
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"],
 			disableClose: false,
 		});
 	}
@@ -362,6 +364,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 				) as Workout,
 			},
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -553,6 +556,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 					this.router.navigate(["/home"]);
 				},
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -618,6 +622,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 				exerciseName: this.workout.exercises[exerciseIndex].name,
 			},
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -649,6 +654,7 @@ export class PrebuildWorkoutComponent implements OnInit {
 					initializeComponent();
 				},
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 

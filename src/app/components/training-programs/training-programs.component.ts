@@ -92,6 +92,7 @@ export class TrainingProgramsComponent implements OnInit {
 					await userService.removeTrainingProgram(index);
 				},
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -106,6 +107,7 @@ export class TrainingProgramsComponent implements OnInit {
 
 		this.dialog.open(NotesDialogComponent, {
 			data: { notes: exercise.note },
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 }

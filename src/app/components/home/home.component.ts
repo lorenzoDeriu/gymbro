@@ -80,6 +80,7 @@ export class HomeComponent implements OnInit {
 	onFeedback() {
 		this.dialog.open(FeedbackDialogComponent, {
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 

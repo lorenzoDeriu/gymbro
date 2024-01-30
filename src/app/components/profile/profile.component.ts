@@ -154,6 +154,7 @@ export class ProfileComponent implements OnInit {
 				notes: this.trainingPrograms[programIndex].session[workoutIndex]
 					.exercises[exerciseIndex].note,
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 }

@@ -286,6 +286,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 
 		this.dialog.open(NotesDialogComponent, {
 			data: { notes: exercise.note },
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -343,6 +344,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.enableDragAndDrop();
 				},
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -360,6 +362,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.enableDragAndDrop();
 				},
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 

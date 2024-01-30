@@ -254,6 +254,7 @@ export class WelcomePageComponent implements OnInit {
 	forgotPassword() {
 		this.dialog.open(PasswordRecoverDialogComponent, {
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 

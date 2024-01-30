@@ -39,6 +39,9 @@ export class ExpandExercisesDialogComponent implements OnInit {
 					exercises.splice(index, 1);
 				},
 			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 

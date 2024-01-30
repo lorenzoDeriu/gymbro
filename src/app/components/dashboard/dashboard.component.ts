@@ -34,7 +34,9 @@ export class DashboardComponent implements OnInit {
 		if (localStorage.getItem("welcomeDialog_v10.0") !== "true") {
 			this.dialog.open(WelcomeDialogComponent, {
 				disableClose: false,
+				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 			});
+
 			localStorage.setItem("welcomeDialog_v10.0", "true");
 		}
 
@@ -90,6 +92,7 @@ export class DashboardComponent implements OnInit {
 						this.userService.reuseWorkout(this.workoutPrevision);
 					},
 				},
+				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 			});
 
 			return;
