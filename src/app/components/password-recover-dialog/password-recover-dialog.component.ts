@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialogRef } from "@angular/material/dialog";
 import { ThemeService } from "src/app/services/theme.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-password-recover-dialog",
@@ -15,8 +15,8 @@ export class PasswordRecoverDialogComponent implements OnInit {
 
 	constructor(
 		private firebase: FirebaseService,
-		private snackBar: MatSnackBar,
 		private themeService: ThemeService,
+		private notificationService: NotificationService,
 		public dialogRef: MatDialogRef<PasswordRecoverDialogComponent>
 	) {}
 
@@ -29,11 +29,17 @@ export class PasswordRecoverDialogComponent implements OnInit {
 	public sendRecoverPasswordEmail() {
 		this.firebase.recoverPassword(this.email);
 
-		this.snackBar.open(
+		this.notificationService.showSnackBarNotification(
 			"Ti abbiamo inviato un'email per recuperare la password",
-			"Ok",
-			{ duration: 3000 }
+			"Ok!",
+			{
+				duration: 3000,
+				panelClass: [
+					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
+				],
+			}
 		);
+
 		this.closeDialog();
 	}
 

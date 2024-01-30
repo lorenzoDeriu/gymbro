@@ -1,13 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { MatDialog, _MatDialogBase } from "@angular/material/dialog";
+import { _MatDialogBase } from "@angular/material/dialog";
 import { FirebaseService } from "./firebase.service";
-import { ErrorLoginDialogComponent } from "../components/error-login-dialog/error-login-dialog.component";
-import { ErrorRegisterDialogComponent } from "../components/error-register-dialog/error-register-dialog.component";
-import { ErrorProviderDialogComponent } from "../components/error-provider-dialog/error-provider-dialog.component";
 import { UserCredential } from "firebase/auth";
 import { User } from "../Models/User.model";
 import { UserService } from "./user.service";
+import { NotificationService } from "./notification.service";
 
 export type UserData = {
 	uid: string;
@@ -26,7 +24,7 @@ export class AuthService {
 		private firebase: FirebaseService,
 		private userService: UserService,
 		private router: Router,
-		private dialog: MatDialog
+		private notificationService: NotificationService
 	) {}
 
 	private async access(credential: UserCredential, username?: string) {
@@ -47,10 +45,18 @@ export class AuthService {
 				await this.firebase.registerNewUser(email, password),
 				username
 			);
-		} catch (error) {
-			this.dialog.open(ErrorRegisterDialogComponent, {
-				disableClose: false,
-			});
+		} catch (error: any) {
+			const errorMessage: string =
+				this.firebase.getFirebaseErrorMessage(error);
+
+			this.notificationService.showSnackBarNotification(
+				errorMessage,
+				"Ok",
+				{
+					duration: 5000,
+					panelClass: ["error-snackbar"],
+				}
+			);
 		}
 	}
 
@@ -59,40 +65,72 @@ export class AuthService {
 			await this.access(
 				await this.firebase.loginEmailPsw(email, password)
 			);
-		} catch (error) {
-			this.dialog.open(ErrorLoginDialogComponent, {
-				disableClose: false,
-			});
+		} catch (error: any) {
+			const errorMessage: string =
+				this.firebase.getFirebaseErrorMessage(error);
+
+			this.notificationService.showSnackBarNotification(
+				errorMessage,
+				"Ok",
+				{
+					duration: 5000,
+					panelClass: ["error-snackbar"],
+				}
+			);
 		}
 	}
 
 	public async accessWithGoogle() {
 		try {
 			await this.access(await this.firebase.accessWithGoogle());
-		} catch (error) {
-			this.dialog.open(ErrorProviderDialogComponent, {
-				disableClose: false,
-			});
+		} catch (error: any) {
+			const errorMessage: string =
+				this.firebase.getFirebaseErrorMessage(error);
+
+			this.notificationService.showSnackBarNotification(
+				errorMessage,
+				"Ok",
+				{
+					duration: 5000,
+					panelClass: ["error-snackbar"],
+				}
+			);
 		}
 	}
 
 	public async accessWithMeta() {
 		try {
 			await this.access(await this.firebase.accessWithMeta());
-		} catch (error) {
-			this.dialog.open(ErrorProviderDialogComponent, {
-				disableClose: false,
-			});
+		} catch (error: any) {
+			const errorMessage: string =
+				this.firebase.getFirebaseErrorMessage(error);
+
+			this.notificationService.showSnackBarNotification(
+				errorMessage,
+				"Ok",
+				{
+					duration: 5000,
+					panelClass: ["error-snackbar"],
+				}
+			);
 		}
 	}
 
 	public async accessWithX() {
 		try {
 			await this.access(await this.firebase.accessWithX());
-		} catch (error) {
-			this.dialog.open(ErrorProviderDialogComponent, {
-				disableClose: false,
-			});
+		} catch (error: any) {
+			const errorMessage: string =
+				this.firebase.getFirebaseErrorMessage(error);
+
+			this.notificationService.showSnackBarNotification(
+				errorMessage,
+				"Ok",
+				{
+					duration: 5000,
+					panelClass: ["error-snackbar"],
+				}
+			);
 		}
 	}
 

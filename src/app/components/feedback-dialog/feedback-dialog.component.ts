@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { ThemeService } from "src/app/services/theme.service";
 import { NotificationService } from "src/app/services/notification.service";
@@ -16,7 +15,6 @@ export class FeedbackDialogComponent implements OnInit {
 
 	constructor(
 		private firebase: FirebaseService,
-		private snackBar: MatSnackBar,
 		public dialogRef: MatDialogRef<FeedbackDialogComponent>,
 		private themeService: ThemeService,
 		private notification: NotificationService
@@ -35,9 +33,16 @@ export class FeedbackDialogComponent implements OnInit {
 
 		this.firebase.addFeedback(this.feedback);
 
-		this.snackBar.open("Grazie per il tuo Feedback", "Ok!", {
-			duration: 3000,
-		});
+		this.notification.showSnackBarNotification(
+			"Grazie per il tuo Feedback",
+			"Ok!",
+			{
+				duration: 3000,
+				panelClass: [
+					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
+				],
+			}
+		);
 
 		this.notification.sendFeedbackNotification();
 		this.closeDialog();

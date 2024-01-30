@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
+import { NotificationService } from "src/app/services/notification.service";
 import { ThemeService } from "src/app/services/theme.service";
 import { environment } from "src/environments/environment";
 
@@ -19,9 +19,9 @@ export class EditProfilePicDialogComponent implements OnInit {
 	constructor(
 		private http: HttpClient,
 		private dialogRef: MatDialogRef<EditProfilePicDialogComponent>,
-		private snackBar: MatSnackBar,
 		private themeService: ThemeService,
 		private firebase: FirebaseService,
+		private notificationService: NotificationService,
 		@Inject(MAT_DIALOG_DATA)
 		public data: {
 			uid: string;
@@ -81,11 +81,13 @@ export class EditProfilePicDialogComponent implements OnInit {
 							0.99
 						) {
 							this.closeDialog();
-							this.snackBar.open(
+
+							this.notificationService.showSnackBarNotification(
 								"Immagine troppo esplicita",
 								"Ok",
 								{
 									duration: 3000,
+									panelClass:  [this.theme == "dark" ? "dark-snackbar" : "light-snackbar"]
 								}
 							);
 						} else {
@@ -94,15 +96,26 @@ export class EditProfilePicDialogComponent implements OnInit {
 					},
 					error: async err => {
 						this.closeDialog();
-						this.snackBar.open("Si è verificato un errore", "Ok", {
-							duration: 3000,
-						});
+
+						this.notificationService.showSnackBarNotification(
+							"Si è verificato un errore",
+							"Ok",
+							{
+								duration: 3000,
+								panelClass:  ['error-snackbar']
+							}
+						);
 					},
 				});
 		} else {
-			this.snackBar.open("Immagine troppo grande", "Ok", {
-				duration: 3000,
-			});
+			this.notificationService.showSnackBarNotification(
+				"Immagine troppo grande",
+				"Ok",
+				{
+					duration: 3000,
+					panelClass:  ['warning-snackbar']
+				}
+			);
 		}
 	}
 

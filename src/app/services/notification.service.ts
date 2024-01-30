@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { FirebaseService } from "./firebase.service";
 import { Notification, NotificationType } from "../Models/Notification.model";
 import { v4 as uuidv4 } from "uuid";
+import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 
 @Injectable({
 	providedIn: "root",
@@ -9,7 +10,10 @@ import { v4 as uuidv4 } from "uuid";
 export class NotificationService {
 	private notifications: Notification[] = [];
 
-	constructor(private firebase: FirebaseService) {
+	constructor(
+		private firebase: FirebaseService,
+		private snackBar: MatSnackBar
+	) {
 		this.retriveNotification();
 	}
 
@@ -63,5 +67,9 @@ export class NotificationService {
 
 	public async sendFeedbackNotification() {
 		await this.firebase.addNotificationToAdmin();
+	}
+
+	public showSnackBarNotification(message: string, action: string, options?: MatSnackBarConfig) {
+		this.snackBar.open(message, action, options);
 	}
 }

@@ -1,8 +1,8 @@
 import { PasswordRecoverDialogComponent } from "../password-recover-dialog/password-recover-dialog.component";
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { AuthService } from "src/app/services/auth.service";
+import { NotificationService } from "src/app/services/notification.service";
 import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
@@ -26,8 +26,8 @@ export class AccessComponent implements OnInit {
 	constructor(
 		private authService: AuthService,
 		private dialog: MatDialog,
-		private snackBar: MatSnackBar,
-		private themeService: ThemeService
+		private themeService: ThemeService,
+		private notificationService: NotificationService
 	) {}
 
 	ngOnInit() {
@@ -79,10 +79,13 @@ export class AccessComponent implements OnInit {
 
 	accessWithGoogle() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open(
+			this.notificationService.showSnackBarNotification(
 				"Devi accettare la Privacy Policy per accedere!",
 				"OK",
-				{ duration: 5000 }
+				{
+					duration: 5000,
+					panelClass: ['warning-snackbar']
+				}
 			);
 
 			return;
@@ -92,10 +95,13 @@ export class AccessComponent implements OnInit {
 
 	accessWithFacebook() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open(
+			this.notificationService.showSnackBarNotification(
 				"Devi accettare la Privacy Policy per accedere!",
 				"OK",
-				{ duration: 5000 }
+				{
+					duration: 5000,
+					panelClass: ['warning-snackbar']
+				}
 			);
 
 			return;
@@ -105,10 +111,13 @@ export class AccessComponent implements OnInit {
 
 	accessWithTwitter() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open(
+			this.notificationService.showSnackBarNotification(
 				"Devi accettare la Privacy Policy per accedere!",
 				"OK",
-				{ duration: 5000 }
+				{
+					duration: 5000,
+					panelClass: ['warning-snackbar']
+				}
 			);
 
 			return;

@@ -43,8 +43,6 @@ export class SearchResultComponent implements OnInit {
 			);
 		}
 
-		console.log(this.searchResult);
-
 		this.loading = false;
 	}
 

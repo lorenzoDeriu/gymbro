@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -29,12 +28,11 @@ export class ProfileComponent implements OnInit {
 	constructor(
 		private firebase: FirebaseService,
 		private userService: UserService,
-		private snackBar: MatSnackBar,
 		private dialog: MatDialog,
 		private router: Router,
 		private route: ActivatedRoute,
 		private themeService: ThemeService,
-		private notification: NotificationService
+		private notificationService: NotificationService
 	) {}
 
 	async ngOnInit() {
@@ -69,7 +67,7 @@ export class ProfileComponent implements OnInit {
 			friendUid
 		);
 
-		this.notification.retriveNotification();
+		this.notificationService.retriveNotification();
 		this.loading = false;
 	}
 
@@ -128,12 +126,21 @@ export class ProfileComponent implements OnInit {
 			this.trainingPrograms[trainingProgramIndex]
 		);
 
-		this.notification.sendNotification(
+		this.notificationService.sendNotification(
 			this.userService.getUidProfile(),
 			"download"
 		);
 
-		this.snackBar.open("Scheda salvata!", "Ok", { duration: 3000 });
+		this.notificationService.showSnackBarNotification(
+			"Scheda salvata!",
+			"Ok",
+			{
+				duration: 3000,
+				panelClass: [
+					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
+				],
+			}
+		);
 	}
 
 	public showNotes(

@@ -3,8 +3,8 @@ import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
 import { PasswordRecoverDialogComponent } from "../password-recover-dialog/password-recover-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { ThemeService } from "src/app/services/theme.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-welcome-page",
@@ -39,7 +39,7 @@ export class WelcomePageComponent implements OnInit {
 		private router: Router,
 		private dialog: MatDialog,
 		private themeService: ThemeService,
-		private snackBar: MatSnackBar
+		private notificationService: NotificationService
 	) {}
 
 	async ngOnInit() {
@@ -172,13 +172,17 @@ export class WelcomePageComponent implements OnInit {
 
 	accessWithGoogle() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open(
+			this.notificationService.showSnackBarNotification(
 				"Devi accettare la Privacy Policy per accedere!",
-				"OK",
+				"Ok",
 				{
-					duration: 5000,
+					duration: 3000,
+					panelClass: [
+						"warning-snackbar",
+					],
 				}
 			);
+
 			return;
 		}
 		this.authService.accessWithGoogle();
@@ -186,13 +190,17 @@ export class WelcomePageComponent implements OnInit {
 
 	accessWithFacebook() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open(
+			this.notificationService.showSnackBarNotification(
 				"Devi accettare la Privacy Policy per accedere!",
-				"OK",
+				"Ok",
 				{
-					duration: 5000,
+					duration: 3000,
+					panelClass: [
+						"warning-snackbar",
+					],
 				}
 			);
+
 			return;
 		}
 		this.authService.accessWithMeta();
@@ -200,13 +208,17 @@ export class WelcomePageComponent implements OnInit {
 
 	accessWithTwitter() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open(
+			this.notificationService.showSnackBarNotification(
 				"Devi accettare la Privacy Policy per accedere!",
-				"OK",
+				"Ok",
 				{
-					duration: 5000,
+					duration: 3000,
+					panelClass: [
+						"warning-snackbar",
+					],
 				}
 			);
+
 			return;
 		}
 		this.authService.accessWithX();

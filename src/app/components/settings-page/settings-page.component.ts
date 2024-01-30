@@ -1,4 +1,3 @@
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
@@ -37,12 +36,11 @@ export class SettingsPageComponent implements OnInit {
 
 	constructor(
 		private firebase: FirebaseService,
-		private snackBar: MatSnackBar,
 		private authService: AuthService,
 		private router: Router,
 		private dialog: MatDialog,
 		private themeService: ThemeService,
-		private notification: NotificationService,
+		private notificationService: NotificationService,
 		private userService: UserService
 	) {}
 
@@ -134,10 +132,16 @@ export class SettingsPageComponent implements OnInit {
 
 	public changePassword() {
 		this.firebase.changePassword();
-		this.snackBar.open(
+
+		this.notificationService.showSnackBarNotification(
 			"Ti abbiamo inviato una mail per cambiare la password",
-			"OK",
-			{ duration: 3000 }
+			"Ok",
+			{
+				duration: 3000,
+				panelClass: [
+					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
+				],
+			}
 		);
 	}
 
@@ -177,7 +181,16 @@ export class SettingsPageComponent implements OnInit {
 		const target = e.target as HTMLElement;
 		this.collapseSettings(target);
 
-		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
+		this.notificationService.showSnackBarNotification(
+			"Impostazioni salvate",
+			"Ok",
+			{
+				duration: 3000,
+				panelClass: [
+					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
+				],
+			}
+		);
 	}
 
 	collapseSettings(target: HTMLElement) {
@@ -225,15 +238,15 @@ export class SettingsPageComponent implements OnInit {
 	}
 
 	public getNotifications() {
-		return this.notification.getNotifications();
+		return this.notificationService.getNotifications();
 	}
 
 	public deleteNotification(id: string) {
-		this.notification.deleteNotification(id);
+		this.notificationService.deleteNotification(id);
 	}
 
 	public async deleteAllNotifications() {
-		this.notification.deleteAllNotifications();
+		this.notificationService.deleteAllNotifications();
 	}
 
 	public backToHome() {

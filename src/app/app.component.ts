@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { SwUpdate, VersionReadyEvent } from "@angular/service-worker";
 import { filter } from "rxjs";
 import { NotificationService } from "./services/notification.service";

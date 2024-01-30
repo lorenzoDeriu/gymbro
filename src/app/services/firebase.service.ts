@@ -122,6 +122,20 @@ export class FirebaseService {
 		console.log("db fixed");
 	}
 
+	public getFirebaseErrorMessage(error: any): string {
+		console.log(error.code);
+		switch (error.code) {
+			case "auth/invalid-login-credentials":
+				return "Email o password errati";
+			case "auth/network-request-failed":
+				return "Errore di connessione";
+			case "auth/unauthorized-domain":
+				return "La connessione non è sicura!";
+			default:
+				return "Errore sconosciuto";
+		}
+	}
+
 	public async getProfilePic(uid: string) {
 		const profilePicsRef: StorageReference = ref(
 			this.storage,

@@ -124,15 +124,56 @@ select:-webkit-autofill:focus {
 	transition: background-color 5000s ease-in-out 0s;
 }
 
+
+/* Snackbar */
+
 .mdc-snackbar__surface {
-	background-color: #fff !important;
+	background-color: transparent !important;
+	border-radius: 10px !important;
 }
 
-.mdc-snackbar__label {
+.light-snackbar {
+	background-color: #fff !important;
+	border-radius: 10px !important;
+}
+
+.light-snackbar .mdc-snackbar__label {
 	color: #000 !important;
 }
 
+.dark-snackbar {
+	background-color: #2B3035 !important;
+	border-radius: 10px !important;
+}
+
+.dark-snackbar .mdc-snackbar__label {
+	color: #fff !important;
+}
+
+.error-snackbar {
+	background-color: #CA252D !important;
+	border-radius: 10px !important;
+}
+
+.warning-snackbar {
+	background-color: #EB8801 !important;
+	border-radius: 10px !important;
+}
+
 .mdc-snackbar button {
-	background-color: transparent !important;
+	background-color: #27175218 !important;
+	border-radius: 10px !important;
 	color: #6b44d4 !important;
+}
+
+.error-snackbar button {
+	background-color: #3d01043e !important;
+	border-radius: 10px !important;
+	color: #fff !important;
+}
+
+.warning-snackbar button {
+	background-color: #2b19002d !important;
+	border-radius: 10px !important;
+	color: #fff !important;
 }

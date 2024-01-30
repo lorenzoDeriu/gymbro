@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { FirebaseService } from "src/app/services/firebase.service";
+import { NotificationService } from "src/app/services/notification.service";
 import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
@@ -17,10 +17,10 @@ export class AddExerciseDialogComponent implements OnInit {
 
 	constructor(
 		private firebase: FirebaseService,
-		private snackBar: MatSnackBar,
 		private router: Router,
 		public dialogRef: MatDialogRef<AddExerciseDialogComponent>,
-		private themeService: ThemeService
+		private themeService: ThemeService,
+		private notificationService: NotificationService
 	) {}
 
 	public ngOnInit() {
@@ -37,9 +37,15 @@ export class AddExerciseDialogComponent implements OnInit {
 			this.exercise = form.value.exercise;
 		}
 
-		this.snackBar.open("Esercizio aggiunto correttamente", "Ok", {
-			duration: 3000,
-		});
+		this.notificationService.showSnackBarNotification(
+			"Esercizio aggiunto correttamente",
+			"Ok",
+			{
+				duration: 3000,
+				panelClass: [this.theme == "dark" ? "dark-snackbar" : "light-snackbar"],
+			}
+		);
+		
 		this.closeDialog();
 	}
 
