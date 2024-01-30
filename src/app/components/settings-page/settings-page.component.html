@@ -181,23 +181,29 @@
 				/>
 				<label
 					[ngClass]="{
-						'btn border border-0 m-1 rounded-3 w-100': true,
+						'btn border border-0 m-1 rounded-3 w-100 position-relative': true,
 						'btn-outline-light': section === 'notifications'
 					}"
 					for="notificationsRadio"
 				>
 					Notifiche
-					<i
-						*ngIf="!isThinMobile"
-						class="ms-1 bi bi-bell-fill position-relative"
+					<i *ngIf="!isThinMobile" class="ms-1 bi bi-bell-fill"></i>
+					<span
+						*ngIf="getNotifications().length > 0"
+						[ngClass]="{
+							'position-absolute top-0 start-100 translate-middle badge bg-danger': true,
+							'rounded-circle': getNotifications().length < 10,
+							'rounded-pill': getNotifications().length >= 10
+						}"
+						style="font-size: 10px"
 					>
-						<span
-							*ngIf="getNotifications().length > 0"
-							class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
-						>
-							<span class="visually-hidden">New alerts</span>
-						</span>
-					</i>
+						{{
+							getNotifications().length < 100
+								? getNotifications().length
+								: "99+"
+						}}
+						<span class="visually-hidden">unread messages</span>
+					</span>
 				</label>
 			</div>
 
