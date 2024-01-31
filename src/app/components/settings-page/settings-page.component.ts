@@ -1,4 +1,3 @@
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
@@ -9,6 +8,10 @@ import { CustomExcerciseDialogComponent } from "../custom-excercise-dialog/custo
 import { ShareDialogComponent } from "../share-dialog/share-dialog.component";
 import { User } from "src/app/Models/User.model";
 import { EditProfilePicDialogComponent } from "../edit-profile-pic-dialog/edit-profile-pic-dialog.component";
+import { ThemeService } from "src/app/services/theme.service";
+import { Notification } from "src/app/Models/Notification.model";
+import { NotificationService } from "src/app/services/notification.service";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
 	selector: "app-settings-page",
@@ -17,6 +20,7 @@ import { EditProfilePicDialogComponent } from "../edit-profile-pic-dialog/edit-p
 })
 export class SettingsPageComponent implements OnInit {
 	public customExercises: string[] = [];
+	public theme: "light" | "dark";
 	public visibility: boolean;
 	public playlistUrl: string;
 	public originalPlaylistUrl: string;
@@ -24,20 +28,37 @@ export class SettingsPageComponent implements OnInit {
 	private uid: string;
 	public loading: boolean = false;
 	public onModify: boolean = false;
-	profilePic: string;
+	public screenWidth: number = window.innerWidth;
+	public isThinMobile: boolean = this.screenWidth <= 280;
+	public profilePic: string;
 	public originalUsername: string;
+	public section: "settings" | "notifications" = "settings";
 
 	constructor(
 		private firebase: FirebaseService,
-		private snackBar: MatSnackBar,
 		private authService: AuthService,
 		private router: Router,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private themeService: ThemeService,
+		private notificationService: NotificationService,
+		private userService: UserService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
 
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+
+		this.screenWidth = window.innerWidth;
+
+		window.onresize = () => {
+			this.screenWidth = window.innerWidth;
+			this.isThinMobile = this.screenWidth <= 280;
+		};
+
+		this.isThinMobile = this.screenWidth <= 280;
 		let user: User = await this.firebase.getUserData();
 
 		this.uid = await this.firebase.getUid();
@@ -64,6 +85,7 @@ export class SettingsPageComponent implements OnInit {
 				},
 			},
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -97,6 +119,7 @@ export class SettingsPageComponent implements OnInit {
 				exercises: this.customExercises,
 			},
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -106,15 +129,22 @@ export class SettingsPageComponent implements OnInit {
 				username: this.username,
 			},
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
 	public changePassword() {
 		this.firebase.changePassword();
-		this.snackBar.open(
+
+		this.notificationService.showSnackBarNotification(
 			"Ti abbiamo inviato una mail per cambiare la password",
-			"OK",
-			{ duration: 3000 }
+			"Ok",
+			{
+				duration: 3000,
+				panelClass: [
+					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
+				],
+			}
 		);
 	}
 
@@ -129,6 +159,7 @@ export class SettingsPageComponent implements OnInit {
 					await authService.deleteAccount();
 				},
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -154,7 +185,16 @@ export class SettingsPageComponent implements OnInit {
 		const target = e.target as HTMLElement;
 		this.collapseSettings(target);
 
-		this.snackBar.open("Impostazioni salvate", "OK", { duration: 3000 });
+		this.notificationService.showSnackBarNotification(
+			"Impostazioni salvate",
+			"Ok",
+			{
+				duration: 3000,
+				panelClass: [
+					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
+				],
+			}
+		);
 	}
 
 	collapseSettings(target: HTMLElement) {
@@ -201,7 +241,25 @@ export class SettingsPageComponent implements OnInit {
 		}
 	}
 
+	public getNotifications() {
+		return this.notificationService.getNotifications();
+	}
+
+	public deleteNotification(id: string) {
+		this.notificationService.deleteNotification(id);
+	}
+
+	public async deleteAllNotifications() {
+		this.notificationService.deleteAllNotifications();
+	}
+
 	public backToHome() {
 		this.router.navigate(["/home"]);
+	}
+
+	public viewProfile(uid: string, username: string) {
+		this.userService.setUidProfile(uid);
+
+		this.router.navigate(["/home/profile", { searchUsername: username }]);
 	}
 }

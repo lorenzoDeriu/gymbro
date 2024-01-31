@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { UserService } from "src/app/services/user.service";
 import { SearchResult } from "../friends/friends.component";
+import { ThemeService } from "src/app/services/theme.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-search-result",
@@ -12,17 +14,25 @@ import { SearchResult } from "../friends/friends.component";
 export class SearchResultComponent implements OnInit {
 	public searchResult: SearchResult[];
 	public loading: boolean = false;
+	public theme: "dark" | "light";
+	public following: boolean = false;
 
 	constructor(
 		private router: Router,
 		private route: ActivatedRoute,
 		private firebase: FirebaseService,
-		private userService: UserService
+		private themeService: ThemeService,
+		private userService: UserService,
+		private notification: NotificationService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
 		this.searchResult = this.userService.getSearchResult();
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		if (
 			this.searchResult.length === 0 &&
@@ -41,7 +51,13 @@ export class SearchResultComponent implements OnInit {
 	}
 
 	public async onFollow(index: number) {
+		this.following = true;
 		await this.firebase.addFollow(this.searchResult[index].uid);
+		this.notification.sendNotification(
+			this.searchResult[index].uid,
+			"follow"
+		);
+		this.following = false;
 
 		this.router.navigate(["/home/friends"]);
 	}

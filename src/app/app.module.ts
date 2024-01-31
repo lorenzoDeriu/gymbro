@@ -51,15 +51,11 @@ import { AboutComponent } from "./components/about/about.component";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { SettingsPageComponent } from "./components/settings-page/settings-page.component";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { ExerciseStatsComponent } from "./components/exercise-stats/exercise-stats.component";
 import { NotesDialogComponent } from "./components/notes-dialog/notes-dialog.component";
 import { ExerciseStatsDialogComponent } from "./components/exercise-stats-dialog/exercise-stats-dialog.component";
 import { WelcomePageComponent } from "./components/welcome-page/welcome-page.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SafetyActionConfirmDialogComponent } from "./components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
-import { ErrorLoginDialogComponent } from "./components/error-login-dialog/error-login-dialog.component";
-import { ErrorRegisterDialogComponent } from "./components/error-register-dialog/error-register-dialog.component";
-import { ErrorProviderDialogComponent } from "./components/error-provider-dialog/error-provider-dialog.component";
 import { CustomExcerciseDialogComponent } from "./components/custom-excercise-dialog/custom-excercise-dialog.component";
 import { ShareDialogComponent } from "./components/share-dialog/share-dialog.component";
 import { AdminDialogComponent } from "./components/admin-dialog/admin-dialog.component";
@@ -96,14 +92,10 @@ import { UpdateNotesDialogComponent } from "./components/update-notes-dialog/upd
 		AddExerciseDialogComponent,
 		AboutComponent,
 		SettingsPageComponent,
-		ExerciseStatsComponent,
 		NotesDialogComponent,
 		ExerciseStatsDialogComponent,
 		WelcomePageComponent,
 		SafetyActionConfirmDialogComponent,
-		ErrorLoginDialogComponent,
-		ErrorRegisterDialogComponent,
-		ErrorProviderDialogComponent,
 		CustomExcerciseDialogComponent,
 		ShareDialogComponent,
 		AdminDialogComponent,

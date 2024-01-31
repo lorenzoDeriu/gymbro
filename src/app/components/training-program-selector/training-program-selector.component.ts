@@ -8,6 +8,7 @@ import { Session, TrainingProgram } from "src/app/Models/TrainingProgram.model";
 import { Workout } from "src/app/Models/Workout.model";
 import { Set } from "src/app/Models/Exercise.model";
 import { formatSets } from "src/app/utils/utils";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-training-program-selector",
@@ -16,17 +17,24 @@ import { formatSets } from "src/app/utils/utils";
 })
 export class TrainingProgramSelectorComponent implements OnInit {
 	public loading: boolean;
+	public theme: "light" | "dark";
 	public trainingPrograms: TrainingProgram[];
 
 	constructor(
 		private userService: UserService,
 		private router: Router,
 		private firebase: FirebaseService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private themeService: ThemeService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+
 		this.trainingPrograms = await this.firebase.getTrainingPrograms();
 		this.loading = false;
 	}
@@ -122,6 +130,7 @@ export class TrainingProgramSelectorComponent implements OnInit {
 					sessionIndex
 				].exercises[exerciseIndex].note,
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 }

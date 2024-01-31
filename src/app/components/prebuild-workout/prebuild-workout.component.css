@@ -52,8 +52,6 @@ input:focus {
 
 @media (max-width: 991px) {
 	.mobileDragger {
-		background-color: #f8f9fa !important;
-		border: 1px solid #f8f9fa !important;
 		outline: none !important;
 	}
 
@@ -61,14 +59,10 @@ input:focus {
 	.mobileDragger:focus,
 	.mobileDragger:active,
 	.mobileDragger:focus {
-		background-color: #f8f9fa !important;
-		border: 1px solid #f8f9fa !important;
 		outline: none !important;
 	}
 
 	.exercise-collapser {
-		background-color: #f8f9fa !important;
-		border: 1px solid #f8f9fa !important;
 		outline: none !important;
 	}
 
@@ -76,8 +70,6 @@ input:focus {
 	.exercise-collapser:focus,
 	.exercise-collapser:active,
 	.mobileDragger:focus {
-		background-color: #f8f9fa !important;
-		border: 1px solid #f8f9fa !important;
 		outline: none !important;
 	}
 }

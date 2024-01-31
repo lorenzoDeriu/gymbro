@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
+import { NotificationService } from "src/app/services/notification.service";
+import { ThemeService } from "src/app/services/theme.service";
 import { environment } from "src/environments/environment";
 
 @Component({
@@ -10,15 +11,17 @@ import { environment } from "src/environments/environment";
 	templateUrl: "./edit-profile-pic-dialog.component.html",
 	styleUrls: ["./edit-profile-pic-dialog.component.css"],
 })
-export class EditProfilePicDialogComponent {
+export class EditProfilePicDialogComponent implements OnInit {
+	public theme: "light" | "dark";
 	public hiddenProfilePicInput: HTMLInputElement;
 	public uploading: boolean = false;
 
 	constructor(
 		private http: HttpClient,
 		private dialogRef: MatDialogRef<EditProfilePicDialogComponent>,
-		private snackBar: MatSnackBar,
+		private themeService: ThemeService,
 		private firebase: FirebaseService,
+		private notificationService: NotificationService,
 		@Inject(MAT_DIALOG_DATA)
 		public data: {
 			uid: string;
@@ -26,6 +29,12 @@ export class EditProfilePicDialogComponent {
 			updateProfilePic: (profilePic: string) => void;
 		}
 	) {}
+
+	public ngOnInit() {
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+	}
 
 	public editProfilePic() {
 		this.hiddenProfilePicInput = document.getElementById(
@@ -72,11 +81,13 @@ export class EditProfilePicDialogComponent {
 							0.99
 						) {
 							this.closeDialog();
-							this.snackBar.open(
+
+							this.notificationService.showSnackBarNotification(
 								"Immagine troppo esplicita",
 								"Ok",
 								{
 									duration: 3000,
+									panelClass:  [this.theme == "dark" ? "dark-snackbar" : "light-snackbar"]
 								}
 							);
 						} else {
@@ -85,15 +96,26 @@ export class EditProfilePicDialogComponent {
 					},
 					error: async err => {
 						this.closeDialog();
-						this.snackBar.open("Si è verificato un errore", "Ok", {
-							duration: 3000,
-						});
+
+						this.notificationService.showSnackBarNotification(
+							"Si è verificato un errore",
+							"Ok",
+							{
+								duration: 3000,
+								panelClass:  ['error-snackbar']
+							}
+						);
 					},
 				});
 		} else {
-			this.snackBar.open("Immagine troppo grande", "Ok", {
-				duration: 3000,
-			});
+			this.notificationService.showSnackBarNotification(
+				"Immagine troppo grande",
+				"Ok",
+				{
+					duration: 3000,
+					panelClass:  ['warning-snackbar']
+				}
+			);
 		}
 	}
 

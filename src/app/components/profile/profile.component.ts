@@ -1,7 +1,5 @@
-import { CustomExcerciseDialogComponent } from "./../custom-excercise-dialog/custom-excercise-dialog.component";
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -10,6 +8,8 @@ import { formatSets } from "src/app/utils/utils";
 import { Set } from "src/app/Models/Exercise.model";
 import { User } from "src/app/Models/User.model";
 import { UserService } from "src/app/services/user.service";
+import { ThemeService } from "src/app/services/theme.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-profile",
@@ -18,6 +18,7 @@ import { UserService } from "src/app/services/user.service";
 })
 export class ProfileComponent implements OnInit {
 	public username: string;
+	public theme: "dark" | "light";
 	public searchUsername: string;
 	public trainingPrograms: TrainingProgram[];
 	public playlistUrl: string;
@@ -27,14 +28,19 @@ export class ProfileComponent implements OnInit {
 	constructor(
 		private firebase: FirebaseService,
 		private userService: UserService,
-		private snackBar: MatSnackBar,
 		private dialog: MatDialog,
 		private router: Router,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private themeService: ThemeService,
+		private notificationService: NotificationService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		if (this.route.snapshot.paramMap.get("username")) {
 			this.searchUsername = this.route.snapshot.paramMap.get("username");
@@ -61,6 +67,7 @@ export class ProfileComponent implements OnInit {
 			friendUid
 		);
 
+		this.notificationService.retriveNotification();
 		this.loading = false;
 	}
 
@@ -118,7 +125,22 @@ export class ProfileComponent implements OnInit {
 		this.firebase.addTrainingProgram(
 			this.trainingPrograms[trainingProgramIndex]
 		);
-		this.snackBar.open("Scheda salvata!", "Ok", { duration: 3000 });
+
+		this.notificationService.sendNotification(
+			this.userService.getUidProfile(),
+			"download"
+		);
+
+		this.notificationService.showSnackBarNotification(
+			"Scheda salvata!",
+			"Ok",
+			{
+				duration: 3000,
+				panelClass: [
+					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
+				],
+			}
+		);
 	}
 
 	public showNotes(
@@ -132,6 +154,7 @@ export class ProfileComponent implements OnInit {
 				notes: this.trainingPrograms[programIndex].session[workoutIndex]
 					.exercises[exerciseIndex].note,
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 }

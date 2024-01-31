@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-safety-action-confirm-dialog",
@@ -7,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 	styleUrls: ["./safety-action-confirm-dialog.component.css"],
 })
 export class SafetyActionConfirmDialogComponent implements OnInit {
+	public theme: "light" | "dark";
 	public title: string;
 	public message: string;
 	public args: any[];
@@ -14,10 +16,15 @@ export class SafetyActionConfirmDialogComponent implements OnInit {
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) public data: any,
-		private dialogRef: MatDialogRef<SafetyActionConfirmDialogComponent>
+		private dialogRef: MatDialogRef<SafetyActionConfirmDialogComponent>,
+		private themeService: ThemeService
 	) {}
 
 	ngOnInit() {
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+
 		this.title = this.data.title;
 		this.message = this.data.message;
 		this.args = this.data.args;

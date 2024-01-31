@@ -12,6 +12,9 @@ import { generateId } from "src/app/utils/utils";
 import { ShowExerciseFromTemplateDialogComponent } from "../show-exercise-from-template-dialog/show-exercise-from-template-dialog.component";
 import { WorkoutNotSavedDialogComponent } from "../workout-not-saved-dialog/workout-not-saved-dialog.component";
 import { DeloadDialogComponent } from "../deload-dialog/deload-dialog.component";
+import { ThemeService } from "src/app/services/theme.service";
+import { NotificationService } from "src/app/services/notification.service";
+import { th } from "date-fns/locale";
 
 export interface Progress {
 	/* access to the complete must refer to the following logic:
@@ -26,6 +29,7 @@ export interface Progress {
 	styleUrls: ["./prebuild-workout.component.css"],
 })
 export class PrebuildWorkoutComponent implements OnInit {
+	public theme: "light" | "dark";
 	public availableExercise: string[] = [];
 	public workout: Workout;
 	public workoutProgress: Progress = { completed: [] };
@@ -41,18 +45,20 @@ export class PrebuildWorkoutComponent implements OnInit {
 		private userService: UserService,
 		private router: Router,
 		private firebase: FirebaseService,
-		private dialog: MatDialog
+		private dialog: MatDialog,
+		private themeService: ThemeService,
+		private notificationService: NotificationService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
 
-		this.userService.editModeObs.subscribe(editMode => {
-			this.editMode = editMode;
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
 		});
 
-		this.userService.restModeObs.subscribe(restMode => {
-			this.restMode = restMode;
+		this.userService.editModeObs.subscribe(editMode => {
+			this.editMode = editMode;
 		});
 
 		this.availableExercise = await this.firebase.getExercise();
@@ -60,6 +66,10 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.workout = this.userService.getWorkout();
 		this.date = this.fromTimestampToString(this.workout.date);
 		this.initWorkoutProgress();
+
+		this.userService.restModeObs.subscribe(restMode => {
+			this.restMode = restMode;
+		});
 
 		// Check if 50 minutes have passed since the workout is completed
 		const workoutStartTime: number = JSON.parse(
@@ -86,6 +96,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 						localStorage.removeItem("workoutCompleteTime");
 					},
 				},
+				panelClass: [
+					this.theme === "dark" ? "dark-dialog" : "light-dialog",
+				],
 				disableClose: true,
 			});
 		}
@@ -110,6 +123,27 @@ export class PrebuildWorkoutComponent implements OnInit {
 				this.enableDragAndDrop();
 			}, 0);
 		});
+	}
+
+	private hasCompletedAtLeastOneSet() {
+		this.workoutProgress = JSON.parse(
+			localStorage.getItem("workoutProgress")
+		);
+
+		if (!this.workoutProgress) return false;
+		if (!this.workoutProgress.completed) return false;
+
+		if (
+			this.workoutProgress.completed.every(exercise =>
+				exercise.every(setCompleted => setCompleted)
+			)
+		) {
+			return false;
+		}
+
+		return this.workoutProgress.completed.some(exercise =>
+			exercise.some(setCompleted => setCompleted)
+		);
 	}
 
 	private isIOSDevice() {
@@ -343,6 +377,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 					this.userService.updateWorkout(this.workout);
 				},
 			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 			disableClose: false,
 		});
 	}
@@ -355,6 +392,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 				) as Workout,
 			},
 			disableClose: false,
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -546,6 +586,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 					this.router.navigate(["/home"]);
 				},
 			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -553,6 +596,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 		this.dialog
 			.open(AddExerciseDialogComponent, {
 				disableClose: false,
+				panelClass: [
+					this.theme === "dark" ? "dark-dialog" : "light-dialog",
+				],
 			})
 			.afterClosed()
 			.subscribe(async customExercise => {
@@ -611,6 +657,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 				exerciseName: this.workout.exercises[exerciseIndex].name,
 			},
 			disableClose: false,
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -642,6 +691,9 @@ export class PrebuildWorkoutComponent implements OnInit {
 					initializeComponent();
 				},
 			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 

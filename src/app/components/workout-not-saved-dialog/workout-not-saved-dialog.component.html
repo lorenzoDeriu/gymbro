@@ -33,27 +33,35 @@
 	</small>
 
 	<div class="align-items-center w-100 d-none d-lg-flex">
-		<button
-			class="btn purple-btn text-light me-3 w-100"
-			(click)="confirmAction()"
-		>
+		<button class="btn purple-btn me-3 w-100" (click)="confirmAction()">
 			Si, salva
 		</button>
 
-		<button (click)="closeDialog()" class="btn btn-dark w-100">
+		<button (click)="closeDialog()" [ngClass]="{
+			'btn w-100': true,
+			'btn-light': theme === 'dark',
+			'btn-dark': theme === 'light'
+		}">
 			No, voglio allenarmi
 		</button>
 	</div>
 
 	<div class="align-items-center w-100 d-flex d-lg-none">
 		<button
-			class="btn btn-sm purple-btn text-light me-2 w-50"
+			class="btn btn-sm purple-btn me-2 w-50"
 			(click)="confirmAction()"
 		>
 			Si
 		</button>
 
-		<button (click)="closeDialog()" class="btn btn-sm btn-dark w-50">
+		<button
+			(click)="closeDialog()"
+			[ngClass]="{
+				'btn btn-sm w-50': true,
+				'btn-light': theme === 'dark',
+				'btn-dark': theme === 'light'
+			}"
+		>
 			No
 		</button>
 	</div>

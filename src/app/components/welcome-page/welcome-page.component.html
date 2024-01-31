@@ -237,7 +237,14 @@
 			<div
 				class="d-flex flex-column justify-content-center align-items-center p-3 h-100 w-100"
 			>
-				<img src="assets/logo.png" width="200" />
+				<img
+					[src]="
+						theme === 'light'
+							? 'assets/logo.png'
+							: 'assets/logo-w.png'
+					"
+					width="200"
+				/>
 				<div
 					class="mt-5 d-flex flex-column justify-content-center align-items-center px-5"
 					style="
@@ -287,9 +294,8 @@
 						<input
 							class="form-check-input"
 							type="checkbox"
-							value=""
 							id="flexCheckChecked"
-							(change)="agreePrivacy = !agreePrivacy"
+							[(ngModel)]="agreePrivacy"
 						/>
 						<label class="form-check-label" for="flexCheckChecked">
 							Accetto i termini e le condizioni contenuti nella
@@ -372,7 +378,14 @@
 			<div
 				class="d-flex flex-column justify-content-center align-items-center p-3 h-100 w-100"
 			>
-				<img src="assets/logo.png" width="200" />
+				<img
+					[src]="
+						theme === 'light'
+							? 'assets/logo.png'
+							: 'assets/logo-w.png'
+					"
+					width="200"
+				/>
 				<div
 					class="mt-5 d-flex flex-column justify-content-center align-items-center px-5"
 					style="
@@ -449,9 +462,8 @@
 						<input
 							class="form-check-input"
 							type="checkbox"
-							value=""
 							id="flexCheckChecked"
-							(change)="agreePrivacy = !agreePrivacy"
+							[(ngModel)]="agreePrivacy"
 						/>
 						<label class="form-check-label" for="flexCheckChecked">
 							Accetto i termini e le condizioni contenuti nella

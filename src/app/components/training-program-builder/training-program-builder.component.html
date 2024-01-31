@@ -23,16 +23,25 @@
 		<form class="d-flex justify-content-center align-items-center mb-4">
 			<button
 				type="button"
-				class="btn btn-dark me-2 d-none d-lg-flex"
+				[ngClass]="{
+					'btn me-2 d-none d-lg-flex': true,
+					'soft-dark-btn': theme === 'light',
+					'soft-light-btn': theme === 'dark'
+				}"
 				routerLink="/home/training-programs"
 				(click)="cancel()"
 			>
 				<i class="me-1 bi bi-arrow-left"></i>
 				Indietro
 			</button>
+
 			<button
 				type="button"
-				class="btn btn-sm btn-dark me-2 d-flex d-lg-none"
+				[ngClass]="{
+					'btn btn-sm me-2 d-flex d-lg-none': true,
+					'soft-dark-btn': theme === 'light',
+					'soft-light-btn': theme === 'dark'
+				}"
 				routerLink="/home/training-programs"
 				(click)="cancel()"
 			>
@@ -78,7 +87,7 @@
 		>
 			<a
 				[href]="'#session' + sessionIndex"
-				class="btn btn-light w-100 mb-1 shadow-sm sessions-collapser collapser d-flex justify-content-between align-items-center mobile-btn"
+				class="btn w-100 mb-1 border-0 sessions-collapser collapser d-flex justify-content-between align-items-center mobile-btn shadow-sm bg-body-tertiary"
 				data-bs-toggle="collapse"
 				role="button"
 				aria-expanded="false"
@@ -90,10 +99,10 @@
 			</a>
 
 			<div
-				class="collapse w-100 sessions-collapse-body collapse-body shadow-sm"
+				class="collapse w-100 sessions-collapse-body collapse-body rounded-3 shadow-sm"
 				[id]="'session' + sessionIndex"
 			>
-				<div class="card card-body p-1 border-0">
+				<div class="card bg-body-tertiary card-body p-1 border-0">
 					<div class="d-flex justify-content-between w-100 mb-2 p-2">
 						<div
 							class="d-flex flex-column w-25 input-container session-name"
@@ -355,7 +364,15 @@
 										>
 											<i class="bi bi-three-dots"></i>
 										</button>
-										<ul class="dropdown-menu">
+										<ul
+											[ngClass]="{
+												'dropdown-menu': true,
+												'dropdown-dark':
+													theme === 'dark',
+												'dropdown-light':
+													theme === 'light'
+											}"
+										>
 											<li style="cursor: pointer">
 												<a
 													class="dropdown-item"
@@ -397,14 +414,23 @@
 					</p>
 
 					<button
-						class="btn btn-dark text-light d-none d-lg-block"
+						[ngClass]="{
+							'btn d-none d-lg-block': true,
+							'soft-light-btn': theme === 'dark',
+							'soft-dark-btn': theme === 'light'
+						}"
 						(click)="addExercise(session)"
 					>
 						Aggiungi esercizio
 						<i class="ms-1 bi bi-plus-lg"></i>
 					</button>
+
 					<button
-						class="btn btn-sm btn-dark text-light d-block d-lg-none"
+						[ngClass]="{
+							'btn btn-sm d-block d-lg-none': true,
+							'soft-light-btn': theme === 'dark',
+							'soft-dark-btn': theme === 'light'
+						}"
 						(click)="addExercise(session)"
 					>
 						Aggiungi esercizio
@@ -421,6 +447,7 @@
 			Aggiungi sessione
 			<i class="ms-1 bi bi-plus-lg"></i>
 		</button>
+
 		<button
 			class="btn btn-sm text-light blue-btn d-block d-lg-none"
 			(click)="addSession()"

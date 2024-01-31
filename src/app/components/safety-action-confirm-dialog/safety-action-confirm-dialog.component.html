@@ -17,7 +17,11 @@
 			Si
 		</button>
 		<button
-			class="btn btn-dark w-50 ms-1"
+			[ngClass]="{
+				'btn w-50 ms-1': true,
+				'btn-light': theme === 'dark',
+				'btn-dark': theme === 'light'
+			}"
 			(click)="cancel()"
 			style="margin-right: 5px"
 		>

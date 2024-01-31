@@ -20,22 +20,12 @@
 		"ts";
 }
 
-img {
-	width: 80px;
-	height: 80px;
-	opacity: 0.2;
-}
-
 .home-div {
 	height: 100%;
 	padding: 30px;
 	box-shadow: 0 0 5px rgba(33, 33, 33, 0.2);
 	transition: box-shadow 0.3s;
 	cursor: pointer;
-}
-
-.home-div:hover {
-	box-shadow: 0 0 15px rgba(33, 33, 33, 0.2);
 }
 
 .home-div:nth-child(1) {
@@ -54,21 +44,8 @@ img {
 	grid-area: ts;
 }
 
-.home-div:hover img {
-	animation: increaseOpacity 0.5s forwards;
-}
-
-@keyframes increaseOpacity {
-	0% {
-		opacity: 0.2;
-	}
-	100% {
-		opacity: 1;
-	}
-}
-
 /* Desktop */
-@media (min-width: 900px) {
+@media (min-width: 901px) {
 	#main-container {
 		height: 80svh;
 		position: absolute;
@@ -83,6 +60,25 @@ img {
 			"va va va tp"
 			"ts ts ts ts"
 			"ts ts ts ts";
+	}
+
+	img {
+		width: 80px;
+		height: 80px;
+		opacity: 0.2;
+	}
+
+	.home-div:hover img {
+		animation: increaseOpacity 0.5s forwards;
+	}
+
+	@keyframes increaseOpacity {
+		0% {
+			opacity: 0.2;
+		}
+		100% {
+			opacity: 1;
+		}
 	}
 
 	#workoutPrevision {
@@ -142,7 +138,6 @@ img {
 	img {
 		width: 50px;
 		height: 50px;
-		opacity: 0.2;
 	}
 
 	.home-div {

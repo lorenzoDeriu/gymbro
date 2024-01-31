@@ -3,7 +3,8 @@ import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
 import { PasswordRecoverDialogComponent } from "../password-recover-dialog/password-recover-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { ThemeService } from "src/app/services/theme.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-welcome-page",
@@ -11,6 +12,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 	styleUrls: ["./welcome-page.component.css"],
 })
 export class WelcomePageComponent implements OnInit {
+	public theme: "light" | "dark";
 	public email: string;
 	public password: string;
 	public username: string;
@@ -36,13 +38,18 @@ export class WelcomePageComponent implements OnInit {
 		private authService: AuthService,
 		private router: Router,
 		private dialog: MatDialog,
-		private snackBar: MatSnackBar
+		private themeService: ThemeService,
+		private notificationService: NotificationService
 	) {}
 
 	async ngOnInit() {
 		if (this.authService.isAuthenticated()) {
 			this.router.navigate(["/home/dashboard"]);
 		}
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		this.installButton = document.getElementById(
 			"install"
@@ -165,13 +172,17 @@ export class WelcomePageComponent implements OnInit {
 
 	accessWithGoogle() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open(
+			this.notificationService.showSnackBarNotification(
 				"Devi accettare la Privacy Policy per accedere!",
-				"OK",
+				"Ok",
 				{
-					duration: 5000,
+					duration: 3000,
+					panelClass: [
+						"warning-snackbar",
+					],
 				}
 			);
+
 			return;
 		}
 		this.authService.accessWithGoogle();
@@ -179,13 +190,17 @@ export class WelcomePageComponent implements OnInit {
 
 	accessWithFacebook() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open(
+			this.notificationService.showSnackBarNotification(
 				"Devi accettare la Privacy Policy per accedere!",
-				"OK",
+				"Ok",
 				{
-					duration: 5000,
+					duration: 3000,
+					panelClass: [
+						"warning-snackbar",
+					],
 				}
 			);
+
 			return;
 		}
 		this.authService.accessWithMeta();
@@ -193,13 +208,17 @@ export class WelcomePageComponent implements OnInit {
 
 	accessWithTwitter() {
 		if (!this.agreePrivacy) {
-			this.snackBar.open(
+			this.notificationService.showSnackBarNotification(
 				"Devi accettare la Privacy Policy per accedere!",
-				"OK",
+				"Ok",
 				{
-					duration: 5000,
+					duration: 3000,
+					panelClass: [
+						"warning-snackbar",
+					],
 				}
 			);
+
 			return;
 		}
 		this.authService.accessWithX();
@@ -235,6 +254,7 @@ export class WelcomePageComponent implements OnInit {
 	forgotPassword() {
 		this.dialog.open(PasswordRecoverDialogComponent, {
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 

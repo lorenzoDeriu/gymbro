@@ -9,6 +9,8 @@ import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import { User } from "src/app/Models/User.model";
 import { Workout } from "src/app/Models/Workout.model";
 import { ExpandExercisesDialogComponent } from "../expand-exercises-dialog/expand-exercises-dialog.component";
+import { ThemeService } from "src/app/services/theme.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-admin",
@@ -16,6 +18,7 @@ import { ExpandExercisesDialogComponent } from "../expand-exercises-dialog/expan
 	styleUrls: ["./admin.component.css"],
 })
 export class AdminComponent implements OnInit {
+	public theme: "light" | "dark";
 	public feedbacks: Feedback[] = [];
 	public loading: boolean = false;
 	private users: DocumentData[] = [];
@@ -26,16 +29,28 @@ export class AdminComponent implements OnInit {
 	public adminUsersLength: number = 0;
 	private twoMonthsAgo: number;
 
-	constructor(private firebase: FirebaseService, private dialog: MatDialog) {}
+	constructor(
+		private firebase: FirebaseService,
+		private dialog: MatDialog,
+		private themeService: ThemeService,
+		private notification: NotificationService
+	) {}
 
-	addExercise() {
+	public addExercise() {
 		this.dialog.open(AddExerciseDialogComponent, {
 			disableClose: false,
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		const today = new Date();
 		this.twoMonthsAgo = new Date(
@@ -89,6 +104,9 @@ export class AdminComponent implements OnInit {
 			data: {
 				message: this.feedbacks[index].content,
 			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -97,10 +115,13 @@ export class AdminComponent implements OnInit {
 			data: {
 				exercises: this.exercises,
 			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
-	async removeFeedback(index: number) {
+	public async removeFeedback(index: number) {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {
 				title: "Elimina feedback",
@@ -113,6 +134,9 @@ export class AdminComponent implements OnInit {
 					this.ngOnInit();
 				},
 			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 }

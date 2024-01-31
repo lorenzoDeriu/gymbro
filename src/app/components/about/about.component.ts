@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { UpdateNotesDialogComponent } from "../update-notes-dialog/update-notes-dialog.component";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-about",
@@ -18,7 +19,13 @@ export class AboutComponent {
 		document.getElementById("installMobile") as HTMLButtonElement;
 	private installPromptMobile: any;
 
-	constructor(private router: Router, private dialog: MatDialog) {}
+	public theme: "dark" | "light";
+
+	constructor(
+		private router: Router,
+		private dialog: MatDialog,
+		private themeService: ThemeService
+	) {}
 
 	ngOnInit(): void {
 		this.installButton = document.getElementById(
@@ -27,6 +34,10 @@ export class AboutComponent {
 		this.installButtonMobile = document.getElementById(
 			"installMobile"
 		) as HTMLButtonElement;
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		window.addEventListener("beforeinstallprompt", event => {
 			event.preventDefault();
@@ -67,6 +78,7 @@ export class AboutComponent {
 	showUpdateNotesDialog() {
 		this.dialog.open(UpdateNotesDialogComponent, {
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 

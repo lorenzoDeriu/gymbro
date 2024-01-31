@@ -26,7 +26,11 @@
 		>
 			<button
 				type="button"
-				class="btn btn-dark text-light me-2 d-none d-lg-block"
+				[ngClass]="{
+					'btn me-2 d-none d-lg-block': true,
+					'soft-dark-btn': theme === 'light',
+					'soft-light-btn': theme === 'dark'
+				}"
 				(click)="backToHome()"
 			>
 				<i class="bi bi-house-fill"></i>
@@ -34,7 +38,11 @@
 
 			<button
 				type="button"
-				class="btn btn-sm btn-dark text-light me-2 d-block d-lg-none"
+				[ngClass]="{
+					'btn btn-sm me-2 d-block d-lg-none': true,
+					'soft-dark-btn': theme === 'light',
+					'soft-light-btn': theme === 'dark'
+				}"
 				(click)="backToHome()"
 			>
 				<i class="bi bi-house-fill"></i>
@@ -54,7 +62,7 @@
 
 			<button
 				type="submit"
-				class="btn purple-btn text-light ms-2 d-none d-lg-block"
+				class="btn purple-btn ms-2 d-none d-lg-block"
 				[disabled]="!userSearchForm.valid"
 			>
 				<i class="bi bi-search"></i>
@@ -62,7 +70,7 @@
 
 			<button
 				type="submit"
-				class="btn btn-sm purple-btn text-light ms-2 d-block d-lg-none"
+				class="btn btn-sm purple-btn ms-2 d-block d-lg-none"
 				[disabled]="!userSearchForm.valid"
 			>
 				<i class="bi bi-search"></i>
@@ -91,7 +99,11 @@
 				<button
 					(click)="backToHome()"
 					type="button"
-					class="btn btn-dark text-light me-2"
+					[ngClass]="{
+						'btn text-light me-2': true,
+						'btn-dark': theme === 'light',
+						'btn-light': theme === 'dark'
+					}"
 				>
 					<i class="bi bi-house-fill"></i>
 				</button>
@@ -124,7 +136,10 @@
 		>
 			<div
 				*ngFor="let user of followed; index as i"
-				class="btn-group rounded-5 d-flex justify-content-between align-items-center user mb-3"
+				[ngClass]="{
+					'btn-group rounded-5 d-flex justify-content-between align-items-center bg-body-tertiary shadow-sm mb-3 w-100': true,
+					'opacity-50': unfollowing
+				}"
 				role="group"
 				aria-label="Basic example"
 			>
@@ -153,11 +168,18 @@
 				</button>
 
 				<button
+					*ngIf="!unfollowing"
 					class="btn"
 					(click)="onUnfollow(i)"
 					style="border: none"
 				>
 					<i class="bi bi-person-dash-fill"></i>
+				</button>
+
+				<button *ngIf="unfollowing" class="btn" style="border: none">
+					<div class="spinner-border spinner-border-sm" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
 				</button>
 			</div>
 		</div>

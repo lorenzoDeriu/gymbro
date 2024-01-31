@@ -1,5 +1,6 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { ThemeService } from "src/app/services/theme.service";
 import { convertTimediffToTime } from "src/app/utils/utils";
 
 @Component({
@@ -7,7 +8,8 @@ import { convertTimediffToTime } from "src/app/utils/utils";
 	templateUrl: "./workout-not-saved-dialog.component.html",
 	styleUrls: ["./workout-not-saved-dialog.component.css"],
 })
-export class WorkoutNotSavedDialogComponent {
+export class WorkoutNotSavedDialogComponent implements OnInit {
+	public theme: "light" | "dark";
 	public trainingTime: string;
 
 	constructor(
@@ -17,10 +19,15 @@ export class WorkoutNotSavedDialogComponent {
 			trainingTime: number;
 			confirm: Function;
 			cancel: Function;
-		}
+		},
+		private themeService: ThemeService
 	) {}
 
-	ngOnInit() {
+	public ngOnInit() {
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+
 		this.trainingTime = this.getTimeFromTimestamp(this.data.trainingTime);
 	}
 

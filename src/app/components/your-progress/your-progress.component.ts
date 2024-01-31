@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Chart, registerables } from "chart.js";
 import { MatDialog } from "@angular/material/dialog";
-import { ExerciseStatsComponent } from "../exercise-stats/exercise-stats.component";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { Router } from "@angular/router";
 Chart.register(...registerables);

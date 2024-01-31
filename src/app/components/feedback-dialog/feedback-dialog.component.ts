@@ -1,41 +1,58 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { FirebaseService } from "src/app/services/firebase.service";
+import { ThemeService } from "src/app/services/theme.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
 	selector: "app-feedback-dialog",
 	templateUrl: "./feedback-dialog.component.html",
 	styleUrls: ["./feedback-dialog.component.css"],
 })
-export class FeedbackDialogComponent {
-	feedback: string = "";
+export class FeedbackDialogComponent implements OnInit {
+	public theme: "light" | "dark";
+	public feedback: string = "";
 
 	constructor(
 		private firebase: FirebaseService,
-		private snackBar: MatSnackBar,
-		public dialogRef: MatDialogRef<FeedbackDialogComponent>
+		public dialogRef: MatDialogRef<FeedbackDialogComponent>,
+		private themeService: ThemeService,
+		private notification: NotificationService
 	) {}
 
-	sendFeedback() {
+	public ngOnInit() {
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+	}
+
+	public sendFeedback() {
 		this.feedback = (
 			document.getElementById("feedback") as HTMLTextAreaElement
 		).value;
 
 		this.firebase.addFeedback(this.feedback);
 
-		this.snackBar.open("Grazie per il tuo Feedback", "Ok!", {
-			duration: 3000,
-		});
+		this.notification.showSnackBarNotification(
+			"Grazie per il tuo Feedback",
+			"Ok!",
+			{
+				duration: 3000,
+				panelClass: [
+					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
+				],
+			}
+		);
 
+		this.notification.sendFeedbackNotification();
 		this.closeDialog();
 	}
 
-	closeDialog() {
+	public closeDialog() {
 		this.dialogRef.close();
 	}
 
-	allowSendFeedback() {
+	public allowSendFeedback() {
 		this.feedback = (
 			document.getElementById("feedback") as HTMLTextAreaElement
 		).value;

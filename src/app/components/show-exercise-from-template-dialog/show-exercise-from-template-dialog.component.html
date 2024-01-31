@@ -104,13 +104,22 @@
 	</table>
 
 	<button
-		class="btn btn-dark w-100 d-none d-lg-block"
+		[ngClass]="{
+			'btn w-100 d-none d-lg-block': true,
+			'btn-light': theme === 'dark',
+			'btn-dark': theme === 'light'
+		}"
 		(click)="closeDialog()"
 	>
 		Chiudi
 	</button>
+
 	<button
-		class="btn btn-sm btn-dark w-100 d-block d-lg-none"
+		[ngClass]="{
+			'btn btn-sm w-100 d-block d-lg-none': true,
+			'btn-light': theme === 'dark',
+			'btn-dark': theme === 'light'
+		}"
 		(click)="closeDialog()"
 	>
 		Chiudi

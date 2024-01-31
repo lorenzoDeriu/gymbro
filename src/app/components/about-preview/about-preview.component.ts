@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { UpdateNotesDialogComponent } from "../update-notes-dialog/update-notes-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-about-preview",
@@ -18,7 +19,12 @@ export class AboutPreviewComponent {
 	) as HTMLButtonElement;
 	installPromptMobile: any;
 
-	constructor(private dialog: MatDialog) {}
+	public theme: "light" | "dark";
+
+	constructor(
+		private dialog: MatDialog,
+		private themeService: ThemeService
+	) {}
 
 	ngOnInit(): void {
 		this.installButton = document.getElementById(
@@ -27,6 +33,10 @@ export class AboutPreviewComponent {
 		this.installButtonMobile = document.getElementById(
 			"installMobile"
 		) as HTMLButtonElement;
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		window.addEventListener("beforeinstallprompt", event => {
 			event.preventDefault();
@@ -67,6 +77,7 @@ export class AboutPreviewComponent {
 	showUpdateNotesDialog() {
 		this.dialog.open(UpdateNotesDialogComponent, {
 			disableClose: false,
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 

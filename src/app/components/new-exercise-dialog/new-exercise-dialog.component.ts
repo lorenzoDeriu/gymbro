@@ -1,5 +1,5 @@
 import { FirebaseService } from "../../services/firebase.service";
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import {
 	MAT_DIALOG_DATA,
 	MatDialog,
@@ -8,13 +8,15 @@ import {
 import { AddExerciseDialogComponent } from "../add-exercise-dialog/add-exercise-dialog.component";
 import { Set, TrainingProgramExercise } from "src/app/Models/Exercise.model";
 import { generateId } from "src/app/utils/utils";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-new-exercise-dialog",
 	templateUrl: "./new-exercise-dialog.component.html",
 	styleUrls: ["./new-exercise-dialog.component.css"],
 })
-export class NewExerciseDialogComponent {
+export class NewExerciseDialogComponent implements OnInit {
+	public theme: "light" | "dark";
 	public options: string[] = [];
 	public exercise: TrainingProgramExercise = {
 		name: "",
@@ -39,26 +41,32 @@ export class NewExerciseDialogComponent {
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private firebase: FirebaseService,
 		private dialog: MatDialog,
+		private themeService: ThemeService,
 		public dialogRef: MatDialogRef<NewExerciseDialogComponent>
 	) {}
 
-	async ngOnInit() {
+	public async ngOnInit() {
 		this.getExercises();
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+
 		if (this.data) {
 			this.exercise = this.data;
 			this.editMode = true;
 		}
 	}
 
-	async getExercises() {
+	public async getExercises() {
 		this.options = await this.firebase.getExercise();
 	}
 
-	closeDialog() {
+	public closeDialog() {
 		this.dialogRef.close();
 	}
 
-	addSet() {
+	public addSet() {
 		if (this.exercise.set.length > 0) {
 			const lastSet: Set =
 				this.exercise.set[this.exercise.set.length - 1];
@@ -75,22 +83,24 @@ export class NewExerciseDialogComponent {
 		}
 	}
 
-	removeSet(index: number) {
+	public removeSet(index: number) {
 		this.exercise.set.splice(index, 1);
 	}
 
-	openCustomExerciseDialog() {
-		let customExerciseDialog = this.dialog.open(AddExerciseDialogComponent);
+	public openCustomExerciseDialog() {
+		let customExerciseDialog = this.dialog.open(AddExerciseDialogComponent, {
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+		});
 		customExerciseDialog.afterClosed().subscribe(() => {
 			this.getExercises();
 		});
 	}
 
-	save() {
+	public save() {
 		this.dialogRef.close(this.exercise);
 	}
 
-	savable() {
+	public savable() {
 		return (
 			this.exercise.name !== "" &&
 			this.exercise.set.length > 0 &&

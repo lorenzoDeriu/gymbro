@@ -23,14 +23,19 @@
 		<div class="w-100 d-flex align-items-center">
 			<button
 				type="submit"
-				class="btn me-2 purple-btn me-2 text-light w-100"
+				class="btn me-2 purple-btn me-2 w-100"
 				[disabled]="!addExerciseForm.valid"
 			>
 				Crea
 			</button>
+
 			<button
 				type="button"
-				class="btn btn-dark ms-2 w-100"
+				[ngClass]="{
+					'btn ms-2 w-100': true,
+					'btn-dark': theme === 'light',
+					'btn-light': theme === 'dark'
+				}"
 				(click)="closeDialog()"
 			>
 				Annulla

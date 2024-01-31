@@ -8,7 +8,14 @@
 			(click)="goToHome()"
 			style="cursor: pointer"
 		>
-			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="70" />
+			<img
+				id="logo"
+				[src]="
+					theme === 'light' ? 'assets/logo.png' : 'assets/logo-w.png'
+				"
+				alt="Bootstrap"
+				width="70"
+			/>
 		</a>
 
 		<a
@@ -16,7 +23,14 @@
 			(click)="goToHome()"
 			style="cursor: pointer"
 		>
-			<img id="logo" src="assets/logo.png" alt="Bootstrap" width="50" />
+			<img
+				id="logo"
+				[src]="
+					theme === 'light' ? 'assets/logo.png' : 'assets/logo-w.png'
+				"
+				alt="Bootstrap"
+				width="50"
+			/>
 		</a>
 
 		<div class="d-flex align-items-center">
@@ -62,7 +76,13 @@
 						{{ getWorkoutTime() }}
 					</p>
 				</button>
-				<ul class="dropdown-menu mt-2">
+				<ul
+					[ngClass]="{
+						'dropdown-menu mt-2': true,
+						'dropdown-dark': theme === 'dark',
+						'dropdown-light': theme === 'light'
+					}"
+				>
 					<li class="mb-1">
 						<button
 							class="dropdown-item"
@@ -80,6 +100,9 @@
 							(click)="toContinueWorkout()"
 						>
 							<img
+								[ngStyle]="{
+									filter: theme === 'dark' ? 'invert(1)' : ''
+								}"
 								src="assets/dumbbell-icon.png"
 								class="me-1"
 								width="16"
@@ -107,7 +130,13 @@
 						{{ getWorkoutTime() }}
 					</p>
 				</button>
-				<ul class="dropdown-menu mt-2">
+				<ul
+					[ngClass]="{
+						'dropdown-menu mt-2': true,
+						'dropdown-dark': theme === 'dark',
+						'dropdown-light': theme === 'light'
+					}"
+				>
 					<li class="mb-1">
 						<button
 							class="dropdown-item"
@@ -125,6 +154,9 @@
 							(click)="toContinueWorkout()"
 						>
 							<img
+								[ngStyle]="{
+									filter: theme === 'dark' ? 'invert(1)' : ''
+								}"
 								src="assets/dumbbell-icon.png"
 								class="me-1"
 								width="16"
@@ -166,9 +198,22 @@
 				aria-expanded="false"
 				style="border: none"
 			>
-				<i class="fs-3 bi bi-list"></i>
+				<i class="fs-3 bi bi-list position-relative">
+					<span
+						*ngIf="hasNotifications()"
+						class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
+					>
+						<span class="visually-hidden">New alerts</span>
+					</span>
+				</i>
 			</button>
-			<ul class="dropdown-menu dropdown-menu-end">
+			<ul
+				[ngClass]="{
+					'dropdown-menu dropdown-menu-end': true,
+					'dropdown-dark': theme === 'dark',
+					'dropdown-light': theme === 'light'
+				}"
+			>
 				<li class="text-end mb-1">
 					<a
 						class="dropdown-item"
@@ -191,6 +236,27 @@
 				</li>
 				<li class="text-end mb-1">
 					<a
+						*ngIf="theme === 'light'"
+						class="dropdown-item"
+						(click)="toggleTheme()"
+						style="cursor: pointer"
+					>
+						Dark Mode
+						<i class="ms-2 bi bi-moon-stars-fill"></i>
+					</a>
+
+					<a
+						*ngIf="theme === 'dark'"
+						class="dropdown-item"
+						(click)="toggleTheme()"
+						style="cursor: pointer"
+					>
+						Light Mode
+						<i class="ms-2 bi bi-sun-fill"></i>
+					</a>
+				</li>
+				<li class="text-end mb-1">
+					<a
 						class="dropdown-item"
 						(click)="onAbout()"
 						style="cursor: pointer"
@@ -206,7 +272,14 @@
 						style="cursor: pointer"
 					>
 						Profilo
-						<i class="ms-2 bi bi-person-circle"></i>
+						<i class="ms-2 bi bi-person-circle position-relative">
+							<span
+								*ngIf="hasNotifications()"
+								class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle"
+							>
+								<span class="visually-hidden">New alerts</span>
+							</span>
+						</i>
 					</a>
 				</li>
 				<li class="text-end mb-1" *ngIf="isAdmin">

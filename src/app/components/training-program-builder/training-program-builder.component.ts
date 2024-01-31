@@ -9,6 +9,7 @@ import { UserService } from "src/app/services/user.service";
 import { formatSets } from "src/app/utils/utils";
 import { Set } from "src/app/Models/Exercise.model";
 import { NotesDialogComponent } from "../notes-dialog/notes-dialog.component";
+import { ThemeService } from "src/app/services/theme.service";
 
 @Component({
 	selector: "app-training-program-builder",
@@ -20,7 +21,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		name: "",
 		session: [],
 	};
-
+	public theme: "dark" | "light";
 	public editMode = false;
 	public showExercises = true;
 	public loading = false;
@@ -33,11 +34,16 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		private route: ActivatedRoute,
 		private firebase: FirebaseService,
 		private dialog: MatDialog,
-		private userService: UserService
+		private userService: UserService,
+		private themeService: ThemeService
 	) {}
 
 	async ngOnInit() {
 		this.loading = true;
+
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
 
 		if (
 			!localStorage.getItem("trainingProgram") &&
@@ -296,6 +302,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 
 		this.dialog.open(NotesDialogComponent, {
 			data: { notes: exercise.note },
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -314,6 +321,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		this.dialog
 			.open(NewExerciseDialogComponent, {
 				disableClose: false,
+				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 			})
 			.afterClosed()
 			.subscribe(exercise => {
@@ -357,6 +365,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.initializeComponent();
 				},
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -375,6 +384,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.initializeComponent();
 				},
 			},
+			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 		});
 	}
 
@@ -392,6 +402,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		this.dialog
 			.open(NewExerciseDialogComponent, {
 				data: session.exercises[exerciseIndex],
+				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
 			})
 			.afterClosed()
 			.subscribe(exercise => {

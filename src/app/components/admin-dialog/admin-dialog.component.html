@@ -9,5 +9,14 @@
 		essere un admin!
 	</p>
 
-	<button (click)="closeDialog()" class="btn btn-dark w-100">Ok</button>
+	<button
+		(click)="closeDialog()"
+		[ngClass]="{
+			'btn w-100': true,
+			'btn-dark': theme === 'light',
+			'btn-light': theme === 'dark'
+		}"
+	>
+		Ok
+	</button>
 </div>

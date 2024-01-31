@@ -1,7 +1,4 @@
-@font-face {
-	font-family: Poppins;
-	src: url(https://static1.squarespace.com/static/6412b954167fb959080a9874/t/64e08b2ec3dafa01ab100e59/1692437295189/Poppins-Regular.ttf);
-}
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
 html,
 body {
@@ -19,9 +16,63 @@ body {
 	scrollbar-width: none;
 }
 
-.dropdown-menu.dropdown-menu-end,
-.dropdown-menu.mt-2,
-.dropdown-menu {
+.gray-bg {
+	background-color: #c5c5c5 !important;
+}
+
+.soft-light-btn {
+	background-color: #57606c !important;
+	border: #57606c 1px solid !important;
+	color: #fff !important;
+}
+
+.soft-light-btn:disabled {
+	border: #57606c68 1px solid !important;
+	background-color: #57606c68 !important;
+	color: #fff !important;
+}
+
+.soft-light-btn:hover {
+	border: #7b8591 1px solid !important;
+	background-color: #7b8591 !important;
+	color: #fff !important;
+}
+
+.soft-light-btn:active {
+	border: #9da7b4 1px solid !important;
+	background-color: #9da7b4 !important;
+	color: #fff !important;
+}
+
+.soft-dark-btn {
+	background-color: #c5c5c576 !important;
+	border: #c5c5c576 1px solid !important;
+	color: #000;
+}
+
+.soft-dark-btn:disabled {
+	border: #c5c5c576 1px solid !important;
+	background-color: #c5c5c576 !important;
+	color: #4c4c4c !important;
+}
+
+.soft-dark-btn:hover {
+	border: #908e8e76 1px solid !important;
+	background-color: #908e8e76 !important;
+	color: #000 !important;
+}
+
+.soft-dark-btn:active {
+	border: #78787876 1px solid !important;
+	background-color: #78787876 !important;
+	color: #000 !important;
+}
+
+.dropdown-dark {
+	--bs-dropdown-link-active-bg: rgba(232, 232, 232, 0.276) !important;
+}
+
+.dropdown-light {
 	--bs-dropdown-link-active-bg: rgba(232, 232, 232, 0.276) !important;
 	--bs-dropdown-link-active-color: #141414 !important;
 }
@@ -29,41 +80,49 @@ body {
 .purple-btn {
 	border: #6b44d4 1px solid !important;
 	background-color: #6b44d4 !important;
+	color: #fff !important;
 }
 
 .purple-btn:disabled {
 	border: #9888c4 1px solid !important;
 	background-color: #9888c4 !important;
+	color: #fff !important;
 }
 
 .purple-btn:hover {
 	border: #785ebe 1px solid !important;
 	background-color: #785ebe !important;
+	color: #fff !important;
 }
 
 .purple-btn:active {
 	border: #9780d5 1px solid !important;
 	background-color: #9780d5 !important;
+	color: #fff !important;
 }
 
 .blue-btn {
 	border: #4089c9 1px solid !important;
 	background-color: #4089c9 !important;
+	color: #fff !important;
 }
 
 .blue-btn:disabled {
 	border: #7ea3c4 1px solid !important;
 	background-color: #7ea3c4 !important;
+	color: #fff !important;
 }
 
 .blue-btn:hover {
 	border: #659fd2 1px solid !important;
 	background-color: #659fd2 !important;
+	color: #fff !important;
 }
 
 .blue-btn:active {
 	border: #7eafda 1px solid !important;
 	background-color: #7eafda !important;
+	color: #fff !important;
 }
 
 img {
@@ -113,15 +172,63 @@ select:-webkit-autofill:focus {
 	transition: background-color 5000s ease-in-out 0s;
 }
 
+/* Snackbar */
+
 .mdc-snackbar__surface {
-	background-color: #fff !important;
+	background-color: transparent !important;
+	border-radius: 8px !important;
 }
 
-.mdc-snackbar__label {
+.light-snackbar {
+	background-color: #fff !important;
+	border-radius: 8px !important;
+}
+
+.light-snackbar .mdc-snackbar__label {
 	color: #000 !important;
 }
 
+.dark-snackbar {
+	background-color: #2b3035 !important;
+	border-radius: 8px !important;
+}
+
+.error-snackbar {
+	background-color: #ca252d !important;
+	border-radius: 8px !important;
+}
+
+.warning-snackbar {
+	background-color: #eb8801 !important;
+	border-radius: 8px !important;
+}
+
 .mdc-snackbar button {
-	background-color: transparent !important;
+	background-color: #27175218 !important;
+	border-radius: 10px !important;
 	color: #6b44d4 !important;
+}
+
+.error-snackbar button {
+	background-color: #3d01043e !important;
+	border-radius: 10px !important;
+	color: #fff !important;
+}
+
+.warning-snackbar button {
+	background-color: #2b19002d !important;
+	border-radius: 10px !important;
+	color: #fff !important;
+}
+
+/* Dialog */
+
+.dark-dialog .mdc-dialog__surface {
+	background-color: #2b3035 !important;
+	border-radius: 16px !important;
+}
+
+.light-dialog .mdc-dialog__surface {
+	background-color: #fff !important;
+	border-radius: 16px !important;
 }
