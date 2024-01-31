@@ -87,7 +87,11 @@ export class EditProfilePicDialogComponent implements OnInit {
 								"Ok",
 								{
 									duration: 3000,
-									panelClass:  [this.theme == "dark" ? "dark-snackbar" : "light-snackbar"]
+									panelClass: [
+										this.theme == "dark"
+											? "dark-snackbar"
+											: "light-snackbar",
+									],
 								}
 							);
 						} else {
@@ -102,7 +106,7 @@ export class EditProfilePicDialogComponent implements OnInit {
 							"Ok",
 							{
 								duration: 3000,
-								panelClass:  ['error-snackbar']
+								panelClass: ["error-snackbar"],
 							}
 						);
 					},
@@ -113,7 +117,7 @@ export class EditProfilePicDialogComponent implements OnInit {
 				"Ok",
 				{
 					duration: 3000,
-					panelClass:  ['warning-snackbar']
+					panelClass: ["warning-snackbar"],
 				}
 			);
 		}

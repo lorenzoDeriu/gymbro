@@ -84,7 +84,7 @@ export class AccessComponent implements OnInit {
 				"OK",
 				{
 					duration: 5000,
-					panelClass: ['warning-snackbar']
+					panelClass: ["warning-snackbar"],
 				}
 			);
 
@@ -100,7 +100,7 @@ export class AccessComponent implements OnInit {
 				"OK",
 				{
 					duration: 5000,
-					panelClass: ['warning-snackbar']
+					panelClass: ["warning-snackbar"],
 				}
 			);
 
@@ -116,7 +116,7 @@ export class AccessComponent implements OnInit {
 				"OK",
 				{
 					duration: 5000,
-					panelClass: ['warning-snackbar']
+					panelClass: ["warning-snackbar"],
 				}
 			);
 
@@ -155,7 +155,9 @@ export class AccessComponent implements OnInit {
 	forgotPassword() {
 		this.dialog.open(PasswordRecoverDialogComponent, {
 			disableClose: false,
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 }

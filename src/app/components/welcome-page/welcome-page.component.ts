@@ -177,9 +177,7 @@ export class WelcomePageComponent implements OnInit {
 				"Ok",
 				{
 					duration: 3000,
-					panelClass: [
-						"warning-snackbar",
-					],
+					panelClass: ["warning-snackbar"],
 				}
 			);
 
@@ -195,9 +193,7 @@ export class WelcomePageComponent implements OnInit {
 				"Ok",
 				{
 					duration: 3000,
-					panelClass: [
-						"warning-snackbar",
-					],
+					panelClass: ["warning-snackbar"],
 				}
 			);
 
@@ -213,9 +209,7 @@ export class WelcomePageComponent implements OnInit {
 				"Ok",
 				{
 					duration: 3000,
-					panelClass: [
-						"warning-snackbar",
-					],
+					panelClass: ["warning-snackbar"],
 				}
 			);
 
@@ -254,7 +248,9 @@ export class WelcomePageComponent implements OnInit {
 	forgotPassword() {
 		this.dialog.open(PasswordRecoverDialogComponent, {
 			disableClose: false,
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 

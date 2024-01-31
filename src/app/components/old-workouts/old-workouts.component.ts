@@ -176,7 +176,9 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 					);
 				},
 			},
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -196,7 +198,9 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 						this.userService.reuseWorkout(this.workouts[index]);
 					},
 				},
-				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+				panelClass: [
+					this.theme === "dark" ? "dark-dialog" : "light-dialog",
+				],
 			});
 
 			return;
@@ -221,7 +225,9 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 						this.router.navigate(["/home/prebuild-workout"]);
 					},
 				},
-				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+				panelClass: [
+					this.theme === "dark" ? "dark-dialog" : "light-dialog",
+				],
 			});
 
 			return;
@@ -241,7 +247,9 @@ export class OldWorkoutsComponent implements OnInit, OnDestroy {
 				notes: this.workouts[workoutIndex].exercises[exerciseIndex]
 					.note,
 			},
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 }

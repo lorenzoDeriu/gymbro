@@ -37,11 +37,14 @@
 			Si, salva
 		</button>
 
-		<button (click)="closeDialog()" [ngClass]="{
-			'btn w-100': true,
-			'btn-light': theme === 'dark',
-			'btn-dark': theme === 'light'
-		}">
+		<button
+			(click)="closeDialog()"
+			[ngClass]="{
+				'btn w-100': true,
+				'btn-light': theme === 'dark',
+				'btn-dark': theme === 'light'
+			}"
+		>
 			No, voglio allenarmi
 		</button>
 	</div>

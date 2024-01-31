@@ -41,7 +41,11 @@ export class UserService {
 
 	private workoutPrevision: Promise<Workout>;
 
-	constructor(private firebase: FirebaseService, private router: Router, private notificationService: NotificationService) {
+	constructor(
+		private firebase: FirebaseService,
+		private router: Router,
+		private notificationService: NotificationService
+	) {
 		this.firebase
 			.getUserData()
 			.then(user => {

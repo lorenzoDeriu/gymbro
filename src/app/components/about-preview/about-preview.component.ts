@@ -77,7 +77,9 @@ export class AboutPreviewComponent {
 	showUpdateNotesDialog() {
 		this.dialog.open(UpdateNotesDialogComponent, {
 			disableClose: false,
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 

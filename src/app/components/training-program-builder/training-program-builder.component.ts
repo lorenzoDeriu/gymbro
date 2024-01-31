@@ -302,7 +302,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 
 		this.dialog.open(NotesDialogComponent, {
 			data: { notes: exercise.note },
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -321,7 +323,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		this.dialog
 			.open(NewExerciseDialogComponent, {
 				disableClose: false,
-				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+				panelClass: [
+					this.theme === "dark" ? "dark-dialog" : "light-dialog",
+				],
 			})
 			.afterClosed()
 			.subscribe(exercise => {
@@ -365,7 +369,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.initializeComponent();
 				},
 			},
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -384,7 +390,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.initializeComponent();
 				},
 			},
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -402,7 +410,9 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		this.dialog
 			.open(NewExerciseDialogComponent, {
 				data: session.exercises[exerciseIndex],
-				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+				panelClass: [
+					this.theme === "dark" ? "dark-dialog" : "light-dialog",
+				],
 			})
 			.afterClosed()
 			.subscribe(exercise => {

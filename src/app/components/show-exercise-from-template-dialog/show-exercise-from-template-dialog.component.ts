@@ -43,7 +43,9 @@ export class ShowExerciseFromTemplateDialogComponent implements OnInit {
 			data: {
 				notes: this.workout.exercises[exerciseIndex].note,
 			},
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 

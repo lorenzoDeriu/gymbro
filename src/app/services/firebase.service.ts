@@ -123,8 +123,8 @@ export class FirebaseService {
 	}
 
 	public getFirebaseErrorMessage(error: any): string {
-		if (error === 'Credential Error') return "Username o Email già in uso";
-		
+		if (error === "Credential Error") return "Username o Email già in uso";
+
 		switch (error.code) {
 			case "auth/invalid-login-credentials":
 				return "Email o password errati";

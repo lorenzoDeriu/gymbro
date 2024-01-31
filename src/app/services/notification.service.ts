@@ -28,8 +28,12 @@ export class NotificationService {
 
 	private async resolveUsername(notifications: Notification[]) {
 		for (let i = 0; i < notifications.length; i++) {
-			if (notifications[i].from in this.usernames || !notifications[i].from) {
-				notifications[i].username = this.usernames[notifications[i].from];
+			if (
+				notifications[i].from in this.usernames ||
+				!notifications[i].from
+			) {
+				notifications[i].username =
+					this.usernames[notifications[i].from];
 				continue;
 			}
 
