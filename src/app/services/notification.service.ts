@@ -9,6 +9,7 @@ import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 })
 export class NotificationService {
 	private notifications: Notification[] = [];
+	private usernames: { [key: string]: string } = {};
 
 	constructor(
 		private firebase: FirebaseService,
@@ -27,9 +28,16 @@ export class NotificationService {
 
 	private async resolveUsername(notifications: Notification[]) {
 		for (let i = 0; i < notifications.length; i++) {
+			if (notifications[i].from in this.usernames) {
+				notifications[i].username = this.usernames[notifications[i].from];
+				continue;
+			}
+
 			notifications[i].username = await this.firebase.getUsername(
 				notifications[i].from
 			);
+
+			this.usernames[notifications[i].from] = notifications[i].username;
 		}
 		return notifications;
 	}
