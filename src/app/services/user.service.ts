@@ -6,6 +6,7 @@ import { User } from "../Models/User.model";
 import { SearchResult } from "../components/friends/friends.component";
 import { BehaviorSubject } from "rxjs";
 import { Router } from "@angular/router";
+import { NotificationService } from "./notification.service";
 
 @Injectable({
 	providedIn: "root",
@@ -40,7 +41,7 @@ export class UserService {
 
 	private workoutPrevision: Promise<Workout>;
 
-	constructor(private firebase: FirebaseService, private router: Router) {
+	constructor(private firebase: FirebaseService, private router: Router, private notificationService: NotificationService) {
 		this.firebase
 			.getUserData()
 			.then(user => {
@@ -129,7 +130,7 @@ export class UserService {
 			this.restTime = this.restStartTime + this.timeToRest - Date.now();
 
 			if (this.restMode.value && this.restTime <= 0) {
-				this.endRest();
+				this.endRest(true);
 			}
 		});
 	}
@@ -155,8 +156,15 @@ export class UserService {
 		localStorage.removeItem("workoutStartTime");
 	}
 
-	public endRest() {
+	public endRest(sendPushNotification?: boolean) {
 		this.setRestMode(false);
+
+		if (sendPushNotification) {
+			this.notificationService.sendPushNotification(
+				"Recupero terminato!"
+			);
+		}
+
 		localStorage.removeItem("restStartTime");
 		localStorage.removeItem("timeToRest");
 		localStorage.removeItem("restMode");
@@ -198,7 +206,7 @@ export class UserService {
 					this.restStartTime + this.timeToRest - Date.now();
 
 				if (this.restMode.value && this.restTime <= 0) {
-					this.endRest();
+					this.endRest(true);
 				}
 			});
 		}

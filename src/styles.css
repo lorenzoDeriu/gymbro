@@ -172,17 +172,16 @@ select:-webkit-autofill:focus {
 	transition: background-color 5000s ease-in-out 0s;
 }
 
-
 /* Snackbar */
 
 .mdc-snackbar__surface {
 	background-color: transparent !important;
-	border-radius: 16px !important;
+	border-radius: 8px !important;
 }
 
 .light-snackbar {
 	background-color: #fff !important;
-	border-radius: 16px !important;
+	border-radius: 8px !important;
 }
 
 .light-snackbar .mdc-snackbar__label {
@@ -190,18 +189,18 @@ select:-webkit-autofill:focus {
 }
 
 .dark-snackbar {
-	background-color: #2B3035 !important;
-	border-radius: 16px !important;
+	background-color: #2b3035 !important;
+	border-radius: 8px !important;
 }
 
 .error-snackbar {
-	background-color: #CA252D !important;
-	border-radius: 16px !important;
+	background-color: #ca252d !important;
+	border-radius: 8px !important;
 }
 
 .warning-snackbar {
-	background-color: #EB8801 !important;
-	border-radius: 16px !important;
+	background-color: #eb8801 !important;
+	border-radius: 8px !important;
 }
 
 .mdc-snackbar button {
@@ -225,7 +224,7 @@ select:-webkit-autofill:focus {
 /* Dialog */
 
 .dark-dialog .mdc-dialog__surface {
-	background-color: #2B3035 !important;
+	background-color: #2b3035 !important;
 	border-radius: 16px !important;
 }
 

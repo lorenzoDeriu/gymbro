@@ -28,6 +28,10 @@ export class DashboardComponent implements OnInit {
 	) {}
 
 	async ngOnInit() {
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+		
 		if (localStorage.getItem("welcomeDialog") !== null)
 			localStorage.removeItem("welcomeDialog_v12");
 
@@ -39,10 +43,6 @@ export class DashboardComponent implements OnInit {
 
 			localStorage.setItem("welcomeDialog_v10.0", "true");
 		}
-
-		this.themeService.themeObs.subscribe(theme => {
-			this.theme = theme;
-		});
 
 		this.userService.editModeObs.subscribe(editMode => {
 			this.editMode = editMode;

@@ -38,6 +38,7 @@ export class NotificationService {
 		return this.notifications;
 	}
 
+	// Info Notification
 	public async sendNotification(to: string, type: NotificationType) {
 		const notification: Notification = {
 			id: `ntf-${uuidv4()}`,
@@ -69,7 +70,41 @@ export class NotificationService {
 		await this.firebase.addNotificationToAdmin();
 	}
 
-	public showSnackBarNotification(message: string, action: string, options?: MatSnackBarConfig) {
+	// SnackBar Notification
+	public showSnackBarNotification(
+		message: string,
+		action: string,
+		options?: MatSnackBarConfig
+	) {
+		const defaultOptions: MatSnackBarConfig = {
+			duration: 3000,
+		};
+
+		if (!options) options = defaultOptions;
+
 		this.snackBar.open(message, action, options);
+	}
+
+	public requestPushNotificationsPermissions() {
+		if ("Notification" in window && Notification.permission !== "granted") {
+			Notification.requestPermission();
+		}
+	}
+
+	// Push Notification
+	public async sendPushNotification(message: string) {
+		if (
+			"serviceWorker" in navigator &&
+			Notification.permission === "granted"
+		) {
+			navigator.serviceWorker.ready.then(
+				(registration: ServiceWorkerRegistration) => {
+					registration.showNotification("GymBro", {
+						body: message,
+						icon: "assets/rounded-logo.png",
+					});
+				}
+			);
+		}
 	}
 }

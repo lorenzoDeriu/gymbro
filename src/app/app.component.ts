@@ -26,6 +26,8 @@ export class AppComponent implements OnInit {
 	}
 
 	public ngOnInit() {
+		this.notification.requestPushNotificationsPermissions();
+		
 		localStorage.getItem("theme")
 			? localStorage.getItem("theme") == "light"
 				? document.body.setAttribute("data-bs-theme", "light")
