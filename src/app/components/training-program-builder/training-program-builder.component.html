@@ -138,7 +138,122 @@
 								<th scope="col">Azioni</th>
 							</tr>
 						</thead>
-						<tbody class="table-group-divider tbody">
+						<tbody
+							class="table-group-divider tbody"
+							*ngIf="!showExercises"
+						>
+							<tr
+								class="trow"
+								*ngFor="
+									let exercise of session.exercises;
+									index as exerciseIndex
+								"
+							>
+								<th class="text-wrap">
+									<i
+										*ngIf="
+											exercise.note && exercise.note != ''
+										"
+										style="cursor: pointer"
+										class="me-1 bi bi-info-circle-fill"
+									></i>
+									{{ exercise.name }}
+								</th>
+
+								<td>
+									<div class="d-flex flex-column">
+										<div
+											*ngFor="
+												let set of formatSets(
+													exercise.set
+												);
+												index as setIndex
+											"
+										>
+											{{ set }}
+										</div>
+									</div>
+								</td>
+
+								<td>
+									<!--Desktop-->
+									<p
+										*ngIf="exercise.intensity === 'light'"
+										class="bg-success mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										Leggero
+										<i class="ms-1 bi bi-feather"></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'hard'"
+										class="bg-warning mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										Pesante
+										<i
+											class="ms-1 bi bi-lightning-fill"
+										></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'failure'"
+										class="bg-danger mb-0 d-none d-lg-block text-light px-3 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										Cedimento
+										<i class="ms-1 bi bi-fire"></i>
+									</p>
+
+									<!--Mobile-->
+									<p
+										*ngIf="exercise.intensity === 'light'"
+										class="bg-success mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										<i class="bi bi-feather"></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'hard'"
+										class="bg-warning mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										<i class="bi bi-lightning-fill"></i>
+									</p>
+									<p
+										*ngIf="exercise.intensity === 'failure'"
+										class="bg-danger mb-0 d-block d-lg-none text-light px-2 py-1 rounded-5"
+										style="width: fit-content"
+									>
+										<i class="bi bi-fire"></i>
+									</p>
+								</td>
+
+								<td>
+									{{
+										exercise.rest.minutes +
+											":" +
+											exercise.rest.seconds
+									}}
+								</td>
+
+								<td>
+									<div class="dropdown" style="width: 10px">
+										<button
+											class="btn"
+											style="border: none"
+											type="button"
+										>
+											<i class="bi bi-three-dots"></i>
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+
+						<tbody
+							*ngIf="showExercises"
+							class="table-group-divider tbody"
+						>
 							<tr
 								class="trow"
 								*ngFor="

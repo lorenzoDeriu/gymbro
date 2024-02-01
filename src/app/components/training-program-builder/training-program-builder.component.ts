@@ -23,6 +23,7 @@ export class TrainingProgramBuilderComponent implements OnInit {
 	};
 	public theme: "dark" | "light";
 	public editMode = false;
+	public showExercises = true;
 	public loading = false;
 	private index: number;
 	private timerID: any;
@@ -65,6 +66,17 @@ export class TrainingProgramBuilderComponent implements OnInit {
 		setTimeout(() => {
 			this.enableDragAndDrop();
 		}, 0);
+	}
+
+	private initializeComponent() {
+		this.showExercises = false;
+
+		setTimeout(() => {
+			this.showExercises = true;
+			setTimeout(() => {
+				this.enableDragAndDrop();
+			}, 0);
+		});
 	}
 
 	private isIOSDevice() {
@@ -195,9 +207,11 @@ export class TrainingProgramBuilderComponent implements OnInit {
 				if (dragEndSessionIndex !== dragStartSessionIndex) {
 					dragEndingPosition =
 						Array.from(exercisesList.children).length - 1;
-					Array.from(sessionsList)
-						.at(startingSessionIndex)
-						.appendChild(draggingExercise);
+					(
+						Array.from(sessionsList).at(
+							startingSessionIndex
+						) as Node
+					).appendChild(draggingExercise);
 					return;
 				}
 
@@ -278,6 +292,8 @@ export class TrainingProgramBuilderComponent implements OnInit {
 
 		this.trainingProgram.session[sessionIndex].exercises = exercises;
 		this.userService.updateTrainingProgram(this.trainingProgram);
+
+		this.initializeComponent();
 	}
 
 	showNotes(sessionIndex: number, exerciseIndex: number) {
@@ -318,7 +334,8 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.userService.updateTrainingProgram(
 						this.trainingProgram
 					);
-					this.enableDragAndDrop();
+
+					this.initializeComponent();
 				}
 			});
 	}
@@ -331,8 +348,10 @@ export class TrainingProgramBuilderComponent implements OnInit {
 				{ name: "Nuova sessione", exercises: [] },
 			],
 		};
+
 		this.userService.updateTrainingProgram(this.trainingProgram);
-		this.enableDragAndDrop();
+
+		this.initializeComponent();
 	}
 
 	public deleteSessionDialog(index: number) {
@@ -346,7 +365,8 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.userService.updateTrainingProgram(
 						this.trainingProgram
 					);
-					this.enableDragAndDrop();
+
+					this.initializeComponent();
 				},
 			},
 			panelClass: [
@@ -366,7 +386,8 @@ export class TrainingProgramBuilderComponent implements OnInit {
 					this.userService.updateTrainingProgram(
 						this.trainingProgram
 					);
-					this.enableDragAndDrop();
+
+					this.initializeComponent();
 				},
 			},
 			panelClass: [
