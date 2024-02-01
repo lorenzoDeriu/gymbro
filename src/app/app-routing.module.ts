@@ -9,7 +9,6 @@ import { HomeComponent } from "./components/home/home.component";
 import { OldWorkoutsComponent } from "./components/old-workouts/old-workouts.component";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 import { TrainingProgramsComponent } from "./components/training-programs/training-programs.component";
-import { YourProgressComponent } from "./components/your-progress/your-progress.component";
 import { AuthGuard } from "./services/auth.guard";
 import { TrainingProgramBuilderComponent } from "./components/training-program-builder/training-program-builder.component";
 import { SearchResultComponent } from "./components/search-result/search-result.component";

@@ -36,9 +36,6 @@ export class DashboardComponent implements OnInit {
 		if (localStorage.getItem("welcomeDialog") !== null)
 			localStorage.removeItem("welcomeDialog_v12");
 
-		if (localStorage.getItem("welcomeDialog") !== null)
-			localStorage.removeItem("welcomeDialog_v10.0");
-
 		if (localStorage.getItem("welcomeDialog_v11.0") !== "true") {
 			this.dialog.open(WelcomeDialogComponent, {
 				disableClose: false,
