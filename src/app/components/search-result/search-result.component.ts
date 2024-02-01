@@ -16,6 +16,7 @@ export class SearchResultComponent implements OnInit {
 	public loading: boolean = false;
 	public theme: "dark" | "light";
 	public following: boolean = false;
+	public followingIndex: number = -1;
 
 	constructor(
 		private router: Router,
@@ -52,12 +53,14 @@ export class SearchResultComponent implements OnInit {
 
 	public async onFollow(index: number) {
 		this.following = true;
+		this.followingIndex = index;
 		await this.firebase.addFollow(this.searchResult[index].uid);
 		this.notification.sendNotification(
 			this.searchResult[index].uid,
 			"follow"
 		);
 		this.following = false;
+		this.followingIndex = -1;
 
 		this.router.navigate(["/home/friends"]);
 	}

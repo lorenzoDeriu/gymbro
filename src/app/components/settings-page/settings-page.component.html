@@ -26,7 +26,7 @@
 			>
 				<img
 					class="position-relative top-0 left-0 rounded-circle object-fit-cover"
-					[src]="profilePic ? profilePic : 'assets/profile.png'"
+					[src]="profilePic ? profilePic : 'assets/profile.webp'"
 					width="200"
 					height="200"
 					alt="Profile pic"
@@ -53,7 +53,7 @@
 				class="mb-2 mt-4 d-block d-lg-none position-relative top-0 left-0"
 			>
 				<img
-					[src]="profilePic ? profilePic : 'assets/profile.png'"
+					[src]="profilePic ? profilePic : 'assets/profile.webp'"
 					class="position-relative top-0 left-0 rounded-circle object-fit-cover"
 					width="150"
 					height="150"
@@ -65,6 +65,7 @@
 					style="width: 150px; height: 150px"
 				>
 					<button
+						aria-label="Edit profile pic"
 						class="btn btn-sm bg-body-tertiary shadow-sm position-absolute top-0 end-0 rounded-circle py-1"
 						(click)="openProfilePicDialog()"
 					>
@@ -80,6 +81,7 @@
 			<div class="d-flex justify-content-center align-items-center mb-4">
 				<!-- Share -->
 				<button
+					aria-label="Share username"
 					*ngIf="username"
 					(click)="shareUsername()"
 					class="btn bg-body-tertiary rounded-5 btn-sm shadow-sm"
@@ -234,6 +236,8 @@
 						<div class="card card-body border-0 p-0">
 							<div class="d-flex align-items-center">
 								<input
+									name="username"
+									autocomplete="off"
 									type="text"
 									class="form-control rounded-3"
 									placeholder="Username"
@@ -278,7 +282,9 @@
 						<div class="card card-body border-0 p-0">
 							<div class="d-flex align-items-center">
 								<input
+									autocomplete="off"
 									type="text"
+									name="username"
 									class="form-control form-control-sm rounded-3"
 									placeholder="Username"
 									aria-label="Username"
@@ -412,6 +418,7 @@
 							<div class="d-flex align-items-center">
 								<input
 									type="url"
+									name="playlistUrl"
 									inputmode="url"
 									class="form-control rounded-3"
 									placeholder="Playlist URL"
@@ -458,6 +465,7 @@
 								<input
 									type="url"
 									inputmode="url"
+									name="playlistUrl"
 									class="form-control form-control-sm rounded-3"
 									placeholder="Playlist URL"
 									aria-label="Playlist URL"
@@ -521,15 +529,35 @@
 				class="w-100 d-flex flex-column"
 				*ngIf="section === 'notifications'"
 			>
-				<p
-					*ngIf="getNotifications().length === 0"
-					class="text-muted text-center mt-3"
+				<div
+					*ngIf="!isPushNotificationsEnabledAndSupported()"
+					class="d-flex justify-content-between align-items-center w-100"
 				>
-					Non hai notifiche!
-				</p>
+					<button
+						class="btn bg-body-tertiary border-0 shadow-sm btn-sm rounded-3 me-3 mb-3"
+						style="width: fit-content"
+						(click)="requestNotificationsPermission()"
+					>
+						Abilita notifiche push
+						<i class="ms-1 bi bi-bell-fill"></i>
+					</button>
+
+					<button
+						*ngIf="getNotifications().length > 0"
+						class="btn bg-body-tertiary border-0 shadow-sm btn-sm rounded-3 align-self-end mb-3"
+						style="width: fit-content"
+						(click)="deleteAllNotifications()"
+					>
+						Svuota
+						<i class="ms-1 bi bi-trash3-fill"></i>
+					</button>
+				</div>
 
 				<button
-					*ngIf="getNotifications().length > 0"
+					*ngIf="
+						getNotifications().length > 0 &&
+						isPushNotificationsEnabledAndSupported()
+					"
 					class="btn bg-body-tertiary border-0 shadow-sm btn-sm rounded-3 align-self-end mb-3"
 					style="width: fit-content"
 					(click)="deleteAllNotifications()"
@@ -537,6 +565,13 @@
 					Svuota
 					<i class="ms-1 bi bi-trash3-fill"></i>
 				</button>
+
+				<p
+					*ngIf="getNotifications().length === 0"
+					class="text-muted text-center mt-3"
+				>
+					Non hai notifiche!
+				</p>
 
 				<div
 					*ngFor="let notification of getNotifications()"
@@ -559,9 +594,9 @@
 
 						<img
 							*ngIf="notification.type === 'update'"
-							src="assets/confetti.png"
+							src="assets/confetti.webp"
 							width="16"
-							alt=""
+							alt="Confetti"
 						/>
 
 						<i

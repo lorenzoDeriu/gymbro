@@ -205,19 +205,19 @@ select:-webkit-autofill:focus {
 
 .mdc-snackbar button {
 	background-color: #27175218 !important;
-	border-radius: 10px !important;
+	border-radius: 6px !important;
 	color: #6b44d4 !important;
 }
 
 .error-snackbar button {
 	background-color: #3d01043e !important;
-	border-radius: 10px !important;
+	border-radius: 6px !important;
 	color: #fff !important;
 }
 
 .warning-snackbar button {
 	background-color: #2b19002d !important;
-	border-radius: 10px !important;
+	border-radius: 6px !important;
 	color: #fff !important;
 }
 

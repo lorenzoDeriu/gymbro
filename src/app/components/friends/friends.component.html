@@ -26,6 +26,7 @@
 		>
 			<button
 				type="button"
+				aria-label="Home"
 				[ngClass]="{
 					'btn me-2 d-none d-lg-block': true,
 					'soft-dark-btn': theme === 'light',
@@ -38,6 +39,7 @@
 
 			<button
 				type="button"
+				aria-label="Home"
 				[ngClass]="{
 					'btn btn-sm me-2 d-block d-lg-none': true,
 					'soft-dark-btn': theme === 'light',
@@ -49,8 +51,10 @@
 			</button>
 
 			<div class="d-flex flex-column w-50 mx-2 mb-3 mt-2">
-				<p class="mb-0 text-center">Username</p>
+				<label for="username" class="mb-0 text-center">Username</label>
 				<input
+					autocomplete="off"
+					id="username"
 					name="username"
 					ngModel
 					required
@@ -70,6 +74,7 @@
 
 			<button
 				type="submit"
+				aria-label="Search"
 				class="btn btn-sm purple-btn ms-2 d-block d-lg-none"
 				[disabled]="!userSearchForm.valid"
 			>
@@ -111,6 +116,7 @@
 				<div class="d-flex flex-column mx-2 mb-3" style="width: 40%">
 					<p class="mb-0">Username</p>
 					<input
+						autocomplete="off"
 						name="username"
 						ngModel
 						required
@@ -138,12 +144,13 @@
 				*ngFor="let user of followed; index as i"
 				[ngClass]="{
 					'btn-group rounded-5 d-flex justify-content-between align-items-center bg-body-tertiary shadow-sm mb-3 w-100': true,
-					'opacity-50': unfollowing
+					'opacity-50': unfollowing && unfollowingIndex === i
 				}"
 				role="group"
 				aria-label="Basic example"
 			>
 				<button
+					aria-label="View profile"
 					class="btn"
 					(click)="viewProfile(i)"
 					style="border: none; width: 85%"
@@ -155,7 +162,7 @@
 							[src]="
 								user.profilePicUrl
 									? user.profilePicUrl
-									: 'assets/profile.png'
+									: 'assets/profile.webp'
 							"
 							width="30px"
 							height="30px"
@@ -168,7 +175,8 @@
 				</button>
 
 				<button
-					*ngIf="!unfollowing"
+					aria-label="Unfollow"
+					*ngIf="!unfollowing || unfollowingIndex !== i"
 					class="btn"
 					(click)="onUnfollow(i)"
 					style="border: none"
@@ -176,7 +184,11 @@
 					<i class="bi bi-person-dash-fill"></i>
 				</button>
 
-				<button *ngIf="unfollowing" class="btn" style="border: none">
+				<button
+					*ngIf="unfollowing && unfollowingIndex === i"
+					class="btn"
+					style="border: none"
+				>
 					<div class="spinner-border spinner-border-sm" role="status">
 						<span class="visually-hidden">Loading...</span>
 					</div>

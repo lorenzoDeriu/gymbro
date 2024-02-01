@@ -31,14 +31,16 @@ export class DashboardComponent implements OnInit {
 		this.themeService.themeObs.subscribe(theme => {
 			this.theme = theme;
 		});
-		
+
 		if (localStorage.getItem("welcomeDialog") !== null)
 			localStorage.removeItem("welcomeDialog_v12");
 
 		if (localStorage.getItem("welcomeDialog_v10.0") !== "true") {
 			this.dialog.open(WelcomeDialogComponent, {
 				disableClose: false,
-				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+				panelClass: [
+					this.theme === "dark" ? "dark-dialog" : "light-dialog",
+				],
 			});
 
 			localStorage.setItem("welcomeDialog_v10.0", "true");
@@ -75,7 +77,9 @@ export class DashboardComponent implements OnInit {
 			"Ok",
 			{
 				duration: 3000,
-				panelClass: [this.theme == "dark" ? "dark-snackbar" : "light-snackbar"],
+				panelClass: [
+					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
+				],
 			}
 		);
 	}
@@ -92,7 +96,9 @@ export class DashboardComponent implements OnInit {
 						this.userService.reuseWorkout(this.workoutPrevision);
 					},
 				},
-				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+				panelClass: [
+					this.theme === "dark" ? "dark-dialog" : "light-dialog",
+				],
 			});
 
 			return;

@@ -2,7 +2,13 @@ import { Injectable } from "@angular/core";
 import { FirebaseService } from "./firebase.service";
 import { Notification, NotificationType } from "../Models/Notification.model";
 import { v4 as uuidv4 } from "uuid";
-import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
+import {
+	MatSnackBar,
+	MatSnackBarConfig,
+	MatSnackBarRef,
+	TextOnlySnackBar,
+} from "@angular/material/snack-bar";
+import { ThemeService } from "./theme.service";
 
 @Injectable({
 	providedIn: "root",
@@ -10,11 +16,17 @@ import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 export class NotificationService {
 	private notifications: Notification[] = [];
 	private usernames: { [key: string]: string } = {};
+	private theme: "light" | "dark";
 
 	constructor(
 		private firebase: FirebaseService,
-		private snackBar: MatSnackBar
+		private snackBar: MatSnackBar,
+		private themeService: ThemeService
 	) {
+		this.themeService.themeObs.subscribe(theme => {
+			this.theme = theme;
+		});
+
 		this.retriveNotification();
 	}
 
@@ -28,8 +40,12 @@ export class NotificationService {
 
 	private async resolveUsername(notifications: Notification[]) {
 		for (let i = 0; i < notifications.length; i++) {
-			if (notifications[i].from in this.usernames || !notifications[i].from) {
-				notifications[i].username = this.usernames[notifications[i].from];
+			if (
+				notifications[i].from in this.usernames ||
+				!notifications[i].from
+			) {
+				notifications[i].username =
+					this.usernames[notifications[i].from];
 				continue;
 			}
 
@@ -82,7 +98,8 @@ export class NotificationService {
 	public showSnackBarNotification(
 		message: string,
 		action: string,
-		options?: MatSnackBarConfig
+		options?: MatSnackBarConfig,
+		permissionRequest?: boolean
 	) {
 		const defaultOptions: MatSnackBarConfig = {
 			duration: 3000,
@@ -90,13 +107,45 @@ export class NotificationService {
 
 		if (!options) options = defaultOptions;
 
-		this.snackBar.open(message, action, options);
+		let snackbarRef: MatSnackBarRef<TextOnlySnackBar> = this.snackBar.open(
+			message,
+			action,
+			options
+		);
+
+		if (permissionRequest) {
+			snackbarRef.onAction().subscribe({
+				next: () => {
+					this.requestPushNotificationsPermissions();
+				},
+			});
+		}
 	}
 
 	public requestPushNotificationsPermissions() {
 		if ("Notification" in window && Notification.permission !== "granted") {
-			Notification.requestPermission();
+			Notification.requestPermission().then((permission: string) => {
+				if (permission === "granted") {
+					this.showSnackBarNotification(
+						"Notifiche push attivate!",
+						"OK",
+						{
+							panelClass: [
+								this.theme == "dark"
+									? "dark-snackbar"
+									: "light-snackbar",
+							],
+						}
+					);
+
+					return true;
+				}
+
+				return false;
+			});
 		}
+
+		return false;
 	}
 
 	// Push Notification

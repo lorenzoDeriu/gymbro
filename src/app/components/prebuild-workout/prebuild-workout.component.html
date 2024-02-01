@@ -57,6 +57,7 @@
 				>
 					<p class="mb-0 text-center">Allenamento</p>
 					<input
+						name="workoutName"
 						type="text"
 						class="border-0 border-bottom py-1"
 						style="background-color: transparent"
@@ -251,6 +252,7 @@
 										</span>
 
 										<select
+											name="selectExercise"
 											class="form-select"
 											aria-label="Default select example"
 											style="cursor: pointer"
@@ -275,8 +277,10 @@
 										<button
 											[ngClass]="{
 												'btn rounded-end-5': true,
-												'soft-dark-btn': theme === 'light',
-												'soft-light-btn': theme === 'dark'
+												'soft-dark-btn':
+													theme === 'light',
+												'soft-light-btn':
+													theme === 'dark'
 											}"
 											type="button"
 											(click)="
@@ -298,12 +302,14 @@
 											class="input-group flex-nowrap me-2"
 										>
 											<input
+												name="repsPlaceholder"
 												type="number"
 												class="form-control bg-transparent w-100 border-0"
 												placeholder="Reps"
 												style="pointer-events: none"
 											/>
 											<input
+												name="loadPlaceholder"
 												type="number"
 												class="form-control bg-transparent w-100 border-0"
 												placeholder="Carico"
@@ -346,6 +352,7 @@
 												class="input-group flex-nowrap d-flex align-items-center w-50"
 											>
 												<input
+													name="reps"
 													[disabled]="
 														workoutProgress
 															.completed[
@@ -422,6 +429,7 @@
 												class="input-group flex-nowrap d-flex align-items-center w-50"
 											>
 												<input
+													name="load"
 													[disabled]="
 														workoutProgress
 															.completed[
@@ -619,6 +627,7 @@
 											Recupero
 										</span>
 										<select
+											name="restMinutes"
 											class="form-select custom-select"
 											style="cursor: pointer"
 											[(ngModel)]="exercise.rest.minutes"
@@ -635,6 +644,7 @@
 										</select>
 										<span class="input-group-text">:</span>
 										<select
+											name="restSeconds"
 											class="form-select custom-select rounded-end-5"
 											style="cursor: pointer"
 											[(ngModel)]="exercise.rest.seconds"
@@ -657,6 +667,7 @@
 										</span>
 										<input
 											type="text"
+											name="note"
 											class="form-control rounded-end-5"
 											[(ngModel)]="exercise.note"
 											[ngModelOptions]="{
@@ -703,6 +714,7 @@
 										</span>
 
 										<select
+											name="selectExercise"
 											class="form-select"
 											aria-label="Default select example"
 											style="cursor: pointer"
@@ -724,8 +736,10 @@
 										<button
 											[ngClass]="{
 												'btn rounded-end-4': true,
-												'soft-dark-btn': theme === 'light',
-												'soft-light-btn': theme === 'dark'
+												'soft-dark-btn':
+													theme === 'light',
+												'soft-light-btn':
+													theme === 'dark'
 											}"
 											type="button"
 											(click)="
@@ -746,12 +760,14 @@
 											class="input-group input-group-sm flex-nowrap me-2"
 										>
 											<input
+												name="repsPlaceholder"
 												type="number"
 												class="form-control bg-transparent w-100 border-0"
 												placeholder="Reps"
 												style="pointer-events: none"
 											/>
 											<input
+												name="loadPlaceholder"
 												type="number"
 												class="form-control bg-transparent w-100 border-0"
 												placeholder="Carico"
@@ -794,6 +810,7 @@
 												class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50"
 											>
 												<input
+													name="reps"
 													[disabled]="
 														workoutProgress
 															.completed[
@@ -870,6 +887,7 @@
 												class="input-group input-group-sm flex-nowrap d-flex align-items-center w-50"
 											>
 												<input
+													name="load"
 													[disabled]="
 														workoutProgress
 															.completed[
@@ -1067,6 +1085,7 @@
 										</span>
 
 										<select
+											name="restMinutes"
 											class="form-select custom-select"
 											style="cursor: pointer"
 											[(ngModel)]="exercise.rest.minutes"
@@ -1083,6 +1102,7 @@
 										</select>
 										<span class="input-group-text">:</span>
 										<select
+											name="restSeconds"
 											class="form-select custom-select rounded-end-4"
 											style="cursor: pointer"
 											[(ngModel)]="exercise.rest.seconds"
@@ -1106,6 +1126,7 @@
 											Note
 										</span>
 										<input
+											name="note"
 											type="text"
 											class="form-control rounded-end-4"
 											[(ngModel)]="exercise.note"

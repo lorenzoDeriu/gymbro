@@ -51,6 +51,7 @@
 			<div class="d-flex flex-column w-50 mx-2 mb-3 mt-2 input-container">
 				<p class="mb-0 text-center">Nome</p>
 				<input
+					name="trainingProgramName"
 					[ngModelOptions]="{ standalone: true }"
 					[(ngModel)]="trainingProgram.name"
 					type="text"
@@ -109,6 +110,7 @@
 						>
 							<p class="mb-0">Nome</p>
 							<input
+								name="sessionName"
 								[ngModelOptions]="{ standalone: true }"
 								[(ngModel)]="session.name"
 								type="text"

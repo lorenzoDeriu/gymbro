@@ -30,16 +30,17 @@ export class AdminGuard implements CanActivate {
 		this.themeService.themeObs.subscribe({
 			next: theme => {
 				this.theme = theme;
-			}
+			},
 		});
-		
-		const isAdmin: boolean = await this.firebase.userIsAdmin();
 
+		const isAdmin: boolean = await this.firebase.userIsAdmin();
 
 		if (!isAdmin) {
 			this.dialog.open(AdminDialogComponent, {
 				disableClose: false,
-				panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+				panelClass: [
+					this.theme === "dark" ? "dark-dialog" : "light-dialog",
+				],
 			});
 
 			this.router.navigate(["/home/dashboard"]);

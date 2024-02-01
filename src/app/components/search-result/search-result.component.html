@@ -21,12 +21,17 @@
 		</h1>
 
 		<div class="d-none d-lg-block mb-4">
-			<button class="btn purple-btn text-light me-2" (click)="onCancel()">
+			<button
+				aria-label="Back"
+				class="btn purple-btn text-light me-2"
+				(click)="onCancel()"
+			>
 				<i class="me-1 bi bi-arrow-left"></i>
 				Torna Indietro
 			</button>
 
 			<button
+				aria-label="Home"
 				[ngClass]="{
 					'btn ms-2': true,
 					'soft-light-btn': theme === 'dark',
@@ -41,6 +46,7 @@
 
 		<div class="d-block d-lg-none mb-4">
 			<button
+				aria-label="Back"
 				class="btn btn-sm purple-btn text-light me-2"
 				(click)="onCancel()"
 			>
@@ -49,6 +55,7 @@
 			</button>
 
 			<button
+				aria-label="Home"
 				[ngClass]="{
 					'btn btn-sm ms-2': true,
 					'soft-light-btn': theme === 'dark',
@@ -76,6 +83,7 @@
 			aria-label="Basic example"
 		>
 			<button
+				aria-label="View profile"
 				class="btn"
 				(click)="viewProfile(i)"
 				style="border: none; width: 85%"
@@ -85,7 +93,7 @@
 						[src]="
 							user.profilePicUrl
 								? user.profilePicUrl
-								: 'assets/profile.png'
+								: 'assets/profile.webp'
 						"
 						class="rounded-circle object-fit-cover"
 						width="30px"
@@ -97,7 +105,8 @@
 			</button>
 
 			<button
-				*ngIf="!following"
+				aria-label="Follow"
+				*ngIf="!following || followingIndex !== i"
 				class="btn"
 				(click)="onFollow(i)"
 				style="border: none"
@@ -105,7 +114,11 @@
 				<i class="bi bi-person-plus-fill"></i>
 			</button>
 
-			<button *ngIf="following" class="btn" style="border: none">
+			<button
+				*ngIf="following && followingIndex === i"
+				class="btn"
+				style="border: none"
+			>
 				<div class="spinner-border spinner-border-sm" role="status">
 					<span class="visually-hidden">Loading...</span>
 				</div>

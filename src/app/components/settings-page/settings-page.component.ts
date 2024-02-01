@@ -9,7 +9,6 @@ import { ShareDialogComponent } from "../share-dialog/share-dialog.component";
 import { User } from "src/app/Models/User.model";
 import { EditProfilePicDialogComponent } from "../edit-profile-pic-dialog/edit-profile-pic-dialog.component";
 import { ThemeService } from "src/app/services/theme.service";
-import { Notification } from "src/app/Models/Notification.model";
 import { NotificationService } from "src/app/services/notification.service";
 import { UserService } from "src/app/services/user.service";
 
@@ -85,7 +84,9 @@ export class SettingsPageComponent implements OnInit {
 				},
 			},
 			disableClose: false,
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -119,7 +120,9 @@ export class SettingsPageComponent implements OnInit {
 				exercises: this.customExercises,
 			},
 			disableClose: false,
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -129,7 +132,9 @@ export class SettingsPageComponent implements OnInit {
 				username: this.username,
 			},
 			disableClose: false,
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -159,7 +164,9 @@ export class SettingsPageComponent implements OnInit {
 					await authService.deleteAccount();
 				},
 			},
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 
@@ -197,7 +204,17 @@ export class SettingsPageComponent implements OnInit {
 		);
 	}
 
-	collapseSettings(target: HTMLElement) {
+	public isPushNotificationsEnabledAndSupported() {
+		return (
+			"Notification" in window && Notification.permission === "granted"
+		);
+	}
+
+	public requestNotificationsPermission() {
+		this.notificationService.requestPushNotificationsPermissions();
+	}
+
+	public collapseSettings(target: HTMLElement) {
 		if (target.classList.contains("saveUsernameBtn")) {
 			(
 				document.getElementById("usernameBtn") as HTMLButtonElement

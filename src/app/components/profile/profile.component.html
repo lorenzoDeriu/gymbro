@@ -17,12 +17,17 @@
 <div id="wrapper" *ngIf="!loading">
 	<div id="main-container" class="p-3">
 		<div class="d-none d-lg-block mt-3">
-			<button class="btn purple-btn text-light me-2" (click)="onCancel()">
+			<button
+				aria-label="Back"
+				class="btn purple-btn text-light me-2"
+				(click)="onCancel()"
+			>
 				<i class="me-1 bi bi-arrow-left"></i>
 				Torna Indietro
 			</button>
 
 			<button
+				aria-label="Home"
 				[ngClass]="{
 					'btn ms-2': true,
 					'soft-light-btn': theme === 'dark',
@@ -37,6 +42,7 @@
 
 		<div class="d-block d-lg-none mt-3">
 			<button
+				aria-label="Back"
 				class="btn btn-sm purple-btn text-light me-2"
 				(click)="onCancel()"
 			>
@@ -45,6 +51,7 @@
 			</button>
 
 			<button
+				aria-label="Home"
 				[ngClass]="{
 					'btn btn-sm ms-2': true,
 					'soft-light-btn': theme === 'dark',
@@ -59,7 +66,7 @@
 
 		<img
 			class="mb-2 mt-4 d-none d-lg-block rounded-circle object-fit-cover"
-			[src]="profilePic ? profilePic : 'assets/profile.png'"
+			[src]="profilePic ? profilePic : 'assets/profile.webp'"
 			style="
 				min-width: 200px;
 				min-height: 200px;
@@ -71,7 +78,7 @@
 
 		<img
 			class="mb-2 mt-4 d-block d-lg-none rounded-circle object-fit-cover"
-			[src]="profilePic ? profilePic : 'assets/profile.png'"
+			[src]="profilePic ? profilePic : 'assets/profile.webp'"
 			style="
 				min-width: 150px;
 				min-height: 150px;

@@ -3,35 +3,41 @@
 	style="z-index: 1; height: 66px"
 >
 	<div class="container-fluid">
-		<a
-			class="navbar-brand m-0 d-none d-lg-block"
+		<button
+			class="btn border-0 navbar-brand m-0 d-none d-lg-block"
 			(click)="goToHome()"
 			style="cursor: pointer"
 		>
 			<img
 				id="logo"
 				[src]="
-					theme === 'light' ? 'assets/logo.png' : 'assets/logo-w.png'
+					theme === 'light'
+						? 'assets/logo.webp'
+						: 'assets/logo-w.webp'
 				"
-				alt="Bootstrap"
+				style="aspect-ratio: auto 1160/648"
 				width="70"
+				alt="Logo"
 			/>
-		</a>
+		</button>
 
-		<a
-			class="navbar-brand m-0 d-block d-lg-none"
+		<button
+			class="btn border-0 navbar-brand m-0 d-block d-lg-none"
 			(click)="goToHome()"
 			style="cursor: pointer"
 		>
 			<img
 				id="logo"
 				[src]="
-					theme === 'light' ? 'assets/logo.png' : 'assets/logo-w.png'
+					theme === 'light'
+						? 'assets/logo.webp'
+						: 'assets/logo-w.webp'
 				"
-				alt="Bootstrap"
 				width="50"
+				style="aspect-ratio: auto 1160/648"
+				alt="Logo"
 			/>
-		</a>
+		</button>
 
 		<div class="d-flex align-items-center">
 			<!-- Stopwatch -->
@@ -103,10 +109,10 @@
 								[ngStyle]="{
 									filter: theme === 'dark' ? 'invert(1)' : ''
 								}"
-								src="assets/dumbbell-icon.png"
+								src="assets/dumbbell-icon.webp"
 								class="me-1"
 								width="16"
-								alt=""
+								alt="Dumbbell"
 							/>
 							Allenamento
 						</button>
@@ -157,10 +163,10 @@
 								[ngStyle]="{
 									filter: theme === 'dark' ? 'invert(1)' : ''
 								}"
-								src="assets/dumbbell-icon.png"
+								src="assets/dumbbell-icon.webp"
 								class="me-1"
 								width="16"
-								alt=""
+								alt="Dumbbell"
 							/>
 							Allenamento
 						</button>
@@ -196,6 +202,7 @@
 				class="btn"
 				data-bs-toggle="dropdown"
 				aria-expanded="false"
+				aria-label="Menu"
 				style="border: none"
 			>
 				<i class="fs-3 bi bi-list position-relative">
@@ -215,27 +222,27 @@
 				}"
 			>
 				<li class="text-end mb-1">
-					<a
+					<button
 						class="dropdown-item"
 						(click)="onSocial()"
 						style="cursor: pointer"
 					>
 						Gymbros
 						<i class="ms-2 bi bi-people-fill"></i>
-					</a>
+					</button>
 				</li>
 				<li class="text-end mb-1">
-					<a
+					<button
 						class="dropdown-item"
 						(click)="onFeedback()"
 						style="cursor: pointer"
 					>
 						Feedback
 						<i class="ms-2 bi bi-flag-fill"></i>
-					</a>
+					</button>
 				</li>
 				<li class="text-end mb-1">
-					<a
+					<button
 						*ngIf="theme === 'light'"
 						class="dropdown-item"
 						(click)="toggleTheme()"
@@ -243,9 +250,9 @@
 					>
 						Dark Mode
 						<i class="ms-2 bi bi-moon-stars-fill"></i>
-					</a>
+					</button>
 
-					<a
+					<button
 						*ngIf="theme === 'dark'"
 						class="dropdown-item"
 						(click)="toggleTheme()"
@@ -253,20 +260,20 @@
 					>
 						Light Mode
 						<i class="ms-2 bi bi-sun-fill"></i>
-					</a>
+					</button>
 				</li>
 				<li class="text-end mb-1">
-					<a
+					<button
 						class="dropdown-item"
 						(click)="onAbout()"
 						style="cursor: pointer"
 					>
 						About
 						<i class="ms-2 bi bi-info-circle-fill"></i>
-					</a>
+					</button>
 				</li>
 				<li class="text-end mb-1">
-					<a
+					<button
 						class="dropdown-item"
 						(click)="onSettings()"
 						style="cursor: pointer"
@@ -280,27 +287,27 @@
 								<span class="visually-hidden">New alerts</span>
 							</span>
 						</i>
-					</a>
+					</button>
 				</li>
 				<li class="text-end mb-1" *ngIf="isAdmin">
-					<a
+					<button
 						class="dropdown-item"
 						(click)="onAdmin()"
 						style="cursor: pointer"
 					>
 						Admin
 						<i class="ms-2 bi bi-shield-lock-fill"></i>
-					</a>
+					</button>
 				</li>
 				<li class="text-end">
-					<a
+					<button
 						class="dropdown-item"
 						(click)="onLogout()"
 						style="cursor: pointer"
 					>
 						Esci
 						<i class="ms-2 bi bi-box-arrow-right"></i>
-					</a>
+					</button>
 				</li>
 			</ul>
 		</div>

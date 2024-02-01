@@ -29,6 +29,7 @@ export class FriendsComponent implements OnInit {
 	public theme: "dark" | "light";
 	public loading: boolean;
 	public unfollowing: boolean;
+	public unfollowingIndex: number = -1;
 	public friends: string;
 	public followed: FollowedUserInfo[];
 
@@ -84,10 +85,12 @@ export class FriendsComponent implements OnInit {
 
 	public async onUnfollow(index: number) {
 		this.unfollowing = true;
+		this.unfollowingIndex = index;
 		await this.firebase.unfollow(this.followed[index].uid);
 		this.followed = await this.firebase.getFollowed();
 		this._hasFollow = this.followed.length > 0;
 		this.unfollowing = false;
+		this.unfollowingIndex = -1;
 	}
 
 	public backToHome() {

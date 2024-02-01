@@ -1,11 +1,11 @@
 <div class="position-absolute top-0 start-0 ms-3 mt-3">
-	<a href="/welcome" class="blue-link">
+	<a href="/welcome" class="blue-link" aria-label="Back">
 		<i class="bi bi-arrow-left"></i>
 	</a>
 </div>
 
 <div class="position-absolute top-0 end-0 me-3 mt-3">
-	<a href="about-preview" class="blue-link">
+	<a href="about-preview" class="blue-link" aria-label="About">
 		<i class="bi bi-question-circle-fill"></i>
 	</a>
 </div>
@@ -19,8 +19,11 @@
 		class="d-flex flex-column justify-content-center align-items-center p-3 h-100 w-100"
 	>
 		<img
-			[src]="theme === 'light' ? 'assets/logo.png' : 'assets/logo-w.png'"
+			[src]="
+				theme === 'light' ? 'assets/logo.webp' : 'assets/logo-w.webp'
+			"
 			id="logo"
+			alt="Logo"
 			width="200"
 		/>
 		<div
@@ -33,8 +36,10 @@
 			"
 		>
 			<div class="d-flex flex-column w-100 mb-3">
-				<p class="mb-0">E-mail</p>
+				<label for="email" class="mb-0">E-mail</label>
 				<input
+					id="email"
+					autocomplete="off"
 					name="email"
 					[(ngModel)]="email"
 					type="email"
@@ -43,9 +48,10 @@
 				/>
 			</div>
 			<div class="d-flex flex-column w-100 mb-3">
-				<p class="mb-0">
+				<label for="password" class="mb-0">
 					Password
 					<button
+						aria-label="Mostra o Nascondi password"
 						tabindex="-1"
 						(click)="showHidePassword()"
 						class="btn btn-sm border-0"
@@ -53,8 +59,9 @@
 						<i *ngIf="hidePwd" class="bi bi-eye"></i>
 						<i *ngIf="!hidePwd" class="bi bi-eye-slash"></i>
 					</button>
-				</p>
+				</label>
 				<input
+					id="password"
 					name="password"
 					[(ngModel)]="password"
 					[type]="hidePwd ? 'password' : 'text'"
@@ -62,13 +69,13 @@
 					style="background-color: transparent"
 				/>
 			</div>
-			<a
+			<span
 				(click)="forgotPassword()"
 				class="mb-3 text-decoration-none"
 				style="color: #4089c9; cursor: pointer"
 			>
 				Password dimenticata?
-			</a>
+			</span>
 			<div class="form-check mb-3">
 				<input
 					class="form-check-input"
@@ -110,7 +117,11 @@
 					class="btn"
 					style="border: none"
 				>
-					<img src="assets/google-logo.png" height="30" alt="" />
+					<img
+						src="assets/google-logo.webp"
+						height="30"
+						alt="Google"
+					/>
 				</button>
 				<button
 					disabled
@@ -118,24 +129,28 @@
 					class="btn"
 					style="border: none"
 				>
-					<img src="assets/facebook-logo.jpg" height="30" alt="" />
+					<img
+						src="assets/facebook-logo.webp"
+						height="30"
+						alt="Facebook"
+					/>
 				</button>
 				<button
 					(click)="accessWithTwitter()"
 					class="btn"
 					style="border: none"
 				>
-					<img src="assets/x-logo.webp" height="30" alt="" />
+					<img src="assets/x-logo.webp" height="30" alt="Twitter" />
 				</button>
 			</div>
 			<p>
 				Non hai un account?
-				<a
+				<span
 					(click)="switchToRegister()"
 					style="color: #4089c9; cursor: pointer"
 				>
 					Registrati
-				</a>
+				</span>
 			</p>
 		</div>
 	</div>
@@ -151,8 +166,11 @@
 		class="d-flex flex-column justify-content-center align-items-center p-3 h-100 w-100"
 	>
 		<img
-			[src]="theme === 'light' ? 'assets/logo.png' : 'assets/logo-w.png'"
+			[src]="
+				theme === 'light' ? 'assets/logo.webp' : 'assets/logo-w.webp'
+			"
 			id="logo"
+			alt="Logo"
 			width="200"
 		/>
 		<div
@@ -165,8 +183,9 @@
 			"
 		>
 			<div class="d-flex flex-column w-100 mb-3">
-				<p class="mb-0">Username</p>
+				<label for="username" class="mb-0">Username</label>
 				<input
+					autocomplete="off"
 					name="username"
 					[(ngModel)]="username"
 					type="text"
@@ -175,8 +194,10 @@
 				/>
 			</div>
 			<div class="d-flex flex-column w-100 mb-3">
-				<p class="mb-0">E-mail</p>
+				<label for="emailRegister" class="mb-0">E-mail</label>
 				<input
+					id="emailRegister"
+					autocomplete="off"
 					name="emailRegister"
 					[(ngModel)]="emailRegister"
 					type="email"
@@ -185,9 +206,10 @@
 				/>
 			</div>
 			<div class="d-flex flex-column w-100 mb-3">
-				<p class="mb-0">
+				<label for="passwordRegister" class="mb-0">
 					Password
 					<button
+						aria-label="Mostra o Nascondi password"
 						tabindex="-1"
 						(click)="showHidePassword()"
 						class="btn btn-sm border-0"
@@ -195,8 +217,9 @@
 						<i *ngIf="hidePwd" class="bi bi-eye"></i>
 						<i *ngIf="!hidePwd" class="bi bi-eye-slash"></i>
 					</button>
-				</p>
+				</label>
 				<input
+					id="passwordRegister"
 					name="passwordRegister"
 					[(ngModel)]="passwordRegister"
 					[type]="hidePwd ? 'password' : 'text'"
@@ -205,7 +228,7 @@
 				/>
 			</div>
 			<div class="d-flex flex-column w-100 mb-3">
-				<p class="mb-0">
+				<label class="mb-0" for="confirmPassword">
 					Conferma Password
 					<button
 						tabindex="-1"
@@ -215,8 +238,9 @@
 						<i *ngIf="hidePwdConfirm" class="bi bi-eye"></i>
 						<i *ngIf="!hidePwdConfirm" class="bi bi-eye-slash"></i>
 					</button>
-				</p>
+				</label>
 				<input
+					id="confirmPassword"
 					name="confirmPassword"
 					[(ngModel)]="confirmPassword"
 					[type]="hidePwdConfirm ? 'password' : 'text'"
@@ -252,12 +276,12 @@
 			</button>
 			<p>
 				Hai già un account?
-				<a
+				<span
 					(click)="switchToLogin()"
 					style="color: #4089c9; cursor: pointer"
 				>
 					Accedi
-				</a>
+				</span>
 			</p>
 		</div>
 	</div>

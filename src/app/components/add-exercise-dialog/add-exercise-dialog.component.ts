@@ -42,10 +42,12 @@ export class AddExerciseDialogComponent implements OnInit {
 			"Ok",
 			{
 				duration: 3000,
-				panelClass: [this.theme == "dark" ? "dark-snackbar" : "light-snackbar"],
+				panelClass: [
+					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
+				],
 			}
 		);
-		
+
 		this.closeDialog();
 	}
 

@@ -130,7 +130,9 @@ export class TrainingProgramSelectorComponent implements OnInit {
 					sessionIndex
 				].exercises[exerciseIndex].note,
 			},
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 }

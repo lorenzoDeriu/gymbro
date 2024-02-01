@@ -39,7 +39,9 @@ export class CustomExcerciseDialogComponent implements OnInit {
 					customExercises.splice(index, 1);
 				},
 			},
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
 		});
 	}
 

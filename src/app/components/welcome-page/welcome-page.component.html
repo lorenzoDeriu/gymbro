@@ -2,14 +2,14 @@
 	<!-- Mobile -->
 	<div class="mobile-wrap w-100 d-block d-lg-none" style="height: 100svh">
 		<div class="d-flex justify-content-center pt-3" style="height: 15%">
-			<img src="assets/logo-w.png" />
+			<img src="assets/logo-w.webp" alt="Logo" />
 		</div>
 		<div class="scrollable" style="height: 70%">
 			<section
 				id="0-m"
 				class="d-flex flex-column justify-content-center align-items-center"
 			>
-				<img style="width: 60%" src="assets/tip1.svg" alt="" />
+				<img style="width: 60%" src="assets/tip1.svg" alt="Tip" />
 				<div
 					class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75"
 				>
@@ -27,7 +27,7 @@
 				id="1-m"
 				class="d-flex flex-column justify-content-center align-items-center"
 			>
-				<img style="width: 50%" src="assets/tip2.svg" alt="" />
+				<img style="width: 50%" src="assets/tip2.svg" alt="Tip" />
 				<div
 					class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75"
 				>
@@ -45,7 +45,7 @@
 				id="2-m"
 				class="d-flex flex-column justify-content-center align-items-center"
 			>
-				<img style="width: 50%" src="assets/tip3.svg" alt="" />
+				<img style="width: 50%" src="assets/tip3.svg" alt="Tip" />
 				<div
 					class="tip text-light d-flex justify-content-center align-items-center p-2 mt-5 w-75"
 				>
@@ -89,7 +89,7 @@
 
 		<ul class="nav justify-content-center" style="height: 5%">
 			<li class="nav-item">
-				<a
+				<span
 					id="ctrl0-m"
 					class="nav-link active"
 					aria-current="page"
@@ -97,27 +97,27 @@
 					style="font-size: 10px"
 				>
 					<i class="bi bi-circle-fill"></i>
-				</a>
+				</span>
 			</li>
 			<li class="nav-item">
-				<a
+				<span
 					id="ctrl1-m"
 					class="nav-link"
 					(click)="toSecondSlideM()"
 					style="font-size: 10px"
 				>
 					<i class="bi bi-circle-fill"></i>
-				</a>
+				</span>
 			</li>
 			<li class="nav-item">
-				<a
+				<span
 					id="ctrl2-m"
 					class="nav-link"
 					(click)="toThirdSlideM()"
 					style="font-size: 10px"
 				>
 					<i class="bi bi-circle-fill"></i>
-				</a>
+				</span>
 			</li>
 		</ul>
 	</div>
@@ -125,7 +125,7 @@
 	<!-- Desktop -->
 	<div class="wrapper d-none d-lg-flex">
 		<div class="position-absolute top-0 end-0 me-3 mt-3">
-			<a
+			<span
 				hidden
 				id="install"
 				(click)="installApp('desktop')"
@@ -133,7 +133,7 @@
 			>
 				Installa
 				<i class="ms-1 bi bi-download"></i>
-			</a>
+			</span>
 			<a href="about-preview" class="blue-link">
 				About
 				<i class="ms-1 bi bi-question-circle-fill"></i>
@@ -145,7 +145,7 @@
 					id="0"
 					class="d-flex flex-column justify-content-center align-items-center"
 				>
-					<img style="width: 60%" src="assets/tip1.svg" alt="" />
+					<img style="width: 60%" src="assets/tip1.svg" alt="Tip" />
 					<p
 						class="position-relative tip text-light text-center lh-base w-75 mt-5 p-5"
 						style="font-size: 1.2rem"
@@ -162,7 +162,7 @@
 					id="1"
 					class="d-flex flex-column justify-content-center align-items-center"
 				>
-					<img style="width: 50%" src="assets/tip2.svg" alt="" />
+					<img style="width: 50%" src="assets/tip2.svg" alt="Tip" />
 					<p
 						class="position-relative tip text-light text-center lh-base w-75 mt-5 p-5"
 						style="font-size: 1.2rem"
@@ -179,7 +179,7 @@
 					id="2"
 					class="d-flex flex-column justify-content-center align-items-center"
 				>
-					<img style="width: 50%" src="assets/tip3.svg" alt="" />
+					<img style="width: 50%" src="assets/tip3.svg" alt="Tip" />
 					<p
 						class="position-relative tip text-light text-center lh-base w-75 mt-5 p-5"
 						style="font-size: 1.2rem"
@@ -195,7 +195,7 @@
 			</div>
 			<ul class="nav justify-content-center" style="height: 5%">
 				<li class="nav-item">
-					<a
+					<span
 						id="ctrl0"
 						class="nav-link active"
 						aria-current="page"
@@ -203,27 +203,27 @@
 						style="font-size: 10px"
 					>
 						<i class="bi bi-circle-fill"></i>
-					</a>
+					</span>
 				</li>
 				<li class="nav-item">
-					<a
+					<span
 						id="ctrl1"
 						class="nav-link"
 						(click)="toSecondSlide()"
 						style="font-size: 10px"
 					>
 						<i class="bi bi-circle-fill"></i>
-					</a>
+					</span>
 				</li>
 				<li class="nav-item">
-					<a
+					<span
 						id="ctrl2"
 						class="nav-link"
 						(click)="toThirdSlide()"
 						style="font-size: 10px"
 					>
 						<i class="bi bi-circle-fill"></i>
-					</a>
+					</span>
 				</li>
 			</ul>
 		</div>
@@ -240,10 +240,11 @@
 				<img
 					[src]="
 						theme === 'light'
-							? 'assets/logo.png'
-							: 'assets/logo-w.png'
+							? 'assets/logo.webp'
+							: 'assets/logo-w.webp'
 					"
 					width="200"
+					alt="Logo"
 				/>
 				<div
 					class="mt-5 d-flex flex-column justify-content-center align-items-center px-5"
@@ -257,6 +258,7 @@
 					<div class="d-flex flex-column w-100 mb-3">
 						<p class="mb-0">E-mail</p>
 						<input
+							autocomplete="off"
 							name="email"
 							[(ngModel)]="email"
 							type="email"
@@ -284,12 +286,12 @@
 							style="background-color: transparent"
 						/>
 					</div>
-					<a
+					<span
 						(click)="forgotPassword()"
 						class="mb-3 text-decoration-none blue-link"
 					>
 						Password dimenticata?
-					</a>
+					</span>
 					<div class="form-check mb-3">
 						<input
 							class="form-check-input"
@@ -299,13 +301,13 @@
 						/>
 						<label class="form-check-label" for="flexCheckChecked">
 							Accetto i termini e le condizioni contenuti nella
-							<a
+							<span
 								target="_blank"
 								href="https://www.freeprivacypolicy.com/live/28da0d30-3286-4475-ad3f-964a2576f242"
 								class="blue-link text-decoration-none"
 							>
 								Privacy Policy
-							</a>
+							</span>
 							di GymBro
 						</label>
 					</div>
@@ -332,9 +334,9 @@
 							style="border: none"
 						>
 							<img
-								src="assets/google-logo.png"
+								src="assets/google-logo.webp"
 								height="30"
-								alt=""
+								alt="Logo"
 							/>
 						</button>
 						<button
@@ -343,9 +345,9 @@
 							style="border: none; cursor: not-allowed"
 						>
 							<img
-								src="assets/facebook-logo.jpg"
+								src="assets/facebook-logo.webp"
 								height="30"
-								alt=""
+								alt="Logo"
 							/>
 						</button>
 						<button
@@ -353,17 +355,21 @@
 							class="btn"
 							style="border: none"
 						>
-							<img src="assets/x-logo.webp" height="30" alt="" />
+							<img
+								src="assets/x-logo.webp"
+								height="30"
+								alt="Logo"
+							/>
 						</button>
 					</div>
 					<p>
 						Non hai un account?
-						<a
+						<span
 							(click)="switchToRegister()"
 							class="blue-link text-decoration-none"
 						>
 							Registrati
-						</a>
+						</span>
 					</p>
 				</div>
 			</div>
@@ -381,9 +387,10 @@
 				<img
 					[src]="
 						theme === 'light'
-							? 'assets/logo.png'
-							: 'assets/logo-w.png'
+							? 'assets/logo.webp'
+							: 'assets/logo-w.webp'
 					"
+					alt="Logo"
 					width="200"
 				/>
 				<div
@@ -398,6 +405,7 @@
 					<div class="d-flex flex-column w-100 mb-3">
 						<p class="mb-0">Username</p>
 						<input
+							autocomplete="off"
 							name="username"
 							[(ngModel)]="username"
 							type="text"
@@ -408,6 +416,7 @@
 					<div class="d-flex flex-column w-100 mb-3">
 						<p class="mb-0">E-mail</p>
 						<input
+							autocomplete="off"
 							name="emailRegister"
 							[(ngModel)]="emailRegister"
 							type="email"
@@ -486,12 +495,12 @@
 					</button>
 					<p>
 						Hai già un account?
-						<a
+						<span
 							(click)="switchToLogin()"
 							class="blue-link text-decoration-none"
 						>
 							Accedi
-						</a>
+						</span>
 					</p>
 				</div>
 			</div>

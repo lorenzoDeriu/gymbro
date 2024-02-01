@@ -88,9 +88,14 @@ export class NewExerciseDialogComponent implements OnInit {
 	}
 
 	public openCustomExerciseDialog() {
-		let customExerciseDialog = this.dialog.open(AddExerciseDialogComponent, {
-			panelClass: [this.theme === "dark" ? "dark-dialog" : "light-dialog"]
-		});
+		let customExerciseDialog = this.dialog.open(
+			AddExerciseDialogComponent,
+			{
+				panelClass: [
+					this.theme === "dark" ? "dark-dialog" : "light-dialog",
+				],
+			}
+		);
 		customExerciseDialog.afterClosed().subscribe(() => {
 			this.getExercises();
 		});
