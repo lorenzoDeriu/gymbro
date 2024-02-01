@@ -57,6 +57,16 @@ export class AppComponent implements OnInit {
 			);
 		}
 
+		if (localStorage.getItem("theme")) {
+			if (localStorage.getItem("theme") === "light") {
+				document.body.setAttribute("data-bs-theme", "light");
+				document.head.querySelector("meta[name=theme-color]").setAttribute("content", "#fff");
+			} else {
+				document.body.setAttribute("data-bs-theme", "dark");
+				document.head.querySelector("meta[name=theme-color]").setAttribute("content", "#2b3035");
+			}
+		}
+
 		localStorage.getItem("theme")
 			? localStorage.getItem("theme") == "light"
 				? document.body.setAttribute("data-bs-theme", "light")
