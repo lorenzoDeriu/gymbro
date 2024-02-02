@@ -1,0 +1,56 @@
+<div
+	class="d-flex flex-column align-items-center p-3 overflow-auto"
+	style="min-width: 220px; width: auto; max-width: 800px; max-height: 60svh"
+>
+	<h1>Aggiorna il tuo peso</h1>
+
+	<div class="my-3 d-flex align-items-center">
+		<button
+			[ngClass]="{
+				'btn rounded-5': true,
+				'btn-dark': theme === 'dark',
+				'btn-light': theme === 'light'
+			}"
+		> 
+			<i class="bi bi-dash"></i>
+		</button>
+
+		<div class="input-group mx-3">
+			<input
+				name="weight"
+				type="number"
+				inputmode="numeric"
+				aria-label="weight"
+				class="form-control rounded-5 border-0"
+				[(ngModel)]="weight"
+			/>
+			<span class="input-group-text bg-transparent border-0">Kg</span>
+		</div>
+
+		<button
+			[ngClass]="{
+				'btn rounded-5': true,
+				'btn-dark': theme === 'dark',
+				'btn-light': theme === 'light'
+			}"
+		>
+			<i class="bi bi-plus"></i>
+		</button>
+	</div>
+
+	<div class="mt-3 w-100 d-flex align-items-center">
+		<button class="btn purple-btn w-50 me-1" (click)="saveWeight()">
+			Aggiorna
+		</button>
+		<button
+			[ngClass]="{
+				'btn w-50 ms-1': true,
+				'btn-light': theme === 'dark',
+				'btn-dark': theme === 'light'
+			}"
+			(click)="cancel()"
+		>
+			Chiudi
+		</button>
+	</div>
+</div>

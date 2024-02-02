@@ -11,6 +11,7 @@ import { EditProfilePicDialogComponent } from "../edit-profile-pic-dialog/edit-p
 import { ThemeService } from "src/app/services/theme.service";
 import { NotificationService } from "src/app/services/notification.service";
 import { UserService } from "src/app/services/user.service";
+import { WeightDialogComponent } from "../weight-dialog/weight-dialog.component";
 
 @Component({
 	selector: "app-settings-page",
@@ -256,6 +257,17 @@ export class SettingsPageComponent implements OnInit {
 				) as HTMLButtonElement
 			).click();
 		}
+	}
+
+	public openWeightDialog() {
+		this.dialog.open(WeightDialogComponent, {
+			data: {
+				weight: 60
+			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
+		});
 	}
 
 	public getNotifications() {

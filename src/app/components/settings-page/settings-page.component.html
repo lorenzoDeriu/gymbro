@@ -117,8 +117,24 @@
 			</button>
 
 			<button
+				(click)="openWeightDialog()"
+				class="d-flex btn border-0 bg-body-tertiary rounded-3 mb-3 p-2 w-100 d-none d-lg-block shadow-sm"
+			>
+				<i class="me-2 bi bi-speedometer2"></i>
+				Il tuo peso
+			</button>
+
+			<button
+				(click)="openWeightDialog()"
+				class="d-flex btn border-0 bg-body-tertiary btn-sm rounded-3 mb-3 p-2 w-100 d-block d-lg-none shadow-sm"
+			>
+				<i class="me-2 bi bi-speedometer2"></i>
+				Il tuo peso
+			</button>
+
+			<button
 				[ngClass]="{
-					'd-flex btn border-0 shadow-sm rounded-3 mb-4 p-2 w-100 d-none d-lg-block': true,
+					'd-flex btn shadow-sm rounded-3 mb-4 p-2 w-100 d-none d-lg-block': true,
 					'soft-light-btn': theme === 'dark',
 					'soft-dark-btn': theme === 'light'
 				}"
@@ -130,7 +146,7 @@
 
 			<button
 				[ngClass]="{
-					'd-flex btn btn-sm border-0 shadow-sm rounded-3 mb-4 p-2 w-100 d-block d-lg-none': true,
+					'd-flex btn btn-sm shadow-sm rounded-3 mb-4 p-2 w-100 d-block d-lg-none': true,
 					'soft-light-btn': theme === 'dark',
 					'soft-dark-btn': theme === 'light'
 				}"
