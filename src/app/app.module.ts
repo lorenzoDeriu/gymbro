@@ -18,7 +18,6 @@ import { PageNotFoundComponent } from "./components/page-not-found/page-not-foun
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatRippleModule } from "@angular/material/core";
 import { OldWorkoutsComponent } from "./components/old-workouts/old-workouts.component";
-import { YourProgressComponent } from "./components/your-progress/your-progress.component";
 import { TrainingProgramsComponent } from "./components/training-programs/training-programs.component";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { TrainingProgramSelectorComponent } from "./components/training-program-selector/training-program-selector.component";
@@ -54,7 +53,6 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { NotesDialogComponent } from "./components/notes-dialog/notes-dialog.component";
 import { ExerciseStatsDialogComponent } from "./components/exercise-stats-dialog/exercise-stats-dialog.component";
 import { WelcomePageComponent } from "./components/welcome-page/welcome-page.component";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SafetyActionConfirmDialogComponent } from "./components/safety-action-confirm-dialog/safety-action-confirm-dialog.component";
 import { CustomExcerciseDialogComponent } from "./components/custom-excercise-dialog/custom-excercise-dialog.component";
 import { ShareDialogComponent } from "./components/share-dialog/share-dialog.component";
@@ -76,7 +74,6 @@ import { UpdateNotesDialogComponent } from "./components/update-notes-dialog/upd
 		HomeComponent,
 		PageNotFoundComponent,
 		OldWorkoutsComponent,
-		YourProgressComponent,
 		TrainingProgramsComponent,
 		DashboardComponent,
 		TrainingProgramSelectorComponent,
@@ -144,7 +141,6 @@ import { UpdateNotesDialogComponent } from "./components/update-notes-dialog/upd
 		}),
 		MatTooltipModule,
 		MatSlideToggleModule,
-		NgbModule,
 	],
 	bootstrap: [AppComponent],
 })

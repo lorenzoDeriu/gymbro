@@ -154,6 +154,32 @@ export class SettingsPageComponent implements OnInit {
 		);
 	}
 
+	public refreshApp() {
+		this.dialog.open(SafetyActionConfirmDialogComponent, {
+			data: {
+				title: "Ricarica l'app",
+				message:
+					"Hai riscontrato problemi con l'app e non riesci a risolverli? Prova a ricaricare l'app. Questa azione eliminerà alcuni dati temporanei o delle impostazioni. Nessun dato personale, allenamento, scheda o dati importanti verranno eliminati.",
+				args: [],
+				confirm: () => {
+					const theme: "light" | "dark" = localStorage.getItem(
+						"theme"
+					) as "light" | "dark";
+					const welcomeDialog = localStorage.getItem(
+						"welcomeDialog_v11.0"
+					);
+					localStorage.clear();
+					localStorage.setItem("theme", theme);
+					localStorage.setItem("welcomeDialog_v11.0", welcomeDialog);
+					window.location.reload();
+				},
+			},
+			panelClass: [
+				this.theme === "dark" ? "dark-dialog" : "light-dialog",
+			],
+		});
+	}
+
 	public deleteAccount() {
 		this.dialog.open(SafetyActionConfirmDialogComponent, {
 			data: {

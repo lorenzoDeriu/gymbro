@@ -482,7 +482,7 @@
 
 					<!-- Password -->
 					<button
-						class="d-none d-lg-flex btn bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3 mt-3"
+						class="d-none d-lg-flex btn bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3"
 						(click)="changePassword()"
 					>
 						<i class="me-2 bi bi-lock-fill"></i>
@@ -490,11 +490,28 @@
 					</button>
 
 					<button
-						class="d-flex d-lg-none btn btn-sm bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3 mt-3"
+						class="d-flex d-lg-none btn btn-sm bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3"
 						(click)="changePassword()"
 					>
 						<i class="me-2 bi bi-lock-fill"></i>
 						Modifica Password
+					</button>
+
+					<!-- Refresh -->
+					<button
+						class="d-none d-lg-flex btn bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3"
+						(click)="refreshApp()"
+					>
+						<i class="me-2 bi bi-arrow-clockwise"></i>
+						Ricarica
+					</button>
+
+					<button
+						class="d-flex d-lg-none btn btn-sm bg-body-tertiary shadow-sm border-0 rounded-3 p-2 w-100 mt-3"
+						(click)="refreshApp()"
+					>
+						<i class="me-2 bi bi-arrow-clockwise"></i>
+						Ricarica
 					</button>
 
 					<!-- Delete -->
