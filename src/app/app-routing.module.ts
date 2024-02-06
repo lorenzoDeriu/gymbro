@@ -19,6 +19,7 @@ import { SettingsPageComponent } from "./components/settings-page/settings-page.
 import { WelcomePageComponent } from "./components/welcome-page/welcome-page.component";
 import { AdminGuard } from "./services/admin.guard";
 import { AboutPreviewComponent } from "./components/about-preview/about-preview.component";
+import { YourProgressPageComponent } from "./components/your-progress-page/your-progress-page.component";
 
 const routes: Routes = [
 	{ path: "", redirectTo: "home", pathMatch: "full" },
@@ -32,7 +33,7 @@ const routes: Routes = [
 			{ path: "", redirectTo: "dashboard", pathMatch: "full" },
 			{ path: "dashboard", component: DashboardComponent },
 			{ path: "old-workouts", component: OldWorkoutsComponent },
-			/* { path: "progress", component: YourProgressComponent }, */
+			{ path: "progress", component: YourProgressPageComponent },
 			{
 				path: "training-program-selector",
 				component: TrainingProgramSelectorComponent,

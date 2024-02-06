@@ -69,15 +69,14 @@
 				shadow: theme === 'dark'
 			}"
 			id="progress"
-			(click)="openWIPSnackbar()"
+			routerLink="/home/progress"
 		>
-			<h3 class="text-center opacity-25 mb-0" style="font-weight: 550">
+			<h3 class="text-center mb-0" style="font-weight: 550">
 				I tuoi Progressi
 			</h3>
 			<img
 				[ngStyle]="{ filter: theme === 'dark' ? 'invert(1)' : '' }"
 				src="assets/progress.webp"
-				class="opacity-25"
 				alt="Progress"
 			/>
 		</div>

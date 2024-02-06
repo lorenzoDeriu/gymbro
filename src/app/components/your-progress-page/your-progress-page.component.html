@@ -1,1 +1,21 @@
-<p>your-progress-page works!</p>
+<div
+	*ngIf="loading"
+	class="d-flex justify-content-center align-items-center opacity-50 position-absolute"
+	style="
+		width: 100vw;
+		height: 100svh;
+		z-index: 10000;
+		background-color: black;
+	"
+>
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">Loading...</span>
+	</div>
+</div>
+
+<!-- TODO: Remove !loading and check if object is already loaded -->
+<div *ngIf="!loading" id="wrapper">
+	<div id="main-container" class="p-3 w-100">
+		<div id="chart" class="bg-body-tertiary rounded-3 m-2 w-100"></div>
+	</div>
+</div>

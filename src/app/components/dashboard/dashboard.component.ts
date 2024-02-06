@@ -72,19 +72,6 @@ export class DashboardComponent implements OnInit {
 		this.router.navigate(["/home/training-program-selector"]);
 	}
 
-	public openWIPSnackbar(): void {
-		this.notificationService.showSnackBarNotification(
-			"Esercizio aggiunto correttamente",
-			"Ok",
-			{
-				duration: 3000,
-				panelClass: [
-					this.theme == "dark" ? "dark-snackbar" : "light-snackbar",
-				],
-			}
-		);
-	}
-
 	public useWorkoutPrevision() {
 		if (this.workoutExists()) {
 			this.dialog.open(SafetyActionConfirmDialogComponent, {
