@@ -504,9 +504,17 @@ export class PrebuildWorkoutComponent implements OnInit {
 		}
 
 		if (type === "load") {
-			this.workout.exercises[exerciseIndex].set[setIndex].load = value;
+			this.workout.exercises[exerciseIndex].set.forEach((_, index) => {
+				if (index >= setIndex && !this.workoutProgress.completed[exerciseIndex][index]) {
+					this.workout.exercises[exerciseIndex].set[index].load = value;
+				}
+			})
 		} else {
-			this.workout.exercises[exerciseIndex].set[setIndex].reps = value;
+			this.workout.exercises[exerciseIndex].set.forEach((_, index) => {
+				if (index >= setIndex && !this.workoutProgress.completed[exerciseIndex][index]) {
+					this.workout.exercises[exerciseIndex].set[index].reps = value;
+				}
+			})
 		}
 	}
 
